@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/pages/auth/verify_page_number.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -87,7 +88,9 @@ class LoginPage extends StatelessWidget {
                   margin: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Get.to(VerifyPageNumber(phoneNumber: _getController.code.value + _getController.phoneController.text))
+                      },
                       child: const TextSmall(text: 'Tasdiqlash', color: AppColors.white, fontWeight: FontWeight.w500)
                   )
               ),

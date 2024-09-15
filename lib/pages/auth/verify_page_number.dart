@@ -9,6 +9,7 @@ import '../../controllers/get_controller.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../resource/colors.dart';
+import '../sample/sample_page.dart';
 
 class VerifyPageNumber extends StatelessWidget {
   final String phoneNumber;
@@ -101,16 +102,14 @@ class VerifyPageNumber extends StatelessWidget {
               errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
 
               onCompleted: (value) {
-                //ApiController().checkCode();
+                Get.offAll(SamplePage());
               }
             )),
             Padding(padding: EdgeInsets.only(left: Get.width * 0.05, right: Get.width * 0.03,top: Get.height * 0.02),
                 child: Obx(() =>_getController.countdownDuration.value.inSeconds == 0
                     ? TextButton(
                     style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))),
-                    onPressed: () {
-                      //ApiController().sendCode();_getController.resetTimer();
-                      },
+                    onPressed: () {},
                     child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
                     :TextButton(
                     style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))),
