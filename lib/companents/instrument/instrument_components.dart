@@ -664,9 +664,6 @@ class InstrumentComponents {
                   Get.back(),
                   _getController.isRequest.value = true,
                   _getController.sec.value = 0,
-                  _getController.clearKey(),
-                  _getController.clearUid(),
-                  _getController.clearUser(),
                   Get.offAll(() => LoginPage())
                 },
                 child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary)
