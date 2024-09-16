@@ -26,13 +26,8 @@ class SamplePage extends StatelessWidget {
         appBar: AppBar(
             leading: Builder(
               builder: (BuildContext context) {
-                return IconButton(
-                  icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                );
-              },
+                return IconButton(icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Scaffold.of(context).openDrawer());
+              }
             ),
             title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,13 +49,13 @@ class SamplePage extends StatelessWidget {
               UserAccountsDrawerHeader(
                 accountName: Obx(() => Text(_getController.fullName.value.toString())),
                 accountEmail: Obx(() => Text('ID: ${_getController.id.value.toString()}')),
-                currentAccountPicture: CircleAvatar(
+                currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Icon(Icons.person, size: 50),
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
+                  color: Theme.of(context).primaryColor
+                )
               ),
               ListTile(
                 leading: Icon(Icons.home),
