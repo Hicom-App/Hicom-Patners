@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
+import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -18,6 +20,8 @@ import '../models/sample/get_users_model.dart';
 import '../models/sample/project_model.dart';
 import '../models/sample/switch_list_model.dart';
 import '../models/settings_info.dart';
+import '../pages/bottombar/account_page.dart';
+import '../pages/bottombar/home_page.dart';
 
 
 class GetController extends GetxController {
@@ -348,4 +352,16 @@ class GetController extends GetxController {
 
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
+  var widgetOptions = <Widget>[];
+  var index = 0.obs;
+
+
+  void changeWidgetOptions() {
+    widgetOptions.add(HomePage());
+    widgetOptions.add(AccountPage());
+    widgetOptions.add(GuaranteePage());
+    widgetOptions.add(ReportPage());
+  }
+
+  void changeIndex(int value) {index.value = value;}
 }
