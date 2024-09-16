@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/get_controller.dart';
 import '../auth/login_page.dart';
+import '../onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -11,6 +12,7 @@ class SplashScreen extends StatelessWidget {
 
   void open() {
     Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
+    //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
   }
 
   @override
