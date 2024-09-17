@@ -26,9 +26,13 @@ class HomePage extends StatelessWidget {
   }
 
   var list = ['Camutator', 'switch', 'Poe', 'smart', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
-  var listTitle = ['Jarayon', 'Tasdiqlangan', 'To`langan','Rad etilgan'];
+  var listTitle = ['Jarayonda', 'Tasdiqlangan', 'To`langan','Rad etilgan'];
   var listPrice = ['2 285 404', '224 614', '223 786', '1 272 102'];
   var listColor = [AppColors.blue, AppColors.green, AppColors.primaryColor3, AppColors.red];
+  var listImage = ['https://hicom.uz/wp-content/uploads/2023/12/PS208-scaled-600x600.jpg', 'https://hicom.uz/wp-content/uploads/2024/01/8842-600x600.png', 'https://hicom.uz/wp-content/uploads/2024/01/PDU9.png', 'https://images.uzum.uz/ckf8u13k9fq8lb3a7vbg/original.jpg', 'https://frankfurt.apollo.olxcdn.com/v1/files/t3uftbiso49d-UZ/image;s=3024x3024','https://www.prom.uz/_ipx/f_webp/https://devel.prom.uz/upload/product_gallery/aa/3d/aa3d9c672761627e46c43211aa19d720.jpg'];
+  var listImageName = ['PoE Switch', 'Network cabinet', 'PDU', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
+  var listImagePrice = ['Hi-M82CM', 'HIFS-8842', 'Hi-PDU9', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
+  var listStar = ['4.8 * 213 baxo', '4.1 * 344 baxo', '4.0 * 1022 baxo', '3.9 * 100 baxo', '4.8 * 213 baxo', '4.5 * 192 baxo', '2.8 * 100 baxo', '4.0 * 943 baxo', '4.1 * 402 baxo'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,13 +65,13 @@ class HomePage extends StatelessWidget {
                                       shadowColor: Colors.transparent,
                                       foregroundColor: Colors.transparent,
                                       backgroundColor: Colors.transparent,
-                                      centerTitle: true,
+                                      centerTitle: false,
                                       title: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             TextLarge(text: _getController.fullName.value.toString(), color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
-                                            TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1)
+                                            TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
                                           ]
                                       ),
                                       actions: [
@@ -102,8 +106,8 @@ class HomePage extends StatelessWidget {
                                           )
                                       )
                                   ),
-                                  const Spacer(),
-                                ],
+                                  const Spacer()
+                                ]
                               )
                           )
                         ]
@@ -143,39 +147,63 @@ class HomePage extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      TextSmall(text: 'Nimadur'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                      TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                       const Spacer(),
                                       TextButton(onPressed: () {}, child: TextSmall(text: 'ko`proq'.tr, color: AppColors.blue),)
                                     ]
                                 )
                             ),
                             SizedBox(
-                                height: Get.height * 0.2,
+                                height: Get.height * 0.21,
                                 width: Get.width,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
                                     padding: EdgeInsets.only(left: Get.width * 0.03),
-                                    itemBuilder: (context, index) => Card(
-                                        child: SizedBox(
-                                          height: Get.height * 0.13,
-                                          width: Get.width * 0.3,
-                                          child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                FadeInImage(
-                                                    image: const NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'),
-                                                    placeholder: const NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), // Add a local placeholder image
+                                    itemBuilder: (context, index) => Container(
+                                      height: Get.height * 0.14,
+                                      width: Get.width * 0.3,
+                                      margin: EdgeInsets.only(right: Get.width * 0.03),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(10.r),
+                                        border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
+                                      ),
+                                      child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                child: FadeInImage(
+                                                  image: NetworkImage(listImage[index]),
+                                                    placeholder: NetworkImage(listImage[index]),
                                                     imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                     fit: BoxFit.cover
                                                 ),
-                                                TextSmall(text: 'switch'.tr, color: Theme.of(context).colorScheme.secondary),
-                                                TextSmall(text: '450 000 so`m'.tr, color: Theme.of(context).colorScheme.secondary),
-                                              ]),
-                                        )
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    TextSmall(text: listImageName[index], color: AppColors.blue, fontSize: 13),
+                                                    TextSmall(text: listImagePrice[index], color: AppColors.black),
+                                                    Row(
+                                                      children: [
+                                                        //icon localtion
+                                                        Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                        TextSmall(text: listStar[index],
+                                                            color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
+                                                      ],
+                                                    )
+                                                  ]
+                                                )
+                                              )
+                                            ])
                                     ),
-                                    itemCount: 4
+                                    itemCount: listImage.length
                                 )
                             ),
                             Container(
@@ -184,42 +212,65 @@ class HomePage extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                      TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                       const Spacer(),
-                                      TextButton(onPressed: () {}, child: TextSmall(text: 'ko`proq'.tr, color: AppColors.blue),)
+                                      TextButton(onPressed: () {}, child: TextSmall(text: 'ko`proq'.tr, color: AppColors.blue))
                                     ]
                                 )
                             ),
                             SizedBox(
-                                height: Get.height * 0.2,
+                                height: Get.height * 0.21,
                                 width: Get.width,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
                                     padding: EdgeInsets.only(left: Get.width * 0.03),
-                                    itemBuilder: (context, index) => Card(
-                                        child: SizedBox(
-                                          height: Get.height * 0.13,
-                                          width: Get.width * 0.3,
-                                          child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                FadeInImage(
-                                                    image: const NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'),
-                                                    placeholder: const NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), // Add a local placeholder image
+                                    itemBuilder: (context, index) => Container(
+                                        height: Get.height * 0.14,
+                                        width: Get.width * 0.3,
+                                        margin: EdgeInsets.only(right: Get.width * 0.03),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.white,
+                                          borderRadius: BorderRadius.circular(10.r),
+                                          border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
+                                        ),
+                                        child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                child: FadeInImage(
+                                                    image: NetworkImage(listImage[index]),
+                                                    placeholder: NetworkImage(listImage[index]),
                                                     imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                     fit: BoxFit.cover
                                                 ),
-                                                TextSmall(text: 'switch'.tr, color: Theme.of(context).colorScheme.secondary),
-                                                TextSmall(text: '450 000 so`m'.tr, color: Theme.of(context).colorScheme.secondary),
-                                              ]),
-                                        )
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
+                                                  child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        TextSmall(text: listImageName[index], color: AppColors.blue, fontSize: 13),
+                                                        TextSmall(text: listImagePrice[index], color: AppColors.black),
+                                                        Row(
+                                                          children: [
+                                                            //icon localtion
+                                                            Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                            TextSmall(text: listStar[index],
+                                                                color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
+                                                          ],
+                                                        )
+                                                      ]
+                                                  )
+                                              )
+                                            ])
                                     ),
-                                    itemCount: 4
+                                    itemCount: listImage.length
                                 )
                             ),
-
                             SizedBox(height: Get.height * 0.01),
                             SizedBox(height: Get.height * 0.01),
                             SizedBox(height: Get.height * 0.01),
