@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:glyph/glyph.dart';
 import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 
 import '../../companents/filds/text_large.dart';
@@ -57,15 +59,15 @@ class SamplePage extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(icon: Icon(Icons.home, color: _getController.index.value == 0 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(0)),
-                  IconButton(icon: Icon(Icons.person, color: _getController.index.value == 1 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(1)),
+                  IconButton(icon: Icon(I.material.home, color: _getController.index.value == 0 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(0)),
+                  IconButton(icon: Icon(I.cupertino.personFill, color: _getController.index.value == 1 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(1)),
                   Container(
                     margin: EdgeInsets.all(5.r),
                     decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
                     child: IconButton(icon: Icon(Icons.qr_code, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(QRViewExample())),
                   ),
-                  IconButton(icon: Icon(Icons.analytics, color: _getController.index.value == 2 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(2)),
-                  IconButton(icon: Icon(Icons.settings, color: _getController.index.value == 3 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(3))
+                  IconButton(icon: Icon(I.cupertino.cubeBoxFill, color: _getController.index.value == 2 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(2)),
+                  IconButton(icon: Icon(Icons.insert_chart, color: _getController.index.value == 3 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(3))
                 ]
             )
         ))

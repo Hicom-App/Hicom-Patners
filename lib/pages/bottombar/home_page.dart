@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:glyph/glyph.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rive/rive.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
     _getController.refreshLibController.loadComplete();
   }
 
-  var list = ['Camutator', 'switch', 'Poe', 'smart', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
+  var list = ['AI POE', 'NETWORK CABINET', 'HDD', 'PDU', 'CAMERA', 'ACSESSORIES', 'HDMI CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE'];
   var listTitle = ['Jarayonda', 'Tasdiqlangan', 'To`langan','Rad etilgan'];
   var listPrice = ['2 285 404', '224 614', '223 786', '1 272 102'];
   var listColor = [AppColors.blue, AppColors.green, AppColors.primaryColor3, AppColors.red];
@@ -33,6 +34,7 @@ class HomePage extends StatelessWidget {
   var listImageName = ['PoE Switch', 'Network cabinet', 'PDU', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
   var listImagePrice = ['Hi-M82CM', 'HIFS-8842', 'Hi-PDU9', 'HDD', 'camera', 'Hicom', 'Partners', 'Uz', 'biron bir narsada'];
   var listStar = ['4.8 * 213 baxo', '4.1 * 344 baxo', '4.0 * 1022 baxo', '3.9 * 100 baxo', '4.8 * 213 baxo', '4.5 * 192 baxo', '2.8 * 100 baxo', '4.0 * 943 baxo', '4.1 * 402 baxo'];
+  var listCategoryIcon = ['https://img.icons8.com/?size=100&id=91076&format=png&color=D71820', 'https://img.icons8.com/?size=100&id=60947&format=png&color=D71820', 'https://img.icons8.com/?size=100&id=60988&format=png&color=D71820', 'https://img.icons8.com/?size=100&id=67243&format=png&color=D71820','https://img.icons8.com/?size=100&id=100062&format=png&color=D71820','https://img.icons8.com/?size=100&id=108835&format=png&color=D71820','https://img.icons8.com/?size=100&id=90412&format=png&color=D71820','https://img.icons8.com/?size=100&id=60947&format=png&color=D71820', 'https://img.icons8.com/?size=100&id=60988&format=png&color=D71820', 'https://img.icons8.com/?size=100&id=67243&format=png&color=D71820','https://img.icons8.com/?size=100&id=59749&format=png&color=D71820','https://img.icons8.com/?size=100&id=110322&format=png&color=D71820','https://img.icons8.com/?size=100&id=90412&format=png&color=D71820'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,6 +143,83 @@ class HomePage extends StatelessWidget {
                                     )
                                 )
                             ),
+                            //category
+                            SizedBox(height: Get.height * 0.02),
+                            SizedBox(
+                                width: Get.width * 0.97,
+                                height: Get.height * 0.08,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) => SizedBox(
+                                    width: Get.width * 0.14,
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: Get.width * 0.14,
+                                            margin: EdgeInsets.only(left: Get.width * 0.03),
+                                            padding: EdgeInsets.all(10.sp),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.red.withOpacity(0.1),
+                                              shape: BoxShape.circle
+                                            ),
+                                            child: ClipRRect(
+                                                borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                child: FadeInImage(
+                                                    //image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=D71820'),
+                                                    image: NetworkImage(listCategoryIcon[index]),
+                                                    placeholder:NetworkImage(listCategoryIcon[index]),
+                                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                    fit: BoxFit.cover
+                                                )
+                                            )
+                                          ),
+                                          Container(
+                                              width: Get.width * 0.14,
+                                              margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.01),
+                                              child: Center(child: TextSmall(text: list[index].tr, color: AppColors.black, maxLines: 1, fontSize: 10.sp))
+                                          )
+                                        ]
+                                    )
+                                  ),
+                                  itemCount: 10,
+                                  shrinkWrap: true
+                                )
+                            ),
+                            /*SizedBox(
+                                width: Get.width * 0.97,
+                                height: Get.height * 0.08,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) => SizedBox(
+                                    width: Get.width * 0.14,
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: Get.width * 0.14,
+                                            margin: EdgeInsets.only(left: Get.width * 0.03),
+                                            padding: EdgeInsets.all(10.sp),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.red.withOpacity(0.1),
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Icon(listCategoryIcon[index], color: AppColors.red),
+                                          ),
+                                          Container(
+                                              width: Get.width * 0.14,
+                                              margin: EdgeInsets.only(left: Get.width * 0.03),
+                                              child: Center(child: TextSmall(text: list[index].tr, color: AppColors.black, maxLines: 1, fontSize: 10.sp))
+                                          )
+                                        ]
+                                    )
+                                  ),
+                                  itemCount: 10,
+                                  shrinkWrap: true
+                                )
+                            ),*/
                             Container(
                                 margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.02, right: Get.width * 0.03),
                                 child: Row(
@@ -149,7 +228,7 @@ class HomePage extends StatelessWidget {
                                     children: [
                                       TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                       const Spacer(),
-                                      TextButton(onPressed: () {}, child: TextSmall(text: 'ko`proq'.tr, color: AppColors.blue),)
+                                      TextButton(onPressed: () {}, child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
                                     ]
                                 )
                             ),
@@ -185,9 +264,7 @@ class HomePage extends StatelessWidget {
                                                       )
                                                   ),
                                                   Positioned(right: 5, top: 5, child: Icon(
-                                                      //Icons.favorite_border,
                                                       index == 1 ? Icons.favorite : Icons.favorite_border,
-                                                      //color: Theme.of(context).colorScheme.onSurface,
                                                       color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface,
                                                       size: 20)),
                                                 ],
@@ -227,7 +304,7 @@ class HomePage extends StatelessWidget {
                                     children: [
                                       TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                       const Spacer(),
-                                      TextButton(onPressed: () {}, child: TextSmall(text: 'ko`proq'.tr, color: AppColors.blue))
+                                      TextButton(onPressed: () {}, child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue))
                                     ]
                                 )
                             ),

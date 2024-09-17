@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _getController.tapTimes(open,3);
+    _getController.tapTimes(open,1);
 
     return Scaffold(
         body: Center(
