@@ -24,11 +24,12 @@ class SamplePage extends StatelessWidget {
     _getController.changeWidgetOptions();
     return Scaffold(
         drawerEnableOpenDragGesture: false,
-        appBar: AppBar(
-          surfaceTintColor: Colors.white,
-            shadowColor: Colors.white,
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.white,
+        /*appBar: AppBar(
+            surfaceTintColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            backgroundColor: AppColors.greys,
+            //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Scaffold.of(context).openDrawer());
@@ -45,79 +46,27 @@ class SamplePage extends StatelessWidget {
             actions: [
               IconButton(icon: Icon(Icons.notifications, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
             ]
-        ),
+        ),*/
         body: Obx(() => _getController.widgetOptions.elementAt(_getController.index.value)),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Obx(() => Text(_getController.fullName.value.toString())),
-                accountEmail: Obx(() => Text('ID: ${_getController.id.value.toString()}')),
-                currentAccountPicture: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 50),
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor
-                )
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  _onItemTapped(0);
-                }
-              ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Profile'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _onItemTapped(1);
-                }
-              ),
-              ListTile(
-                leading: Icon(Icons.analytics),
-                title: Text('Analytics'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _onItemTapped(2);
-                }
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _onItemTapped(3);
-                }
-              )
-            ]
-          )
-        ),
-        bottomNavigationBar: Obx(() => BottomAppBar(
-            height: Get.height * 0.1,
-            color: Colors.transparent,
-            elevation: 0,
-            child: Container(
-                height: Get.height * 0.1,
-                decoration: BoxDecoration(color: Theme.of(context).colorScheme.error.withOpacity(0.5), borderRadius: BorderRadius.all(Radius.circular(19.r))),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(icon: Icon(Icons.home, color: _getController.index.value == 0 ? AppColors.white : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(0)),
-                      IconButton(icon: Icon(Icons.person, color: _getController.index.value == 1 ? AppColors.white : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(1)),
-                      Container(
-                        padding: EdgeInsets.all(5.r),
-                        decoration: const BoxDecoration(color: AppColors.primaryColor2, shape: BoxShape.circle),
-                        child: IconButton(icon: Icon(Icons.qr_code, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(QRViewExample())),
-                      ),
-                      IconButton(icon: Icon(Icons.analytics, color: _getController.index.value == 2 ? AppColors.white : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(2)),
-                      IconButton(icon: Icon(Icons.settings, color: _getController.index.value == 3 ? AppColors.white : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(3))
-                    ]
-                )
+        extendBody: true,
+        bottomNavigationBar: Obx(() => Card(
+            color: AppColors.white,
+            elevation: 5,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            margin: EdgeInsets.only(bottom: Get.height * 0.03, left: Get.width * 0.04, right: Get.width * 0.04),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(icon: Icon(Icons.home, color: _getController.index.value == 0 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(0)),
+                  IconButton(icon: Icon(Icons.person, color: _getController.index.value == 1 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(1)),
+                  Container(
+                    margin: EdgeInsets.all(5.r),
+                    decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
+                    child: IconButton(icon: Icon(Icons.qr_code, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(QRViewExample())),
+                  ),
+                  IconButton(icon: Icon(Icons.analytics, color: _getController.index.value == 2 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(2)),
+                  IconButton(icon: Icon(Icons.settings, color: _getController.index.value == 3 ? AppColors.red : AppColors.black70, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(3))
+                ]
             )
         ))
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/pages/sample/sample_page.dart';
 
 import '../../controllers/get_controller.dart';
 import '../auth/login_page.dart';
@@ -11,7 +12,8 @@ class SplashScreen extends StatelessWidget {
   final GetController _getController = Get.put(GetController());
 
   void open() {
-    Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
+    Get.offAll(() => SamplePage(), transition: Transition.fadeIn);
+    //Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
     //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
   }
 
