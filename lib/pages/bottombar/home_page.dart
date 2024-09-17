@@ -173,14 +173,24 @@ class HomePage extends StatelessWidget {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
-                                                child: FadeInImage(
-                                                  image: NetworkImage(listImage[index]),
-                                                    placeholder: NetworkImage(listImage[index]),
-                                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                                    fit: BoxFit.cover
-                                                ),
+                                              Stack(
+                                                children: [
+                                                  ClipRRect(
+                                                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                      child: FadeInImage(
+                                                          image: NetworkImage(listImage[index]),
+                                                          placeholder: NetworkImage(listImage[index]),
+                                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                          fit: BoxFit.cover
+                                                      )
+                                                  ),
+                                                  Positioned(right: 5, top: 5, child: Icon(
+                                                      //Icons.favorite_border,
+                                                      index == 1 ? Icons.favorite : Icons.favorite_border,
+                                                      //color: Theme.of(context).colorScheme.onSurface,
+                                                      color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface,
+                                                      size: 20)),
+                                                ],
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
@@ -189,10 +199,13 @@ class HomePage extends StatelessWidget {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     TextSmall(text: listImageName[index], color: AppColors.blue, fontSize: 13),
-                                                    TextSmall(text: listImagePrice[index], color: AppColors.black),
                                                     Row(
                                                       children: [
-                                                        //icon localtion
+                                                        TextSmall(text: listImagePrice[index], color: AppColors.black),
+                                                      ]
+                                                    ),
+                                                    Row(
+                                                      children: [
                                                         Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
                                                         TextSmall(text: listStar[index],
                                                             color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
