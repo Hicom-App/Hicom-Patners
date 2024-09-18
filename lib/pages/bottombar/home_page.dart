@@ -16,16 +16,6 @@ class HomePage extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
-  var list = ['AI POE', 'NETWORK CABINET', 'HDD', 'PDU', 'CAMERA', 'ACSESSORIES', 'HDMI CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE'];
-  var listTitle = ['Jarayonda', 'Tasdiqlangan', 'To`langan','Rad etilgan'];
-  var listPrice = ['2 285 404', '224 614', '223 786', '1 272 102'];
-  var listColor = [AppColors.blue, AppColors.green, AppColors.primaryColor3, AppColors.red];
-  var listImage = ['https://hicom.uz/wp-content/uploads/2023/12/PS208-scaled-600x600.jpg', 'https://hicom.uz/wp-content/uploads/2024/01/8842-600x600.png', 'https://hicom.uz/wp-content/uploads/2024/01/PDU9.png', 'https://images.uzum.uz/ckf8u13k9fq8lb3a7vbg/original.jpg', 'https://frankfurt.apollo.olxcdn.com/v1/files/t3uftbiso49d-UZ/image;s=3024x3024','https://www.prom.uz/_ipx/f_webp/https://devel.prom.uz/upload/product_gallery/aa/3d/aa3d9c672761627e46c43211aa19d720.jpg'];
-  var listImageName = ['PoE Switch', 'Network cabinet', 'PDU', 'PoE Switch', 'PoE Switch', 'PoE Switch', 'Network cabinet', 'PDU', 'HDD', 'camera',];
-  var listImagePrice = ['Hi-M82CM', 'HIFS-8842', 'Hi-PDU9', 'Hi-M42E', 'Hi-M82E', 'Hi-M82CM', 'HIFS-8842', 'Hi-PDU9', 'HDD', 'camera'];
-  var listStar = ['4.8 * 213 baxo', '4.1 * 344 baxo', '4.0 * 1022 baxo', '3.9 * 100 baxo', '4.8 * 213 baxo', '4.5 * 192 baxo', '2.8 * 100 baxo', '4.0 * 943 baxo', '4.1 * 402 baxo'];
-  var listCategoryIcon = ['https://img.icons8.com/?size=100&id=91076&format=png&color=475566', 'https://img.icons8.com/?size=100&id=60947&format=png&color=475566', 'https://img.icons8.com/?size=100&id=60988&format=png&color=475566', 'https://img.icons8.com/?size=100&id=67243&format=png&color=475566','https://img.icons8.com/?size=100&id=100062&format=png&color=475566','https://img.icons8.com/?size=100&id=108835&format=png&color=475566','https://img.icons8.com/?size=100&id=90412&format=png&color=475566','https://img.icons8.com/?size=100&id=60947&format=png&color=475566', 'https://img.icons8.com/?size=100&id=60988&format=png&color=475566', 'https://img.icons8.com/?size=100&id=67243&format=png&color=475566','https://img.icons8.com/?size=100&id=59749&format=png&color=475566','https://img.icons8.com/?size=100&id=110322&format=png&color=475566','https://img.icons8.com/?size=100&id=90412&format=png&color=475566'];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +61,7 @@ class HomePage extends StatelessWidget {
                                             width: Get.width,
                                             height: Get.height * 0.1,
                                             child: ListView.builder(
-                                                itemCount: listTitle.length,
+                                                itemCount: _getController.listTitle.length,
                                                 scrollDirection: Axis.horizontal,
                                                 physics: const BouncingScrollPhysics(),
                                                 padding: EdgeInsets.only(left: Get.width * 0.05),
@@ -84,8 +74,8 @@ class HomePage extends StatelessWidget {
                                                       child: Column(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
-                                                            TextSmall(text: listTitle[index].tr, color: AppColors.black),
-                                                            TextSmall(text: listPrice[index].tr, color: listColor[index],fontWeight: FontWeight.bold),
+                                                            TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
+                                                            TextSmall(text: _getController.listPrice[index].tr, color: _getController.listColor[index],fontWeight: FontWeight.bold),
                                                           ]),
                                                     )
                                                 )
@@ -150,8 +140,8 @@ class HomePage extends StatelessWidget {
                                               child: ClipRRect(
                                                   borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
                                                   child: FadeInImage(
-                                                      image: NetworkImage(listCategoryIcon[index]),
-                                                      placeholder:NetworkImage(listCategoryIcon[index]),
+                                                      image: NetworkImage(_getController.listCategoryIcon[index]),
+                                                      placeholder:NetworkImage(_getController.listCategoryIcon[index]),
                                                       imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                       fit: BoxFit.cover
                                                   )
@@ -160,7 +150,7 @@ class HomePage extends StatelessWidget {
                                             Container(
                                                 margin: EdgeInsets.only(top: Get.height * 0.01),
                                                 width: Get.width * 0.15,
-                                                child: Center(child: TextSmall(text: list[index].tr, color: AppColors.black.withOpacity(0.7), maxLines: 1, fontSize: 10.sp))
+                                                child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.black.withOpacity(0.7), maxLines: 1, fontSize: 10.sp))
                                             )
                                           ]
                                       )
@@ -190,7 +180,7 @@ class HomePage extends StatelessWidget {
                                 physics: const BouncingScrollPhysics(),
                                 padding: EdgeInsets.only(left: Get.width * 0.03),
                                 itemBuilder: (context, index) => InkWell(
-                                    onTap: () => Get.to(const DetailPage()),
+                                    onTap: () => Get.to(DetailPage(index: index)),
                                     child: Container(
                                       height: Get.height * 0.14,
                                       width: Get.width * 0.3,
@@ -209,16 +199,13 @@ class HomePage extends StatelessWidget {
                                                 ClipRRect(
                                                     borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
                                                     child: FadeInImage(
-                                                        image: NetworkImage(listImage[index]),
-                                                        placeholder: NetworkImage(listImage[index]),
+                                                        image: NetworkImage(_getController.listImage[index]),
+                                                        placeholder: NetworkImage(_getController.listImage[index]),
                                                         imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                         fit: BoxFit.cover
                                                     )
                                                 ),
-                                                Positioned(right: 5, top: 5, child: Icon(
-                                                    index == 1 ? Icons.favorite : Icons.favorite_border,
-                                                    color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface,
-                                                    size: 20)),
+                                                Positioned(right: 5, top: 5, child: Icon(index == 1 ? Icons.favorite : Icons.favorite_border, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
                                               ],
                                             ),
                                             Padding(
@@ -227,16 +214,16 @@ class HomePage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      TextSmall(text: listImageName[index], color: AppColors.blue, fontSize: 13),
+                                                      TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
                                                       Row(
                                                           children: [
-                                                            TextSmall(text: listImagePrice[index], color: AppColors.black),
+                                                            TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
                                                           ]
                                                       ),
                                                       Row(
                                                         children: [
                                                           Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
-                                                          TextSmall(text: listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
+                                                          TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                         ],
                                                       )
                                                     ]
@@ -245,7 +232,7 @@ class HomePage extends StatelessWidget {
                                           ])
                                   )
                                 ),
-                                itemCount: listImage.length
+                                itemCount: _getController.listImage.length
                             )
                         ),
                         Container(
@@ -283,8 +270,8 @@ class HomePage extends StatelessWidget {
                                           ClipRRect(
                                             borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
                                             child: FadeInImage(
-                                                image: NetworkImage(listImage[index]),
-                                                placeholder: NetworkImage(listImage[index]),
+                                                image: NetworkImage(_getController.listImage[index]),
+                                                placeholder: NetworkImage(_getController.listImage[index]),
                                                 imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                 fit: BoxFit.cover
                                             ),
@@ -295,13 +282,13 @@ class HomePage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    TextSmall(text: listImageName[index], color: AppColors.blue, fontSize: 13),
-                                                    TextSmall(text: listImagePrice[index], color: AppColors.black),
+                                                    TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
+                                                    TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
                                                     Row(
                                                       children: [
                                                         //icon localtion
                                                         Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
-                                                        TextSmall(text: listStar[index],
+                                                        TextSmall(text: _getController.listStar[index],
                                                             color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                       ],
                                                     )
@@ -310,7 +297,7 @@ class HomePage extends StatelessWidget {
                                           )
                                         ])
                                 ),
-                                itemCount: listImage.length
+                                itemCount: _getController.listImage.length
                             )
                         ),
                         SizedBox(height: Get.height * 0.01),
