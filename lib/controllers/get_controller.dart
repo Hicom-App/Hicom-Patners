@@ -352,6 +352,8 @@ class GetController extends GetxController {
 
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
+  final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
+  final ScrollController scrollGuaranteeController = ScrollController();
   var widgetOptions = <Widget>[];
   var index = 0.obs;
 
