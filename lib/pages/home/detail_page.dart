@@ -103,11 +103,11 @@ class DetailPage extends StatelessWidget {
                           SizedBox(height: Get.height * 0.01),
                           Row(
                               children: [
-                                SizedBox(width: 110.w, child: TextSmall(text: 'Kafolat:', color: AppColors.blue, fontWeight: FontWeight.w500,fontSize: 14.sp)),
-                                TextSmall(text: _getController.listPrice[index].toString(), color: AppColors.blue,fontWeight: FontWeight.w300,fontSize: 14.sp)
+                                TextSmall(text: 'Kafolat:', color: AppColors.blue, fontWeight: FontWeight.w500,fontSize: 14.sp),
+                                SizedBox(width: 5.w),
+                                TextSmall(text: '1 yil', color: AppColors.blue,fontWeight: FontWeight.w300,fontSize: 14.sp)
                               ]
                           ),
-
                           SizedBox(height: Get.height * 0.02),
                           TextSmall(text: 'Tavsif', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
                           Container(

@@ -12,8 +12,14 @@ main() async {
   await GetStorage.init();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
+    DeviceOrientation.portraitDown,
   ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Yoki istalgan rang
+      statusBarIconBrightness: Brightness.dark, // Ikkita variant: Brightness.dark yoki Brightness.light
+    ),
+  );
   runApp(MyApp());
 }
 

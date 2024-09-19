@@ -9,6 +9,7 @@ class CustomRefreshHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomHeader(
+      height: 100.sp,
       builder: (BuildContext context, RefreshStatus? mode) {
         Widget body;
         if (mode == RefreshStatus.idle) {
