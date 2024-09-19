@@ -107,13 +107,13 @@ class DetailPage extends StatelessWidget {
                                 TextSmall(text: _getController.listPrice[index].toString(), color: AppColors.blue,fontWeight: FontWeight.w300,fontSize: 14.sp)
                               ]
                           ),
+
                           SizedBox(height: Get.height * 0.02),
                           TextSmall(text: 'Tavsif', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
                           Container(
                             width: Get.width,
                             height: Get.height * 0.2,
-                            padding: EdgeInsets.only(left: Get.width * 0.02, right: Get.width * 0.02, top: Get.height * 0.01, bottom: Get.height * 0.01),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), border: Border.all(color: AppColors.grey, width: 1.w)),
+                            padding: EdgeInsets.only(top: Get.height * 0.01, bottom: Get.height * 0.01),
                             child: Column(
                               children: [
                                 SizedBox(
@@ -142,14 +142,14 @@ class DetailPage extends StatelessWidget {
                               ],
                             )
                           ),
+                          const Divider(color: Colors.grey, thickness: 1),
                           SizedBox(height: Get.height * 0.02),
                           TextSmall(text: 'Xususiyatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                          //line dvider
                           Container(
                               width: Get.width,
                               height: Get.height * 0.2,
-                              margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03),
-                              padding: EdgeInsets.only(left: Get.width * 0.02, right: Get.width * 0.02, top: Get.height * 0.01, bottom: Get.height * 0.01),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), border: Border.all(color: AppColors.grey, width: 1.w)),
+                              padding: EdgeInsets.only(top: Get.height * 0.01, bottom: Get.height * 0.01),
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -178,7 +178,8 @@ class DetailPage extends StatelessWidget {
                                 ],
                               )
                           ),
-                          //Baxolash
+                          const Divider(color: Colors.grey, thickness: 1),
+                          SizedBox(height: Get.height * 0.01),
                           TextSmall(text: 'Baxolash', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
                           SizedBox(height: Get.height * 0.01),
                           RatingBar.builder(
@@ -192,29 +193,86 @@ class DetailPage extends StatelessWidget {
                               unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
                               itemBuilder: (context, _) =>
                               const Icon(TablerIcons.star_filled, color: AppColors.primaryColor),
-                              onRatingUpdate: (rating) {
-
-                              }
+                              onRatingUpdate: (rating) {}
                           ),
-                          //Sharxlar yozish
                           Container(
-                              width: _getController.width.value,
-                              padding: EdgeInsets.only(left: _getController.width.value * 0.03, right: _getController.width.value * 0.03),
-                              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.all(Radius.circular(12)), border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1)),
-                              child: TextField(minLines: 1, maxLines: 3,
-                                  style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w400, color: Theme.of(context).colorScheme.onSurface),
-                                  decoration: InputDecoration(hintText: 'Kiriting'.tr,
-                                      labelStyle: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.w400, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
-                                      hintStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,
-                                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)), border: InputBorder.none)
+                              margin: EdgeInsets.only(top: Get.height * 0.02),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                    const Spacer(),
+                                    TextButton(onPressed: () {}, child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
+                                  ]
                               )
                           ),
-
-                        ]),
+                          SizedBox(
+                              height: Get.height * 0.21,
+                              width: Get.width,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  padding: EdgeInsets.only(left: Get.width * 0.03),
+                                  itemBuilder: (context, index) => InkWell(
+                                      onTap: () => Get.to(DetailPage(index: index)),
+                                      child: Container(
+                                          height: Get.height * 0.14,
+                                          width: Get.width * 0.3,
+                                          margin: EdgeInsets.only(right: Get.width * 0.03),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
+                                          ),
+                                          child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Stack(
+                                                  children: [
+                                                    ClipRRect(
+                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                        child: FadeInImage(
+                                                            image: NetworkImage(_getController.listImage[index]),
+                                                            placeholder: NetworkImage(_getController.listImage[index]),
+                                                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                            fit: BoxFit.cover
+                                                        )
+                                                    ),
+                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? Icons.favorite : Icons.favorite_border, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                    padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
+                                                          Row(
+                                                              children: [
+                                                                TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
+                                                              ]
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                              TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
+                                                            ],
+                                                          )
+                                                        ]
+                                                    )
+                                                )
+                                              ])
+                                      )
+                                  ),
+                                  itemCount: _getController.listImage.length
+                              )
+                          ),
+                          SizedBox(height: Get.height * 0.1)
+                        ]
+                    ),
                   )
                 ]
             )
