@@ -134,7 +134,7 @@ class GuaranteePage extends StatelessWidget {
                                                     padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
                                                     decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
                                                     child: Center(child: TextSmall(
-                                                        text: index == 2 ? 'faol emas' : 'faol',
+                                                        text: index == 2 ? 'Faol emas' : 'Faol',
                                                         color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13),)
                                                   ),
                                                   Container(
