@@ -92,24 +92,38 @@ class DetailPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.star, color: AppColors.backgroundApp,size: 15),
-                              TextSmall(text: listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 13),
+                              Icon(Icons.star, color: AppColors.backgroundApp,size: Theme.of(context).iconTheme.fill),
+                              SizedBox(width: Get.width * 0.01),
+                              TextSmall(text: listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14),
                               const Spacer(),
                               Icon(Icons.favorite_border, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill)
                             ]
                           ),
-                          SizedBox(height: Get.height * 0.01),
-                          TextSmall(text: listImagePrice[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 2),
-                          SizedBox(height: Get.height * 0.01),
+                          SizedBox(height: Get.height * 0.02),
                           Row(
-                              children: [
-                                TextSmall(text: 'Kafolat:', color: AppColors.blue, fontWeight: FontWeight.w500,fontSize: 14.sp),
-                                SizedBox(width: 5.w),
-                                TextSmall(text: '1 yil', color: AppColors.blue,fontWeight: FontWeight.w300,fontSize: 14.sp)
-                              ]
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextSmall(text: listImagePrice[index], color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 2),
+
+                              Container(
+                                padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, top: 4.sp, bottom: 4.sp),
+                                decoration: BoxDecoration(
+                                    color: AppColors.blue,
+                                    borderRadius: BorderRadius.circular(10.r)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.gpp_good_sharp, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
+                                    //Icon(Icons.security, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
+                                    SizedBox(width: Get.width * 0.01),
+                                    TextSmall(text: '1 yil', color: AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
+                                  ],
+                                )
+                              )
+                            ],
                           ),
                           SizedBox(height: Get.height * 0.02),
-                          TextSmall(text: 'Tavsif', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                          TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
                           Container(
                             width: Get.width,
                             height: Get.height * 0.2,
@@ -134,8 +148,8 @@ class DetailPage extends StatelessWidget {
                                   onTap: () => print('ok'),
                                   child: Row(
                                     children: [
-                                      TextSmall(text: 'Batafsil', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
-                                      Icon(Icons.keyboard_arrow_down, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill)
+                                      TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14),
+                                      Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
                                     ],
                                   )
                                 )
@@ -144,8 +158,8 @@ class DetailPage extends StatelessWidget {
                           ),
                           const Divider(color: Colors.grey, thickness: 1),
                           SizedBox(height: Get.height * 0.02),
-                          TextSmall(text: 'Xususiyatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
-                          //line dvider
+                          const TextSmall(text: 'Xususiyatlari', color: AppColors.blue, fontWeight: FontWeight.bold),
+
                           Container(
                               width: Get.width,
                               height: Get.height * 0.2,
@@ -170,8 +184,8 @@ class DetailPage extends StatelessWidget {
                                       onTap: () => print('ok'),
                                       child: Row(
                                         children: [
-                                          TextSmall(text: 'Batafsil', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
-                                          Icon(Icons.keyboard_arrow_down, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill)
+                                          TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 1),
+                                          Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
                                         ],
                                       )
                                   )
@@ -180,7 +194,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           const Divider(color: Colors.grey, thickness: 1),
                           SizedBox(height: Get.height * 0.01),
-                          TextSmall(text: 'Baxolash', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                          const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
                           SizedBox(height: Get.height * 0.01),
                           RatingBar.builder(
                               initialRating: 3,
@@ -192,7 +206,7 @@ class DetailPage extends StatelessWidget {
                               itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),
                               unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
                               itemBuilder: (context, _) =>
-                              const Icon(TablerIcons.star_filled, color: AppColors.primaryColor),
+                              const Icon(TablerIcons.star_filled, color: AppColors.backgroundApp),
                               onRatingUpdate: (rating) {}
                           ),
                           Container(

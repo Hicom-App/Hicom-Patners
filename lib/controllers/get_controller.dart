@@ -291,9 +291,6 @@ class GetController extends GetxController {
   final TextEditingController noteProjectController = TextEditingController();
   final TextEditingController passwordProjectController = TextEditingController();
 
-  //list 5 TextEditingController for switch
-  //List<TextEditingController> verifyCodeControllers = List.generate(5, (index) => TextEditingController());
-
   final TextEditingController verifyCodeControllers = TextEditingController();
 
 
@@ -356,6 +353,8 @@ class GetController extends GetxController {
   final ScrollController scrollControllerOk = ScrollController();
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
   final ScrollController scrollGuaranteeController = ScrollController();
+  final RefreshController refreshAccountController = RefreshController(initialRefresh: false);
+  final ScrollController scrollAccountController = ScrollController();
   var widgetOptions = <Widget>[];
   var index = 0.obs;
 

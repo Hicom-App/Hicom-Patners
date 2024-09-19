@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../controllers/get_controller.dart';
 import 'instrument/custom_header.dart';
 
 class RefreshComponent extends StatelessWidget {
