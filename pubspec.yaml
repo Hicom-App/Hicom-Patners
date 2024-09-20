@@ -51,6 +51,7 @@ dependencies:
   glyph: ^1.0.2
   fading_edge_scrollview: ^4.1.1
   flutter_rating_bar: ^4.0.1
+  glassmorphism: ^3.0.0
 
 dev_dependencies:
   flutter_test:
