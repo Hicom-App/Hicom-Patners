@@ -1,85 +1,161 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rive/rive.dart';
 
-import '../../companents/filds/text_large.dart';
-import '../../companents/filds/text_small.dart';
-import '../../companents/refresh_component.dart';
-import '../../controllers/get_controller.dart';
-import '../../resource/colors.dart';
-import '../home/category_page.dart';
-import '../home/detail_page.dart';
+class AccountPage extends StatefulWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
-class AccountPage extends StatelessWidget {
-  AccountPage({super.key});
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
 
-  final GetController _getController = Get.put(GetController());
+class _AccountPageState extends State<AccountPage> {
+  final ScrollController _scrollController = ScrollController();
+  bool _isTitleVisible = false;
+  double _avatarSize = 120.0;
+  double _minAvatarSize = 50.0;
+  double _maxAvatarSize = 160.0;
+  bool fullImage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        double offset = _scrollController.offset;
+        _isTitleVisible = offset > 100; // Title ko‘rinadigan joy
+        _avatarSize = (_maxAvatarSize - offset).clamp(_minAvatarSize, _maxAvatarSize + _maxAvatarSize);
+        if (offset < -150) {
+          fullImage = true;
+        } else if (offset > 100){
+          fullImage = false;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: RefreshComponent(
-            scrollController: _getController.scrollAccountController,
-            refreshController: _getController.refreshAccountController,
-            child: Column(
-                children: [
-                  SizedBox(
-                      height: Get.height * 0.31,
-                      width: Get.width,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: 120.w,
-                                height: 120.h,
-                                margin: EdgeInsets.only(bottom: Get.height * 0.02, top: Get.height * 0.05),
-                                decoration: const BoxDecoration(color: AppColors.red, shape: BoxShape.circle),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(300),
-                                    child: FadeInImage(
-                                        image: const NetworkImage('https://instagram.ftas5-1.fna.fbcdn.net/v/t51.2885-19/454375063_487532617318545_4417457106582834069_n.jpg?_nc_ht=instagram.ftas5-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=xnBuUpf17dgQ7kNvgFYiQoo&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AYAi2FaCRf-T3jGomSQSrzKbQc-atAqn_5Og6KN_EluJNA&oe=66F1EF5F&_nc_sid=7d3ac5'),
-                                        placeholder: const NetworkImage('https://instagram.ftas5-1.fna.fbcdn.net/v/t51.2885-19/454375063_487532617318545_4417457106582834069_n.jpg?_nc_ht=instagram.ftas5-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=xnBuUpf17dgQ7kNvgFYiQoo&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AYAi2FaCRf-T3jGomSQSrzKbQc-atAqn_5Og6KN_EluJNA&oe=66F1EF5F&_nc_sid=7d3ac5'),
-                                        imageErrorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                              decoration: const BoxDecoration(
-                                                  image: DecorationImage(image: NetworkImage('https://instagram.ftas5-1.fna.fbcdn.net/v/t51.2885-19/454375063_487532617318545_4417457106582834069_n.jpg?_nc_ht=instagram.ftas5-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=xnBuUpf17dgQ7kNvgFYiQoo&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AYAi2FaCRf-T3jGomSQSrzKbQc-atAqn_5Og6KN_EluJNA&oe=66F1EF5F&_nc_sid=7d3ac5'), fit: BoxFit.cover),
-                                                  shape: BoxShape.circle
-                                              )
-                                          );
-                                        },
-                                        fit: BoxFit.cover
-                                    )
-                                )
-                            ),
-                            TextLarge(text: 'Dilshodjon Haydarov'.tr, color: AppColors.black, fontWeight: FontWeight.bold),
-                            TextSmall(text: '+998 99 534 03 13'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
-                          ]
-                      )
+      backgroundColor: Colors.black,
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300.0, // Kattalashtirilgan balandlik
+            pinned: true,
+            backgroundColor: Colors.black,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                var top = constraints.biggest.height;
+                var scaleFactor = (top - _minAvatarSize) / (_maxAvatarSize - _minAvatarSize);
+                //print(scaleFactor);
+                return FlexibleSpaceBar(
+                  title: AnimatedOpacity(
+                    opacity: _isTitleVisible ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 300),
+                    child: const Text(
+                      "Дилшоджон Хайдаров",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)), boxShadow: [
-                      BoxShadow(
-                          color: AppColors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3)
-                      )
-                    ]),
-                    child: Column(
-                        children: [
-                          SizedBox(
-                              width: Get.width,
-                              height: Get.height * 0.81
+                  background: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        width: fullImage ? Get.width : _avatarSize,
+                        height: fullImage ? Get.height : _avatarSize,
+                        child: Transform.scale(
+                          scale: scaleFactor.clamp(0.0, 1.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(fullImage ? 100.0 : 300.0),
+                            child: Image.network(
+                              'https://www.cembhofmann.co.uk/wp-content/uploads/2021/12/Balancing.jpg',
+                              height: fullImage ? Get.height : _avatarSize,
+                              width: fullImage ? Get.width : _avatarSize,
+                              fit: fullImage ?  BoxFit.none : BoxFit.cover
+                            ),
                           ),
-                        ]),
-                  )
-                ]
-            )
-        )
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 16,
+                        child: Opacity(
+                          opacity: scaleFactor.clamp(0.0, 1.0),
+                          child: Column(
+                            children: [
+                              Text('Дилшоджон Хайдаров', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                              SizedBox(height: 4),
+                              Text('+998 99 534 03 13', style: TextStyle(color: Colors.white70))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  color: Colors.black,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    children: [
+                      const Divider(color: Colors.grey),
+                      _buildListTile(
+                          icon: Icons.person, title: 'Profilim', onTap: () {}),
+                      _buildListTile(
+                          icon: Icons.account_balance_wallet,
+                          title: 'Hamyon',
+                          onTap: () {}),
+                      _buildListTile(
+                          icon: Icons.bookmark,
+                          title: 'Saqlangan xabarlar',
+                          onTap: () {}),
+                      _buildListTile(
+                          icon: Icons.call,
+                          title: 'Oxirgi chaqiruvlar',
+                          onTap: () {}),
+                      _buildListTile(
+                          icon: Icons.settings,
+                          title: 'Sozlamalar',
+                          onTap: () {}),
+                      SizedBox(height: Get.height),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ListTile _buildListTile(
+      {required IconData icon, required String title, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white),
+      ),
+      onTap: onTap,
     );
   }
 }
+
+
