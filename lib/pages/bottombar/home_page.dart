@@ -75,6 +75,7 @@ class HomePage extends StatelessWidget {
                                             child: Card(
                                               color: AppColors.white,
                                               elevation: 0,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
                                               child: SizedBox(
                                                 height: Get.height * 0.12,
                                                 width: Get.width * 0.35,
@@ -98,7 +99,7 @@ class HomePage extends StatelessWidget {
                       )
                   ),
                   Container(
-                    decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)), boxShadow: [
+                    decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [
                       BoxShadow(
                           color: AppColors.grey.withOpacity(0.5),
                           spreadRadius: 5,
@@ -112,7 +113,7 @@ class HomePage extends StatelessWidget {
                               margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.02, right: Get.width * 0.03),
                               height: Get.height * 0.05,
                               padding: EdgeInsets.only(right: Get.width * 0.01),
-                              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(15)),
+                              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
                               child: TextField(
                                   controller: _getController.searchController,
                                   textInputAction: TextInputAction.search,
@@ -138,7 +139,7 @@ class HomePage extends StatelessWidget {
                                           decoration: BoxDecoration(
                                               color: AppColors.white,
                                               border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
-                                              borderRadius: BorderRadius.circular(15.r)),
+                                              borderRadius: BorderRadius.circular(20.r)),
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,11 +147,11 @@ class HomePage extends StatelessWidget {
                                                 SizedBox(
                                                   width: Get.width * 0.06,
                                                   child: ClipRRect(
-                                                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(10.r)),
                                                       child: FadeInImage(
                                                           image: NetworkImage(_getController.listCategoryIcon[index]),
                                                           placeholder:NetworkImage(_getController.listCategoryIcon[index]),
-                                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(20.r))));},
                                                           fit: BoxFit.cover
                                                       )
                                                   ),
@@ -195,7 +196,7 @@ class HomePage extends StatelessWidget {
                                           margin: EdgeInsets.only(right: Get.width * 0.03),
                                           decoration: BoxDecoration(
                                             color: AppColors.white,
-                                            borderRadius: BorderRadius.circular(10.r),
+                                            borderRadius: BorderRadius.circular(20.r),
                                             border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
                                           ),
                                           child: Column(
@@ -205,7 +206,7 @@ class HomePage extends StatelessWidget {
                                                 Stack(
                                                   children: [
                                                     ClipRRect(
-                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
                                                         child: FadeInImage(
                                                             image: NetworkImage(_getController.listImage[index]),
                                                             placeholder: NetworkImage(_getController.listImage[index]),
@@ -268,7 +269,7 @@ class HomePage extends StatelessWidget {
                                       margin: EdgeInsets.only(right: Get.width * 0.03),
                                       decoration: BoxDecoration(
                                         color: AppColors.white,
-                                        borderRadius: BorderRadius.circular(10.r),
+                                        borderRadius: BorderRadius.circular(20.r),
                                         border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
                                       ),
                                       child: Column(
@@ -276,7 +277,7 @@ class HomePage extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             ClipRRect(
-                                              borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+                                              borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
                                               child: FadeInImage(
                                                   image: NetworkImage(_getController.listImage[index]),
                                                   placeholder: NetworkImage(_getController.listImage[index]),

@@ -3,6 +3,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import '../../resource/colors.dart';
 
 class AccountPage extends StatefulWidget {
@@ -212,7 +213,12 @@ class _AccountPageState extends State<AccountPage> {
                           icon: EneftyIcons.info_circle_bold,
                           title: 'Batafsil',
                           onTap: () {}),
-                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {}),
+                      _buildListTile(
+                          icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish',
+                          onTap: () {
+                            InstrumentComponents().logOutDialog(context);
+                          }
+                      ),
                       SizedBox(height: Get.height * 0.5),
 
                     ]
