@@ -360,9 +360,15 @@ class GetController extends GetxController {
 
   final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
   final ScrollController scrollTransferWalletController = ScrollController();
+
+  final RefreshController refreshAddCardController = RefreshController(initialRefresh: false);
+  final ScrollController scrollAddCardController = ScrollController();
+
   var widgetOptions = <Widget>[];
   var index = 0.obs;
   var cardBackIndex = 0.obs;
+  RxString cardNameText = ''.obs;
+  RxString cardNumberText = ''.obs;
 
   void changeCardBackIndex(int value) {cardBackIndex.value = value;}
 
