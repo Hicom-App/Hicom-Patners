@@ -1,3 +1,4 @@
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,7 +93,7 @@ class DetailPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.star, color: AppColors.backgroundApp,size: Theme.of(context).iconTheme.fill),
+                              Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: Theme.of(context).iconTheme.fill),
                               SizedBox(width: Get.width * 0.01),
                               TextSmall(text: listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14),
                               const Spacer(),
@@ -104,7 +105,6 @@ class DetailPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextSmall(text: listImagePrice[index], color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 2),
-
                               Container(
                                 padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, top: 4.sp, bottom: 4.sp),
                                 decoration: BoxDecoration(
@@ -206,7 +206,7 @@ class DetailPage extends StatelessWidget {
                               itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),
                               unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
                               itemBuilder: (context, _) =>
-                              const Icon(TablerIcons.star_filled, color: AppColors.backgroundApp),
+                              const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                               onRatingUpdate: (rating) {}
                           ),
                           Container(
@@ -271,7 +271,7 @@ class DetailPage extends StatelessWidget {
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                              Icon(EneftyIcons.star_2_bold, color: AppColors.backgroundApp,size: 11),
                                                               TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                             ],
                                                           )

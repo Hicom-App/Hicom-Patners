@@ -230,7 +230,7 @@ class HomePage extends StatelessWidget {
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                              const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 11),
                                                               TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                             ],
                                                           )
@@ -294,7 +294,7 @@ class HomePage extends StatelessWidget {
                                                       TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
                                                       Row(
                                                         children: [
-                                                          const Icon(Icons.star, color: AppColors.backgroundApp,size: 11),
+                                                          const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 11),
                                                           TextSmall(text: _getController.listStar[index],
                                                               color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                         ],

@@ -351,10 +351,15 @@ class GetController extends GetxController {
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
   final ScrollController scrollControllerOk = ScrollController();
+
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
   final ScrollController scrollGuaranteeController = ScrollController();
+
   final RefreshController refreshAccountController = RefreshController(initialRefresh: false);
   final ScrollController scrollAccountController = ScrollController();
+
+  final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
+  final ScrollController scrollTransferWalletController = ScrollController();
   var widgetOptions = <Widget>[];
   var index = 0.obs;
 
