@@ -1,7 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import '../../controllers/get_controller.dart';
@@ -10,7 +9,6 @@ import '../../pages/home/add_card_page.dart';
 import '../../resource/colors.dart';
 import '../filds/text_large.dart';
 import '../filds/text_small.dart';
-import '../text_fild.dart';
 
 class InstrumentComponents {
   final GetController _getController = Get.put(GetController());
@@ -279,11 +277,14 @@ class InstrumentComponents {
                               color: AppColors.black
                           )
                       ),
-                      AppBar(
-                        centerTitle: false,
-                        title: TextLarge(text: 'Mening kartalarim'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-                        actions: [
-                          IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.rotate_right_outline, color: Theme.of(context).colorScheme.onSurface, size: 30))
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 20.w),
+                          TextLarge(text: 'Mening kartalarim'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
+                          const Spacer(),
+                          IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.rotate_right_outline, color: Theme.of(context).colorScheme.onSurface, size: 30)),
+                          SizedBox(width: 20.w),
                         ],
                       ),
                       Container(
