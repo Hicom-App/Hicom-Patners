@@ -57,31 +57,35 @@ class HomePage extends StatelessWidget {
                                       TextSmall(text: 'Jami hisoblangan'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
                                       TextLarge(text: '2 510 018 so`m'.tr, color: Theme.of(context).colorScheme.onSurface,fontWeight: FontWeight.bold),
                                       SizedBox(height: Get.height * 0.02),
-                                      Center(
-                                          child: SizedBox(
-                                              width: Get.width,
-                                              height: Get.height * 0.1,
-                                              child: ListView.builder(
-                                                  itemCount: _getController.listTitle.length,
-                                                  scrollDirection: Axis.horizontal,
-                                                  physics: const BouncingScrollPhysics(),
-                                                  padding: EdgeInsets.only(left: Get.width * 0.05),
-                                                  itemBuilder: (context, index) => Card(
-                                                      color: AppColors.white,
-                                                      elevation: 0,
-                                                      child:SizedBox(
-                                                        height: Get.height * 0.12,
-                                                        width: Get.width * 0.35,
-                                                        child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
-                                                              TextSmall(text: _getController.listPrice[index].tr, color: _getController.listColor[index],fontWeight: FontWeight.bold),
-                                                            ]),
-                                                      )
-                                                  )
+                                      SizedBox(
+                                        width: Get.width,
+                                        height: Get.height * 0.1,
+                                        child: ListView.builder(
+                                          itemCount: _getController.listTitle.length,
+                                          scrollDirection: Axis.horizontal,
+                                          physics: const BouncingScrollPhysics(),
+                                          padding: EdgeInsets.only(left: Get.width * 0.05),
+                                          itemBuilder: (context, index) => GestureDetector(
+                                            onTap: () {
+                                              
+                                            },
+                                            child: Card(
+                                              color: AppColors.white,
+                                              elevation: 0,
+                                              child: SizedBox(
+                                                height: Get.height * 0.12,
+                                                width: Get.width * 0.35,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
+                                                    TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold)
+                                                  ]
+                                                )
                                               )
+                                            )
                                           )
+                                        )
                                       ),
                                       const Spacer()
                                     ]
