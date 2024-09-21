@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -49,7 +50,7 @@ class HomePage extends StatelessWidget {
                                               ]
                                           ),
                                           actions: [
-                                            IconButton(icon: Icon(Icons.notifications, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
+                                            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
                                           ]
                                       ),
                                       const Spacer(),
@@ -111,7 +112,7 @@ class HomePage extends StatelessWidget {
                                   decoration: InputDecoration(
                                       hintText: 'Qidirish'.tr,
                                       hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                                      prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface)),
+                                      prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
                                       border: InputBorder.none
                                   )
                               )
@@ -205,7 +206,7 @@ class HomePage extends StatelessWidget {
                                                             fit: BoxFit.cover
                                                         )
                                                     ),
-                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? Icons.favorite : Icons.favorite_border, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
+                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
                                                   ],
                                                 ),
                                                 Padding(

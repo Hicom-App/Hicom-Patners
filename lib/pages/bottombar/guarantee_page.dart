@@ -1,3 +1,4 @@
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class GuaranteePage extends StatelessWidget {
               ]
           ),
           actions: [
-            IconButton(icon: Icon(Icons.notifications, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
+            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
           ]
       ),
       body: RefreshComponent(
@@ -51,7 +52,7 @@ class GuaranteePage extends StatelessWidget {
                     decoration: InputDecoration(
                         hintText: 'Qidirish'.tr,
                         hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                        prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface)),
+                        prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color: AppColors.black70)),
                         border: InputBorder.none
                     )
                 )
@@ -138,16 +139,16 @@ class GuaranteePage extends StatelessWidget {
                                                         color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13),)
                                                   ),
                                                   Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding: const EdgeInsets.all(3),
                                                     margin: const EdgeInsets.only(left: 5),
                                                     decoration: BoxDecoration(color: index == 2 ? AppColors.blue : AppColors.blue, shape: BoxShape.circle),
-                                                    child: Icon(Icons.archive_rounded, color: index == 2 ? AppColors.white : AppColors.white, size: 15),
+                                                    child: Icon(EneftyIcons.attach_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
                                                   ),
                                                   Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding: const EdgeInsets.all(3),
                                                     margin: const EdgeInsets.only(left: 5),
                                                     decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.red, shape: BoxShape.circle),
-                                                    child: Icon(Icons.delete, color: index == 2 ? AppColors.white : AppColors.white, size: 15),
+                                                    child: Icon(EneftyIcons.close_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
                                                   )
                                                 ]
                                             )

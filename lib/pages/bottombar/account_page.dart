@@ -1,3 +1,5 @@
+import 'package:enefty_icons/enefty_icons.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -65,7 +67,7 @@ class _AccountPageState extends State<AccountPage> {
                     opacity: _isTitleVisible ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
                     child: const Text(
-                      "Дилшоджон Хайдаров",
+                      "Dilshojdon Haydarov",
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -102,6 +104,56 @@ class _AccountPageState extends State<AccountPage> {
                             alignment: Alignment.center,
                             border: 0,
                             linearGradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                AppColors.black.withOpacity(0.1),
+                                AppColors.black.withOpacity(0.3),
+                              ],
+                              stops: const [0.1, 1]),
+                            borderGradient: LinearGradient(
+                              begin: Alignment.center,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.black.withOpacity(0.9),
+                                AppColors.black.withOpacity(0.9),
+                              ],
+                            ),
+                            borderRadius: 0,
+                            child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Dilshodjon Haydarov', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.white)),
+                                SizedBox(height: 4),
+                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.white))
+                              ]
+                          )
+                        )
+                            : SizedBox(
+                          width: Get.width,
+                          height: Get.height * 0.08,
+                          child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Dilshodjon Haydarov', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black)),
+                                SizedBox(height: 4),
+                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black,))
+                              ]
+                          )
+                        )
+                      ),
+                      Positioned(
+                        top: Get.height * 0.06,
+                        right: Get.width * 0.02,
+                        child:  GlassmorphicContainer(
+                            width: Get.width * 0.18,
+                            height: Get.height * 0.04,
+                            blur: 20,
+                            alignment: Alignment.center,
+                            border: 0,
+                            linearGradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
@@ -117,29 +169,8 @@ class _AccountPageState extends State<AccountPage> {
                                 const Color((0xFFFFFFFF)).withOpacity(0.5),
                               ],
                             ),
-                            borderRadius: 0,
-                            child: const Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Дилшоджон Хайдаров', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black)),
-                                SizedBox(height: 4),
-                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black,))
-                              ]
-                          )
-                        )
-                            : SizedBox(
-                          width: Get.width,
-                          height: Get.height * 0.08,
-                          child: const Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Дилшоджон Хайдаров', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black)),
-                                SizedBox(height: 4),
-                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black,))
-                              ]
-                          )
+                            borderRadius: 30,
+                            child: const Text('Tahrir', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black))
                         )
                       )
                     ]
@@ -156,21 +187,21 @@ class _AccountPageState extends State<AccountPage> {
                   child: Column(
                     children: [
                       _buildListTile(
-                          icon: Icons.person, title: 'Profilim', onTap: () {}),
+                          icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () {}),
                       _buildListTile(
-                          icon: Icons.account_balance_wallet,
+                          icon: EneftyIcons.wallet_2_bold,
                           title: 'Hamyon',
                           onTap: () {}),
                       _buildListTile(
-                          icon: Icons.bookmark,
-                          title: 'Saqlangan xabarlar',
+                          icon: EneftyIcons.bookmark_2_bold,
+                          title: 'Saqlanganlar',
                           onTap: () {}),
                       _buildListTile(
-                          icon: Icons.settings,
+                          icon: EneftyIcons.setting_3_bold,
                           title: 'Sozlamalar',
                           onTap: () {}),
                       _buildListTile(
-                          icon: Icons.notifications,
+                          icon: EneftyIcons.notification_bold,
                           title: 'Bildirishnomalar',
                           onTap: () {}),
                       _buildListTile(
@@ -178,10 +209,10 @@ class _AccountPageState extends State<AccountPage> {
                           title: 'Yordam',
                           onTap: () {}),
                       _buildListTile(
-                          icon: Icons.info,
+                          icon: EneftyIcons.info_circle_bold,
                           title: 'Batafsil',
                           onTap: () {}),
-                      _buildListTile(icon: Icons.logout, title: 'Chiqish', onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {}),
                       SizedBox(height: Get.height * 0.5),
 
                     ]
@@ -195,7 +226,7 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap}) {
+  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
     return Container(
       //padding: const EdgeInsets.symmetric(vertical: 8.0),
       margin: const EdgeInsets.only(top: 13.0),
@@ -207,18 +238,18 @@ class _AccountPageState extends State<AccountPage> {
         onTap: onTap,
         leading: Icon(
           icon,
-          color: Colors.black,
+          color: color
         ),
         title: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: Colors.black,
+            color: color
           ),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.chevron_right,
-          color: Colors.black,
+          color: color,
           )
       )
     );

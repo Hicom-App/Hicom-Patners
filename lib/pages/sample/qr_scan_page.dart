@@ -1,3 +1,4 @@
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,8 +22,8 @@ class QRViewExample extends StatelessWidget {
               onPressed: () => Get.back()
           ),
           actions: [
-            Obx(() => IconButton(icon: Icon(_getController.cameraFacing.value == CameraFacing.front ? Icons.camera_rear : Icons.camera_front, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleCamera)),
-            Obx(() => IconButton(icon: Icon(_getController.isLampOn.value ? Icons.flashlight_off : Icons.flashlight_on, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleLamp))
+            Obx(() => IconButton(icon: Icon(_getController.cameraFacing.value == CameraFacing.front ? EneftyIcons.repeat_circle_bold : Icons.camera_front, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleCamera)),
+            Obx(() => IconButton(icon: Icon(_getController.isLampOn.value ? EneftyIcons.lamp_slash_bold : EneftyIcons.lamp_on_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleLamp))
         ]
       ),
       body: Obx(() => Stack(
