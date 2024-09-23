@@ -27,12 +27,9 @@ class NotificationPage extends StatelessWidget {
             children: [
               Container(
                   width: Get.width,
-                  margin: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+                  margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
                   padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                  decoration: BoxDecoration(
-                      color: AppColors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.all(Radius.circular(20.r))
-                  ),
+                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +43,7 @@ class NotificationPage extends StatelessWidget {
               ),
               Container(
                   width: Get.width,
-                  margin: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+                  margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
                   padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                   decoration: BoxDecoration(
                       color: AppColors.grey.withOpacity(0.1),
@@ -65,7 +62,7 @@ class NotificationPage extends StatelessWidget {
               ),
               Container(
                   width: Get.width,
-                  margin: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+                  margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
                   padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                   decoration: BoxDecoration(
                       color: AppColors.grey.withOpacity(0.1),
@@ -96,7 +93,7 @@ class NotificationPage extends StatelessWidget {
                     ],
                   )
               ),
-              SizedBox(height:Get.height)
+              //SizedBox(height:Get.height)
             ],
           )
       )
