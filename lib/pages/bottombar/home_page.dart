@@ -12,6 +12,7 @@ import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
+import '../home/checks_page.dart';
 import '../home/transfer_to_wallet.dart';
 
 class HomePage extends StatelessWidget {
@@ -69,8 +70,10 @@ class HomePage extends StatelessWidget {
                                           padding: EdgeInsets.only(left: Get.width * 0.05),
                                           itemBuilder: (context, index) => GestureDetector(
                                             onTap: () {
-                                              if( index == 1) {
+                                              if(index == 1) {
                                                 Get.to(() => TransferToWallet(index: index));
+                                              }else if(index == 0) {
+                                                Get.to(() => ChecksPage());
                                               }
                                             },
                                             child: Card(
