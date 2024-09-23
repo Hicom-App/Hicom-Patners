@@ -85,16 +85,15 @@ class NotificationPage extends StatelessWidget {
                                 imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(20.r))));},
                                 fit: BoxFit.cover
                             )
-                        ),
+                        )
                       ),
                       SizedBox(height: 10.r),
                       TextSmall(text: 'Hicomda aksiya boshlandi!'.tr, color: AppColors.black, fontWeight: FontWeight.w500),
-                      TextSmall(text: 'Hurmatli mijozlar! Sizni mamnuniyat bilan xabardor qilamizki, do‘konimizda maxsus aksiya boshlandi. Chegirmalar va maxsus takliflardan foydalanish imkoniyatini boy bermang!'.tr, color: AppColors.black70, fontWeight: FontWeight.w500,maxLines: 300),
-                    ],
+                      TextSmall(text: 'Hurmatli mijozlar! Sizni mamnuniyat bilan xabardor qilamizki, do‘konimizda maxsus aksiya boshlandi. Chegirmalar va maxsus takliflardan foydalanish imkoniyatini boy bermang!'.tr, color: AppColors.black70, fontWeight: FontWeight.w500,maxLines: 300)
+                    ]
                   )
-              ),
-              //SizedBox(height:Get.height)
-            ],
+              )
+            ]
           )
       )
     );
