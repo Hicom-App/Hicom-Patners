@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
+import 'package:hicom_patners/pages/home/notification_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import 'package:rive/rive.dart';
 import '../../companents/filds/text_large.dart';
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
                                               ]
                                           ),
                                           actions: [
-                                            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
+                                            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() => const NotificationPage())),
                                           ]
                                       ),
                                       const Spacer(),

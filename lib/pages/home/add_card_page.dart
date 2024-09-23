@@ -248,7 +248,7 @@ class AddCardPage extends StatelessWidget {
                     onPressed: () => Get.back(),
                     child: TextSmall(text: 'Qo\'shish'.tr, color: AppColors.white),
                   )
-              ),
+              )
             ],
           ))
         )
