@@ -15,14 +15,14 @@ import '../../controllers/get_controller.dart';
 import '../home/transfer_to_wallet.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
 
   final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.withOpacity(0.1),
+        backgroundColor: AppColors.grey.withOpacity(0.1),
         body: RefreshComponent(
             scrollController: _getController.scrollController,
             refreshController: _getController.refreshController,

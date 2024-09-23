@@ -1,11 +1,8 @@
-import 'dart:ui';
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/resource/colors.dart';
-import '../../companents/filds/text_large.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 
