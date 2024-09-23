@@ -364,6 +364,9 @@ class GetController extends GetxController {
   final RefreshController refreshAddCardController = RefreshController(initialRefresh: false);
   final ScrollController scrollAddCardController = ScrollController();
 
+  final RefreshController refreshNotificationController = RefreshController(initialRefresh: false);
+  final ScrollController scrollNotificationController = ScrollController();
+
   var widgetOptions = <Widget>[];
   var index = 0.obs;
   var cardBackIndex = 0.obs;

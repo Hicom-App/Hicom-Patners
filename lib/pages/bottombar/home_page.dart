@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                                               ]
                                           ),
                                           actions: [
-                                            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() => const NotificationPage())),
+                                            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
                                           ]
                                       ),
                                       const Spacer(),
