@@ -228,11 +228,6 @@ class _AccountPageState extends State<AccountPage> {
                           title: 'Ilova haqida',
                           onTap: () {}),
                       _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {InstrumentComponents().logOutDialog(context);}),
-                      _buildListTile(
-                        icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
-                        title: 'Hisobni o`chirish',
-                        onTap: (){},
-                      ),
                       SizedBox(height: Get.height * 0.03),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0',
                           color: AppColors.black, fontSize: 12.sp),

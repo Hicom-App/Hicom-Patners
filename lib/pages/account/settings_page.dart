@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/pages/account/safety_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -20,7 +21,7 @@ class SettingsPage extends StatelessWidget {
       body: Column(
         children: [
           _buildListTile(icon: EneftyIcons.security_bold,
-              title: 'Kirish va xavfsizlik'.tr, onTap: (){}, status: 0),
+              title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
           _buildListTile(icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
           _buildListTile(icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
         ]
