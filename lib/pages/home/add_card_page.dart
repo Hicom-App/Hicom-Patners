@@ -35,7 +35,7 @@ class AddCardPage extends StatelessWidget {
               ),
               Container(
                   width: Get.width,
-                  height: Get.height * 0.2,
+                  height: Get.height * 0.22,
                   margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 20.h),
                   padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 10.h, bottom: 10.h),
                   decoration: BoxDecoration(
@@ -50,7 +50,6 @@ class AddCardPage extends StatelessWidget {
                         SizedBox(height: Get.height * 0.05),
                         Row(
                           children: [
-                            //if(_getController.cardNumberText.value == '9860' || _getController.cardNumberText.value == '9860')
                             if(_getController.cardNumberText.value.toString().contains('9860') || _getController.cardNumberText.value.toString().contains('6262') || _getController.cardNumberText.value.toString().contains('9861'))
                               SizedBox(
                                   height: 70.h,
@@ -123,9 +122,7 @@ class AddCardPage extends StatelessWidget {
                                     )
                                 else
                                     SizedBox(
-                                        height: 70.h,
-                                        width: 70.w,
-                                    ),
+                                        height: 70.h, width: 70.w),
                             SizedBox(width: 20.w),
                             TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500),
                           ],
@@ -173,7 +170,7 @@ class AddCardPage extends StatelessWidget {
                   decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.5), borderRadius: BorderRadius.circular(20.r)),
                   child: TextField(
                       controller: _getController.nameController,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       style: const TextStyle(color: AppColors.black),
                       inputFormatters: [mackFormater],
@@ -226,7 +223,7 @@ class AddCardPage extends StatelessWidget {
                       Icon(EneftyIcons.info_circle_bold, color: AppColors.red, size: 25.h),
                       SizedBox(width: 20.w),
                       SizedBox(
-                          width: Get.width * 0.7,
+                          width: Get.width * 0.65,
                           child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo\'shish mumkin. Agar boshqa bank kartasini qo\'shish kerak bo\'lsa, pastdagi telefon raqamini o\'zgartirish funksiyasidan foydalanish mumkin.'.tr,
                               color: AppColors.black, fontWeight: FontWeight.w500,
                               fontSize: 14.sp,

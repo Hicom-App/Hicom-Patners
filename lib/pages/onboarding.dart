@@ -80,7 +80,7 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
             },
             child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 80, 40, 40),
+                  padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,7 +93,7 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                       ),
                       Text(
                         "Hicom — bu kamutatorlar va boshqa elektronika buyumlarining savdosini oshirishga qaratilgan patnerlik ilovasi. Siz bu ilova yordamida mahsulotlar bo'yicha ma'lumotlarga ega bo'lasiz va hamkorlar bilan ishlash imkoniyatiga ega bo'lasiz.",
-                        style: TextStyle(fontFamily: 'Inter', fontSize: 18, color: Colors.black.withOpacity(0.7))
+                        style: TextStyle(fontFamily: 'Inter', fontSize: 15, color: Colors.black.withOpacity(0.7))
                       ),
                       const SizedBox(height: 16),
                       const Spacer(),
