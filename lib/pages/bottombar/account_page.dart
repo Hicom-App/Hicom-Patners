@@ -11,6 +11,7 @@ import '../account/arxiv_page.dart';
 import '../account/favorites_page.dart';
 import '../account/notification_page.dart';
 import '../account/settings_page.dart';
+import '../home/transfer_to_wallet.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -194,7 +195,7 @@ class _AccountPageState extends State<AccountPage> {
                   child: Column(
                     children: [
                       _buildListTile(icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.downToUp)),
                       _buildListTile(icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
                       _buildListTile(icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
                       _buildListTile(icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
