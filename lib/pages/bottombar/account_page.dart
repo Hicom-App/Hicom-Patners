@@ -1,9 +1,12 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import '../../resource/colors.dart';
+import '../account/settings_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -199,7 +202,9 @@ class _AccountPageState extends State<AccountPage> {
                       _buildListTile(
                           icon: EneftyIcons.setting_3_bold,
                           title: 'Sozlamalar',
-                          onTap: () {}),
+                          onTap: () {
+                            Get.to(() => SettingsPage(), transition: Transition.downToUp);
+                          }),
                       _buildListTile(
                           icon: EneftyIcons.notification_bold,
                           title: 'Bildirishnomalar',
@@ -218,8 +223,15 @@ class _AccountPageState extends State<AccountPage> {
                             InstrumentComponents().logOutDialog(context);
                           }
                       ),
-                      SizedBox(height: Get.height * 0.5),
-
+                      _buildListTile(
+                        icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
+                        title: 'Hisobni o`chirish',
+                        onTap: (){},
+                      ),
+                      SizedBox(height: Get.height * 0.03),
+                      TextSmall(text: 'Ilova versiyasi: 1.0.0',
+                          color: AppColors.black, fontSize: 12.sp),
+                      SizedBox(height: Get.height * 0.1),
                     ]
                   )
                 )
@@ -233,29 +245,17 @@ class _AccountPageState extends State<AccountPage> {
 
   Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
     return Container(
-      //padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       margin: const EdgeInsets.only(top: 13.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.grey.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.grey.withOpacity(0.2)
       ),
       child: ListTile(
         onTap: onTap,
-        leading: Icon(
-          icon,
-          color: color
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            color: color
-          ),
-        ),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: color,
-          )
+        leading: Icon(icon, color: color),
+        title: Text(title, style: TextStyle(fontSize: 14, color: color)),
+        trailing: Icon(Icons.chevron_right, color: color)
       )
     );
   }
