@@ -199,6 +199,12 @@ class _AccountPageState extends State<AccountPage> {
                           icon: EneftyIcons.bookmark_2_bold,
                           title: 'Saqlanganlar',
                           onTap: () {}),
+                      //sevimlilar
+                      _buildListTile(
+                          icon: EneftyIcons.heart_bold,
+                          title: 'Sevimlilar',
+                          onTap: () {}
+                      ),
                       _buildListTile(
                           icon: EneftyIcons.setting_3_bold,
                           title: 'Sozlamalar',
@@ -218,11 +224,10 @@ class _AccountPageState extends State<AccountPage> {
                           title: 'Batafsil',
                           onTap: () {}),
                       _buildListTile(
-                          icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish',
-                          onTap: () {
-                            InstrumentComponents().logOutDialog(context);
-                          }
-                      ),
+                          icon: EneftyIcons.happyemoji_bold,
+                          title: 'Ilova haqida',
+                          onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {InstrumentComponents().logOutDialog(context);}),
                       _buildListTile(
                         icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
                         title: 'Hisobni o`chirish',
@@ -253,6 +258,8 @@ class _AccountPageState extends State<AccountPage> {
       ),
       child: ListTile(
         onTap: onTap,
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
         leading: Icon(icon, color: color),
         title: Text(title, style: TextStyle(fontSize: 14, color: color)),
         trailing: Icon(Icons.chevron_right, color: color)

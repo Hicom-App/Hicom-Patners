@@ -1,12 +1,8 @@
-
-
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hicom_patners/companents/instrument/custom_header.dart';
-
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -25,7 +21,7 @@ class SettingsPage extends StatelessWidget {
         children: [
           _buildListTile(icon: EneftyIcons.security_bold,
               title: 'Kirish va xavfsizlik'.tr, onTap: (){}, status: 0),
-          _buildListTile(icon: EneftyIcons.moon_bold, title: 'Day'.tr, onTap: (){}, status: 1),
+          _buildListTile(icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
           _buildListTile(icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
         ]
       )
@@ -41,6 +37,8 @@ class SettingsPage extends StatelessWidget {
         ),
         child: ListTile(
             onTap: onTap,
+            hoverColor: Colors.transparent,
+            focusColor: Colors.transparent,
             leading: Icon(icon, color: color),
             title: Text(title, style: TextStyle(fontSize: 14, color: color)),
             trailing: status == 0 ? Icon(Icons.chevron_right, color: color)
