@@ -87,7 +87,12 @@ class HomePage extends StatelessWidget {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
-                                                    TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold)
+                                                    Row(
+                                                      children: [
+                                                        TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold),
+                                                        TextSmall(text: 'so‘m', color: _getController.listColor[index], fontWeight: FontWeight.bold)
+                                                      ],
+                                                    )
                                                   ]
                                                 )
                                               )
