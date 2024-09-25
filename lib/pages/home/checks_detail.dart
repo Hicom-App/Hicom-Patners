@@ -41,12 +41,12 @@ class ChecksDetail extends StatelessWidget{
             Icon(Icons.check_circle, color: Colors.green, size: 80),
             SizedBox(height: 10),
             Text(
-              'You have successfully booking',
+              'Muvaffaqiyatli o‘tkazildi',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
             Text(
-              'Sat, 6 July 2022',
+              'Yak, 6 Iyun 2022',
               style: TextStyle(color: Colors.grey),
             ),
             SizedBox(height: 20),
@@ -166,7 +166,7 @@ class ChecksDetail extends StatelessWidget{
                 backgroundColor: AppColors.blue,
                 padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
               ),
-              child: TextSmall(text: 'Done', color: AppColors.white)),
+              child: TextSmall(text: 'Bosh sahifa', color: AppColors.white)),
             SizedBox(height: 30),
           ],
         ),
