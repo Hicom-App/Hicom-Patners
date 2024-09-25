@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import 'package:hicom_patners/pages/account/my_account_page.dart';
 import '../../resource/colors.dart';
+import '../account/arxiv_page.dart';
+import '../account/favorites_page.dart';
+import '../account/notification_page.dart';
 import '../account/settings_page.dart';
 
 class AccountPage extends StatefulWidget {
@@ -189,48 +193,18 @@ class _AccountPageState extends State<AccountPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
-                      _buildListTile(
-                          icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () {}),
-                      _buildListTile(
-                          icon: EneftyIcons.wallet_2_bold,
-                          title: 'Hamyon',
-                          onTap: () {}),
-                      _buildListTile(
-                          icon: EneftyIcons.bookmark_2_bold,
-                          title: 'Saqlanganlar',
-                          onTap: () {}),
-                      //sevimlilar
-                      _buildListTile(
-                          icon: EneftyIcons.heart_bold,
-                          title: 'Sevimlilar',
-                          onTap: () {}
-                      ),
-                      _buildListTile(
-                          icon: EneftyIcons.setting_3_bold,
-                          title: 'Sozlamalar',
-                          onTap: () {
-                            Get.to(() => SettingsPage(), transition: Transition.downToUp);
-                          }),
-                      _buildListTile(
-                          icon: EneftyIcons.notification_bold,
-                          title: 'Bildirishnomalar',
-                          onTap: () {}),
-                      _buildListTile(
-                          icon: Icons.help,
-                          title: 'Yordam',
-                          onTap: () {}),
-                      _buildListTile(
-                          icon: EneftyIcons.info_circle_bold,
-                          title: 'Batafsil',
-                          onTap: () {}),
-                      _buildListTile(
-                          icon: EneftyIcons.happyemoji_bold,
-                          title: 'Ilova haqida',
-                          onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp)),
+                      _buildListTile(icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
+                      _buildListTile(icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
+                      _buildListTile(icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
+                      _buildListTile(icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => NotificationPage(), transition: Transition.downToUp)),
+                      _buildListTile(icon: Icons.help, title: 'Yordam', onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () {}),
+                      _buildListTile(icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () {}),
                       _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {InstrumentComponents().logOutDialog(context);}),
                       SizedBox(height: Get.height * 0.03),
-                      TextSmall(text: 'Ilova versiyasi: 1.0.0',
-                          color: AppColors.black, fontSize: 12.sp),
+                      TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
                       SizedBox(height: Get.height * 0.1),
                     ]
                   )
