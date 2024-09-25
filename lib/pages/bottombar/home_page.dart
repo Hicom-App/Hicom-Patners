@@ -82,15 +82,22 @@ class HomePage extends StatelessWidget {
                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
                                               child: SizedBox(
                                                 height: Get.height * 0.12,
-                                                width: Get.width * 0.35,
+                                                width: Get.width * 0.38,
                                                 child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
                                                     TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
                                                     Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
                                                         TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold),
-                                                        TextSmall(text: 'so‘m', color: _getController.listColor[index], fontWeight: FontWeight.bold)
+                                                        TextSmall(text: ' so‘m',
+                                                            color: _getController.listColor[index],
+                                                            //color: AppColors.black,
+                                                            fontSize: 13.sp,
+                                                            fontWeight: FontWeight.w400)
                                                       ],
                                                     )
                                                   ]
@@ -292,7 +299,7 @@ class HomePage extends StatelessWidget {
                                                   placeholder: NetworkImage(_getController.listImage[index]),
                                                   imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                                   fit: BoxFit.cover
-                                              ),
+                                              )
                                             ),
                                             Padding(
                                                 padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
@@ -306,8 +313,8 @@ class HomePage extends StatelessWidget {
                                                         children: [
                                                           const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 11),
                                                           TextSmall(text: _getController.listStar[index],
-                                                              color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
-                                                        ],
+                                                              color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10)
+                                                        ]
                                                       )
                                                     ]
                                                 )
