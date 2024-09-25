@@ -82,15 +82,15 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                       SizedBox(
                         width: 260,
                         child: const Text(
-                          'Learn design & code',
-                          style: TextStyle(fontFamily: 'Poppins', fontSize: 50),
+                          'Hicom mobil patnerlik ilovasi',
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 40, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Text(
-                        "Don't skip design. Learn design and code by building the real apps with React and Swiff. Complete course about the best tool",
+                        "Hicom — bu kamutatorlar va boshqa elektronika buyumlarining savdosini oshirishga qaratilgan patnerlik ilovasi. Siz bu ilova yordamida mahsulotlar bo'yicha ma'lumotlarga ega bo'lasiz va hamkorlar bilan ishlash imkoniyatiga ega bo'lasiz.",
                         style: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 13,
+                            fontSize: 18,
                             color: Colors.black.withOpacity(0.7)),
                       ),
                       const SizedBox(
@@ -126,8 +126,9 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(Icons.arrow_forward_rounded),
+                                      SizedBox(width: 8),
                                       Text(
-                                        'Start the course',
+                                        'Boshlash',
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontFamily: 'Inter',

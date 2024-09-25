@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 
 import '../../controllers/get_controller.dart';
+import '../onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -10,15 +11,14 @@ class SplashScreen extends StatelessWidget {
   final GetController _getController = Get.put(GetController());
 
   void open() {
-    Get.offAll(() => SamplePage(), transition: Transition.fadeIn);
+    //Get.offAll(() => SamplePage(), transition: Transition.fadeIn);
     //Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
-    //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
+    Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
   }
 
   @override
   Widget build(BuildContext context) {
     _getController.tapTimes(open,1);
-
     return Scaffold(
         body: Center(
             child: Column(

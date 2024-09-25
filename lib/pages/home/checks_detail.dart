@@ -57,7 +57,6 @@ class ChecksDetail extends StatelessWidget{
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +73,15 @@ class ChecksDetail extends StatelessWidget{
                       Text('Avicena Clinic', style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
+                  Spacer(),
                   Text(
-                    '\$20.00',
+                    '10 000.00',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'so`m',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -134,7 +139,7 @@ class ChecksDetail extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Booking fee'),
-                      Text('\$20.00'),
+                      Text('10 000.00'),
                     ],
                   ),
                   Row(
@@ -149,7 +154,7 @@ class ChecksDetail extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Total', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text('\$20.00', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text('10 000.00', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ],
@@ -157,7 +162,7 @@ class ChecksDetail extends StatelessWidget{
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => Get.back(),
               style: ElevatedButton.styleFrom(
                 //primary: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
