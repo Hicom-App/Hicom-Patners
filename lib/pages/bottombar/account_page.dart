@@ -58,6 +58,7 @@ class _AccountPageState extends State<AccountPage> {
       backgroundColor: AppColors.white,
       body: CustomScrollView(
         controller: _scrollController,
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             expandedHeight: fullImage ? 400.0 : 250.0,
