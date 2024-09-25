@@ -125,12 +125,12 @@ class AddCardPage extends StatelessWidget {
                                         height: 70.h, width: 70.w),
                             SizedBox(width: 20.w),
                             TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500),
-                          ],
+                          ]
                         ),
                         SizedBox(height: Get.height * 0.03),
                         SizedBox(
                           width: Get.width,
-                          child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.w500),
+                          child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.w500)
                         )
                       ]
                   )
@@ -160,7 +160,7 @@ class AddCardPage extends StatelessWidget {
               ),
               Container(
                 width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: TextSmall(text: 'Karta raqami'.tr, color: AppColors.black, fontWeight: FontWeight.w500),
+                child: TextSmall(text: 'Karta raqami'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
               ),
               Container(
                   width: Get.width,
