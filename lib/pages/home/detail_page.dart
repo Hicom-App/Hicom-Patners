@@ -123,7 +123,7 @@ class DetailPage extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: Get.height * 0.02),
-                          TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
+                          const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
                           Container(
                             width: Get.width,
                             height: Get.height * 0.2,
@@ -148,7 +148,7 @@ class DetailPage extends StatelessWidget {
                                   onTap: () => print('ok'),
                                   child: Row(
                                     children: [
-                                      TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14),
+                                      const TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14),
                                       Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
                                     ],
                                   )
@@ -184,7 +184,7 @@ class DetailPage extends StatelessWidget {
                                       onTap: () => print('ok'),
                                       child: Row(
                                         children: [
-                                          TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 1),
+                                          const TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 1),
                                           Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
                                         ],
                                       )
@@ -271,7 +271,7 @@ class DetailPage extends StatelessWidget {
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Icon(EneftyIcons.star_2_bold, color: AppColors.backgroundApp,size: 11),
+                                                              const Icon(EneftyIcons.star_2_bold, color: AppColors.backgroundApp,size: 11),
                                                               TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
                                                             ],
                                                           )

@@ -79,7 +79,7 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 260,
                         child: const Text(
                           'Learn design & code',
@@ -96,7 +96,7 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                       const SizedBox(
                         height: 16,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       GestureDetector(
                         onTap: () {
                           _btnController.isActive = true;

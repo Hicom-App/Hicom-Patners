@@ -1,14 +1,9 @@
 import 'package:enefty_icons/enefty_icons.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
-import 'package:glyph/glyph.dart';
 import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 
-import '../../companents/filds/text_large.dart';
-import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 

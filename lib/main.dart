@@ -15,7 +15,7 @@ main() async {
     DeviceOrientation.portraitDown,
   ]);
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // Yoki istalgan rang
       statusBarIconBrightness: Brightness.dark, // Ikkita variant: Brightness.dark yoki Brightness.light
     ),

@@ -272,8 +272,8 @@ class InstrumentComponents {
                           margin: EdgeInsets.only(left: Get.width * 0.35, right: Get.width * 0.35),
                           width: Get.width,
                           height: 5.h,
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               color: AppColors.black
                           )
                       ),
@@ -342,7 +342,7 @@ class InstrumentComponents {
                                 children: [
                                   Icon(EneftyIcons.add_circle_bold,color: AppColors.blue, size: 30.sp),
                                   SizedBox(width: 5.w),
-                                  TextSmall(text: 'Karta qo`shish',color: AppColors.blue,)
+                                  const TextSmall(text: 'Karta qo`shish',color: AppColors.blue,)
                                 ]
                             )
                         )

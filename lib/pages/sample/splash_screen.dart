@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 
 import '../../controllers/get_controller.dart';
-import '../auth/login_page.dart';
-import '../onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});

@@ -367,25 +367,40 @@ class GetController extends GetxController {
   final RefreshController refreshNotificationController = RefreshController(initialRefresh: false);
   final ScrollController scrollNotificationController = ScrollController();
 
+  final RefreshController refreshChecksController = RefreshController(initialRefresh: false);
+  final ScrollController scrollChecksController = ScrollController();
+
+  final RefreshController refreshCategoryController = RefreshController(initialRefresh: false);
+  final ScrollController scrollCategoryController = ScrollController();
+
   var widgetOptions = <Widget>[];
   var index = 0.obs;
   var cardBackIndex = 0.obs;
   RxString cardNameText = ''.obs;
   RxString cardNumberText = ''.obs;
+  //selectedMonth
+  var selectedMonth = 0.obs;
 
   void changeCardBackIndex(int value) {cardBackIndex.value = value;}
 
+  void changeSelectedMonth(int value) {
+    selectedMonth.value = value;
+    print(selectedMonth.value);
+  }
+
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
-    widgetOptions.add(AccountPage());
+    widgetOptions.add(const AccountPage());
     widgetOptions.add(GuaranteePage());
     widgetOptions.add(ReportPage());
   }
 
   void changeIndex(int value) {index.value = value;}
 
-
-
+  var listMonth = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentyabr','Oktyabr','Noyabr','Dekabr'].obs;
+  var listNames = ['Jasurbek Shodiyev','APIGATE MERCHANT','Haydarov Dilshodjon','UPAY Humo','Davr Upay','beeli PEREV OPLATA','Yandex Go Taxi','Nasriddinov Jamshid','OZBEKTELEKOM AK','alifmobiuz u2h','ATTO TRANSPORT TOLOV','Haydarov Dilshodjon','ATTO TRANSPORT TOLOV','Nasriddinov Jamshid','beeli PEREV OPLATA','ATTO TRANSPORT TOLOV','Jasurbek Shodiyev','ATTO TRANSPORT TOLOV','Haydarov Dilshodjon','ATTO TRANSPORT TOLOV',].obs;
+  var listNamesPay = ['10 000','-12 301','11 039','10 312','300 000','13 000','220 000','134 000','12 021','100 210','231 000','5 000','100 001','300 212','231 000','10 200','30 021','12 000','201 000','212 000','323 000'].obs;
+  var listNamesDay = ['12:01','11:11','22:01','09:31','09:01','12:30','05:21','02:10','10:15','13:41','18:09','20:20','12:03','19:30','18:20','19:20','18:20','02:10','18:09','12:30','22:01','12:01',].obs;
   var list = ['AI POE', 'NETWORK CABINET', 'HDD', 'PDU', 'CAMERA', 'ACSESSORIES', 'HDMI CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE'].obs;
   var listTitle = ['Jarayonda', 'Hamyonda','Tasdiqlangan', 'To`langan','Rad etilgan'].obs;
   var listPrice = ['01.02.2025', '09.01.2025', '10.05.2025', '22.12.2025','11.05.2025', '03.10.2025', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;

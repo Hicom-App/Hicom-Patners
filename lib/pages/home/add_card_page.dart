@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_large.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../companents/filds/text_small.dart';
-import '../../companents/instrument/instrument_components.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';

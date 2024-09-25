@@ -59,11 +59,11 @@ class GuaranteePage extends StatelessWidget {
             ),
             Container(
                 width: Get.width,
-                height: Get.height,
                 padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: _getController.listImage.length,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) =>
                         Column(
                           children: [index == 0 || index == 2 || index == 3 ? Container(
@@ -71,7 +71,7 @@ class GuaranteePage extends StatelessWidget {
                             padding: EdgeInsets.only(left: Get.width * 0.015, right: Get.width * 0.015),
                             child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : '15 Sentabr', color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400),
                           ) : Container(),
-                        Container(
+                            Container(
                             padding: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
                             margin: EdgeInsets.only(bottom: Get.height * 0.015),
                             width: Get.width,
