@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:get/get.dart';
+import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:rive/rive.dart' hide Image;
+import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -15,14 +18,16 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
   AnimationController? _signInAnimationController;
 
   late RiveAnimationController _btnController;
+  final GetController _getController = Get.put(GetController());
+
+  void open() {
+    Get.offAll(() => SamplePage(), transition: Transition.zoom);
+  }
 
   @override
   void initState() {
     super.initState();
-    _signInAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 360),
-        upperBound: 1,
-        vsync: this);
+    _signInAnimationController = AnimationController(duration: const Duration(milliseconds: 360), upperBound: 1, vsync: this);
     _btnController = OneShotAnimation("active", autoplay: false);
 
     const sprinDesc = SpringDescription(mass: 0.1, stiffness: 40, damping: 5);
@@ -31,6 +36,7 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
       if (!_btnController.isActive) {
         final springAnim = SpringSimulation(sprinDesc, 0, 1, 0);
         _signInAnimationController?.animateWith(springAnim);
+        _getController.tapTimes(open,1);
       }
     });
   }
@@ -55,22 +61,21 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                 offset: const Offset(200, 100),
                 child: Image.asset(
                   'assets/spline.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+                  fit: BoxFit.cover
+                )
+              )
+            )
           ),
           ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-            child: const RiveAnimation.asset('assets/shapes.riv'),
+            child: const RiveAnimation.asset('assets/shapes.riv')
           ),
           AnimatedBuilder(
             animation: _signInAnimationController!,
             builder: (context, child) {
               return Transform(
-                transform: Matrix4.translationValues(
-                    0, -50 * _signInAnimationController!.value, 0),
-                child: child,
+                transform: Matrix4.translationValues(0, -50 * _signInAnimationController!.value, 0),
+                child: child
               );
             },
             child: SafeArea(
@@ -83,19 +88,14 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                         width: 260,
                         child: const Text(
                           'Hicom mobil patnerlik ilovasi',
-                          style: TextStyle(fontFamily: 'Poppins', fontSize: 40, fontWeight: FontWeight.bold),
-                        ),
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 40, fontWeight: FontWeight.bold)
+                        )
                       ),
                       Text(
                         "Hicom — bu kamutatorlar va boshqa elektronika buyumlarining savdosini oshirishga qaratilgan patnerlik ilovasi. Siz bu ilova yordamida mahsulotlar bo'yicha ma'lumotlarga ega bo'lasiz va hamkorlar bilan ishlash imkoniyatiga ega bo'lasiz.",
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 18,
-                            color: Colors.black.withOpacity(0.7)),
+                        style: TextStyle(fontFamily: 'Inter', fontSize: 18, color: Colors.black.withOpacity(0.7))
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
                       const Spacer(),
                       GestureDetector(
                         onTap: () {
@@ -110,14 +110,15 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.3),
                                   blurRadius: 10,
-                                  offset: const Offset(0, 10),
+                                  offset: const Offset(0, 10)
                                 )
-                              ]),
+                              ]
+                          ),
                           child: Stack(children: [
                             RiveAnimation.asset(
                               'assets/button.riv',
                               fit: BoxFit.cover,
-                              controllers: [_btnController],
+                              controllers: [_btnController]
                             ),
                             Center(
                                 child: Transform.translate(
@@ -127,22 +128,18 @@ class _OnBoardingState extends State<OnBoarding> with TickerProviderStateMixin {
                                     children: [
                                       Icon(Icons.arrow_forward_rounded),
                                       SizedBox(width: 8),
-                                      Text(
-                                        'Boshlash',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                ))
-                          ]),
-                        ),
+                                      Text('Boshlash', style: TextStyle(fontSize: 16, fontFamily: 'Inter', fontWeight: FontWeight.bold))
+                                    ]
+                                  )
+                                )
+                            )
+                          ])
+                        )
                       )
-                    ],
-                  ),
-                )),
+                    ]
+                  )
+                )
+            )
           ),
           RepaintBoundary(
             child: AnimatedBuilder(
