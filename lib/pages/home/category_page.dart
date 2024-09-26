@@ -2,6 +2,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
@@ -28,22 +29,7 @@ class CategoryPage extends StatelessWidget {
         refreshController: _getController.refreshCategoryController,
         child: Column(
           children: [
-            Container(
-                margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.02, right: Get.width * 0.03),
-                height: Get.height * 0.05,
-                padding: EdgeInsets.only(right: Get.width * 0.01),
-                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
-                child: TextField(
-                    controller: _getController.searchController,
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                        hintText: 'Qidirish'.tr,
-                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                        prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
-                        border: InputBorder.none
-                    )
-                )
-            ),
+            SearchTextField(color: AppColors.greys.withOpacity(0.4)),
             SizedBox(height: Get.height * 0.02),
             SizedBox(
               child: GridView.builder(

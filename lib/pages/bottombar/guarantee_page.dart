@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/resource/colors.dart';
+import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
@@ -41,22 +42,7 @@ class GuaranteePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.01),
-            Container(
-                margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.02, right: Get.width * 0.03),
-                height: Get.height * 0.05,
-                padding: EdgeInsets.only(right: Get.width * 0.01),
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(15)),
-                child: TextField(
-                    controller: _getController.searchController,
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                        hintText: 'Qidirish'.tr,
-                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                        prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color: AppColors.black70)),
-                        border: InputBorder.none
-                    )
-                )
-            ),
+            SearchTextField(color: AppColors.white),
             Container(
                 width: Get.width,
                 padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),

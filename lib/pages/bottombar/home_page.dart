@@ -2,12 +2,15 @@ import 'dart:ui';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
 import 'package:hicom_patners/pages/home/notification_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import 'package:rive/rive.dart';
+import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
@@ -125,22 +128,8 @@ class HomePage extends StatelessWidget {
                     ]),
                     child: Column(
                         children: [
-                          Container(
-                              margin: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.02, right: Get.width * 0.03),
-                              height: Get.height * 0.05,
-                              padding: EdgeInsets.only(right: Get.width * 0.01),
-                              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
-                              child: TextField(
-                                  controller: _getController.searchController,
-                                  textInputAction: TextInputAction.search,
-                                  decoration: InputDecoration(
-                                      hintText: 'Qidirish'.tr,
-                                      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                                      prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
-                                      border: InputBorder.none
-                                  )
-                              )
-                          ),
+                          SizedBox(height: Get.height * 0.02),
+                          SearchTextField(color: AppColors.greys.withOpacity(0.4)),
                           SizedBox(height: Get.height * 0.02),
                           SizedBox(
                               width: Get.width * 0.97,
@@ -170,7 +159,7 @@ class HomePage extends StatelessWidget {
                                                           imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(20.r))));},
                                                           fit: BoxFit.cover
                                                       )
-                                                  ),
+                                                  )
                                                 ),
                                                 Container(
                                                     margin: EdgeInsets.only(top: Get.height * 0.01),
@@ -213,7 +202,7 @@ class HomePage extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: AppColors.white,
                                             borderRadius: BorderRadius.circular(20.r),
-                                            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
+                                            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1)
                                           ),
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
@@ -230,8 +219,8 @@ class HomePage extends StatelessWidget {
                                                             fit: BoxFit.cover
                                                         )
                                                     ),
-                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
-                                                  ],
+                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
+                                                  ]
                                                 ),
                                                 Padding(
                                                     padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
@@ -328,7 +317,7 @@ class HomePage extends StatelessWidget {
                           SizedBox(height: Get.height * 0.01),
                           SizedBox(height: Get.height * 0.01),
                           SizedBox(height: Get.height * 0.01)
-                        ]),
+                        ])
                   )
                 ]
             )
