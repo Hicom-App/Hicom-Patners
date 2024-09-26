@@ -202,12 +202,10 @@ class _AccountPageState extends State<AccountPage> {
                       _buildListTile(icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
                       _buildListTile(icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
                       _buildListTile(icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => NotificationPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: Icons.help, title: 'Yordam', onTap: () {
-                        launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication);
-                      }),
-                      _buildListTile(icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () {launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication);}),
-                      _buildListTile(icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () {launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication);}),
-                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {InstrumentComponents().logOutDialog(context);}),
+                      _buildListTile(icon: Icons.help, title: 'Yordam', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () => InstrumentComponents().logOutDialog(context)),
                       SizedBox(height: Get.height * 0.03),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
                       SizedBox(height: Get.height * 0.1)
