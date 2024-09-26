@@ -180,7 +180,7 @@ class _AccountPageState extends State<AccountPage> {
                               ]
                             ),
                             borderRadius: 30,
-                            child: const Text('Tahrir', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black))
+                            child: TextButton(onPressed: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp), child: TextSmall(text: 'Tahrir'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
                         )
                       )
                     ]

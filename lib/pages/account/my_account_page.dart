@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:hicom_patners/pages/account/settings_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../companents/filds/text_small.dart';
-import '../../companents/instrument/instrument_components.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
-import '../home/notification_page.dart';
-import '../home/transfer_to_wallet.dart';
-import 'arxiv_page.dart';
-import 'favorites_page.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({super.key});
@@ -145,15 +138,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                               ]
                                           ),
                                           borderRadius: 30,
-                                          child: TextButton(onPressed: Get.back, child: const Text('Tayyor', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black)))
-                                          //child: const Text('Tayyor', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black))
+                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Tayyor'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
                                       )
                                   ),
                                   Positioned(
                                       top: Get.height * 0.06,
                                       left: Get.width * 0.02,
                                       child:  GlassmorphicContainer(
-                                          width: Get.width * 0.31,
+                                          width: Get.width * 0.28,
                                           height: Get.height * 0.05,
                                           blur: 20,
                                           alignment: Alignment.center,
@@ -175,7 +167,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                               ]
                                           ),
                                           borderRadius: 30,
-                                          child: TextButton(onPressed: Get.back, child: const Text('Bekor qilish', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black)))
+                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
                                       )
                                   )
                                 ]
@@ -190,14 +182,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
                         color: AppColors.white,
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 10.h),
-                                    margin: EdgeInsets.only(bottom: 10.h,top: 10.h),
-                                    decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.0)),
-                                    child: Column(
+                              Container(
+                                  padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 5.h),
+                                  margin: EdgeInsets.only(bottom: 5.h,top: 10.h),
+                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.0)),
+                                  child: Column(
                                       children: [
                                         TextField(
                                             controller: _getController.searchController,
@@ -219,18 +211,53 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             )
                                         )
                                       ]
-                                    )
+                                  )
+                              ),
+                              _buildListTile(title: 'Sotuvchi', onTap: () {  }, icon: EneftyIcons.briefcase_bold),
+                              SizedBox(height: 5.h),
+                              Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                  margin: const EdgeInsets.only(top: 13.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      color: Colors.grey.withOpacity(0.2)
                                   ),
-                                  _buildListTile(title: 'Sotuvchi', onTap: () {  }, icon: EneftyIcons.briefcase_bold),
-                                  SizedBox(height: Get.height)
-                                ]
-                              )
+                                  child: ListTile(
+                                      onTap: (){},
+                                      hoverColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      title: const TextSmall(text: 'Tug`ilgan sana'),
+                                      trailing: const TextSmall(text: '31 mar 2003', color: AppColors.black70)
+                                  )
+                              ),
+                              SizedBox(height: 5.h),
+                              _buildListTiledelete(
+                                icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
+                                title: 'Hisobni o`chirish',
+                                onTap: (){}
+                              ),
+                              SizedBox(height: Get.height)
                             ]
                         )
                     )
                   ])
               )
             ]
+        )
+    );
+  }
+  Container _buildListTiledelete({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+    return Container(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        margin: const EdgeInsets.only(top: 13.0),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
+        child: ListTile(
+            onTap: onTap,
+            hoverColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            leading: Icon(icon, color: color),
+            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
+            //trailing: Icon(Icons.chevron_right, color: color)
         )
     );
   }

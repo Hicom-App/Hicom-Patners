@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
                                                 SizedBox(
                                                   width: Get.width * 0.06,
                                                   child: ClipRRect(
-                                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(10.r)),
+                                                      borderRadius: BorderRadius.all(Radius.circular(0)),
                                                       child: FadeInImage(
                                                           image: NetworkImage(_getController.listCategoryIcon[index]),
                                                           placeholder:NetworkImage(_getController.listCategoryIcon[index]),
