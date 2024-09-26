@@ -81,9 +81,9 @@ class _AccountPageState extends State<AccountPage> {
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.black,
-                      ),
-                    ),
+                        color: AppColors.black
+                      )
+                    )
                   ),
                   background: Stack(
                     alignment: Alignment.center,
@@ -100,9 +100,9 @@ class _AccountPageState extends State<AccountPage> {
                               height: fullImage ? Get.height : _avatarSize,
                               width: fullImage ? Get.width : _avatarSize,
                               fit: fullImage ?  BoxFit.none : BoxFit.cover
-                            ),
-                          ),
-                        ),
+                            )
+                          )
+                        )
                       ),
                       Positioned(
                         bottom: 0,
@@ -118,7 +118,7 @@ class _AccountPageState extends State<AccountPage> {
                               end: Alignment.bottomCenter,
                               colors: [
                                 AppColors.black.withOpacity(0.1),
-                                AppColors.black.withOpacity(0.3),
+                                AppColors.black.withOpacity(0.3)
                               ],
                               stops: const [0.1, 1]),
                             borderGradient: LinearGradient(
@@ -126,8 +126,8 @@ class _AccountPageState extends State<AccountPage> {
                               end: Alignment.bottomRight,
                               colors: [
                                 AppColors.black.withOpacity(0.9),
-                                AppColors.black.withOpacity(0.9),
-                              ],
+                                AppColors.black.withOpacity(0.9)
+                              ]
                             ),
                             borderRadius: 0,
                             child: const Column(
@@ -149,7 +149,7 @@ class _AccountPageState extends State<AccountPage> {
                               children: [
                                 Text('Dilshodjon Haydarov', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black)),
                                 SizedBox(height: 4),
-                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black,))
+                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black))
                               ]
                           )
                         )
@@ -168,7 +168,7 @@ class _AccountPageState extends State<AccountPage> {
                               end: Alignment.bottomRight,
                               colors: [
                                 const Color(0xFFffffff).withOpacity(0.1),
-                                const Color(0xFFFFFFFF).withOpacity(0.05),
+                                const Color(0xFFFFFFFF).withOpacity(0.05)
                               ],
                               stops: const [0.1, 1]),
                             borderGradient: LinearGradient(
@@ -176,8 +176,8 @@ class _AccountPageState extends State<AccountPage> {
                               end: Alignment.bottomRight,
                               colors: [
                                 const Color(0xFFffffff).withOpacity(0.5),
-                                const Color((0xFFFFFFFF)).withOpacity(0.5),
-                              ],
+                                const Color((0xFFFFFFFF)).withOpacity(0.5)
+                              ]
                             ),
                             borderRadius: 30,
                             child: const Text('Tahrir', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black))
@@ -210,7 +210,7 @@ class _AccountPageState extends State<AccountPage> {
                       _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () {InstrumentComponents().logOutDialog(context);}),
                       SizedBox(height: Get.height * 0.03),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
-                      SizedBox(height: Get.height * 0.1),
+                      SizedBox(height: Get.height * 0.1)
                     ]
                   )
                 )
@@ -241,5 +241,4 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 }
-
 
