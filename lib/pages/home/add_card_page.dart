@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_large.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
@@ -13,36 +14,27 @@ class AddCardPage extends StatelessWidget {
   AddCardPage({super.key});
 
   final GetController _getController = Get.put(GetController());
-  final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  //final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Kartaga o`tkazmalar'.tr),
-        ),
+        appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o`tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
         body: RefreshComponent(
           refreshController: _getController.refreshAddCardController,
           scrollController: _getController.scrollAddCardController,
-          child: Obx(() => Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20.h),
-              Container(
-                  width: Get.width,
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: TextSmall(text: 'Karta ma`lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
-              ),
+              Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'Karta ma`lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+            Obx(() =>
               Container(
                   width: Get.width,
                   height: Get.height * 0.22,
                   margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 20.h),
                   padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 10.h, bottom: 10.h),
-                  decoration: BoxDecoration(
-                      color: AppColors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(20.r),
-                      image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[_getController.cardBackIndex.value]), fit: BoxFit.cover)
-                  ),
+                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r), image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[_getController.cardBackIndex.value]), fit: BoxFit.cover)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -121,20 +113,16 @@ class AddCardPage extends StatelessWidget {
                                         )
                                     )
                                 else
-                                    SizedBox(
-                                        height: 70.h, width: 70.w),
+                                    SizedBox(height: 70.h, width: 70.w),
                             SizedBox(width: 20.w),
                             TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500),
                           ]
                         ),
                         SizedBox(height: Get.height * 0.03),
-                        SizedBox(
-                          width: Get.width,
-                          child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.w500)
-                        )
+                        SizedBox(width: Get.width, child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.w500))
                       ]
                   )
-              ),
+              )),
               SizedBox(
                   height: 50.h,
                   width: Get.width,
@@ -149,73 +137,20 @@ class AddCardPage extends StatelessWidget {
                               width: 50.w,
                               height: 50.h,
                               margin: EdgeInsets.only(left: 10.w),
-                              decoration: BoxDecoration(
-                                  color: AppColors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(200.r),
-                                  image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[index]), fit: BoxFit.cover)
-                              )
+                              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(200.r), image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[index]), fit: BoxFit.cover))
                           )
                       )
                   )
               ),
-              Container(
-                width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: TextSmall(text: 'Karta raqami'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
-              ),
-              Container(
-                  width: Get.width,
-                  margin: EdgeInsets.only(top: Get.height * 0.01,left: Get.width * 0.04, right: Get.width * 0.04,bottom: Get.height * 0.01),
-                  height: Get.height * 0.05,
-                  padding: EdgeInsets.only(right: Get.width * 0.01,left: Get.width * 0.03),
-                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.5), borderRadius: BorderRadius.circular(20.r)),
-                  child: TextField(
-                      controller: _getController.nameController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(color: AppColors.black),
-                      inputFormatters: [mackFormater],
-                      onChanged: (value) {
-                        _getController.cardNumberText.value = value;
-                      },
-                      decoration: InputDecoration(
-                          hintText: 'Karta raqami',
-                          hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: Get.width * 0.04),
-                          border: InputBorder.none
-                      )
-                  )
-              ),
-              Container(
-                width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500),
-              ),
-              Container(
-                  width: Get.width,
-                  margin: EdgeInsets.only(top: Get.height * 0.01,left: Get.width * 0.04, right: Get.width * 0.04,bottom: Get.height * 0.01),
-                  height: Get.height * 0.05,
-                  padding: EdgeInsets.only(right: Get.width * 0.01,left: Get.width * 0.03),
-                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.5), borderRadius: BorderRadius.circular(20.r)),
-                  child: TextField(
-                      controller: _getController.searchController,
-                      textInputAction: TextInputAction.done,
-                      style: const TextStyle(color: AppColors.black),
-                      onChanged: (value) {
-                        _getController.cardNameText.value = value;
-                      },
-                      decoration: InputDecoration(
-                          hintText: 'F.I.O',
-                          hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: Get.width * 0.04),
-                          border: InputBorder.none
-                      )
-                  )
-              ),
+              Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h), child: TextSmall(text: 'Karta raqami'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+              TextFieldCustom(fillColor: AppColors.greys, hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController),
+              Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+              TextFieldCustom(fillColor: AppColors.greys, hint: 'F.I.O', controller: _getController.nameController),
               Container(
                   width: Get.width,
                   margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,),
                   padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 10.h, bottom: 10.h),
-                  decoration: BoxDecoration(
-                      color: AppColors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(20.r)
-                  ),
+                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -224,12 +159,9 @@ class AddCardPage extends StatelessWidget {
                       SizedBox(width: 20.w),
                       SizedBox(
                           width: Get.width * 0.65,
-                          child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo\'shish mumkin. Agar boshqa bank kartasini qo\'shish kerak bo\'lsa, pastdagi telefon raqamini o\'zgartirish funksiyasidan foydalanish mumkin.'.tr,
-                              color: AppColors.black, fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
-                              maxLines: 200)
+                          child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo\'shish mumkin. Agar boshqa bank kartasini qo\'shish kerak bo\'lsa, pastdagi telefon raqamini o\'zgartirish funksiyasidan foydalanish mumkin.'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
                       )
-                    ],
+                    ]
                   )
               ),
               Container(
@@ -239,14 +171,14 @@ class AddCardPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                       backgroundColor: AppColors.blue,
-                      padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+                      padding: EdgeInsets.only(top: 15.h, bottom: 15.h)
                     ),
                     onPressed: () => Get.back(),
-                    child: TextSmall(text: 'Qo\'shish'.tr, color: AppColors.white),
+                    child: TextSmall(text: 'Qo\'shish'.tr, color: AppColors.white)
                   )
               )
-            ],
-          ))
+            ]
+          )
         )
     );
   }
