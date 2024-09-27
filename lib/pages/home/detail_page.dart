@@ -6,6 +6,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/product_item.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -126,12 +127,12 @@ class DetailPage extends StatelessWidget {
                           const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
                           Container(
                             width: Get.width,
-                            height: Get.height * 0.2,
+                            height: 135.h,
                             padding: EdgeInsets.only(top: Get.height * 0.01, bottom: Get.height * 0.01),
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: Get.height * 0.15,
+                                  height: 83.h,
                                   child: FadingEdgeScrollView.fromScrollView(
                                     gradientFractionOnEnd: 0.5,
                                     child: ListView.builder(
@@ -159,15 +160,14 @@ class DetailPage extends StatelessWidget {
                           const Divider(color: Colors.grey, thickness: 1),
                           SizedBox(height: Get.height * 0.02),
                           const TextSmall(text: 'Xususiyatlari', color: AppColors.blue, fontWeight: FontWeight.bold),
-
                           Container(
                               width: Get.width,
-                              height: Get.height * 0.2,
+                              height: 135.h,
                               padding: EdgeInsets.only(top: Get.height * 0.01, bottom: Get.height * 0.01),
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: Get.height * 0.15,
+                                    height: 83.h,
                                     child: FadingEdgeScrollView.fromScrollView(
                                       gradientFractionOnEnd: 0.5,
                                       child: ListView.builder(
@@ -222,64 +222,14 @@ class DetailPage extends StatelessWidget {
                               )
                           ),
                           SizedBox(
-                              height: Get.height * 0.21,
+                              height: 200.h,
                               width: Get.width,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: const BouncingScrollPhysics(),
-                                  padding: EdgeInsets.only(left: Get.width * 0.03),
                                   itemBuilder: (context, index) => InkWell(
                                       onTap: () => Get.to(DetailPage(index: index)),
-                                      child: Container(
-                                          height: Get.height * 0.14,
-                                          width: Get.width * 0.3,
-                                          margin: EdgeInsets.only(right: Get.width * 0.03),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            borderRadius: BorderRadius.circular(10.r),
-                                            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
-                                          ),
-                                          child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Stack(
-                                                  children: [
-                                                    ClipRRect(
-                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
-                                                        child: FadeInImage(
-                                                            image: NetworkImage(_getController.listImage[index]),
-                                                            placeholder: NetworkImage(_getController.listImage[index]),
-                                                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://frankfurt.apollo.olxcdn.com/v1/files/9qe84l7hvjln2-UZ/image;s=3024x3024'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                                            fit: BoxFit.cover
-                                                        )
-                                                    ),
-                                                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? Icons.favorite : Icons.favorite_border, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                    padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
-                                                    child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
-                                                          Row(
-                                                              children: [
-                                                                TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
-                                                              ]
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              const Icon(EneftyIcons.star_2_bold, color: AppColors.backgroundApp,size: 11),
-                                                              TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
-                                                            ],
-                                                          )
-                                                        ]
-                                                    )
-                                                )
-                                              ])
-                                      )
+                                      child: ProductItem(index: index)
                                   ),
                                   itemCount: _getController.listImage.length
                               )

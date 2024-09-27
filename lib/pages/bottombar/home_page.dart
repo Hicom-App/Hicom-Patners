@@ -177,7 +177,7 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                     const Spacer(),
-                                    TextButton(onPressed: () {}, child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
+                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
                                   ]
                               )
                           ),
@@ -203,7 +203,7 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                     const Spacer(),
-                                    TextButton(onPressed: () {}, child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
+                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
                                   ]
                               )
                           ),
