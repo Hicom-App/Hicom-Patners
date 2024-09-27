@@ -31,7 +31,6 @@ class TextFieldCustom extends StatelessWidget {
         textInputAction: TextInputAction.search,
         inputFormatters: (mack ?? false) ? [mackFormater] : [],
         onChanged: (value) {
-          print(value);
           if (controller == _getController.cardNumberController) {
             _getController.cardNumberText.value = _getController.cardNumberController.text;
           } else if (controller == _getController.nameController) {

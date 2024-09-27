@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_large.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
@@ -14,11 +13,11 @@ class AddCardPage extends StatelessWidget {
   AddCardPage({super.key});
 
   final GetController _getController = Get.put(GetController());
-  //final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.white,
         appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o`tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
         body: RefreshComponent(
           refreshController: _getController.refreshAddCardController,
@@ -31,19 +30,19 @@ class AddCardPage extends StatelessWidget {
             Obx(() =>
               Container(
                   width: Get.width,
-                  height: Get.height * 0.22,
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 20.h),
-                  padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 10.h, bottom: 10.h),
+                  height: 200.h,
+                  margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h,bottom: 20.h),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h, bottom: 10.h),
                   decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r), image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[_getController.cardBackIndex.value]), fit: BoxFit.cover)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(height: Get.height * 0.05),
+                        //SizedBox(height: Get.height * 0.05),
+                        SizedBox(height: 40.h),
                         Row(
                           children: [
-                            if(_getController.cardNumberText.value.toString().contains('9860') || _getController.cardNumberText.value.toString().contains('6262') || _getController.cardNumberText.value.toString().contains('9861'))
-                              SizedBox(
+                            if(_getController.cardNumberText.value.toString().contains('9860') || _getController.cardNumberText.value.toString().contains('6262') || _getController.cardNumberText.value.toString().contains('9861'))SizedBox(
                                   height: 70.h,
                                   width: 70.w,
                                   child: ClipRRect(
@@ -56,8 +55,7 @@ class AddCardPage extends StatelessWidget {
                                       )
                                   )
                               )
-                            else if (_getController.cardNumberText.value.toString().contains('8600') || _getController.cardNumberText.value.toString().contains('5614') || _getController.cardNumberText.value.toString().contains('4578'))
-                              SizedBox(
+                            else if (_getController.cardNumberText.value.toString().contains('8600') || _getController.cardNumberText.value.toString().contains('5614') || _getController.cardNumberText.value.toString().contains('4578')) SizedBox(
                                   height: 70.h,
                                   width: 70.w,
                                   child: ClipRRect(
@@ -70,8 +68,7 @@ class AddCardPage extends StatelessWidget {
                                       )
                                   )
                               )
-                            else if (_getController.cardNumberText.value.toString().contains('4'))
-                                SizedBox(
+                            else if (_getController.cardNumberText.value.toString().contains('4')) SizedBox(
                                     height: 70.h,
                                     width: 70.w,
                                     child: ClipRRect(
@@ -84,8 +81,7 @@ class AddCardPage extends StatelessWidget {
                                         )
                                     )
                                 )
-                              else if (_getController.cardNumberText.value.toString().contains('5'))
-                                  SizedBox(
+                              else if (_getController.cardNumberText.value.toString().contains('5')) SizedBox(
                                       height: 70.h,
                                       width: 70.w,
                                       child: ClipRRect(
@@ -98,8 +94,7 @@ class AddCardPage extends StatelessWidget {
                                           )
                                       )
                                   )
-                                else if (_getController.cardNumberText.value.toString().contains('62'))
-                                    SizedBox(
+                                else if (_getController.cardNumberText.value.toString().contains('62')) SizedBox(
                                         height: 70.h,
                                         width: 70.w,
                                         child: ClipRRect(
@@ -112,14 +107,13 @@ class AddCardPage extends StatelessWidget {
                                             )
                                         )
                                     )
-                                else
-                                    SizedBox(height: 70.h, width: 70.w),
-                            SizedBox(width: 20.w),
-                            TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500),
+                                else SizedBox(height: 20.h, width: 70.w),
+                            SizedBox(width: 10.w),
+                            TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.bold,fontSize: 19.sp),
                           ]
                         ),
-                        SizedBox(height: Get.height * 0.03),
-                        SizedBox(width: Get.width, child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.w500))
+                        SizedBox(height: 40.h),
+                        SizedBox(width: Get.width, child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.bold))
                       ]
                   )
               )),
@@ -148,8 +142,8 @@ class AddCardPage extends StatelessWidget {
               TextFieldCustom(fillColor: AppColors.greys, hint: 'F.I.O', controller: _getController.nameController),
               Container(
                   width: Get.width,
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,),
-                  padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 10.h, bottom: 10.h),
+                  margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h,),
+                  padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h, bottom: 10.h),
                   decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,13 +153,13 @@ class AddCardPage extends StatelessWidget {
                       SizedBox(width: 20.w),
                       SizedBox(
                           width: Get.width * 0.65,
-                          child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo\'shish mumkin. Agar boshqa bank kartasini qo\'shish kerak bo\'lsa, pastdagi telefon raqamini o\'zgartirish funksiyasidan foydalanish mumkin.'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
+                          child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo‘shish mumkin. Agar boshqa bank kartasini qo‘shish kerak bo‘lsa, pastdagi telefon raqamini o‘zgartirish funksiyasidan foydalanish mumkin.'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
                       )
                     ]
                   )
               ),
               Container(
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 50.h, top: 30.h),
+                  margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 50.h, top: 30.h),
                   width: Get.width,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -174,7 +168,7 @@ class AddCardPage extends StatelessWidget {
                       padding: EdgeInsets.only(top: 15.h, bottom: 15.h)
                     ),
                     onPressed: () => Get.back(),
-                    child: TextSmall(text: 'Qo\'shish'.tr, color: AppColors.white)
+                    child: TextSmall(text: 'Qo‘shish'.tr, color: AppColors.white)
                   )
               )
             ]
