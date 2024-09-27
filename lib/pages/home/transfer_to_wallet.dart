@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import '../../companents/filds/search_text_field.dart';
+import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
@@ -33,7 +35,7 @@ class TransferToWallet extends StatelessWidget {
             ),
             Container(
               width: Get.width,
-              margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+              margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
               padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
               decoration: BoxDecoration(
                 color: AppColors.grey.withOpacity(0.3),
@@ -65,7 +67,7 @@ class TransferToWallet extends StatelessWidget {
               onTap: () => InstrumentComponents().bottomSheetMeCards(context),
               child: Container(
                   width: Get.width,
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,),
+                  margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h,),
                   padding: EdgeInsets.only(left: 10.w, right: 15.w, top: 10.h, bottom: 10.h),
                   decoration: BoxDecoration(
                       color: AppColors.grey.withOpacity(0.3),
@@ -109,26 +111,11 @@ class TransferToWallet extends StatelessWidget {
             ),
             Container(
                 width: Get.width,
-                margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: TextSmall(text: 'To`lov summasi'.tr,
-                    color: AppColors.black, fontWeight: FontWeight.w500)
+                margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h, bottom: 10.h),
+                child: TextSmall(text: 'To`lov summasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
             ),
-            Container(
-                margin: EdgeInsets.only(left: Get.width * 0.04, top: Get.height * 0.02, right: Get.width * 0.04),
-                height: Get.height * 0.05,
-                padding: EdgeInsets.only(right: Get.width * 0.01,left: Get.width * 0.03),
-                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
-                child: TextField(
-                    controller: _getController.searchController,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                        hintText: _getController.listProductPrice[index],
-                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
-                        border: InputBorder.none
-                    )
-                )
-            ),
-          ],
+            TextFieldCustom(fillColor: AppColors.greys, hint: '828',)
+          ]
         )
       )
     );
