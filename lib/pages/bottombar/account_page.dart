@@ -24,7 +24,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final ScrollController _scrollController = ScrollController();
   bool _isTitleVisible = false;
-  double _avatarSize = 120.0;
+  double _avatarSize = 100.0;
   final double _minAvatarSize = 50.0;
   final double _maxAvatarSize = 160.0;
   bool fullImage = false;
@@ -61,7 +61,7 @@ class _AccountPageState extends State<AccountPage> {
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            expandedHeight: fullImage ? 400.0 : 250.0,
+            expandedHeight: fullImage ? 400.sp : 250.sp,
             pinned: true,
             elevation: 1,
             backgroundColor: AppColors.white,
@@ -76,14 +76,7 @@ class _AccountPageState extends State<AccountPage> {
                   title: AnimatedOpacity(
                     opacity: _isTitleVisible ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
-                    child: const Text(
-                      "Dilshojdon Haydarov",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.black
-                      )
-                    )
+                    child: Text("Dilshojdon Haydarov", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black))
                   ),
                   background: Stack(
                     alignment: Alignment.center,
@@ -109,7 +102,7 @@ class _AccountPageState extends State<AccountPage> {
                         child: fullImage
                             ? GlassmorphicContainer(
                             width: Get.width,
-                            height: Get.height * 0.08,
+                            height: 65.h,
                             blur: 20,
                             alignment: Alignment.center,
                             border: 0,
@@ -142,24 +135,24 @@ class _AccountPageState extends State<AccountPage> {
                         )
                             : SizedBox(
                           width: Get.width,
-                          height: Get.height * 0.08,
-                          child: const Column(
+                          height: 60.h,
+                          child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Dilshodjon Haydarov', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black)),
-                                SizedBox(height: 4),
-                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.black))
+                                TextSmall(text: 'Dilshodjon Haydarov',color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 22.sp),
+                                SizedBox(height: 5.h),
+                                const TextSmall(text: '+998 99 534 03 13',color: AppColors.black, fontWeight: FontWeight.w500)
                               ]
                           )
                         )
                       ),
                       Positioned(
-                        top: Get.height * 0.06,
-                        right: Get.width * 0.02,
+                        top: 60.h,
+                        right: 15.w,
                         child:  GlassmorphicContainer(
-                            width: Get.width * 0.18,
-                            height: Get.height * 0.04,
+                            width: 80.w,
+                            height: 35.h,
                             blur: 20,
                             alignment: Alignment.center,
                             border: 0,
@@ -193,7 +186,7 @@ class _AccountPageState extends State<AccountPage> {
             delegate: SliverChildListDelegate([
                 Container(
                   color: AppColors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                   child: Column(
                     children: [
                       _buildListTile(icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp)),
@@ -206,9 +199,10 @@ class _AccountPageState extends State<AccountPage> {
                       _buildListTile(icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
                       _buildListTile(icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
                       _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () => InstrumentComponents().logOutDialog(context)),
-                      SizedBox(height: Get.height * 0.03),
+                      SizedBox(height: 20.h),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
-                      SizedBox(height: Get.height * 0.1)
+                      SizedBox(height: Get.height * 0.1),
+                      SizedBox(height: Get.height)
                     ]
                   )
                 )
