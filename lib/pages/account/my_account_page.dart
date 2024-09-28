@@ -113,7 +113,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   ),
                                   Positioned(
-                                      top: 40.h,
+                                      top: 50.h,
                                       right: 15.w,
                                       child:  GlassmorphicContainer(
                                           width: 80.w,
@@ -142,7 +142,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   ),
                                   Positioned(
-                                      top: 40.h,
+                                      top: 50.h,
                                       left: 15.w,
                                       child:  GlassmorphicContainer(
                                           width: 100.w,
@@ -180,7 +180,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   delegate: SliverChildListDelegate([
                     Container(
                         color: AppColors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: EdgeInsets.symmetric(horizontal: 16.h),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -196,7 +196,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             textInputAction: TextInputAction.search,
                                             decoration: InputDecoration(
                                                 hintText: 'Ism'.tr,
-                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
+                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp),
                                                 border: InputBorder.none
                                             )
                                         ),
@@ -206,7 +206,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             textInputAction: TextInputAction.search,
                                             decoration: InputDecoration(
                                                 hintText: 'Familya'.tr,
-                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Get.width * 0.04),
+                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp),
                                                 border: InputBorder.none
                                             )
                                         )
@@ -214,6 +214,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   )
                               ),
                               _buildListTile(title: 'Sotuvchi', onTap: () {  }, icon: EneftyIcons.briefcase_bold),
+                              _buildListTile(title: 'O‘zbekiston', onTap: () {  }, icon: EneftyIcons.global_bold),
+                              _buildListTile(title: 'Qo‘qon shaxar', onTap: () {  }, icon: EneftyIcons.map_bold),
+                              _buildListTileDelete(title: 'Qaysidur ko‘cha 12-uy', onTap: () {  }, icon: EneftyIcons.home_hashtag_bold),
                               SizedBox(height: 5.h),
                               Container(
                                   padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -231,11 +234,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   )
                               ),
                               SizedBox(height: 5.h),
-                              _buildListTiledelete(
-                                icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
-                                title: 'Hisobni o`chirish',
-                                onTap: (){}
-                              ),
+                              _buildListTileDelete(icon:  EneftyIcons.profile_delete_bold,color: Colors.red, title: 'Hisobni o`chirish', onTap: (){}),
                               SizedBox(height: Get.height)
                             ]
                         )
@@ -246,29 +245,26 @@ class _MyAccountPageState extends State<MyAccountPage> {
         )
     );
   }
-  Container _buildListTiledelete({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+  Container _buildListTileDelete({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
-        margin: const EdgeInsets.only(top: 13.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
+        margin: EdgeInsets.only(top: 13.h),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
         child: ListTile(
             onTap: onTap,
             hoverColor: Colors.transparent,
             focusColor: Colors.transparent,
             leading: Icon(icon, color: color),
-            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
+            title: Text(title, style: TextStyle(fontSize: 14.sp, color: color)),
             //trailing: Icon(Icons.chevron_right, color: color)
         )
     );
   }
   Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
-        margin: const EdgeInsets.only(top: 13.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.grey.withOpacity(0.2)
-        ),
+        padding: EdgeInsets.symmetric(vertical: 5.h),
+        margin: EdgeInsets.only(top: 13.h),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
         child: ListTile(
             onTap: onTap,
             hoverColor: Colors.transparent,
