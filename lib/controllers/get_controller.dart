@@ -282,6 +282,7 @@ class GetController extends GetxController {
   final TextEditingController searchController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController surNameController = TextEditingController();
   final RefreshController refreshController = RefreshController(initialRefresh: false);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();

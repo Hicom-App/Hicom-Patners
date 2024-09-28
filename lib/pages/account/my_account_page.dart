@@ -50,6 +50,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    _getController.nameController.text = _getController.fullName.value.substring(0, _getController.fullName.value.indexOf(' '));
+    _getController.surNameController.text = _getController.fullName.value.substring(_getController.fullName.value.indexOf(' '));
     return Scaffold(
         backgroundColor: AppColors.white,
         body: CustomScrollView(
@@ -192,7 +194,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   child: Column(
                                       children: [
                                         TextField(
-                                            controller: _getController.searchController,
+                                            controller: _getController.nameController,
                                             textInputAction: TextInputAction.search,
                                             decoration: InputDecoration(
                                                 hintText: 'Ism'.tr,
@@ -202,7 +204,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         ),
                                         const Divider(),
                                         TextField(
-                                            controller: _getController.searchController,
+                                            controller: _getController.surNameController,
                                             textInputAction: TextInputAction.search,
                                             decoration: InputDecoration(
                                                 hintText: 'Familya'.tr,
