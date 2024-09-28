@@ -235,7 +235,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               SizedBox(height: 5.h),
                               _buildListTileDelete(icon:  EneftyIcons.profile_delete_bold,color: Colors.red, title: 'Hisobni o`chirish', onTap: (){}),
-                              SizedBox(height: Get.height)
+                              SizedBox(height: 500.h)
                             ]
                         )
                     )
@@ -260,6 +260,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
         )
     );
   }
+
   Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 5.h),
