@@ -30,7 +30,7 @@ class ChecksPage extends StatelessWidget {
                 SizedBox(height: 20.h),
                 SizedBox(
                     width: Get.width,
-                    height: Get.height * 0.03,
+                    height: 30.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: _getController.listMonth.length,
@@ -39,7 +39,7 @@ class ChecksPage extends StatelessWidget {
                         child: Container(
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(left: 15.w),
-                            padding: EdgeInsets.only(left: 10.w, right: 10.w,),
+                            padding: EdgeInsets.only(left: 10.w, right: 10.w),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20.r),
                               color: _getController.selectedMonth.value == index
@@ -55,7 +55,6 @@ class ChecksPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(height: 10.h),
                     Container(
                         width: Get.width * 0.44,
                         margin: EdgeInsets.only(top: 15.h,),
@@ -109,17 +108,15 @@ class ChecksPage extends StatelessWidget {
                               )
 
                             ])
-                    ),
-                    SizedBox(height: 10.h),
-                  ],
+                    )
+                  ]
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(height: 10.h),
                     Container(
-                        width: Get.width * 0.44,
+                        width: Get.width * 0.45,
                         margin: EdgeInsets.only(top: 15.h,),
                         padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                         decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
@@ -146,7 +143,7 @@ class ChecksPage extends StatelessWidget {
                             ])
                     ),
                     Container(
-                        width: Get.width * 0.44,
+                        width: Get.width * 0.45,
                         margin: EdgeInsets.only(top: 15.h),
                         padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                         decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
@@ -171,9 +168,8 @@ class ChecksPage extends StatelessWidget {
                               )
 
                             ])
-                    ),
-                    SizedBox(height: 10.h),
-                  ],
+                    )
+                  ]
                 ),
                 SizedBox(height: 30.h),
                 SizedBox(
@@ -188,7 +184,7 @@ class ChecksPage extends StatelessWidget {
                               children: [
                                 index == 0 || index == 2 || index == 3 || index == 6 || index == 13? Container(
                                   margin: EdgeInsets.only(top: Get.width * 0.02),
-                                  padding: EdgeInsets.only(left: Get.width * 0.015, right: Get.width * 0.015),
+                                  padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                   child: TextSmall(text:
                                   index == 0 ? 'Bugun'
                                       : index == 2 ? 'Kecha'
@@ -201,10 +197,7 @@ class ChecksPage extends StatelessWidget {
                                     alignment: Alignment.center,
                                     margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h),
                                     padding: EdgeInsets.only(right: 10.w, top: 10.h, bottom: 10.h),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20.r),
-                                        color: AppColors.grey.withOpacity(0.1)
-                                    ),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.grey.withOpacity(0.1)),
                                     child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -214,10 +207,8 @@ class ChecksPage extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                index == 0 ? TextSmall(text: 'Bank kartalari',
-                                                    color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp) : index == 1 ? TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp): index == 2 ? TextSmall(text: 'Bank Kartalari', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp):TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp),
-                                                index == 0 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500)
-                                                    :index == 2 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500):  const TextSmall(text: 'Balansni to`ldirish', color: AppColors.black, fontWeight: FontWeight.w500)
+                                                index == 0 ? TextSmall(text: 'Bank kartalari', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp) : index == 1 ? TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp): index == 2 ? TextSmall(text: 'Bank Kartalari', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp):TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp),
+                                                index == 0 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500) :index == 2 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500):  const TextSmall(text: 'Balansni to`ldirish', color: AppColors.black, fontWeight: FontWeight.w500)
                                               ]
                                           ),
                                           const Spacer(),
@@ -238,14 +229,8 @@ class ChecksPage extends StatelessWidget {
                                                       Container(
                                                           margin: EdgeInsets.only(top: 3.h,right: 5.w),
                                                           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h, bottom: 3.h),
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(50.r),
-                                                              color: index == 0 ? AppColors.green : index == 1 ? AppColors.red : index == 2 ? AppColors.primaryColor : AppColors.blue
-                                                          ),
-                                                          child: TextSmall(
-                                                              text: index == 0 ? 'To`landi'.tr : index == 1 ? 'Rad etildi'.tr : index == 2 ? 'Jarayonda'.tr : 'Qabul qilindi'.tr,
-                                                              color: AppColors.white,
-                                                              fontWeight: FontWeight.w400, fontSize: 11.sp)
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color: index == 0 ? AppColors.green : index == 1 ? AppColors.red : index == 2 ? AppColors.primaryColor : AppColors.blue),
+                                                          child: TextSmall(text: index == 0 ? 'To`landi'.tr : index == 1 ? 'Rad etildi'.tr : index == 2 ? 'Jarayonda'.tr : 'Qabul qilindi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp)
                                                       ),
                                                       TextSmall(text: _getController.listNamesDay[index], color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp)
                                                     ]
