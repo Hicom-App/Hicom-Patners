@@ -17,7 +17,7 @@ class MyAccountPage extends StatefulWidget {
 class _MyAccountPageState extends State<MyAccountPage> {
   final ScrollController _scrollController = ScrollController();
   bool _isTitleVisible = false;
-  double _avatarSize = 120.0;
+  double _avatarSize = 100.0;
   final double _minAvatarSize = 50.0;
   final double _maxAvatarSize = 160.0;
   bool fullImage = false;
@@ -57,7 +57,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: fullImage ? 400.0 : 250.0,
+                  expandedHeight: fullImage ? 400.sp : 250.sp,
                   pinned: true,
                   elevation: 1,
                   backgroundColor: AppColors.white,
@@ -107,17 +107,17 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                           ? const SizedBox()
                                           : Container(
                                           width: Get.width,
-                                          height: Get.height * 0.08,
+                                          height: 80.h,
                                           alignment: Alignment.center,
                                           child: const TextSmall(text: 'Yangi rasm bergilash', color: AppColors.blue, fontWeight: FontWeight.bold),
                                       )
                                   ),
                                   Positioned(
-                                      top: Get.height * 0.06,
-                                      right: Get.width * 0.02,
+                                      top: 40.h,
+                                      right: 15.w,
                                       child:  GlassmorphicContainer(
-                                          width: Get.width * 0.2,
-                                          height: Get.height * 0.05,
+                                          width: 80.w,
+                                          height: 35.h,
                                           blur: 20,
                                           alignment: Alignment.center,
                                           border: 0,
@@ -142,11 +142,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   ),
                                   Positioned(
-                                      top: Get.height * 0.06,
-                                      left: Get.width * 0.02,
+                                      top: 40.h,
+                                      left: 15.w,
                                       child:  GlassmorphicContainer(
-                                          width: Get.width * 0.28,
-                                          height: Get.height * 0.05,
+                                          width: 100.w,
+                                          height: 35.h,
                                           blur: 20,
                                           alignment: Alignment.center,
                                           border: 0,
