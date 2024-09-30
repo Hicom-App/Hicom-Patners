@@ -18,7 +18,8 @@ class GuaranteePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.grey.withOpacity(0.1),
-      backgroundColor: AppColors.greys,
+      //backgroundColor: AppColors.greys,
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
       appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -43,7 +44,8 @@ class GuaranteePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.01),
-            SearchTextField(color: AppColors.white),
+            //SearchTextField(color: AppColors.white),
+            SearchTextField(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greys.withOpacity(0.4)),
             Container(
                 width: Get.width,
                 padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
@@ -56,13 +58,13 @@ class GuaranteePage extends StatelessWidget {
                           children: [index == 0 || index == 2 || index == 3 ? Container(
                             margin: EdgeInsets.only(bottom: Get.width * 0.02),
                             padding: EdgeInsets.only(left: Get.width * 0.015, right: Get.width * 0.015),
-                            child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : '15 Sentabr', color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400),
+                            child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : '15 Sentabr', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400),
                           ) : Container(),
                             Container(
                             padding: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
                             margin: EdgeInsets.only(bottom: Get.height * 0.015),
                             width: Get.width,
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greysBack, borderRadius: BorderRadius.circular(20.r)),
                             child: Column(
                                 children: [
                                   Row(
@@ -89,31 +91,29 @@ class GuaranteePage extends StatelessWidget {
                                               children: [
                                                 SizedBox(
                                                   width: 110.w,
-                                                  child: TextSmall(text: 'Kategoriya:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp),
+                                                  child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
                                                 ),
-                                                //TextSmall(text: listImagePrice[index], color: AppColors.black,fontWeight: FontWeight.w300,fontSize: 14.sp),
-                                                TextSmall(text: _getController.listImageName[index], color: AppColors.black,fontWeight: FontWeight.w300,fontSize: 14.sp),
+                                                TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
                                               ]
                                             ),
                                             Row(
                                                 children: [
                                                   SizedBox(
                                                     width: 110.w,
-                                                    child: TextSmall(text: 'Qo`shilgan:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp),
+                                                    child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)
                                                   ),
-                                                  TextSmall(text: _getController.listPriceAnd[index], color: AppColors.black,fontWeight: FontWeight.w300,fontSize: 14.sp),
+                                                  TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.w300,fontSize: 14.sp),
                                                 ]
                                             ),
                                             Row(
                                                 children: [
                                                   SizedBox(
                                                     width: 110.w,
-                                                    child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp),
+                                                    child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
                                                   ),
-                                                  TextSmall(text: _getController.listPrice[index].toString(), color: AppColors.black,fontWeight: FontWeight.w300,fontSize: 14.sp),
+                                                  TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
                                                 ]
                                             ),
-
                                             SizedBox(height: 5.h),
                                             Row(
                                                 children: [
@@ -123,7 +123,7 @@ class GuaranteePage extends StatelessWidget {
                                                     decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
                                                     child: Center(child: TextSmall(
                                                         text: index == 2 ? 'Faol emas' : 'Faol',
-                                                        color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13),)
+                                                        color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
                                                   ),
                                                   Container(
                                                     padding: const EdgeInsets.all(3),
@@ -148,7 +148,7 @@ class GuaranteePage extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        TextSmall(text: _getController.listImagePrice[index].toString(), color: AppColors.black,fontWeight: FontWeight.w500),
+                                        TextSmall(text: _getController.listImagePrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
                                       ]
                                   )
                                 ]

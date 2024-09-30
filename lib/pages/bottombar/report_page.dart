@@ -15,12 +15,12 @@ class ReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         appBar: AppBar(
-          backgroundColor: AppColors.white,
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
           foregroundColor: AppColors.black,
           surfaceTintColor: AppColors.white,
-          title: TextSmall(text: 'Mening cheklarim'.tr, color: AppColors.black, fontWeight: FontWeight.w500),
+          title: TextSmall(text: 'Mening cheklarim'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
         ),
         body: Obx(() =>
             RefreshComponent(
@@ -44,10 +44,13 @@ class ReportPage extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20.r),
                                         color: _getController.selectedMonth.value == index
-                                            ? AppColors.blue // Selected color
-                                            : AppColors.greys, // Default color
+                                            ? AppColors.blue
+                                            : Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4)
                                       ),
-                                      child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index ? AppColors.white : AppColors.black, fontWeight: FontWeight.w500, maxLines: 1)
+                                      child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index
+                                          ? AppColors.white
+                                          : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                          fontWeight: FontWeight.w500, maxLines: 1)
                                   )
                               )
                           )
@@ -60,7 +63,10 @@ class ReportPage extends StatelessWidget {
                                 width: Get.width * 0.44,
                                 margin: EdgeInsets.only(top: 15.h,),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(
+                                    //color: AppColors.greys,
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -68,26 +74,34 @@ class ReportPage extends StatelessWidget {
                                       TextSmall(text: 'Hisoblangan'.tr, color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       Row(
                                           children: [
-                                            TextSmall(text: '2 202.71'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '2 202.71'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'so`m'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       ),
                                       Row(
                                           children: [
-                                            TextSmall(text: '14'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
 
-                                    ])
+                                    ]
+                                )
                             ),
                             Container(
                                 width: Get.width * 0.44,
                                 margin: EdgeInsets.only(top: 15.h),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(
+                                    //color: AppColors.greys,
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -95,16 +109,20 @@ class ReportPage extends StatelessWidget {
                                       TextSmall(text: 'Rad etilgan'.tr, color: AppColors.red, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       Row(
                                           children: [
-                                            TextSmall(text: '0.00'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'so`m'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       ),
                                       Row(
                                           children: [
-                                            TextSmall(text: '0'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
 
@@ -120,7 +138,10 @@ class ReportPage extends StatelessWidget {
                                 width: Get.width * 0.45,
                                 margin: EdgeInsets.only(top: 15.h,),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(
+                                    //color: AppColors.greys,
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,16 +149,20 @@ class ReportPage extends StatelessWidget {
                                       TextSmall(text: 'Jarayonda'.tr, color: AppColors.primaryColor, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       Row(
                                           children: [
-                                            TextSmall(text: '0.00'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'so`m'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       ),
                                       Row(
                                           children: [
-                                            TextSmall(text: '14'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
 
@@ -147,7 +172,10 @@ class ReportPage extends StatelessWidget {
                                 width: Get.width * 0.45,
                                 margin: EdgeInsets.only(top: 15.h),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(
+                                    //color: AppColors.greys,
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -155,16 +183,28 @@ class ReportPage extends StatelessWidget {
                                       TextSmall(text: 'To`langan'.tr, color: AppColors.green, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       Row(
                                           children: [
-                                            TextSmall(text: '10000.01'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '10000.01'.tr,
+                                                //color: AppColors.black,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'so`m'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'so`m'.tr,
+                                                //color: AppColors.black,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       ),
                                       Row(
                                           children: [
-                                            TextSmall(text: '1'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                            TextSmall(text: '1'.tr,
+                                                //color: AppColors.black,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w500, fontSize: 14.sp),
                                             SizedBox(width: 5.w),
-                                            TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                            TextSmall(text: 'ta'.tr,
+                                                //color: AppColors.black,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
 
@@ -192,7 +232,9 @@ class ReportPage extends StatelessWidget {
                                               : index == 3 ? '15 Sentabr'
                                               : index == 6 ? '10 Sentabr'
                                               : '5 Sentabr',
-                                              color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400),
+                                              //color: AppColors.black.withOpacity(0.6),
+                                              color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.6) : AppColors.white.withOpacity(0.6),
+                                              fontWeight: FontWeight.w400),
                                         ) : Container(),
                                         Container(
                                             alignment: Alignment.center,
@@ -208,8 +250,13 @@ class ReportPage extends StatelessWidget {
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        index == 0 ? TextSmall(text: 'Bank kartalari', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp) : index == 1 ? TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp): index == 2 ? TextSmall(text: 'Bank Kartalari', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp):TextSmall(text: 'Keshbek', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp),
-                                                        index == 0 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500) :index == 2 ? TextSmall(text: _getController.listNames[index], color: AppColors.black, fontWeight: FontWeight.w500):  const TextSmall(text: 'Balansni to`ldirish', color: AppColors.black, fontWeight: FontWeight.w500)
+                                                        index == 0 ? TextSmall(text: 'Bank kartalari', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.w400, fontSize: 13.sp)
+                                                            : index == 1 ? TextSmall(text: 'Keshbek', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp)
+                                                            : index == 2 ? TextSmall(text: 'Bank Kartalari', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp)
+                                                            : TextSmall(text: 'Keshbek', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp),
+                                                        index == 0 ? TextSmall(text: _getController.listNames[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                                                            : index == 2 ? TextSmall(text: _getController.listNames[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                                                            : TextSmall(text: 'Balansni to`ldirish', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                                       ]
                                                   ),
                                                   const Spacer(),
@@ -219,10 +266,10 @@ class ReportPage extends StatelessWidget {
                                                       children: [
                                                         Row(
                                                             children: [
-                                                              TextSmall(text: _getController.listNamesPay[index], color: _getController.listNamesPay[index].contains('-') ? AppColors.red : AppColors.black, fontWeight: FontWeight.w500),
-                                                              TextSmall(text: '.00'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                                              TextSmall(text: _getController.listNamesPay[index], color: _getController.listNamesPay[index].contains('-') ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
+                                                              TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp),
                                                               SizedBox(width: 5.w),
-                                                              TextSmall(text: 'So`m'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp)
+                                                              TextSmall(text: 'So`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp)
                                                             ]
                                                         ),
                                                         Row(
@@ -233,7 +280,7 @@ class ReportPage extends StatelessWidget {
                                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color: index == 0 ? AppColors.green : index == 1 ? AppColors.red : index == 2 ? AppColors.primaryColor : AppColors.blue),
                                                                   child: TextSmall(text: index == 0 ? 'To`landi'.tr : index == 1 ? 'Rad etildi'.tr : index == 2 ? 'Jarayonda'.tr : 'Qabul qilindi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp)
                                                               ),
-                                                              TextSmall(text: _getController.listNamesDay[index], color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp)
+                                                              TextSmall(text: _getController.listNamesDay[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp)
                                                             ]
                                                         )
                                                       ]

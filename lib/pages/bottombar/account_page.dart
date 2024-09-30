@@ -55,8 +55,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: AppColors.white,
-        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
@@ -65,10 +64,9 @@ class _AccountPageState extends State<AccountPage> {
             expandedHeight: fullImage ? 400.sp : 250.sp,
             pinned: true,
             elevation: 1,
-            //backgroundColor: AppColors.white,
             backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
             surfaceTintColor: AppColors.white,
-            shadowColor: AppColors.white,
+            shadowColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
             foregroundColor: AppColors.white,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -78,7 +76,6 @@ class _AccountPageState extends State<AccountPage> {
                   title: AnimatedOpacity(
                     opacity: _isTitleVisible ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
-                    //child: Text("Dilshojdon Haydarov", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black))
                     child: TextSmall(text: "Dilshojdon Haydarov", color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
                   ),
                   background: Stack(
@@ -137,17 +134,17 @@ class _AccountPageState extends State<AccountPage> {
                           )
                         )
                             : SizedBox(
-                          width: Get.width,
-                          height: 60.h,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextSmall(text: 'Dilshodjon Haydarov',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 22.sp),
-                                SizedBox(height: 5.h),
-                                TextSmall(text: '+998 99 534 03 13',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
-                              ]
-                          )
+                            width: Get.width,
+                            height: 60.h,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextSmall(text: 'Dilshodjon Haydarov',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 22.sp),
+                                  SizedBox(height: 5.h),
+                                  TextSmall(text: '+998 99 534 03 13',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                                ]
+                            )
                         )
                       ),
                       Positioned(
@@ -193,7 +190,6 @@ class _AccountPageState extends State<AccountPage> {
           SliverList(
             delegate: SliverChildListDelegate([
                 Container(
-                  //color: AppColors.white,
                   color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                   child: Column(
