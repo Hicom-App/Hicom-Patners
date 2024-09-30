@@ -35,7 +35,7 @@ class TransferToWallet extends StatelessWidget {
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h),
                       padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
-                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), borderRadius: BorderRadius.circular(20.r)),
+                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
                           Icon(EneftyIcons.card_bold, color: AppColors.blue, size: 40.sp),
@@ -106,7 +106,7 @@ class TransferToWallet extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
                       child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                   ),
-                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), hint: '828', controller: _getController.noteProjectController)
+                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: '828', controller: _getController.noteProjectController)
                 ]
             )
         )

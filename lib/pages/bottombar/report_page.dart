@@ -45,7 +45,7 @@ class ReportPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20.r),
                                         color: _getController.selectedMonth.value == index
                                             ? AppColors.blue
-                                            : Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4)
+                                            : Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2)
                                       ),
                                       child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index
                                           ? AppColors.white
@@ -65,7 +65,7 @@ class ReportPage extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                                 decoration: BoxDecoration(
                                     //color: AppColors.greys,
-                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
                                     borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +100,7 @@ class ReportPage extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                                 decoration: BoxDecoration(
                                     //color: AppColors.greys,
-                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
                                     borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +140,7 @@ class ReportPage extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                                 decoration: BoxDecoration(
                                     //color: AppColors.greys,
-                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
                                     borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +174,7 @@ class ReportPage extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                                 decoration: BoxDecoration(
                                     //color: AppColors.greys,
-                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4),
+                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
                                     borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,

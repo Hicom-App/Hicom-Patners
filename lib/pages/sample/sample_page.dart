@@ -26,7 +26,6 @@ class SamplePage extends StatelessWidget {
         body: Obx(() => _getController.widgetOptions.elementAt(_getController.index.value)),
         extendBody: true,
         bottomNavigationBar: Obx(() => Card(
-            //color: AppColors.white,
             color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greysBack,
             elevation: 5,
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),

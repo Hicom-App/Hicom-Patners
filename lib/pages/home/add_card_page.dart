@@ -137,9 +137,9 @@ class AddCardPage extends StatelessWidget {
                   )
               ),
               Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 10.h), child: TextSmall(text: 'Karta raqami'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
-              TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController),
+              TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController),
               Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
-              TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), hint: 'F.I.O', controller: _getController.nameController),
+              TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: 'F.I.O', controller: _getController.nameController),
               Container(
                   width: Get.width,
                   margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h,),

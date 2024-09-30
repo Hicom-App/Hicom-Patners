@@ -116,18 +116,16 @@ class HomePage extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        //color: AppColors.white,
                         color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [
                           BoxShadow(
-                              //color: AppColors.grey.withOpacity(0.5),
                               color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.grey.withOpacity(0.5),
                               spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3))
                     ]),
                     child: Column(
                         children: [
                           SizedBox(height: 20.h),
-                          SearchTextField(color: AppColors.greys.withOpacity(0.4)),
+                          SearchTextField(color: AppColors.grey.withOpacity(0.2)),
                           SizedBox(height: Get.height * 0.02),
                           SizedBox(
                               width: Get.width,

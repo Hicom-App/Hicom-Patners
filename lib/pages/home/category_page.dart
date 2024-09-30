@@ -30,7 +30,7 @@ class CategoryPage extends StatelessWidget {
         refreshController: _getController.refreshCategoryController,
         child: Column(
           children: [
-            SearchTextField(color: AppColors.greys.withOpacity(0.4)),
+            SearchTextField(color: AppColors.grey.withOpacity(0.2)),
             SizedBox(height: Get.height * 0.02),
             SizedBox(
               child: GridView.builder(

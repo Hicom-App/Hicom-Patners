@@ -45,7 +45,7 @@ class GuaranteePage extends StatelessWidget {
           children: [
             SizedBox(height: Get.height * 0.01),
             //SearchTextField(color: AppColors.white),
-            SearchTextField(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greys.withOpacity(0.4)),
+            SearchTextField(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.grey.withOpacity(0.2)),
             Container(
                 width: Get.width,
                 padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
