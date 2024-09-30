@@ -40,16 +40,8 @@ class ChecksPage extends StatelessWidget {
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.only(left: 15.w),
                                 padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    color: _getController.selectedMonth.value == index
-                                        ? AppColors.blue
-                                        : Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2)
-                                ),
-                                child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index
-                                    ? AppColors.white
-                                    : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                    fontWeight: FontWeight.w500, maxLines: 1)
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: _getController.selectedMonth.value == index ? AppColors.blue : Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2)),
+                                child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, maxLines: 1)
                             )
                         )
                     )
@@ -62,10 +54,7 @@ class ChecksPage extends StatelessWidget {
                           width: Get.width * 0.44,
                           margin: EdgeInsets.only(top: 15.h,),
                           padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                          decoration: BoxDecoration(
-                            //color: AppColors.greys,
-                              color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.all(Radius.circular(20.r))),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,23 +62,18 @@ class ChecksPage extends StatelessWidget {
                                 TextSmall(text: 'Hisoblangan'.tr, color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                 Row(
                                     children: [
-                                      TextSmall(text: '2 202.71'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '2 202.71'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 ),
                                 Row(
                                     children: [
-                                      TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 )
-
                               ]
                           )
                       ),
@@ -98,7 +82,6 @@ class ChecksPage extends StatelessWidget {
                           margin: EdgeInsets.only(top: 15.h),
                           padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
                           decoration: BoxDecoration(
-                            //color: AppColors.greys,
                               color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
                               borderRadius: BorderRadius.all(Radius.circular(20.r))),
                           child: Column(
@@ -108,24 +91,20 @@ class ChecksPage extends StatelessWidget {
                                 TextSmall(text: 'Rad etilgan'.tr, color: AppColors.red, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                 Row(
                                     children: [
-                                      TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 ),
                                 Row(
                                     children: [
-                                      TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 )
-
-                              ])
+                              ]
+                          )
                       )
                     ]
                 ),
@@ -137,10 +116,7 @@ class ChecksPage extends StatelessWidget {
                           width: Get.width * 0.45,
                           margin: EdgeInsets.only(top: 15.h,),
                           padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                          decoration: BoxDecoration(
-                            //color: AppColors.greys,
-                              color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.all(Radius.circular(20.r))),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -148,33 +124,26 @@ class ChecksPage extends StatelessWidget {
                                 TextSmall(text: 'Jarayonda'.tr, color: AppColors.primaryColor, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                 Row(
                                     children: [
-                                      TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '0.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 ),
                                 Row(
                                     children: [
-                                      TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 )
-
-                              ])
+                              ]
+                          )
                       ),
                       Container(
                           width: Get.width * 0.45,
                           margin: EdgeInsets.only(top: 15.h),
                           padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                          decoration: BoxDecoration(
-                            //color: AppColors.greys,
-                              color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.all(Radius.circular(20.r))),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -182,32 +151,20 @@ class ChecksPage extends StatelessWidget {
                                 TextSmall(text: 'To`langan'.tr, color: AppColors.green, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                 Row(
                                     children: [
-                                      TextSmall(text: '10000.01'.tr,
-                                          //color: AppColors.black,
-                                          color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '10000.01'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'so`m'.tr,
-                                          //color: AppColors.black,
-                                          color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 ),
                                 Row(
                                     children: [
-                                      TextSmall(text: '1'.tr,
-                                          //color: AppColors.black,
-                                          color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                      TextSmall(text: '1'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp),
                                       SizedBox(width: 5.w),
-                                      TextSmall(text: 'ta'.tr,
-                                          //color: AppColors.black,
-                                          color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                          fontWeight: FontWeight.w400, fontSize: 14.sp),
+                                      TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                     ]
                                 )
-
-                              ])
+                              ]
+                          )
                       )
                     ]
                 ),

@@ -18,12 +18,12 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
-        foregroundColor: AppColors.black,
-        surfaceTintColor: AppColors.white,
-        title: TextSmall(text: 'Kategoriya'.tr, color: AppColors.black, fontWeight: FontWeight.w500),
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+        surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
       ),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,

@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
@@ -10,50 +11,48 @@ import '../../resource/colors.dart';
 class ChecksDetail extends StatelessWidget{
   ChecksDetail({super.key});
 
-
   final GetController _getController = Get.put(GetController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
+          icon: Icon(Icons.close, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
           onPressed: () {
             Get.back();
-          },
+          }
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.download, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
+            icon: Icon(Icons.download, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
+            onPressed: () {}
+          )
+        ]
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Icon(Icons.check_circle, color: Colors.green, size: 80),
             SizedBox(height: 10),
-            Text(
-              'Muvaffaqiyatli o‘tkazildi',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 5),
-            Text(
+            TextSmall(text: 'Muvaffaqiyatli o‘tkazildi',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
+            SizedBox(height: 5.h),
+            /*Text(
               'Yak, 6 Iyun 2022',
               style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 20),
+            ),*/
+            TextSmall(text: 'Yak, 6 Iyun 2022',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+            SizedBox(height: 20.h),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(15.w),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                //color: Colors.grey[200],
+
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

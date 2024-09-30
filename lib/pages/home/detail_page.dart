@@ -33,7 +33,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: RiveAppTheme.background,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: RefreshComponent(
             refreshController: _getController.refreshGuaranteeController,
             scrollController: _getController.scrollGuaranteeController,
@@ -61,34 +61,37 @@ class DetailPage extends StatelessWidget {
                                       AppBar(
                                           surfaceTintColor: Colors.transparent,
                                           shadowColor: Colors.transparent,
-                                          foregroundColor: Colors.transparent,
+                                          foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
                                           backgroundColor: Colors.transparent,
                                           centerTitle: true,
                                           elevation: 0,
-                                          leading: IconButton(icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
-                                          title: TextLarge(text: listImageName[index], color: AppColors.black),
+                                          title: TextLarge(text: listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
                                           actions: [
-                                            IconButton(icon: Icon(Icons.share, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
-                                            IconButton(icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
+                                            IconButton(icon: Icon(Icons.share, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
+                                            IconButton(icon: Icon(Icons.more_vert, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
                                           ]
-                                      ),
+                                      )
                                     ]
                                 )
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: Get.width,
+                                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 10)]
+                                )
+                              )
                             )
                           ]
                       )
                   ),
                   Container(
                     width: Get.width,
-                    decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)), boxShadow: [
-                      BoxShadow(
-                          color: AppColors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3)
-                      )
-                    ]),
-                    padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.01),
+                    padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -105,23 +108,19 @@ class DetailPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextSmall(text: listImagePrice[index], color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 2),
+                              TextSmall(text: listImagePrice[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 2),
                               Container(
                                 padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, top: 4.sp, bottom: 4.sp),
-                                decoration: BoxDecoration(
-                                    color: AppColors.blue,
-                                    borderRadius: BorderRadius.circular(10.r)
-                                ),
+                                decoration: BoxDecoration(color: AppColors.blue, borderRadius: BorderRadius.circular(10.r)),
                                 child: Row(
                                   children: [
                                     Icon(Icons.gpp_good_sharp, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
-                                    //Icon(Icons.security, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
                                     SizedBox(width: Get.width * 0.01),
-                                    TextSmall(text: '1 yil', color: AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
-                                  ],
+                                    TextSmall(text: '1 yil', color: AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)
+                                  ]
                                 )
                               )
-                            ],
+                            ]
                           ),
                           SizedBox(height: Get.height * 0.02),
                           const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
@@ -141,20 +140,20 @@ class DetailPage extends StatelessWidget {
                                       physics: const NeverScrollableScrollPhysics(),
                                       controller: _getController.scrollControllerOk,
                                       itemBuilder: (context, index) => TextSmall(text: _getController.listImageInfo[index], color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 12),
-                                      itemCount: _getController.listImageInfo.length,
-                                    ),
-                                  ),
+                                      itemCount: _getController.listImageInfo.length
+                                    )
+                                  )
                                 ),
                                 InkWell(
                                   onTap: () => print('ok'),
                                   child: Row(
                                     children: [
-                                      const TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14),
-                                      Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
-                                    ],
+                                      TextSmall(text: 'Batafsil', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                      Icon(Icons.keyboard_arrow_down, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill)
+                                    ]
                                   )
                                 )
-                              ],
+                              ]
                             )
                           ),
                           const Divider(color: Colors.grey, thickness: 1),
@@ -184,12 +183,12 @@ class DetailPage extends StatelessWidget {
                                       onTap: () => print('ok'),
                                       child: Row(
                                         children: [
-                                          const TextSmall(text: 'Batafsil', color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 1),
-                                          Icon(Icons.keyboard_arrow_down, color: AppColors.black, size: Theme.of(context).iconTheme.fill)
-                                        ],
+                                          TextSmall(text: 'Batafsil', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                          Icon(Icons.keyboard_arrow_down, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill)
+                                        ]
                                       )
                                   )
-                                ],
+                                ]
                               )
                           ),
                           const Divider(color: Colors.grey, thickness: 1),

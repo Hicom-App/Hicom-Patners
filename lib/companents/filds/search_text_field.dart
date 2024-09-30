@@ -18,7 +18,7 @@ class SearchTextField extends StatelessWidget{
     return Container(
         height: 52.sp,
         padding: EdgeInsets.only(right: 5.sp),
-        margin: EdgeInsets.only(right: 10.sp,left: 10.sp),
+        margin: EdgeInsets.only(right: 15.sp,left: 15.sp),
         child: TextField(
             controller: _getController.searchController,
             textInputAction: TextInputAction.search,
