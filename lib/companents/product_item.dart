@@ -20,7 +20,11 @@ class ProductItem extends StatelessWidget{
         height: 200.h,
         width: 135.w,
         margin: EdgeInsets.only(right: 15.w),
-        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1)),
+        decoration: BoxDecoration(
+            //color: AppColors.white,
+            color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            borderRadius: BorderRadius.circular(20.r),
+            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1)),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,10 +50,9 @@ class ProductItem extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
-                        Row(
-                            children: [
-                              TextSmall(text: _getController.listImagePrice[index], color: AppColors.black),
-                            ]
+                        TextSmall(text: _getController.listImagePrice[index],
+                            //color: AppColors.black
+                            color: Theme.of(context).colorScheme.onSurface,
                         ),
                         Row(
                             children: [

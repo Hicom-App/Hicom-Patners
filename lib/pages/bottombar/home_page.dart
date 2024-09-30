@@ -25,8 +25,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: AppColors.grey.withOpacity(0.1),
-        backgroundColor: AppColors.greys,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
+        //backgroundColor: AppColors.greys,
         body: RefreshComponent(
             scrollController: _getController.scrollController,
             refreshController: _getController.refreshController,
@@ -80,7 +80,8 @@ class HomePage extends StatelessWidget {
                                               }
                                             },
                                             child: Card(
-                                              color: AppColors.white,
+                                              //color: AppColors.white,
+                                              color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
                                               elevation: 0,
                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
                                               child: SizedBox(
@@ -90,7 +91,7 @@ class HomePage extends StatelessWidget {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
-                                                    TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black),
+                                                    TextSmall(text: _getController.listTitle[index].tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,13 +115,14 @@ class HomePage extends StatelessWidget {
                       )
                   ),
                   Container(
-                    decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [
-                      BoxShadow(
-                          color: AppColors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3)
-                      )
+                    decoration: BoxDecoration(
+                        //color: AppColors.white,
+                        color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
+                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [
+                          BoxShadow(
+                              //color: AppColors.grey.withOpacity(0.5),
+                              color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.grey.withOpacity(0.5),
+                              spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3))
                     ]),
                     child: Column(
                         children: [
@@ -138,8 +140,9 @@ class HomePage extends StatelessWidget {
                                           margin: EdgeInsets.only(left: 15.w),
                                           padding: EdgeInsets.only(left: 6.w, right: 6.w),
                                           decoration: BoxDecoration(
-                                              color: AppColors.white,
-                                              border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), width: 1),
+                                              //color: AppColors.white,
+                                              color: Theme.of(context).brightness == Brightness.dark ? AppColors.black70 : AppColors.white,
+                                              border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1),
                                               borderRadius: BorderRadius.circular(20.r)),
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +163,10 @@ class HomePage extends StatelessWidget {
                                                 Container(
                                                     margin: EdgeInsets.only(top: 5.h),
                                                     width: 65.w,
-                                                    child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.black.withOpacity(0.7), maxLines: 1, fontSize: 10.sp))
+                                                    child: Center(child: TextSmall(text: _getController.list[index].tr,
+                                                        //color: AppColors.black.withOpacity(0.7),
+                                                        color: Theme.of(context).colorScheme.onSurface,
+                                                        maxLines: 1, fontSize: 10.sp))
                                                 )
                                               ]
                                           )

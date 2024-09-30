@@ -11,9 +11,9 @@ class SplashScreen extends StatelessWidget {
   final GetController _getController = Get.put(GetController());
 
   void open() {
-    //Get.offAll(() => SamplePage(), transition: Transition.fadeIn);
+    Get.offAll(() => SamplePage(), transition: Transition.fadeIn);
     //Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
-    Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
+    //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,22 +21,18 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Sozlamalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
       body: Column(
         children: [
-          _buildListTile(icon: EneftyIcons.security_bold,
-              title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
-          _buildListTile(icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
-          _buildListTile(icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
+          _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
+          _buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
+          _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
         ]
       )
     );
   }
-  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black,required int status}) {
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color = Colors.black,required int status}) {
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.grey.withOpacity(0.2)
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
         child: ListTile(
             onTap: onTap,
             hoverColor: Colors.transparent,
@@ -44,8 +41,10 @@ class SettingsPage extends StatelessWidget {
             title: Text(title, style: TextStyle(fontSize: 14, color: color)),
             trailing: status == 0 ? Icon(Icons.chevron_right, color: color)
                 : status == 1 ? CupertinoSwitch(
-              value: false,
-              onChanged: (value) {},
+              value: Theme.of(context).brightness == Brightness.dark,
+              onChanged: (value) {
+                AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
+              },
               activeColor: AppColors.green,
               trackColor: AppColors.grey.withOpacity(0.5),
               focusColor: AppColors.green,

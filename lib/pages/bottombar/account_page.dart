@@ -55,8 +55,9 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      body: CustomScrollView(
+      //backgroundColor: AppColors.white,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
+        body: CustomScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -64,7 +65,8 @@ class _AccountPageState extends State<AccountPage> {
             expandedHeight: fullImage ? 400.sp : 250.sp,
             pinned: true,
             elevation: 1,
-            backgroundColor: AppColors.white,
+            //backgroundColor: AppColors.white,
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
             surfaceTintColor: AppColors.white,
             shadowColor: AppColors.white,
             foregroundColor: AppColors.white,
@@ -76,7 +78,8 @@ class _AccountPageState extends State<AccountPage> {
                   title: AnimatedOpacity(
                     opacity: _isTitleVisible ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
-                    child: Text("Dilshojdon Haydarov", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black))
+                    //child: Text("Dilshojdon Haydarov", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black))
+                    child: TextSmall(text: "Dilshojdon Haydarov", color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
                   ),
                   background: Stack(
                     alignment: Alignment.center,
@@ -110,26 +113,26 @@ class _AccountPageState extends State<AccountPage> {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                AppColors.black.withOpacity(0.1),
-                                AppColors.black.withOpacity(0.3)
+                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.1) : AppColors.black.withOpacity(0.1),
+                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.3) : AppColors.black.withOpacity(0.3)
                               ],
                               stops: const [0.1, 1]),
                             borderGradient: LinearGradient(
                               begin: Alignment.center,
                               end: Alignment.bottomRight,
                               colors: [
-                                AppColors.black.withOpacity(0.9),
-                                AppColors.black.withOpacity(0.9)
+                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9),
+                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9)
                               ]
                             ),
                             borderRadius: 0,
-                            child: const Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Dilshodjon Haydarov', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.white)),
-                                SizedBox(height: 4),
-                                Text('+998 99 534 03 13', style: TextStyle(color: AppColors.white))
+                                TextSmall(text: 'Dilshodjon Haydarov',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 22.sp),
+                                SizedBox(height: 4.h),
+                                TextSmall(text: '+998 99 534 03 13',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                               ]
                           )
                         )
@@ -140,9 +143,9 @@ class _AccountPageState extends State<AccountPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TextSmall(text: 'Dilshodjon Haydarov',color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 22.sp),
+                                TextSmall(text: 'Dilshodjon Haydarov',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 22.sp),
                                 SizedBox(height: 5.h),
-                                const TextSmall(text: '+998 99 534 03 13',color: AppColors.black, fontWeight: FontWeight.w500)
+                                TextSmall(text: '+998 99 534 03 13',color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                               ]
                           )
                         )
@@ -162,6 +165,8 @@ class _AccountPageState extends State<AccountPage> {
                               colors: [
                                 const Color(0xFFffffff).withOpacity(0.1),
                                 const Color(0xFFFFFFFF).withOpacity(0.05)
+                                //Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                                //Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black
                               ],
                               stops: const [0.1, 1]),
                             borderGradient: LinearGradient(
@@ -170,10 +175,13 @@ class _AccountPageState extends State<AccountPage> {
                               colors: [
                                 const Color(0xFFffffff).withOpacity(0.5),
                                 const Color((0xFFFFFFFF)).withOpacity(0.5)
+                                //Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                                //Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black
                               ]
                             ),
                             borderRadius: 30,
-                            child: TextButton(onPressed: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp), child: TextSmall(text: 'Tahrir'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
+                            child: TextButton(onPressed: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp), child: TextSmall(text: 'Tahrir'.tr,color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                fontWeight: FontWeight.bold))
                         )
                       )
                     ]
@@ -185,20 +193,21 @@ class _AccountPageState extends State<AccountPage> {
           SliverList(
             delegate: SliverChildListDelegate([
                 Container(
-                  color: AppColors.white,
+                  //color: AppColors.white,
+                  color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                   child: Column(
                     children: [
-                      _buildListTile(icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => const NotificationPage(), transition: Transition.downToUp)),
-                      _buildListTile(icon: Icons.help, title: 'Yordam', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
-                      _buildListTile(icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
-                      _buildListTile(icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
-                      _buildListTile(icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () => InstrumentComponents().logOutDialog(context)),
+                      _buildListTile(context: context, icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => MyAccountPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => const NotificationPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: Icons.help, title: 'Yordam', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(context: context, icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(context: context, icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                      _buildListTile(context: context, icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () => InstrumentComponents().logOutDialog(context)),
                       SizedBox(height: 20.h),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
                       SizedBox(height: Get.height * 0.1),
@@ -214,14 +223,12 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color}) {
+    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       margin: const EdgeInsets.only(top: 13.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Colors.grey.withOpacity(0.2)
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
       child: ListTile(
         onTap: onTap,
         hoverColor: Colors.transparent,

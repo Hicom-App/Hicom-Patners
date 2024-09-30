@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,9 +17,9 @@ main() async {
   ]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // Yoki istalgan rang
-      statusBarIconBrightness: Brightness.dark, // Ikkita variant: Brightness.dark yoki Brightness.light
-    ),
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark
+    )
   );
   runApp(MyApp());
 }
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _getController.setHeightWidth(context);
-    return ScreenUtilInit(
+    /*return ScreenUtilInit(
         designSize: Size(_getController.width.value, _getController.height.value),
         minTextAdapt: true,
         splitScreenMode: true,
@@ -42,6 +43,28 @@ class MyApp extends StatelessWidget {
             locale: GetController().language,
             home: SplashScreen(),
           );
-        });
+        });*/
+    return ScreenUtilInit(
+        designSize: Size(_getController.width.value, _getController.height.value),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return AdaptiveTheme(
+              debugShowFloatingThemeButton: true,
+              initial: AdaptiveThemeMode.light,
+              light: ThemeData.light(useMaterial3: true),
+              dark: ThemeData.dark(useMaterial3: true),
+              builder: (theme, lightTheme) => GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Hicom',
+                theme: theme,
+                translations: LocaleString(),
+                locale: GetController().language,
+                darkTheme: lightTheme,
+                home: SplashScreen(),
+              )
+          );
+        },
+    );
   }
 }
