@@ -25,7 +25,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.grey.withOpacity(0.1),
+        //backgroundColor: AppColors.grey.withOpacity(0.1),
+        backgroundColor: AppColors.greys,
         body: RefreshComponent(
             scrollController: _getController.scrollController,
             refreshController: _getController.refreshController,

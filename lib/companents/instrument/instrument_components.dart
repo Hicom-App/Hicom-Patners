@@ -257,11 +257,11 @@ class InstrumentComponents {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(20.0),left: Radius.circular(30.0))),
       enableDrag: false,
       isScrollControlled: false,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: AppColors.white,
       StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.vertical(top: Radius.circular(30.0))),
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.vertical(top: Radius.circular(30.0))),
                 width: Get.width,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -492,7 +492,6 @@ class InstrumentComponents {
         ),
     );
   }
-
 
 
 }

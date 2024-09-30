@@ -202,7 +202,7 @@ class _AccountPageState extends State<AccountPage> {
                       SizedBox(height: 20.h),
                       TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
                       SizedBox(height: Get.height * 0.1),
-                      SizedBox(height: Get.height)
+                      SizedBox(height: 400.h)
                     ]
                   )
                 )

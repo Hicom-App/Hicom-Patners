@@ -45,7 +45,7 @@ class ReportPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20.r),
                                         color: _getController.selectedMonth.value == index
                                             ? AppColors.blue // Selected color
-                                            : AppColors.grey.withOpacity(0.1), // Default color
+                                            : AppColors.greys, // Default color
                                       ),
                                       child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index ? AppColors.white : AppColors.black, fontWeight: FontWeight.w500, maxLines: 1)
                                   )
@@ -60,7 +60,7 @@ class ReportPage extends StatelessWidget {
                                 width: Get.width * 0.44,
                                 margin: EdgeInsets.only(top: 15.h,),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -80,14 +80,14 @@ class ReportPage extends StatelessWidget {
                                             TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
-                                    ]
-                                )
+
+                                    ])
                             ),
                             Container(
                                 width: Get.width * 0.44,
                                 margin: EdgeInsets.only(top: 15.h),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -107,8 +107,8 @@ class ReportPage extends StatelessWidget {
                                             TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
-                                    ]
-                                )
+
+                                    ])
                             )
                           ]
                       ),
@@ -120,7 +120,7 @@ class ReportPage extends StatelessWidget {
                                 width: Get.width * 0.45,
                                 margin: EdgeInsets.only(top: 15.h,),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -140,14 +140,14 @@ class ReportPage extends StatelessWidget {
                                             TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
-                                    ]
-                                )
+
+                                    ])
                             ),
                             Container(
                                 width: Get.width * 0.45,
                                 margin: EdgeInsets.only(top: 15.h),
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.all(Radius.circular(20.r))),
                                 child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -167,8 +167,8 @@ class ReportPage extends StatelessWidget {
                                             TextSmall(text: 'ta'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
                                           ]
                                       )
-                                    ]
-                                )
+
+                                    ])
                             )
                           ]
                       ),

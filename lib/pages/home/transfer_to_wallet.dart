@@ -31,7 +31,7 @@ class TransferToWallet extends StatelessWidget {
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h),
                       padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
-                      decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(20.r)),
+                      decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
                           Icon(EneftyIcons.card_bold, color: AppColors.blue, size: 40.sp),

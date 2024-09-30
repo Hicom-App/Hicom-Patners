@@ -17,7 +17,8 @@ class GuaranteePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.1),
+      //backgroundColor: Colors.grey.withOpacity(0.1),
+      backgroundColor: AppColors.greys,
       appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           shadowColor: Colors.transparent,
