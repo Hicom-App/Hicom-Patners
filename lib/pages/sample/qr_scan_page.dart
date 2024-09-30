@@ -21,7 +21,7 @@ class QRViewExample extends StatelessWidget {
               onPressed: () => Get.back()
           ),
           actions: [
-            Obx(() => IconButton(icon: Icon(_getController.cameraFacing.value == CameraFacing.front ? EneftyIcons.repeat_circle_bold : Icons.camera_front, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleCamera)),
+            Obx(() => IconButton(icon: Icon(_getController.cameraFacing.value == CameraFacing.front ? EneftyIcons.repeate_one_bold : EneftyIcons.repeat_circle_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleCamera)),
             Obx(() => IconButton(icon: Icon(_getController.isLampOn.value ? EneftyIcons.lamp_slash_bold : EneftyIcons.lamp_on_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: _getController.toggleLamp))
         ]
       ),
