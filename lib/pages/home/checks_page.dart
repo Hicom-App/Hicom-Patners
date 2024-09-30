@@ -18,8 +18,8 @@ class ChecksPage extends StatelessWidget {
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         appBar: AppBar(
             backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-            foregroundColor: AppColors.black,
-            surfaceTintColor: AppColors.white,
+            foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+            surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
             title: TextSmall(text: 'Mening cheklarim'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
         body: Obx(() =>
             RefreshComponent(
