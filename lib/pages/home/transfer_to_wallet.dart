@@ -18,20 +18,24 @@ class TransferToWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o`tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+            surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            title: TextSmall(text: 'Kartaga o`tkazmalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
         body: RefreshComponent(
             refreshController: _getController.refreshTransferWalletController,
             scrollController: _getController.scrollTransferWalletController,
             child: Column(
                 children: [
                   SizedBox(height: 20.h),
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To`lovga tasdiqlangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To`lovga tasdiqlangan'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
                   Container(
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h),
                       padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
-                      decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(20.r)),
+                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
                           Icon(EneftyIcons.card_bold, color: AppColors.blue, size: 40.sp),
@@ -41,14 +45,16 @@ class TransferToWallet extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               TextSmall(text: 'Keshbek 10%'.tr, color: AppColors.red, fontWeight: FontWeight.w500),
-                              TextSmall(text: _getController.listProductPrice[index] + ' so`m'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
+                              TextSmall(text: _getController.listProductPrice[index] + ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                             ]
                           )
                         ]
                       )
                   ),
                   SizedBox(height: 20.h),
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr,
+                      color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                      fontWeight: FontWeight.w500)),
                   GestureDetector(
                       onTap: () => InstrumentComponents().bottomSheetMeCards(context),
                       child: Container(
@@ -98,9 +104,9 @@ class TransferToWallet extends StatelessWidget {
                   Container(
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
-                      child: TextSmall(text: 'To`lov summasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500)
+                      child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                   ),
-                  TextFieldCustom(fillColor: AppColors.greys, hint: '828', controller: _getController.noteProjectController)
+                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.greys.withOpacity(0.4), hint: '828', controller: _getController.noteProjectController)
                 ]
             )
         )

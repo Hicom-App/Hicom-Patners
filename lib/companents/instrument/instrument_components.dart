@@ -254,14 +254,19 @@ class InstrumentComponents {
   );
 
   bottomSheetMeCards(BuildContext context) => Get.bottomSheet(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(20.0),left: Radius.circular(30.0))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
       enableDrag: false,
       isScrollControlled: false,
-      backgroundColor: AppColors.white,
+      elevation: 10,
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: const BorderRadius.vertical(top: Radius.circular(30.0))),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+                    boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.greys.withOpacity(0.3), spreadRadius: 2, blurRadius: 5, offset: const Offset(0, 3))]
+                ),
                 width: Get.width,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,16 +277,16 @@ class InstrumentComponents {
                           margin: EdgeInsets.only(left: Get.width * 0.35, right: Get.width * 0.35),
                           width: Get.width,
                           height: 5.h,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              color: AppColors.black
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                              color: Theme.of(context).brightness == Brightness.light ? AppColors.grey : AppColors.grey.withOpacity(0.5)
                           )
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(width: 20.w),
-                          TextLarge(text: 'Mening kartalarim'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
+                          TextLarge(text: 'Mening kartalarim'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                           const Spacer(),
                           IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.rotate_right_outline, color: Theme.of(context).colorScheme.onSurface, size: 30)),
                           SizedBox(width: 20.w),
@@ -347,7 +352,6 @@ class InstrumentComponents {
                             )
                         )
                       )
-
                     ]
                 )
             );

@@ -43,11 +43,8 @@ class TextFieldCustom extends StatelessWidget {
           border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20)),
           fillColor: fillColor,
           hintText: hint.tr,
-          hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 18.sp),
-          prefixIcon: icons != null
-              ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty
-              ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 15.sp))
-              : const SizedBox(height: 0, width: 0)
+          hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.5) : AppColors.white.withOpacity(0.6), fontSize: 18.sp),
+          prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 15.sp)) : const SizedBox(height: 0, width: 0)
         )
       )
     );
