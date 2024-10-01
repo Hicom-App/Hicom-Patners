@@ -308,6 +308,17 @@ class GetController extends GetxController {
 
   Locale get language => Locale(GetStorage().read('language') ?? 'uz_UZ');
 
+  String languageName(language){
+    if (language == 'uz_UZ') {
+      return 'O‘zbekcha';
+    } else if (language == 'ru_RU') {
+      return 'Русский';
+    } else if (language == 'en_US') {
+      return 'English';
+    }
+    return 'Ўзбекча';
+  }
+
 
 
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);

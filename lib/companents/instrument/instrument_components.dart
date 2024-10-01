@@ -411,26 +411,26 @@ class InstrumentComponents {
         StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return SizedBox(
-                  height: Get.height * 0.5,
+                  height: Get.height * 0.6,
                   width: double.infinity,
                   child: Column(
                       children: [
                         Container(
-                            height: Get.height * 0.005,
-                            width: Get.width * 0.2,
-                            margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03),
-                            decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(10.0))
+                            height: 5.h,
+                            width: 100.w,
+                            margin: EdgeInsets.only(top: 20.h, bottom: 30.h),
+                            decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(20.r))
                         ),
-                        TextLarge(text: 'Tilni tanlang'.tr, color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
+                        TextSmall(text: 'Tilni tanlang'.tr, color: Theme.of(context).colorScheme.onSurface),
                         SizedBox(height: Get.height * 0.04),
                         Expanded(
                             child: ListView.builder(
                                 itemCount: locale.length,
                                 itemBuilder: (context, index){
                                   return Container(
-                                      height: Get.height * 0.07,
+                                      height: Get.height * 0.06,
                                       width: double.infinity,
-                                      padding: EdgeInsets.only(left: Get.width * 0.035, right: Get.width * 0.035),
+                                      padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                       child: Column(
                                         children: [
                                           InkWell(

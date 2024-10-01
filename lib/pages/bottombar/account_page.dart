@@ -198,7 +198,7 @@ class _AccountPageState extends State<AccountPage> {
                       _buildListTile(context: context, icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.downToUp)),
                       _buildListTile(context: context, icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
                       _buildListTile(context: context, icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
-                      _buildListTile(context: context, icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => const SettingsPage(), transition: Transition.downToUp)),
+                      _buildListTile(context: context, icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
                       _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => const NotificationPage(), transition: Transition.downToUp)),
                       _buildListTile(context: context, icon: Icons.help, title: 'Yordam', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
                       _buildListTile(context: context, icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),

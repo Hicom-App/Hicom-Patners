@@ -4,13 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/account/safety_page.dart';
 import '../../companents/filds/text_small.dart';
+import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
 
+  final GetController _getController = Get.put(GetController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,15 +23,20 @@ class SettingsPage extends StatelessWidget {
           surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
           title: TextSmall(text: 'Sozlamalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: Column(
-        children: [
-          _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
-          _buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
-          _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
-        ]
+          children: [
+            _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
+            _buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
+            _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr,
+                lang: _getController.languageName(Get.locale.toString()),
+                onTap: (){
+                  InstrumentComponents().languageDialog(context);
+                }, status: 3)
+          ]
       )
     );
   }
-  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color, required int status}) {
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color, required int status, lang}) {
+    lang ??= 'English';
     color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -40,8 +48,10 @@ class SettingsPage extends StatelessWidget {
             focusColor: Colors.transparent,
             leading: Icon(icon, color: color),
             title: Text(title, style: TextStyle(fontSize: 14, color: color)),
-            trailing: status == 0 ? Icon(Icons.chevron_right, color: color)
-                : status == 1 ? CupertinoSwitch(
+            trailing: status == 0
+                ? Icon(Icons.chevron_right, color: color)
+                : status == 1
+                ? CupertinoSwitch(
               value: Theme.of(context).brightness == Brightness.dark,
               onChanged: (value) {
                 AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
@@ -51,11 +61,9 @@ class SettingsPage extends StatelessWidget {
               focusColor: AppColors.blue,
               thumbColor: AppColors.white,
               applyTheme: true,
-            ) : TextSmall(text: 'O‘zbekcha',
-                //color: AppColors.black.withOpacity(0.7),
-                color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey,
-                fontWeight: FontWeight.w400, fontSize: 14.sp)
-        ),
+            )
+                : TextSmall(text: lang, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14.sp)
+        )
     );
   }
 }
