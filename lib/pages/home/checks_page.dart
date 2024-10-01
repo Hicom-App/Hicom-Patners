@@ -176,7 +176,7 @@ class ChecksPage extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder:(context, index) => GestureDetector(
-                            onTap: () => Get.to(() => ChecksDetail(), arguments: _getController.listImagePrice[index]),
+                            onTap: () => Get.to(() => const ChecksDetail(), arguments: _getController.listImagePrice[index]),
                             child: Column(
                                 children: [
                                   index == 0 || index == 2 || index == 3 || index == 6 || index == 13? Container(

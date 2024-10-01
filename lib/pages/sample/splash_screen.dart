@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
-
 import '../../controllers/get_controller.dart';
-import '../onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});

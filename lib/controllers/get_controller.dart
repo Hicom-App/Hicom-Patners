@@ -1,25 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../companents/instrument/instrument_components.dart';
 import '../models/districts_model.dart';
 import '../models/login_model.dart';
 import '../models/province_model.dart';
 import '../models/register_model.dart';
-import '../models/sample/Switch_detail_model.dart';
 import '../models/sample/get_users_model.dart';
-import '../models/sample/project_model.dart';
-import '../models/sample/switch_list_model.dart';
-import '../models/settings_info.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
 import '../resource/colors.dart';
@@ -158,30 +149,9 @@ class GetController extends GetxController {
   var provinceModel = ProvinceModel().obs;
   var loginModel = LoginModel().obs;
   var registerModel = RegisterModel().obs;
-  var projectModel = ProjectModel().obs;
-  var searchProjectModel = ProjectModel().obs;
   var getUsersModel = GetUsersModel().obs;
-  var switchListModel = SwitchListModel().obs;
-  var searchSwitchListModel = SwitchListModel().obs;
-  var settingsInfoModel = SettingsInfo().obs;
-  var switchDetailModel = SwitchDetailModel().obs;
-  void changeSwitchDetailModel(SwitchDetailModel switchDetailModels) {switchDetailModel.value = switchDetailModels;}
-
-  void clearSwitchDetailModel() {switchDetailModel.value = SwitchDetailModel();}
-
-  void changeSettingsInfoModel(SettingsInfo settingsInfo) {settingsInfoModel.value = settingsInfo;}
-
-  void changeSwitchList(SwitchListModel switchLists) {switchListModel.value = switchLists;}
-
-  void clearSwitchList() {switchListModel.value = SwitchListModel();}
 
   void changeGetUsersModel(GetUsersModel getUsersModels) {getUsersModel.value = getUsersModels;}
-
-  void getProject(ProjectModel projectModels){
-    projectModel.value = projectModels;
-    searchProjectModel.value = projectModel.value;
-    update();
-  }
 
   void getProvince(){
     if (loginModel.value.user != null && loginModel.value.user?.regionId != null) {
@@ -317,16 +287,6 @@ class GetController extends GetxController {
     return '$prefix$replacement$suffix';
   }
 
-  String getSettings(String name) {
-    if (settingsInfoModel.value.settings == null) return "";
-    for (var i = 0; i < settingsInfoModel.value.settings!.length; i++) {
-      if (settingsInfoModel.value.settings![i].name == name) {
-        return settingsInfoModel.value.settings![i].value.toString();
-      }
-    }
-    return "";
-  }
-
   String formatPower(double? power) {
     if (power! <= 0) return "--";
     return "${power.toStringAsFixed(1)}W";
@@ -390,7 +350,6 @@ class GetController extends GetxController {
 
   void changeSelectedMonth(int value) {
     selectedMonth.value = value;
-    print(selectedMonth.value);
   }
 
   void changeWidgetOptions() {

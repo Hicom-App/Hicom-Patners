@@ -6,13 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/account/safety_page.dart';
 import '../../companents/filds/text_small.dart';
-import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class SettingsPage extends StatelessWidget {
-  SettingsPage({super.key});
-
-  final GetController _getController = Get.put(GetController());
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +21,7 @@ class SettingsPage extends StatelessWidget {
           title: TextSmall(text: 'Sozlamalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: Column(
         children: [
-          _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
+          _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
           _buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
           _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, onTap: (){}, status: 3),
         ]

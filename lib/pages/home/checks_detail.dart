@@ -1,17 +1,12 @@
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
-
-import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class ChecksDetail extends StatelessWidget{
-  ChecksDetail({super.key});
+  const ChecksDetail({super.key});
 
-  final GetController _getController = Get.put(GetController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,19 +33,15 @@ class ChecksDetail extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 20.h),
-            Icon(Icons.check_circle, color: Colors.green, size: 80),
-            SizedBox(height: 10),
+            Icon(Icons.check_circle, color: Colors.green, size: 80.sp),
+            SizedBox(height: 10.h),
             TextSmall(text: 'Muvaffaqiyatli o‘tkazildi',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
             SizedBox(height: 5.h),
             TextSmall(text: 'Yak, 6 Iyun 2022',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
             SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(15.w),
-              decoration: BoxDecoration(
-                //color: Colors.grey[200],
-                color: AppColors.grey.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20.r),
-              ),
+              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
               child: Row(
                 children: [
                   Column(
@@ -76,22 +67,15 @@ class ChecksDetail extends StatelessWidget{
             Container(
               padding: EdgeInsets.all(15.w),
               decoration: BoxDecoration(
-                //color: Colors.white,
                 color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                 borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
-                  BoxShadow(
-                    //color: Colors.grey.withOpacity(0.2),
-                    color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 5
-                  )
+                  BoxShadow(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), spreadRadius: 2, blurRadius: 5)
                 ]
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //Text('Transaction detail', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   TextSmall(text: 'Transaction detail',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
                   SizedBox(height: 8.h),
                   Row(
@@ -128,8 +112,8 @@ class ChecksDetail extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextSmall(text: 'Booking fee',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: '10 000.00',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                    ],
+                      TextSmall(text: '10 000.00',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                    ]
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,7 +137,8 @@ class ChecksDetail extends StatelessWidget{
             ElevatedButton(
               onPressed: () => Get.back(),
               style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), backgroundColor: AppColors.blue, padding: EdgeInsets.symmetric(horizontal: 70.w, vertical: 15.h)),
-              child: TextSmall(text: 'Bosh sahifa', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1,fontSize: 16.sp)),
+              child: TextSmall(text: 'Bosh sahifa', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1,fontSize: 16.sp)
+            ),
             SizedBox(height: 30.h)
           ]
         )
