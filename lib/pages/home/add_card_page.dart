@@ -153,7 +153,7 @@ class AddCardPage extends StatelessWidget {
                       SizedBox(width: 20.w),
                       SizedBox(
                           width: Get.width * 0.65,
-                          child: TextSmall(text: 'Ushbu sahifada +998995340313 raqamga biriktirilgan bank kartalarni qo‘shish mumkin. Agar boshqa bank kartasini qo‘shish kerak bo‘lsa, pastdagi telefon raqamini o‘zgartirish funksiyasidan foydalanish mumkin.'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
+                          child: TextSmall(text: 'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
                       )
                     ]
                   )
