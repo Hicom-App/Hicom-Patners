@@ -11,11 +11,15 @@ class SafetyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kirish va xavfsizlik'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+      appBar: AppBar(backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+          foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+          surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+          title: TextSmall(text: 'Kirish va xavfsizlik'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: Column(
         children: [
           _buildListTile(
+            context: context,
             icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
             title: 'Hisobni o`chirish',
             onTap: (){},
@@ -24,7 +28,8 @@ class SafetyPage extends StatelessWidget {
       )
     );
   }
-  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+  Container _buildListTile({required BuildContext context, required IconData icon, required String title, required VoidCallback onTap, color}) {
+    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),
