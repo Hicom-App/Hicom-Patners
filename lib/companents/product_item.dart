@@ -1,9 +1,7 @@
-
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
@@ -20,11 +18,7 @@ class ProductItem extends StatelessWidget{
         height: 200.h,
         width: 135.w,
         margin: EdgeInsets.only(right: 15.w),
-        decoration: BoxDecoration(
-            //color: AppColors.white,
-            color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-            borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1)),
+        decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: BorderRadius.circular(20.r), border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1)),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,24 +34,21 @@ class ProductItem extends StatelessWidget{
                             fit: BoxFit.cover
                         )
                     ),
-                    Positioned(right: 5, top: 5, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
+                    Positioned(right: 5.w, top: 5.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
                   ]
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                  padding: EdgeInsets.only(left: 10.w, right: 5.w),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13),
-                        TextSmall(text: _getController.listImagePrice[index],
-                            //color: AppColors.black
-                            color: Theme.of(context).colorScheme.onSurface,
-                        ),
+                        TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13.sp),
+                        TextSmall(text: _getController.listImagePrice[index], color: Theme.of(context).colorScheme.onSurface),
                         Row(
                             children: [
-                              const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 11),
-                              TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10),
+                              Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
+                              TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]

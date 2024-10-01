@@ -1,4 +1,3 @@
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,7 @@ class CategoryPage extends StatelessWidget {
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
         surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-        title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
+        title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
       ),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
@@ -38,18 +37,15 @@ class CategoryPage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:_getController.getCrossAxisCount(),
-                    crossAxisSpacing: Get.width * 0.03, // Horizontal spacing between items
-                    mainAxisSpacing: Get.height * 0.04, // Vertical spacing between items
-                    childAspectRatio: 0.74
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 15.sp,
+                    childAspectRatio: 0.78
                 ),
-                padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () => Get.to(DetailPage(index: index)),
-                  child: ProductItem(index: index)
-                ),
-                itemCount: _getController.listImage.length,
-              ),
-            ),
+                padding: EdgeInsets.only(left: 15.w, right: 5.w),
+                itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
+                itemCount: _getController.listImage.length
+              )
+            )
           ]
         )
       )
