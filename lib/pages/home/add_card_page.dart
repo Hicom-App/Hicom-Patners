@@ -109,11 +109,11 @@ class AddCardPage extends StatelessWidget {
                                     )
                                 else SizedBox(height: 20.h, width: 70.w),
                             SizedBox(width: 10.w),
-                            TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.bold,fontSize: 19.sp),
+                            TextLarge(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.bold,fontSize: 19.sp)
                           ]
                         ),
                         SizedBox(height: 40.h),
-                        SizedBox(width: Get.width, child:TextSmall(textAlign: TextAlign.end, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.bold))
+                        SizedBox(width: Get.width, child:TextSmall(textAlign: TextAlign.start, text: _getController.cardNameText.value, color: AppColors.white, fontWeight: FontWeight.bold))
                       ]
                   )
               )),
@@ -151,10 +151,7 @@ class AddCardPage extends StatelessWidget {
                     children: [
                       Icon(EneftyIcons.info_circle_bold, color: AppColors.red, size: 25.h),
                       SizedBox(width: 20.w),
-                      SizedBox(
-                          width: Get.width * 0.65,
-                          child: TextSmall(text: 'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200)
-                      )
+                      SizedBox(width: Get.width * 0.65, child: TextSmall(text: 'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500, fontSize: 14.sp, maxLines: 200))
                     ]
                   )
               ),
@@ -162,11 +159,7 @@ class AddCardPage extends StatelessWidget {
                   margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 50.h, top: 30.h),
                   width: Get.width,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                      backgroundColor: AppColors.blue,
-                      padding: EdgeInsets.only(top: 15.h, bottom: 15.h)
-                    ),
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)), backgroundColor: AppColors.blue, padding: EdgeInsets.only(top: 15.h, bottom: 15.h)),
                     onPressed: () => Get.back(),
                     child: TextSmall(text: 'Qo‘shish'.tr, color: AppColors.white)
                   )

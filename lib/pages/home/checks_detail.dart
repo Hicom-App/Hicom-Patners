@@ -41,31 +41,6 @@ class ChecksDetail extends StatelessWidget{
             SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(15.w),
-              decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextSmall(text: 'Booking Fee',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
-                      SizedBox(height: 8.h),
-                      TextSmall(text: 'Treatment name',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: 'Braces Application',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
-                      SizedBox(height: 4.h),
-                      TextSmall(text: 'Clinic name',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: 'Avicena Clinic',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)
-                    ]
-                  ),
-                  const Spacer(),
-                  TextSmall(text: '10 000.00',fontSize: 20.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
-                  SizedBox(width: 5.h),
-                  TextSmall(text: 'so`m',fontSize: 15.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
-                ]
-              )
-            ),
-            SizedBox(height: 20.h),
-            Container(
-              padding: EdgeInsets.all(15.w),
               decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                 borderRadius: BorderRadius.circular(20.r),
@@ -76,68 +51,79 @@ class ChecksDetail extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSmall(text: 'Transaction detail',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
-                  SizedBox(height: 8.h),
+                  TextSmall(text: 'Tranzaksiya tafsilotlari',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                  SizedBox(height: 15.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Bill ID',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: '#BILL00124',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
-                    ]
-                  ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextSmall(text: 'Reservation ID',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: '#RSVA0011',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
-                    ]
-                  ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextSmall(text: 'Payment Method',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: 'To‘lov usuli',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                       Row(
                         children: [
                           Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
                           SizedBox(width: 5.h),
                           TextSmall(text: '**** **** **** 4204',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                         ]
-                      )
+                      ),
+                    ]
+                  ),
+                  SizedBox(height: 5.h),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextSmall(text: 'Buyurtmachi',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                        TextSmall(text: 'abd***** ****bek',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                      ]
+                  ),
+                  Divider(thickness: 1, color: Colors.grey[300]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextSmall(text: 'To‘langan vaqti', fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: '11:27',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                    ]
+                  ),
+                  SizedBox(height: 5.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextSmall(text: 'Tranzaksiya raqami',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: '#21120839289',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                     ]
                   ),
                   Divider(thickness: 1, color: Colors.grey[300]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Booking fee',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: '10 000.00',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
-                    ]
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextSmall(text: 'Tax',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: '\$0.00',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
-                    ]
-                  ),
-                  Divider(thickness: 1, color: Colors.grey[300]),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextSmall(text: 'Total',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                      TextSmall(text: 'Jami',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
                       TextSmall(text: '10 000.00',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)
                     ]
                   )
                 ]
               )
             ),
+            SizedBox(height: 20.h),
+            Container(
+                width: Get.width,
+                padding: EdgeInsets.all(15.w),
+                decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
+                child: Row(
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextSmall(text: 'Qo`shimcha',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                            SizedBox(height: 10.h),
+                            TextSmall(text: 'Iltimos hisobingizni tekshirib ko`ring.\nbu vaqt olishi mumkin edi\nagar tushmagan bo`lsa biroz kuting',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, maxLines: 10),
+                          ]
+                      ),
+                    ]
+                )
+            ),
             const Spacer(),
             ElevatedButton(
               onPressed: () => Get.back(),
               style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), backgroundColor: AppColors.blue, padding: EdgeInsets.symmetric(horizontal: 70.w, vertical: 15.h)),
-              child: TextSmall(text: 'Bosh sahifa', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1,fontSize: 16.sp)
+              child: TextSmall(text: 'Orqaga', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1,fontSize: 16.sp)
             ),
             SizedBox(height: 30.h)
           ]
