@@ -349,6 +349,9 @@ class GetController extends GetxController {
   final RefreshController refreshReportController = RefreshController(initialRefresh: false);
   final ScrollController scrollReportController = ScrollController();
 
+  final RefreshController refreshArchiveController = RefreshController(initialRefresh: false);
+  final ScrollController scrollArchiveController = ScrollController();
+
   var widgetOptions = <Widget>[];
   var index = 0.obs;
   var cardBackIndex = 0.obs;

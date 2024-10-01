@@ -17,9 +17,7 @@ class GuaranteePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.grey.withOpacity(0.1),
-      //backgroundColor: AppColors.greys,
-      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -44,8 +42,7 @@ class GuaranteePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.01),
-            //SearchTextField(color: AppColors.white),
-            SearchTextField(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.grey.withOpacity(0.2)),
+            SearchTextField(color: Colors.grey.withOpacity(0.2)),
             Container(
                 width: Get.width,
                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
@@ -61,10 +58,10 @@ class GuaranteePage extends StatelessWidget {
                             child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : '15 Sentabr', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400),
                           ) : Container(),
                             Container(
-                            padding: EdgeInsets.only(left: Get.width * 0.03, top: Get.height * 0.015, bottom: Get.height * 0.015),
-                            margin: EdgeInsets.only(bottom: Get.height * 0.015),
+                            padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
+                            margin: EdgeInsets.only(bottom: 15.h),
                             width: Get.width,
-                            decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greysBack, borderRadius: BorderRadius.circular(20.r)),
+                            decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? Colors.grey.withOpacity(0.2) : AppColors.greysBack, borderRadius: BorderRadius.circular(20.r)),
                             child: Column(
                                 children: [
                                   Row(
@@ -72,10 +69,10 @@ class GuaranteePage extends StatelessWidget {
                                         Container(
                                             width: Get.width * 0.22,
                                             height: Get.height * 0.11,
-                                            margin: EdgeInsets.only(right: Get.width * 0.03),
+                                            margin: EdgeInsets.only(right: 15.w),
                                             decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.all(Radius.circular(10.r))),
                                             child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                borderRadius: BorderRadius.all(Radius.circular(20.r)),
                                                 child: FadeInImage(
                                                     image: NetworkImage(_getController.listImage[index]),
                                                     placeholder: NetworkImage(_getController.listImage[index]),
@@ -89,28 +86,19 @@ class GuaranteePage extends StatelessWidget {
                                           children: [
                                             Row(
                                               children: [
-                                                SizedBox(
-                                                  width: 110.w,
-                                                  child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
-                                                ),
+                                                SizedBox(width: 110.w, child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
                                                 TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
                                               ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(
-                                                    width: 110.w,
-                                                    child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)
-                                                  ),
+                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
                                                   TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.w300,fontSize: 14.sp),
                                                 ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(
-                                                    width: 110.w,
-                                                    child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp),
-                                                  ),
+                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
                                                   TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
                                                 ]
                                             ),
@@ -121,9 +109,7 @@ class GuaranteePage extends StatelessWidget {
                                                     width: 80.w,
                                                     padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
                                                     decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
-                                                    child: Center(child: TextSmall(
-                                                        text: index == 2 ? 'Faol emas' : 'Faol',
-                                                        color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
+                                                    child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
                                                   ),
                                                   Container(
                                                     padding: const EdgeInsets.all(3),
