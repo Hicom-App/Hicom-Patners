@@ -1,4 +1,3 @@
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,23 +14,23 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Sevimli tovarlar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+            surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            title: TextSmall(text: 'Sevimli tovarlar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
         body: GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:_getController.getCrossAxisCount(),
-              crossAxisSpacing: Get.width * 0.03, // Horizontal spacing between items
-              mainAxisSpacing: Get.height * 0.04, // Vertical spacing between items
-              childAspectRatio: 0.74
-          ),
-          padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-          itemBuilder: (context, index) => InkWell(
-              onTap: () => Get.to(DetailPage(index: index)),
-              child: ProductItem(index: index)
-          ),
-          itemCount: _getController.listImage.length,
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:_getController.getCrossAxisCount(),
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 15.sp,
+                childAspectRatio: 0.78
+            ),
+            padding: EdgeInsets.only(left: 15.w, right: 5.w),
+            itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
+            itemCount: _getController.listImage.length
         )
     );
   }
