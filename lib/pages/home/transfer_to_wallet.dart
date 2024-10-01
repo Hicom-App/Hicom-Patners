@@ -38,13 +38,13 @@ class TransferToWallet extends StatelessWidget {
                       decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
-                          Icon(EneftyIcons.card_bold, color: AppColors.blue, size: 40.sp),
+                          Icon(EneftyIcons.card_bold, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: 40.sp),
                           SizedBox(width: 10.w),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextSmall(text: 'Keshbek 10%'.tr, color: AppColors.red, fontWeight: FontWeight.w500),
+                              TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
                               TextSmall(text: _getController.listProductPrice[index] + ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                             ]
                           )
@@ -52,9 +52,7 @@ class TransferToWallet extends StatelessWidget {
                       )
                   ),
                   SizedBox(height: 20.h),
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr,
-                      color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                      fontWeight: FontWeight.w500)),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
                   GestureDetector(
                       onTap: () => InstrumentComponents().bottomSheetMeCards(context),
                       child: Container(
@@ -106,7 +104,17 @@ class TransferToWallet extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
                       child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                   ),
-                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: '828', controller: _getController.noteProjectController)
+                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: '828', controller: _getController.noteProjectController),
+                  SizedBox(height: Get.height * 0.05),
+                  Container(
+                    margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), minimumSize: Size(Get.width, 50.h)),
+                        onPressed: (){},
+                        child: TextSmall(text: 'Jo‘natish'.tr, color: AppColors.white, fontWeight: FontWeight.w500)
+                    )
+                  )
+
                 ]
             )
         )

@@ -382,7 +382,7 @@ class GetController extends GetxController {
   var list = ['AI POE', 'NETWORK CABINET', 'HDD', 'PDU', 'CAMERA', 'ACSESSORIES', 'HDMI CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE'].obs;
   var listTitle = ['Jarayonda', 'Hamyonda','Tasdiqlangan', 'To`langan','Rad etilgan'].obs;
   var listPrice = ['01.02.2025', '09.01.2025', '10.05.2025', '22.12.2025','11.05.2025', '03.10.2025', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;
-  var listProductPrice = ['999 mln', '828', '224 614', '223 786','100 000', '300', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;
+  var listProductPrice = ['200 123', '828', '224 614', '223 786','100 000', '300', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;
   var listColor = [AppColors.blue, AppColors.primaryColor3, AppColors.primaryColor,  AppColors.green, AppColors.red].obs;
   var listImage = ['https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png', 'https://hicom.uz/wp-content/uploads/2024/01/8842-600x600.png', 'https://hicom.uz/wp-content/uploads/2024/01/PDU9.png', 'https://images.uzum.uz/ckf8u13k9fq8lb3a7vbg/original.jpg', 'https://frankfurt.apollo.olxcdn.com/v1/files/t3uftbiso49d-UZ/image;s=3024x3024','https://www.prom.uz/_ipx/f_webp/https://devel.prom.uz/upload/product_gallery/aa/3d/aa3d9c672761627e46c43211aa19d720.jpg'].obs;
   var listImageName = ['PoE Switch', 'Network cabinet', 'PDU', 'PoE Switch', 'PoE Switch', 'PoE Switch', 'Network cabinet', 'PDU', 'HDD', 'camera',].obs;
