@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
                                           itemCount: _getController.listTitle.length,
                                           scrollDirection: Axis.horizontal,
                                           physics: const BouncingScrollPhysics(),
-                                          padding: EdgeInsets.only(left: Get.width * 0.05),
+                                          padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                           itemBuilder: (context, index) => GestureDetector(
                                             onTap: () {
                                               if(index == 1) {
@@ -80,29 +80,28 @@ class HomePage extends StatelessWidget {
                                               }
                                             },
                                             child: Card(
-                                              //color: AppColors.white,
-                                              color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
-                                              elevation: 0,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                                              child: SizedBox(
-                                                height: 100.h,
-                                                width: 150.w,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    TextSmall(text: _getController.listTitle[index].tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold),
-                                                        TextSmall(text: ' so‘m', color: _getController.listColor[index], fontSize: 13.sp,fontWeight: FontWeight.w400)
-                                                      ]
+                                                color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
+                                                elevation: 0,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+                                                child: SizedBox(
+                                                    height: 100.h,
+                                                    width: 150.w,
+                                                    child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          TextSmall(text: _getController.listTitle[index].tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                                                          Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: [
+                                                                TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold),
+                                                                TextSmall(text: ' so‘m', color: _getController.listColor[index],fontWeight: FontWeight.bold)
+                                                              ]
+                                                          )
+                                                        ]
                                                     )
-                                                  ]
                                                 )
-                                              )
                                             )
                                           )
                                         )
@@ -115,13 +114,7 @@ class HomePage extends StatelessWidget {
                       )
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
-                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [
-                          BoxShadow(
-                              color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.grey.withOpacity(0.5),
-                              spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3))
-                    ]),
+                    decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.grey.withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3))]),
                     child: Column(
                         children: [
                           SizedBox(height: 20.h),
@@ -138,7 +131,6 @@ class HomePage extends StatelessWidget {
                                           margin: EdgeInsets.only(left: 15.w),
                                           padding: EdgeInsets.only(left: 6.w, right: 6.w),
                                           decoration: BoxDecoration(
-                                              //color: AppColors.white,
                                               color: Theme.of(context).brightness == Brightness.dark ? AppColors.black70 : AppColors.white,
                                               border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1),
                                               borderRadius: BorderRadius.circular(20.r)),
@@ -161,10 +153,7 @@ class HomePage extends StatelessWidget {
                                                 Container(
                                                     margin: EdgeInsets.only(top: 5.h),
                                                     width: 65.w,
-                                                    child: Center(child: TextSmall(text: _getController.list[index].tr,
-                                                        //color: AppColors.black.withOpacity(0.7),
-                                                        color: Theme.of(context).colorScheme.onSurface,
-                                                        maxLines: 1, fontSize: 10.sp))
+                                                    child: Center(child: TextSmall(text: _getController.list[index].tr, color: Theme.of(context).colorScheme.onSurface, maxLines: 1, fontSize: 10.sp))
                                                 )
                                               ]
                                           )
@@ -175,7 +164,7 @@ class HomePage extends StatelessWidget {
                               )
                           ),
                           Container(
-                              margin: EdgeInsets.only(left: 15.w, top: 30.h),
+                              margin: EdgeInsets.only(left: 15.w, top: 10.h),
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -192,16 +181,13 @@ class HomePage extends StatelessWidget {
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: const BouncingScrollPhysics(),
-                                  padding: EdgeInsets.only(left: Get.width * 0.03),
-                                  itemBuilder: (context, index) => InkWell(
-                                      onTap: () => Get.to(DetailPage(index: index)),
-                                      child: ProductItem(index: index)
-                                  ),
+                                  padding: EdgeInsets.only(left: 15.w),
+                                  itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
                                   itemCount: _getController.listImage.length
                               )
                           ),
                           Container(
-                              margin: EdgeInsets.only(left: 15.w, top: 30.h),
+                              margin: EdgeInsets.only(left: 15.w, top: 10.h),
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -218,7 +204,7 @@ class HomePage extends StatelessWidget {
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: const BouncingScrollPhysics(),
-                                  padding: EdgeInsets.only(left: Get.width * 0.03),
+                                  padding: EdgeInsets.only(left: 15.w),
                                   itemBuilder: (context, index) => InkWell(
                                       onTap: () => Get.to(DetailPage(index: index)),
                                       child: ProductItem(index: index)

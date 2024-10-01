@@ -29,7 +29,7 @@ class NotificationPage extends StatelessWidget {
                   width: Get.width,
                   margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
                   padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
-                  decoration: BoxDecoration(color: AppColors.greys.withOpacity(0.2), borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                  decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.all(Radius.circular(20.r))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -38,8 +38,7 @@ class NotificationPage extends StatelessWidget {
           onTap: onTap,
           hoverColor: Colors.transparent,
           focusColor: Colors.transparent,
-          leading: Icon(icon, color: status == 1 ? color : color.withOpacity(0.4)
-          ),
+          leading: Icon(icon, color: status == 1 ? color : color.withOpacity(0.4)),
           title: Text(title, style: TextStyle(fontSize: 14.sp, color: status == 1 ? color : color.withOpacity(0.4))),
           trailing: status == 0 ? Icon(Icons.chevron_right, color: color)
               : status == 1 ? CupertinoSwitch(
