@@ -152,17 +152,12 @@ class ChecksDetail extends StatelessWidget{
             const Spacer(),
             ElevatedButton(
               onPressed: () => Get.back(),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                backgroundColor: AppColors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 70.w, vertical: 15.h),
-              ),
+              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), backgroundColor: AppColors.blue, padding: EdgeInsets.symmetric(horizontal: 70.w, vertical: 15.h)),
               child: TextSmall(text: 'Bosh sahifa', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1,fontSize: 16.sp)),
-            SizedBox(height: 30.h),
-          ],
-        ),
-      ),
+            SizedBox(height: 30.h)
+          ]
+        )
+      )
     );
   }
-
 }

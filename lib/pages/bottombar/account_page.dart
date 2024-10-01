@@ -115,12 +115,12 @@ class _AccountPageState extends State<AccountPage> {
                               ],
                               stops: const [0.1, 1]),
                             borderGradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9),
-                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9)
-                              ]
+                                begin: Alignment.center,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9),
+                                  Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9)
+                                ]
                             ),
                             borderRadius: 0,
                             child: Column(

@@ -17,8 +17,11 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Sozlamalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+      appBar: AppBar(backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+          foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+          surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+          title: TextSmall(text: 'Sozlamalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: Column(
         children: [
           _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
@@ -28,7 +31,8 @@ class SettingsPage extends StatelessWidget {
       )
     );
   }
-  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color = Colors.black,required int status}) {
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color, required int status}) {
+    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),
@@ -45,12 +49,15 @@ class SettingsPage extends StatelessWidget {
               onChanged: (value) {
                 AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
               },
-              activeColor: AppColors.green,
+              activeColor: AppColors.blue,
               trackColor: AppColors.grey.withOpacity(0.5),
-              focusColor: AppColors.green,
+              focusColor: AppColors.blue,
               thumbColor: AppColors.white,
               applyTheme: true,
-            ) : TextSmall(text: 'English', color: AppColors.black.withOpacity(0.7), fontWeight: FontWeight.w400, fontSize: 14.sp)
+            ) : TextSmall(text: 'O‘zbekcha',
+                //color: AppColors.black.withOpacity(0.7),
+                color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey,
+                fontWeight: FontWeight.w400, fontSize: 14.sp)
         ),
     );
   }

@@ -446,7 +446,7 @@ class GetController extends GetxController {
       return 2;
     } else {
       // Default for medium-sized screens
-      return 3;
+      return 2;
     }
   }
 

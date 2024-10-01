@@ -53,7 +53,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     _getController.nameController.text = _getController.fullName.value.substring(0, _getController.fullName.value.indexOf(' '));
     _getController.surNameController.text = _getController.fullName.value.substring(_getController.fullName.value.indexOf(' '));
     return Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(
             controller: _scrollController,
             physics: const BouncingScrollPhysics(),
@@ -62,9 +62,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   expandedHeight: fullImage ? 400.sp : 250.sp,
                   pinned: true,
                   elevation: 1,
-                  backgroundColor: AppColors.white,
+                  backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                   surfaceTintColor: AppColors.white,
-                  shadowColor: AppColors.white,
+                  shadowColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                   foregroundColor: AppColors.white,
                   leading: const SizedBox(),
                   flexibleSpace: LayoutBuilder(
@@ -127,20 +127,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                               begin: Alignment.topLeft,
                                               end: Alignment.bottomRight,
                                               colors: [
-                                                const Color(0xFFffffff).withOpacity(0.1),
-                                                const Color(0xFFFFFFFF).withOpacity(0.05)
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.1) : AppColors.black.withOpacity(0.1),
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.3) : AppColors.black.withOpacity(0.3)
                                               ],
                                               stops: const [0.1, 1]),
                                           borderGradient: LinearGradient(
                                               begin: Alignment.center,
                                               end: Alignment.bottomRight,
                                               colors: [
-                                                const Color(0xFFffffff).withOpacity(0.5),
-                                                const Color((0xFFFFFFFF)).withOpacity(0.5)
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9),
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9)
                                               ]
                                           ),
                                           borderRadius: 30,
-                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Tayyor'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
+                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold))
                                       )
                                   ),
                                   Positioned(
@@ -156,20 +156,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                               begin: Alignment.topLeft,
                                               end: Alignment.bottomRight,
                                               colors: [
-                                                const Color(0xFFffffff).withOpacity(0.1),
-                                                const Color(0xFFFFFFFF).withOpacity(0.05)
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.1) : AppColors.black.withOpacity(0.1),
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.3) : AppColors.black.withOpacity(0.3)
                                               ],
                                               stops: const [0.1, 1]),
                                           borderGradient: LinearGradient(
                                               begin: Alignment.center,
                                               end: Alignment.bottomRight,
                                               colors: [
-                                                const Color(0xFFffffff).withOpacity(0.5),
-                                                const Color((0xFFFFFFFF)).withOpacity(0.5)
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9),
+                                                Theme.of(context).brightness == Brightness.light ? AppColors.white.withOpacity(0.9) : AppColors.black.withOpacity(0.9)
                                               ]
                                           ),
                                           borderRadius: 30,
-                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr,color: AppColors.black,fontWeight: FontWeight.bold))
+                                          child: TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold))
                                       )
                                   )
                                 ]
@@ -181,7 +181,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
               SliverList(
                   delegate: SliverChildListDelegate([
                     Container(
-                        color: AppColors.white,
+                        color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                         padding: EdgeInsets.symmetric(horizontal: 16.h),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -190,7 +190,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               Container(
                                   padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 5.h),
                                   margin: EdgeInsets.only(bottom: 5.h,top: 10.h),
-                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.0)),
+                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
                                   child: Column(
                                       children: [
                                         TextField(
@@ -221,18 +221,16 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               _buildListTileDelete(title: 'Qaysidur ko‘cha 12-uy', onTap: () {  }, icon: EneftyIcons.home_hashtag_bold),
                               SizedBox(height: 5.h),
                               Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                  margin: const EdgeInsets.only(top: 13.0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Colors.grey.withOpacity(0.2)
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 5.h),
+                                  margin: EdgeInsets.only(top: 13.h),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                   child: ListTile(
                                       onTap: (){},
                                       hoverColor: Colors.transparent,
                                       focusColor: Colors.transparent,
-                                      title: const TextSmall(text: 'Tug`ilgan sana'),
-                                      trailing: const TextSmall(text: '31 mar 2003', color: AppColors.black70)
+                                      title: TextSmall(text: 'Tug`ilgan sana', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
+                                      trailing: TextSmall(text: '31 mar 2003', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey
+                                      )
                                   )
                               ),
                               SizedBox(height: 5.h),
@@ -247,7 +245,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
         )
     );
   }
-  Container _buildListTileDelete({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+  Container _buildListTileDelete({required IconData icon, required String title, required VoidCallback onTap, color}) {
+    color ?? (color = Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white);
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         margin: EdgeInsets.only(top: 13.h),
@@ -263,7 +262,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
     );
   }
 
-  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color = Colors.black}) {
+  Container _buildListTile({required IconData icon, required String title, required VoidCallback onTap, color}) {
+    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
         padding: EdgeInsets.symmetric(vertical: 5.h),
         margin: EdgeInsets.only(top: 13.h),
