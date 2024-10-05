@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         //backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
-        backgroundColor: AppColors.red,
+        backgroundColor: AppColors.blue,
         body: Container(
             height: Get.height,
             width: Get.width,
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                     children: [
                       SizedBox(
-                          height: Get.height * 0.36,
+                          height: Get.height * 0.352,
                           width: Get.width,
                           child: Stack(
                               children: [
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                           const Spacer(),
                                           TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                          TextLarge(text: '2 510 018 so`m'.tr, color: AppColors.white,fontWeight: FontWeight.bold),
+                                          TextLarge(text: '2 510 018 so‘m'.tr, color: AppColors.white,fontWeight: FontWeight.bold),
                                           SizedBox(height: Get.height * 0.03),
                                           SizedBox(
                                               width: Get.width,
@@ -125,43 +125,44 @@ class HomePage extends StatelessWidget {
                           )
                       ),
                       Container(
-                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.4), spreadRadius: 3, blurRadius: 20, offset: const Offset(0, 0))]),
+                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
                           child: Column(
                               children: [
-                                SizedBox(height: 20.h),
+                                SizedBox(height: 25.h),
                                 SearchTextField(color: AppColors.grey.withOpacity(0.2)),
-                                SizedBox(height: Get.height * 0.02),
+                                SizedBox(height: 15.h),
                                 SizedBox(
                                     width: Get.width,
-                                    height: 75.h,
+                                    height: 82.h,
                                     child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
+                                        padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                         itemBuilder: (context, index) => InkWell(
                                             onTap: () => Get.to(CategoryPage()),
                                             child:  Container(
                                                 margin: EdgeInsets.only(left: 15.w),
                                                 padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black70 : AppColors.white, border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1), borderRadius: BorderRadius.circular(20.r)),
+                                                decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
                                                 child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       SizedBox(
-                                                          width: 30.w,
+                                                          width: 35.w,
                                                           child: ClipRRect(
                                                               borderRadius: const BorderRadius.all(Radius.circular(0)),
                                                               child: FadeInImage(
                                                                   image: NetworkImage(_getController.listCategoryIcon[index]),
                                                                   placeholder:NetworkImage(_getController.listCategoryIcon[index]),
                                                                   imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(20.r))));},
-                                                                  fit: BoxFit.cover
+                                                                  fit: BoxFit.cover,color: AppColors.white
                                                               )
                                                           )
                                                       ),
                                                       Container(
                                                           margin: EdgeInsets.only(top: 5.h),
-                                                          width: 65.w,
-                                                          child: Center(child: TextSmall(text: _getController.list[index].tr, color: Theme.of(context).colorScheme.onSurface, maxLines: 1, fontSize: 10.sp))
+                                                          width: 71.w,
+                                                          child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600))
                                                       )
                                                     ]
                                                 )
@@ -171,52 +172,73 @@ class HomePage extends StatelessWidget {
                                         shrinkWrap: true
                                     )
                                 ),
-                                Container(
-                                    margin: EdgeInsets.only(left: 15.w, top: 10.h),
-                                    child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                          const Spacer(),
-                                          TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
-                                        ]
+                                Stack(
+                                  children: [
+                                    Positioned(
+                                      child: Container(
+                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                          child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                const Spacer(),
+                                                TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                              ]
+                                          )
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 345.h,
+                                      width: Get.width,
+                                      child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(width: 35.w),
+                                            for (int index = 0; index < _getController.listImage.length; index++)
+                                              InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                          ],
+                                        )
+                                      )
                                     )
+                                  ],
                                 ),
-                                SizedBox(
-                                    height: 200.h,
-                                    width: Get.width,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        physics: const BouncingScrollPhysics(),
-                                        padding: EdgeInsets.only(left: 15.w),
-                                        itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
-                                        itemCount: _getController.listImage.length
+
+                                Stack(
+                                  children: [
+                                    Positioned(
+                                      child: Container(
+                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                          child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                const Spacer(),
+                                                TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                              ]
+                                          )
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height: 345.h,
+                                        width: Get.width,
+                                        child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                SizedBox(width: 35.w),
+                                                for (int index = 0; index < _getController.listImage.length; index++)
+                                                  InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                              ],
+                                            )
+                                        )
                                     )
+                                  ]
                                 ),
-                                Container(
-                                    margin: EdgeInsets.only(left: 15.w, top: 10.h),
-                                    child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                          const Spacer(),
-                                          TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.blue),)
-                                        ]
-                                    )
-                                ),
-                                SizedBox(
-                                    height: 200.h,
-                                    width: Get.width,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        physics: const BouncingScrollPhysics(),
-                                        padding: EdgeInsets.only(left: 15.w),
-                                        itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
-                                        itemCount: _getController.listImage.length
-                                    )
-                                ),
+
+
                                 SizedBox(height: Get.height * 0.01),
                                 SizedBox(height: Get.height * 0.01),
                                 SizedBox(height: Get.height * 0.01),

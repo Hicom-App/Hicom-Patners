@@ -15,10 +15,21 @@ class ProductItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 200.h,
-        width: 135.w,
+        height: 225.h,
+        width: 165.w,
         margin: EdgeInsets.only(right: 15.w),
-        decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: BorderRadius.circular(20.r), border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1)),
+        decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(20.r),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  blurRadius: 15.r,
+                  spreadRadius: 15.r,
+                  offset: const Offset(0, 0)
+              )
+            ]
+        ),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,21 +45,23 @@ class ProductItem extends StatelessWidget{
                             fit: BoxFit.cover
                         )
                     ),
-                    Positioned(right: 5.w, top: 5.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
+                    Positioned(right: 12.w, top: 10.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
                   ]
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 10.w, right: 5.w),
+                  padding: EdgeInsets.only(left: 13.w, right: 5.w),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextSmall(text: _getController.listImageName[index], color: AppColors.blue, fontSize: 13.sp),
-                        TextSmall(text: _getController.listImagePrice[index], color: Theme.of(context).colorScheme.onSurface),
+                        TextSmall(text: _getController.listImageName[index].toString().toUpperCase(), color: AppColors.black,fontWeight: FontWeight.bold, fontSize: 15.sp),
+                        TextSmall(text: _getController.listImagePrice[index], color: AppColors.black70, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 12.sp),
                         Row(
                             children: [
+                              SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
-                              TextSmall(text: _getController.listStar[index], color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                              SizedBox(width: 5.w),
+                              TextSmall(text: _getController.listStar[index], color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]
