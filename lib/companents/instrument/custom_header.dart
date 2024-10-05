@@ -15,7 +15,7 @@ class CustomRefreshHeader extends StatelessWidget {
         if (mode == RefreshStatus.idle) {
           body = Text(
             'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurface),
+            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
           );
         } else if (mode == RefreshStatus.refreshing) {
           body = Container(
@@ -30,12 +30,12 @@ class CustomRefreshHeader extends StatelessWidget {
         } else if (mode == RefreshStatus.canRefresh) {
           body = Text(
             'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurface),
+            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
           );
         } else {
           body = Text(
             'Ma’lumotlar yangilandi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurface),
+            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
           );
         }
         return SizedBox(height: 60.sp, child: Center(child: body));
