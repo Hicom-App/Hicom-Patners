@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -172,7 +173,17 @@ class DetailPage extends StatelessWidget {
                                         padding: EdgeInsets.zero,
                                         physics: const NeverScrollableScrollPhysics(),
                                         controller: _getController.scrollControllerOk,
-                                        itemBuilder: (context, index) => TextSmall(text: _getController.listImageInfo[index], color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 12),
+                                        //itemBuilder: (context, index) => TextSmall(text: _getController.listImageInfo[index], color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 12),
+                                        itemBuilder: (context, index) => Html(
+                                          style: {
+                                            'p': Style(
+                                                textDecorationColor: Theme.of(context).colorScheme.error,
+                                                padding: HtmlPaddings.symmetric(vertical: 0, horizontal: 0),
+                                                fontSize: FontSize(12.sp), fontWeight: FontWeight.w400,
+                                                color: Theme.of(context).colorScheme.onSurface
+                                            )
+                                          },
+                                          data: '<h2>AI PoE коммутатор - Hi-F163B</h2><p><strong>Основные особенности данной модели:</strong></p><ul><li>AI Extend</li><li>Функция WATCHDOG</li><li>Защита от короткого замыкания</li><li>Грозозащита до 4 кВ</li><li>Поддерживает стандартный протокол 802.3af/at</li></ul><p><strong>Технические характеристики:</strong></p><ul><li>POE порты: 16 × 1000 Мбит/с</li><li>UPlink порты: 2 × 1000 Мбит/с</li><li>SFP порт: 1 × 1,25 Гбит/с</li><li>Пропускная способность: 38 Гбит/с</li><li>Максимальное расстояние: 250 метров</li><li>Источник питания: Встроенный DC52V, 240 Вт</li><li>Рабочая температура: от 0 до 40 °C</li><li>Габариты: 270мм × 180мм × 45мм</li></ul>'),
                                         itemCount: _getController.listImageInfo.length,
                                       ),
                                     ),

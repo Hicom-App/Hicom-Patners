@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
-        //backgroundColor: AppColors.greys,
         body: RefreshComponent(
             scrollController: _getController.scrollController,
             refreshController: _getController.refreshController,
@@ -37,7 +36,11 @@ class HomePage extends StatelessWidget {
                       width: Get.width,
                       child: Stack(
                           children: [
-                            Positioned.fill(child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30), child: const RiveAnimation.asset('assets/shapes.riv', fit: BoxFit.cover))),
+                            Positioned.fill(child: ImageFiltered(
+                                imageFilter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
+                                child: const RiveAnimation.asset('assets/shapes.riv', fit: BoxFit.cover))
+                                //child: const RiveAnimation.asset('assets/test.riv', fit: BoxFit.cover))
+                            ),
                             Positioned.fill(
                                 child: Column(
                                     children: [
@@ -205,10 +208,7 @@ class HomePage extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   physics: const BouncingScrollPhysics(),
                                   padding: EdgeInsets.only(left: 15.w),
-                                  itemBuilder: (context, index) => InkWell(
-                                      onTap: () => Get.to(DetailPage(index: index)),
-                                      child: ProductItem(index: index)
-                                  ),
+                                  itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
                                   itemCount: _getController.listImage.length
                               )
                           ),

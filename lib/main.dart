@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return AdaptiveTheme(
-              debugShowFloatingThemeButton: true,
+              debugShowFloatingThemeButton: false,
               initial: AdaptiveThemeMode.light,
               light: ThemeData.light(useMaterial3: true),
               dark: ThemeData.dark(useMaterial3: true),
