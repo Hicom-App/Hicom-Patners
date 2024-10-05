@@ -55,7 +55,6 @@ class SamplePage extends StatelessWidget {
         ))*/
 
         bottomNavigationBar: ConvexAppBar(
-
           style: TabStyle.fixedCircle,
           cornerRadius: 25.r,
           color: AppColors.black70,
@@ -68,7 +67,14 @@ class SamplePage extends StatelessWidget {
           items: [
             TabItem(icon:EneftyIcons.home_bold),
             TabItem(icon: EneftyIcons.profile_bold),
-            TabItem(icon: Container(decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle), child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 35.sp), onPressed: () => Get.to(QRViewExample()))), title: 'Add'),
+            TabItem(icon: Container(
+              decoration: const BoxDecoration(color: AppColors.white, shape: BoxShape.circle),
+              child: Container(
+                  margin: EdgeInsets.all(5.r),
+                  decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
+                  child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
+              )
+            ), title: 'Add'),
             TabItem(icon: EneftyIcons.box_3_bold),
             TabItem(icon: EneftyIcons.chart_2_bold),
           ],

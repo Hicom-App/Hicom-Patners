@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         //backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
-        backgroundColor: AppColors.blue,
         body: Container(
             height: Get.height,
             width: Get.width,

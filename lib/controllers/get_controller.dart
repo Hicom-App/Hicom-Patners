@@ -380,7 +380,7 @@ class GetController extends GetxController {
   var listNamesPay = ['10 000','-12 301','11 039','10 312','300 000','13 000','220 000','134 000','12 021','100 210','231 000','5 000','100 001','300 212','231 000','10 200','30 021','12 000','201 000','212 000','323 000'].obs;
   var listNamesDay = ['12:01','11:11','22:01','09:31','09:01','12:30','05:21','02:10','10:15','13:41','18:09','20:20','12:03','19:30','18:20','19:20','18:20','02:10','18:09','12:30','22:01','12:01',].obs;
   var list = ['AI POE', 'NETWORK CABINET', 'HDD', 'PDU', 'CAMERA', 'ACSESSORIES', 'HDMI CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE', 'NETWORK CABLE'].obs;
-  var listTitle = ['Jarayonda', 'Hamyonda','Tasdiqlangan', 'To`langan','Rad etilgan'].obs;
+  var listTitle = ['Jarayonda', 'To‘langan','Tasdiqlangan', 'To‘langan','Rad etilgan'].obs;
   var listPrice = ['01.02.2025', '09.01.2025', '10.05.2025', '22.12.2025','11.05.2025', '03.10.2025', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;
   var listProductPrice = ['200 123', '828', '224 614', '223 786','100 000', '300', '13.11.2025', '19.02.2025','23.01.2025', '12.03.2025', '02.04.2025', '11.01.2025',].obs;
   var listColor = [AppColors.blue, AppColors.primaryColor3, AppColors.primaryColor,  AppColors.green, AppColors.red].obs;
