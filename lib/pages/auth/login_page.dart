@@ -69,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                     top: 0,
                     child: AnimatedContainer(
                       width: Get.width,
-                      height: isKeyboardVisible ? 200.h : 380.h,
+                      //height: isKeyboardVisible ? 200.h : 380.h,
+                      height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                       curve: Curves.easeInOut,
                       decoration: BoxDecoration(
@@ -82,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   Positioned.fill(
                     child: Column(
                       children: [
+                        //SizedBox(height: 280.h),
                         SizedBox(height: Get.height * 0.3),
                         AnimatedSlide(
                           offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
@@ -91,23 +93,21 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Container(
                                 width: Get.width,
-                                margin: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.13),
+                                margin: EdgeInsets.only(left: 25.w, right: 25),
                                 child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)
                               ),
-                              SizedBox(height: Get.height * 0.02),
                               Container(
                                 width: Get.width,
-                                margin: EdgeInsets.only(left: 20.w, right: Get.width * 0.03, bottom: Get.height * 0.04),
+                                margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04),
                                 child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)
                               ),
-                              // TextField animatsiyasi
                               AnimatedOpacity(
                                 opacity: 1.0,
                                 duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
                                 child: Container(
                                   width: Get.width,
-                                  margin: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
+                                  margin: EdgeInsets.only(left: 25.w, right: 25.w),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
                                   child: Center(
                                     child: IntlPhoneField(
                                       focusNode: _focusNode,
@@ -150,9 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                             ]
                           )
                         ),
-                        SizedBox(height: Get.height * 0.03),
                         const Spacer(),
-                        // Quyidagi button
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -164,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                 onPressed: () {
                                   //ApiController().sendCode();
-                                  Get.to(() => VerifyPageNumber());
+                                  Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
                                 },
                                 child: Icon(
                                   Icons.arrow_forward,
@@ -175,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                             )
                           ]
                         ),
-                        SizedBox(height: Get.height * 0.05)
+                        SizedBox(height: 50.h)
                       ]
                     )
                   )

@@ -16,7 +16,8 @@ class AppColors{
   static const black70 = Colors.black54;
   static const primaryColor2 = Color(0xFF27A77D);
   static const green = Color(0xFF34C759);
-  static const red = Color(0xFFD71E06);
+  //E31E24
+  static const red = Color(0xFFE31E24);
   static const backgroundApp = Color(0xFFCB8D05);
   static const primaryColor3 = Color(0xFF2797A7);
   static const blue = Colors.blue;

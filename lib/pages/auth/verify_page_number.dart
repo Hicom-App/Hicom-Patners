@@ -241,7 +241,8 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                   top: 0,
                                   child: AnimatedContainer(
                                       width: Get.width,
-                                      height: isKeyboardVisible ? 200.h : 380.h,
+                                      //height: isKeyboardVisible ? 200.h : 380.h,
+                                      height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
                                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                                       curve: Curves.easeInOut,
                                       decoration: BoxDecoration(
@@ -250,6 +251,11 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                           boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))]
                                       )
                                   )
+                              ),
+                              Positioned(
+                                  top: Get.height * 0.07,
+                                  left: 0,
+                                  child: IconButton(onPressed: () {Get.back();}, icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 30.sp))
                               ),
                               Positioned.fill(
                                   child: Column(
@@ -320,6 +326,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                                   child: ElevatedButton(
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                                       onPressed: () {
+                                                        Get.offAll(SamplePage());
                                                       },
                                                       child: Icon(
                                                           Icons.arrow_forward,

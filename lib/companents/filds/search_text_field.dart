@@ -27,6 +27,7 @@ class SearchTextField extends StatelessWidget{
                 fillColor: color,
                 hintText: 'Qidirish'.tr,
                 hintStyle: TextStyle(
+                  fontFamily: 'Schyler',
                     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 18.sp),
                 prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
                 suffixIcon: _getController.searchController.text.isNotEmpty
