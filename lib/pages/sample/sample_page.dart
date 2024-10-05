@@ -50,7 +50,7 @@ class SamplePage extends StatelessWidget {
             const TabItem(icon: EneftyIcons.box_3_bold),
             const TabItem(icon: EneftyIcons.chart_2_bold),
           ],
-          onTap: (int i) => _onItemTapped(i),
+          onTap: (int i) => _onItemTapped(i >= 3 ? i-1 : i),
         )
     );
   }
