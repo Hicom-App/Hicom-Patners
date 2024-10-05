@@ -26,34 +26,6 @@ class SamplePage extends StatelessWidget {
         drawerEnableOpenDragGesture: false,
         body: Obx(() => _getController.widgetOptions.elementAt(_getController.index.value)),
         extendBody: true,
-        /*bottomNavigationBar: Obx(() => Card(
-            color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.greysBack,
-            elevation: 5,
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            margin: EdgeInsets.only(bottom: Get.height * 0.03, left: Get.width * 0.04, right: Get.width * 0.04),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(icon: Icon(EneftyIcons.home_bold, color: _getController.index.value == 0
-                      ? AppColors.red
-                      : Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white,
-                      size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(0)),
-                  IconButton(icon: Icon(EneftyIcons.profile_bold,
-                      color: _getController.index.value == 1
-                          ? AppColors.red
-                          : Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white,
-                      size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(1)),
-                  Container(
-                    margin: EdgeInsets.all(5.r),
-                    decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-                    child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(QRViewExample())),
-                  ),
-                  IconButton(icon: Icon(EneftyIcons.box_3_bold, color: _getController.index.value == 2 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(2)),
-                  IconButton(icon: Icon(EneftyIcons.chart_2_bold, color: _getController.index.value == 3 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => _onItemTapped(3))
-                ]
-            )
-        ))*/
-
         bottomNavigationBar: ConvexAppBar(
           style: TabStyle.fixedCircle,
           cornerRadius: 25.r,
@@ -65,8 +37,8 @@ class SamplePage extends StatelessWidget {
           initialActiveIndex: 0,
           height: 48.h,
           items: [
-            TabItem(icon:EneftyIcons.home_bold),
-            TabItem(icon: EneftyIcons.profile_bold),
+            const TabItem(icon:EneftyIcons.home_bold),
+            const TabItem(icon: EneftyIcons.profile_bold),
             TabItem(icon: Container(
               decoration: const BoxDecoration(color: AppColors.white, shape: BoxShape.circle),
               child: Container(
@@ -74,13 +46,12 @@ class SamplePage extends StatelessWidget {
                   decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
                   child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
               )
-            ), title: 'Add'),
-            TabItem(icon: EneftyIcons.box_3_bold),
-            TabItem(icon: EneftyIcons.chart_2_bold),
+            )),
+            const TabItem(icon: EneftyIcons.box_3_bold),
+            const TabItem(icon: EneftyIcons.chart_2_bold),
           ],
-          onTap: (int i) => print('click index=$i'),
+          onTap: (int i) => _onItemTapped(i),
         )
-
     );
   }
 }
