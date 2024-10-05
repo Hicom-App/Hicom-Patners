@@ -15,5 +15,5 @@ class TextLarge extends StatelessWidget {
   const TextLarge({super.key, required this.text, this.color = Colors.black, this.fontWeight = FontWeight.normal, this.textAlign = TextAlign.start, this.overflow = TextOverflow.ellipsis, this.maxLines = 1, this.fontSize});
 
   @override
-  Widget build(BuildContext context) => Text(text.tr, style: TextStyle(color: color, fontSize: fontSize ?? Theme.of(context).textTheme.headlineSmall!.fontSize, fontWeight: fontWeight), textAlign: textAlign, overflow: overflow, maxLines: maxLines);
+  Widget build(BuildContext context) => Text(text.tr, style: TextStyle(fontFamily: 'Schyler', color: color, fontSize: fontSize ?? Theme.of(context).textTheme.headlineSmall!.fontSize, fontWeight: fontWeight), textAlign: textAlign, overflow: overflow, maxLines: maxLines);
 }

@@ -17,7 +17,5 @@ class TextSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
       text.tr,
-      style: TextStyle(
-        fontFamily: 'Schyler',
-          color: color, fontSize: fontSize ?? Theme.of(context).textTheme.bodyLarge!.fontSize, fontWeight: fontWeight), textAlign: textAlign, overflow: overflow, maxLines: maxLines);
+      style: TextStyle(fontFamily: 'Schyler', color: color, fontSize: fontSize ?? Theme.of(context).textTheme.bodyLarge!.fontSize, fontWeight: fontWeight), textAlign: textAlign, overflow: overflow, maxLines: maxLines);
 }

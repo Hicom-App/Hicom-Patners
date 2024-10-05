@@ -30,8 +30,8 @@ class HomePage extends StatelessWidget {
         body: Container(
             height: Get.height,
             width: Get.width,
-            decoration: BoxDecoration(
-              image: DecorationImage(image: const AssetImage('assets/images/background.png'), fit: BoxFit.cover),
+            decoration: const BoxDecoration(
+              image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover),
             ),
             child: RefreshComponent(
                 scrollController: _getController.scrollController,
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                     children: [
                       SizedBox(
-                          height: Get.height * 0.4,
+                          height: Get.height * 0.36,
                           width: Get.width,
                           child: Stack(
                               children: [
@@ -56,7 +56,13 @@ class HomePage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    TextLarge(text: _getController.fullName.value.toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                                    Row(
+                                                      children: [
+                                                        TextLarge(text: _getController.fullName.value.toString().split(' ')[0].toString(), color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
+                                                        SizedBox(width: 5.w),
+                                                        TextLarge(text: _getController.fullName.value.toString().split(' ')[1].toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                                      ]
+                                                    ),
                                                     TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
                                                   ]
                                               ),
@@ -70,12 +76,12 @@ class HomePage extends StatelessWidget {
                                           SizedBox(height: Get.height * 0.03),
                                           SizedBox(
                                               width: Get.width,
-                                              height: 100.h,
+                                              height: 90.h,
                                               child: ListView.builder(
                                                   itemCount: _getController.listTitle.length,
                                                   scrollDirection: Axis.horizontal,
                                                   physics: const BouncingScrollPhysics(),
-                                                  padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
                                                   itemBuilder: (context, index) => GestureDetector(
                                                       onTap: () {
                                                         if(index == 1) {
@@ -87,21 +93,21 @@ class HomePage extends StatelessWidget {
                                                       child: Card(
                                                           color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
                                                           elevation: 0,
-                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.r)),
                                                           child: SizedBox(
                                                               height: 100.h,
-                                                              width: 150.w,
+                                                              width: 178.w,
                                                               child: Column(
                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                                   children: [
-                                                                    TextSmall(text: _getController.listTitle[index].tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                                                                    TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black, fontSize: 17.sp),
                                                                     Row(
                                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                         children: [
-                                                                          TextSmall(text: _getController.listProductPrice[index].tr, color: _getController.listColor[index], fontWeight: FontWeight.bold),
-                                                                          TextSmall(text: ' so‘m', color: _getController.listColor[index],fontWeight: FontWeight.bold)
+                                                                          TextSmall(text: _getController.listProductPrice[index].tr, color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                                                          TextSmall(text: ' so‘m', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
                                                                         ]
                                                                     )
                                                                   ]
@@ -119,7 +125,7 @@ class HomePage extends StatelessWidget {
                           )
                       ),
                       Container(
-                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.4), spreadRadius: 3, blurRadius: 20, offset: const Offset(0, 0))]),
+                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.4), spreadRadius: 3, blurRadius: 20, offset: const Offset(0, 0))]),
                           child: Column(
                               children: [
                                 SizedBox(height: 20.h),
@@ -135,10 +141,7 @@ class HomePage extends StatelessWidget {
                                             child:  Container(
                                                 margin: EdgeInsets.only(left: 15.w),
                                                 padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context).brightness == Brightness.dark ? AppColors.black70 : AppColors.white,
-                                                    border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1),
-                                                    borderRadius: BorderRadius.circular(20.r)),
+                                                decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black70 : AppColors.white, border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2), width: 1), borderRadius: BorderRadius.circular(20.r)),
                                                 child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
