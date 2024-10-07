@@ -24,12 +24,7 @@ class GuaranteePage extends StatelessWidget {
           foregroundColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           centerTitle: false,
-          actions: [
-            SizedBox(width: 15.w),
-            TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1),
-            const Spacer(),
-            IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
-          ]
+          title: TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1),
       ),
       body: RefreshComponent(
         refreshController: _getController.refreshGuaranteeController,
@@ -48,51 +43,86 @@ class GuaranteePage extends StatelessWidget {
                     itemBuilder: (context, index) =>
                         Column(
                           children: [index == 0 || index == 2 || index == 3 ? Container(
-                            margin: EdgeInsets.only(bottom: Get.width * 0.02),
+                            margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.only(left: Get.width * 0.015, right: Get.width * 0.015),
                             child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : '15 Sentabr', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400),
                           ) : Container(),
                             Container(
-                            padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
+                            padding: EdgeInsets.only(left: 15.w, top: 8.h, bottom: 9.h),
                             margin: EdgeInsets.only(bottom: 15.h),
                             width: Get.width,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70,
-                                boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))],
-                                borderRadius: BorderRadius.circular(20.r)),
+                            decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))], borderRadius: BorderRadius.circular(18.r)),
                             child: Column(
                                 children: [
                                   Row(
                                       children: [
                                         Container(
-                                            width: Get.width * 0.30,
-                                            height: Get.height * 0.11,
-                                            margin: EdgeInsets.only(right: 10.w),
-                                            decoration: BoxDecoration(
-                                              //color: AppColors.red,
-                                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                                                boxShadow: [BoxShadow(
-                                                    color: Colors.red,
-                                                    blurRadius: 2.r,
-                                                    spreadRadius: 2.r,
-                                                    offset: const Offset(0, 0))
-                                                ]
-                                            ),
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                                                child: FadeInImage(
-                                                    image: NetworkImage(_getController.listImage[index]),
-                                                    placeholder: NetworkImage(_getController.listImage[index]),
-                                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                                    fit: BoxFit.cover
+                                          margin: EdgeInsets.only(right: 15.w),
+                                            width: Get.width * 0.36,
+                                            height: Get.height * 0.13,
+                                            child:  Stack(
+                                              children: [
+                                                Positioned(
+                                                    width: 2,
+                                                    height: Get.height * 0.11,
+                                                    child: Center(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        width: 2.w,
+                                                        height: Get.height * 0.09,
+                                                        decoration: BoxDecoration(
+                                                            color: AppColors.black,
+                                                            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                            boxShadow: [
+                                                              BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))
+                                                            ]
+                                                        ),
+                                                      )
+                                                    )
+                                                ),
+                                                Positioned(
+                                                  right: 0,
+                                                    width: 2,
+                                                    height: Get.height * 0.11,
+                                                    child: Center(
+                                                        child: Container(
+                                                          alignment: Alignment.center,
+                                                          width: 2.w,
+                                                          height: Get.height * 0.09,
+                                                          decoration: BoxDecoration(
+                                                              color: AppColors.black,
+                                                              borderRadius: BorderRadius.all(Radius.circular(20.r)),
+                                                              boxShadow: [
+                                                                BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))
+                                                              ]
+                                                          ),
+                                                        )
+                                                    )
+                                                ),
+                                                Positioned.fill(
+                                                    child: Container(
+                                                        width: Get.width * 0.30,
+                                                        height: Get.height * 0.11,
+                                                        decoration: const BoxDecoration(color: AppColors.white),
+                                                        child: ClipRRect(
+                                                            borderRadius: BorderRadius.all(Radius.circular(20.r)),
+                                                            child: FadeInImage(
+                                                                image: NetworkImage(_getController.listImage[index]),
+                                                                placeholder: NetworkImage(_getController.listImage[index]),
+                                                                imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        )
+                                                    )
                                                 )
+                                              ]
                                             )
                                         ),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                                width:  Get.width * 0.5,
+                                                width:  Get.width * 0.42,
                                                 child: Row(
                                                     children: [
                                                       SizedBox(width: 110.w, child: TextSmall(text: _getController.listImagePrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 18.sp)),
@@ -102,39 +132,38 @@ class GuaranteePage extends StatelessWidget {
                                                 )
                                             ),
                                             //TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400,fontSize: 10.sp),
-                                            SizedBox(height: 5.h),
+                                            SizedBox(height: 12.h),
                                             Row(
                                               children: [
-                                                SizedBox(width: 110.w, child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
-                                                TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 13.sp)
+                                                SizedBox(width: 85.w, child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 11.sp)),
+                                                TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 11.sp)
                                               ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
-                                                  TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.bold,fontSize: 13.sp),
+                                                  SizedBox(width: 85.w, child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 11.sp)),
+                                                  TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.bold,fontSize: 11.sp),
                                                 ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
-                                                  TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 13.sp)
+                                                  SizedBox(width: 85.w, child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 11.sp)),
+                                                  TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 11.sp)
                                                 ]
                                             ),
-                                            SizedBox(height: 5.h),
+                                            SizedBox(height: 6.h),
                                             SizedBox(
-                                              width:  Get.width * 0.5,
-                                              child: Row(
-                                                  children: [
-                                                    Container(
-                                                        width: 80.w,
-                                                        padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                                                        decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
-                                                        child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
-                                                    ),
-                                                    const Spacer(),
-                                                    //Icon(EneftyIcons.archive_2_bold, color: index == 2 ? AppColors.black70 : AppColors.black70, size: 18)
-                                                    Icon(Icons.archive_outlined, color: index == 2 ? AppColors.black70 : AppColors.black70, size: 23.sp)
+                                                width:  Get.width * 0.42,
+                                                child: Row(
+                                                    children: [
+                                                      Container(
+                                                          width: 80.w,
+                                                          padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
+                                                          decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(11.r)),
+                                                          child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 11.sp))
+                                                      ),
+                                                      const Spacer(),
+                                                      Icon(Icons.archive_outlined, color: index == 2 ? AppColors.black70 : AppColors.black70, size: 23.sp)
                                                   ]
                                               )
                                             )
