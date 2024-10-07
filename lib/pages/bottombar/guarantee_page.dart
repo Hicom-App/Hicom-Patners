@@ -65,10 +65,19 @@ class GuaranteePage extends StatelessWidget {
                                   Row(
                                       children: [
                                         Container(
-                                            width: Get.width * 0.22,
+                                            width: Get.width * 0.30,
                                             height: Get.height * 0.11,
-                                            margin: EdgeInsets.only(right: 15.w),
-                                            decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.all(Radius.circular(10.r))),
+                                            margin: EdgeInsets.only(right: 10.w),
+                                            decoration: BoxDecoration(
+                                              //color: AppColors.red,
+                                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                boxShadow: [BoxShadow(
+                                                    color: Colors.red,
+                                                    blurRadius: 2.r,
+                                                    spreadRadius: 2.r,
+                                                    offset: const Offset(0, 0))
+                                                ]
+                                            ),
                                             child: ClipRRect(
                                                 borderRadius: BorderRadius.all(Radius.circular(20.r)),
                                                 child: FadeInImage(
@@ -83,17 +92,16 @@ class GuaranteePage extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                                width:  Get.width * 0.56,
+                                                width:  Get.width * 0.5,
                                                 child: Row(
                                                     children: [
                                                       SizedBox(width: 110.w, child: TextSmall(text: _getController.listImagePrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 18.sp)),
                                                       const Spacer(),
-                                                      Icon(EneftyIcons.note_remove_bold, color: index == 2 ? AppColors.red : AppColors.red, size: 18),
+                                                      Icon(Icons.delete, color: index == 2 ? AppColors.red : AppColors.red, size: 18)
                                                     ]
                                                 )
                                             ),
-
-                                            TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.black, fontSize: 11),
+                                            //TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400,fontSize: 10.sp),
                                             SizedBox(height: 5.h),
                                             Row(
                                               children: [
@@ -115,7 +123,7 @@ class GuaranteePage extends StatelessWidget {
                                             ),
                                             SizedBox(height: 5.h),
                                             SizedBox(
-                                              width:  Get.width * 0.56,
+                                              width:  Get.width * 0.5,
                                               child: Row(
                                                   children: [
                                                     Container(
@@ -125,12 +133,8 @@ class GuaranteePage extends StatelessWidget {
                                                         child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
                                                     ),
                                                     const Spacer(),
-                                                    Container(
-                                                      padding: const EdgeInsets.all(3),
-                                                      margin: const EdgeInsets.only(left: 5),
-                                                      decoration: BoxDecoration(color: index == 2 ? AppColors.blue : AppColors.blue, shape: BoxShape.circle),
-                                                      child: Icon(EneftyIcons.attach_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
-                                                    )
+                                                    //Icon(EneftyIcons.archive_2_bold, color: index == 2 ? AppColors.black70 : AppColors.black70, size: 18)
+                                                    Icon(Icons.archive_outlined, color: index == 2 ? AppColors.black70 : AppColors.black70, size: 23.sp)
                                                   ]
                                               )
                                             )
