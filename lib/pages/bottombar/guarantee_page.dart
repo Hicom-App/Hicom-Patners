@@ -24,15 +24,10 @@ class GuaranteePage extends StatelessWidget {
           foregroundColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           centerTitle: false,
-          title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextLarge(text: _getController.fullName.value.toString(), color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
-                TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400, maxLines: 1),
-              ]
-          ),
           actions: [
+            SizedBox(width: 15.w),
+            TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1),
+            const Spacer(),
             IconButton(icon: Icon(EneftyIcons.notification_bold, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
           ]
       ),
@@ -45,7 +40,7 @@ class GuaranteePage extends StatelessWidget {
             SearchTextField(color: Colors.grey.withOpacity(0.2)),
             Container(
                 width: Get.width,
-                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h, bottom: 15.h),
+                padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h, bottom: 15.h),
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: _getController.listImage.length,
@@ -61,7 +56,10 @@ class GuaranteePage extends StatelessWidget {
                             padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
                             margin: EdgeInsets.only(bottom: 15.h),
                             width: Get.width,
-                            decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? Colors.grey.withOpacity(0.2) : AppColors.greysBack, borderRadius: BorderRadius.circular(20.r)),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70,
+                                boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))],
+                                borderRadius: BorderRadius.circular(20.r)),
                             child: Column(
                                 children: [
                                   Row(
@@ -84,57 +82,60 @@ class GuaranteePage extends StatelessWidget {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
+                                            SizedBox(
+                                                width:  Get.width * 0.56,
+                                                child: Row(
+                                                    children: [
+                                                      SizedBox(width: 110.w, child: TextSmall(text: _getController.listImagePrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 18.sp)),
+                                                      const Spacer(),
+                                                      Icon(EneftyIcons.note_remove_bold, color: index == 2 ? AppColors.red : AppColors.red, size: 18),
+                                                    ]
+                                                )
+                                            ),
+
+                                            TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.black, fontSize: 11),
+                                            SizedBox(height: 5.h),
                                             Row(
                                               children: [
-                                                SizedBox(width: 110.w, child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
-                                                TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
+                                                SizedBox(width: 110.w, child: TextSmall(text: 'Kategoriya:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
+                                                TextSmall(text: _getController.listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 13.sp)
                                               ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
-                                                  TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.w300,fontSize: 14.sp),
+                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Qo`shilgan:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
+                                                  TextSmall(text: _getController.listPriceAnd[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,fontWeight: FontWeight.bold,fontSize: 13.sp),
                                                 ]
                                             ),
                                             Row(
                                                 children: [
-                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 14.sp)),
-                                                  TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w300,fontSize: 14.sp)
+                                                  SizedBox(width: 110.w, child: TextSmall(text: 'Kafolat:', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 13.sp)),
+                                                  TextSmall(text: _getController.listPrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold,fontSize: 13.sp)
                                                 ]
                                             ),
                                             SizedBox(height: 5.h),
-                                            Row(
-                                                children: [
-                                                  Container(
-                                                    width: 80.w,
-                                                    padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                                                    decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
-                                                    child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets.all(3),
-                                                    margin: const EdgeInsets.only(left: 5),
-                                                    decoration: BoxDecoration(color: index == 2 ? AppColors.blue : AppColors.blue, shape: BoxShape.circle),
-                                                    child: Icon(EneftyIcons.attach_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets.all(3),
-                                                    margin: const EdgeInsets.only(left: 5),
-                                                    decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.red, shape: BoxShape.circle),
-                                                    child: Icon(EneftyIcons.close_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
-                                                  )
-                                                ]
+                                            SizedBox(
+                                              width:  Get.width * 0.56,
+                                              child: Row(
+                                                  children: [
+                                                    Container(
+                                                        width: 80.w,
+                                                        padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
+                                                        decoration: BoxDecoration(color: index == 2 ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(12.r)),
+                                                        child: Center(child: TextSmall(text: index == 2 ? 'Faol emas' : 'Faol', color: index == 2 ? AppColors.white : AppColors.white, fontSize: 13))
+                                                    ),
+                                                    const Spacer(),
+                                                    Container(
+                                                      padding: const EdgeInsets.all(3),
+                                                      margin: const EdgeInsets.only(left: 5),
+                                                      decoration: BoxDecoration(color: index == 2 ? AppColors.blue : AppColors.blue, shape: BoxShape.circle),
+                                                      child: Icon(EneftyIcons.attach_circle_bold, color: index == 2 ? AppColors.white : AppColors.white, size: 18),
+                                                    )
+                                                  ]
+                                              )
                                             )
                                           ]
                                         )
-                                      ]
-                                  ),
-                                  SizedBox(height: Get.height * 0.015),
-                                  Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        TextSmall(text: _getController.listImagePrice[index].toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
                                       ]
                                   )
                                 ]
