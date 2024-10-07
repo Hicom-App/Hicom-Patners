@@ -24,7 +24,7 @@ class GuaranteePage extends StatelessWidget {
           foregroundColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           centerTitle: false,
-          title: TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1),
+          title: TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1)
       ),
       body: RefreshComponent(
         refreshController: _getController.refreshGuaranteeController,
