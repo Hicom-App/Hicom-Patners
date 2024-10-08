@@ -18,18 +18,10 @@ class ReportPage extends StatelessWidget {
             Column(
                 children: [
                   Container(width: Get.width, height: Get.height * 0.431,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)),
-                          image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover),
-                          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]
-                      ),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]),
                       child: Column(
                           children: [
-                            AppBar(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0,
-                              title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp),
-                            ),
+                            AppBar(backgroundColor: Colors.transparent, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
                             SizedBox(
                                 width: Get.width,
                                 height: Get.height * 0.025,
@@ -43,10 +35,7 @@ class ReportPage extends StatelessWidget {
                                             alignment: Alignment.center,
                                             margin: EdgeInsets.only(left: 14.w),
                                             padding: EdgeInsets.only(left: 19.w, right: 19.w),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(20.r),
-                                                border: Border.all(width: 1.5.w, color: AppColors.white),
-                                                color: _getController.selectedMonth.value == index ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.grey.withOpacity(0.2)),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), border: Border.all(width: 1.5.w, color: AppColors.white), color: _getController.selectedMonth.value == index ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.grey.withOpacity(0.2)),
                                             child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index ? AppColors.red : AppColors.white, fontWeight: FontWeight.w500, maxLines: 1,fontSize: 12.sp)
                                         )
                                     )
@@ -75,139 +64,139 @@ class ReportPage extends StatelessWidget {
                                                   children: [
                                                     TextSmall(text: 'Hisoblangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
                                                     SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '2 202'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.71 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
-                                                  ]
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    SizedBox(width: 5.w),
-                                                    TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    Row(
+                                                        children: [
+                                                          TextSmall(text: '2 202'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          TextSmall(text: '.71 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                        ]
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                        children: [
+                                                          TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          SizedBox(width: 5.w),
+                                                          TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        ]
+                                                    )
                                                   ]
                                               )
-                                            ]
-                                        )
-                                    )
-                                ),
+                                          )
+                                      ),
                                       Container(
-                                    width: Get.width * 0.43,
-                                    height: Get.height * 0.1,
-                                    decoration: BoxDecoration(color:AppColors.red, borderRadius: BorderRadius.all(Radius.circular(20.r))),
-                                    child: Container(
-                                        height: Get.height * 0.1,
-                                        margin: EdgeInsets.only(left: 10.w),
-                                        padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r),topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              TextSmall(text: 'Rad etilgan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
-                                              SizedBox(height: 4.h),
-                                              Row(
+                                          width: Get.width * 0.43,
+                                          height: Get.height * 0.1,
+                                          decoration: BoxDecoration(color:AppColors.red, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                          child: Container(
+                                              height: Get.height * 0.1,
+                                              margin: EdgeInsets.only(left: 10.w),
+                                              padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r),topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
+                                              child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
-                                                  ]
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    SizedBox(width: 5.w),
-                                                    TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    TextSmall(text: 'Rad etilgan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                        children: [
+                                                          TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                        ]
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                        children: [
+                                                          TextSmall(text: '0'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          SizedBox(width: 5.w),
+                                                          TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        ]
+                                                    )
                                                   ]
                                               )
-                                            ]
-                                        )
-                                    )
-                                )
+                                          )
+                                      )
                                     ]
                                 )
                             ),
                             Container(
-                          width: Get.width,
-                          margin: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                    width: Get.width * 0.43,
-                                    height: Get.height * 0.1,
-                                    decoration: BoxDecoration(color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
-                                    child: Container(
+                              width: Get.width,
+                              margin: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                        width: Get.width * 0.43,
                                         height: Get.height * 0.1,
-                                        margin: EdgeInsets.only(right: 10.w),
-                                        padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              TextSmall(text: 'Jarayonda'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '2 286 353'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.0 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
-                                                  ]
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    SizedBox(width: 5.w),
-                                                    TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                  ]
-                                              )
-                                            ]
+                                        decoration: BoxDecoration(color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                        child: Container(
+                                            height: Get.height * 0.1,
+                                            margin: EdgeInsets.only(right: 10.w),
+                                            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
+                                            child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  TextSmall(text: 'Jarayonda'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
+                                                  SizedBox(height: 4.h),
+                                                  Row(
+                                                      children: [
+                                                        TextSmall(text: '2 286 353'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        TextSmall(text: '.0 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                      ]
+                                                  ),
+                                                  SizedBox(height: 4.h),
+                                                  Row(
+                                                      children: [
+                                                        TextSmall(text: '14'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        SizedBox(width: 5.w),
+                                                        TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      ]
+                                                  )
+                                                ]
+                                            )
+                                        )
+                                    ),
+                                    Container(
+                                        width: Get.width * 0.43,
+                                        height: Get.height * 0.1,
+                                        decoration: BoxDecoration(color:AppColors.green, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                        child: Container(
+                                            height: Get.height * 0.1,
+                                            margin: EdgeInsets.only(left: 10.w),
+                                            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r), topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
+                                            child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  TextSmall(text: 'To`langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
+                                                  SizedBox(height: 4.h),
+                                                  Row(
+                                                      children: [
+                                                        TextSmall(text: '10000'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        TextSmall(text: '.01 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                      ]
+                                                  ),
+                                                  SizedBox(height: 4.h),
+                                                  Row(
+                                                      children: [
+                                                        TextSmall(text: '1'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        SizedBox(width: 5.w),
+                                                        TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      ]
+                                                  )
+                                                ]
+                                            )
                                         )
                                     )
-                                ),
-                                Container(
-                                    width: Get.width * 0.43,
-                                    height: Get.height * 0.1,
-                                    decoration: BoxDecoration(color:AppColors.green, borderRadius: BorderRadius.all(Radius.circular(15.r))),
-                                    child: Container(
-                                        height: Get.height * 0.1,
-                                        margin: EdgeInsets.only(left: 10.w),
-                                        padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r), topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              TextSmall(text: 'To`langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '10000'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.01 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
-                                                  ]
-                                              ),
-                                              SizedBox(height: 4.h),
-                                              Row(
-                                                  children: [
-                                                    TextSmall(text: '1'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    SizedBox(width: 5.w),
-                                                    TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                  ]
-                                              )
-                                            ]
-                                        )
-                                    )
-                                )
-                              ]
-                          ),
-                        )
-                      ]
-                  )
-              ),
+                                  ]
+                              ),
+                            )
+                          ]
+                      )
+                  ),
                   SizedBox(
                       width: Get.width,
                       height: Get.height * 0.54,
