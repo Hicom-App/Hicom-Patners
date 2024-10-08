@@ -44,6 +44,8 @@ class HomePage extends StatelessWidget {
                               children: [
                                 Positioned.fill(
                                     child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           AppBar(
                                               surfaceTintColor: Colors.transparent,
@@ -69,10 +71,12 @@ class HomePage extends StatelessWidget {
                                                 IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
                                               ]
                                           ),
-                                          const Spacer(),
-                                          TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                          TextLarge(text: '2 510 018 so‘m'.tr, color: AppColors.white,fontWeight: FontWeight.bold),
-                                          SizedBox(height: Get.height * 0.03),
+                                          Column(
+                                            children: [
+                                              TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
+                                              TextLarge(text: '2 510 018 so‘m'.tr, color: AppColors.white,fontWeight: FontWeight.bold)
+                                            ]
+                                          ),
                                           SizedBox(
                                               width: Get.width,
                                               height: 90.h,
@@ -115,8 +119,7 @@ class HomePage extends StatelessWidget {
                                                       )
                                                   )
                                               )
-                                          ),
-                                          const Spacer()
+                                          )
                                         ]
                                     )
                                 )
