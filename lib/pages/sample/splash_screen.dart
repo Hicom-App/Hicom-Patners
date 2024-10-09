@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _getController.tapTimes(open,5);
+    _getController.tapTimes(open,1);
     return Scaffold(
       body: Container(
           width: Get.width,
@@ -40,10 +40,39 @@ class SplashScreen extends StatelessWidget {
                     SizedBox(height: Get.height * 0.04),
                     Text('${'Version'.tr}: 1.0.0', style: TextStyle(fontSize: Get.width * 0.035, fontWeight: FontWeight.w500, color: AppColors.white)),
                     SizedBox(height: Get.height * 0.03)
+                    /*_buildListTile(context: context, icon: EneftyIcons.profile_bold, title: 'Profilim', onTap: () => Get.to(() => const MyAccountPage(), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: EneftyIcons.wallet_2_bold, title: 'Hamyon', onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: EneftyIcons.bookmark_2_bold, title: 'Saqlanganlar', onTap: () =>Get.to(() => ArxivPage(), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: EneftyIcons.heart_bold, title: 'Sevimlilar', onTap: () =>Get.to(() => FavoritesPage(), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: EneftyIcons.setting_3_bold, title: 'Sozlamalar', onTap: () =>Get.to(() => SettingsPage(), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar', onTap: () =>Get.to(() => const NotificationPage(), transition: Transition.downToUp)),
+                    _buildListTile(context: context, icon: Icons.help, title: 'Yordam', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                    _buildListTile(context: context, icon: EneftyIcons.info_circle_bold, title: 'Batafsil', onTap: () =>launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                    _buildListTile(context: context, icon: EneftyIcons.happyemoji_bold, title: 'Ilova haqida', onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)),
+                    _buildListTile(context: context, icon: EneftyIcons.login_bold,color: Colors.red, title: 'Chiqish', onTap: () => InstrumentComponents().logOutDialog(context)),
+                    SizedBox(height: 20.h),
+                    TextSmall(text: 'Ilova versiyasi: 1.0.0', color: AppColors.black, fontSize: 12.sp),
+                    SizedBox(height: Get.height * 0.1),
+                    SizedBox(height: 400.h)*/
                   ]
               )
           )
       )
+    );
+  }
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color}) {
+    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
+    return Container(
+        margin: const EdgeInsets.only(top: 13.0),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
+        child: ListTile(
+            onTap: onTap,
+            hoverColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            leading: Icon(icon, color: color),
+            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
+            trailing: Icon(Icons.chevron_right, color: color)
+        )
     );
   }
 }

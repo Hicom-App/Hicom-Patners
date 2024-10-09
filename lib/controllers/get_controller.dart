@@ -368,7 +368,7 @@ class GetController extends GetxController {
 
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
-    widgetOptions.add(const AccountPage());
+    widgetOptions.add(AccountPage());
     widgetOptions.add(GuaranteePage());
     widgetOptions.add(ReportPage());
   }
