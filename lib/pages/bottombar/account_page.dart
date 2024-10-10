@@ -208,10 +208,10 @@ class _AccountPageState extends State<AccountPage> {
               color: Colors.black,
               fontSize: 12.sp,
             ),
-            SizedBox(height: Get.height * 0.2),
-          ],
-        ),
-      ),
+            SizedBox(height: Get.height * 0.2)
+          ]
+        )
+      )
     );
   }
 
@@ -233,8 +233,8 @@ class _AccountPageState extends State<AccountPage> {
         onTap: onTap,
         leading: Icon(icon, color: color),
         title: Text(title, style: TextStyle(fontSize: 16.sp)),
-        trailing: Icon(Icons.chevron_right, color: color),
-      ),
+        trailing: Icon(Icons.chevron_right, color: color)
+      )
     );
   }
 }

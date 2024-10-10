@@ -422,20 +422,21 @@ class GetController extends GetxController {
 
   int getCrossAxisCount() {
     double screenWidth = Get.width;
-
     if (screenWidth > 1023 && screenWidth <= 1366) {
-      // iPad Pro 12.9 inch (13-inch iPad)
       return 6;
     } else if (screenWidth >= 819 && screenWidth <= 1024) {
-      // iPad Pro 11 inch or similar
       return 4;
     } else if (screenWidth < 399) {
-      // iPhone SE or smaller devices
       return 2;
     } else {
-      // Default for medium-sized screens
       return 2;
     }
   }
 
+  var countries = [].obs;
+  var regions = [].obs;
+  var cities = [].obs;
+  var categories = [].obs;
+  var products = [].obs;
+  var token = ''.obs;
 }
