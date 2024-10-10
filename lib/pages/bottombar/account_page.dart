@@ -208,7 +208,7 @@ class _AccountPageState extends State<AccountPage> {
               color: Colors.black,
               fontSize: 12.sp,
             ),
-            SizedBox(height: Get.height * 0.1),
+            SizedBox(height: Get.height * 0.2),
           ],
         ),
       ),
