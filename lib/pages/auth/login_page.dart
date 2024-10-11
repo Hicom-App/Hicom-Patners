@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Container(
                                 width: Get.width,
-                                margin: EdgeInsets.only(left: 25.w, right: 25),
+                                margin: EdgeInsets.only(left: 25.w, right: 25.w),
                                 child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)
                               ),
                               Container(

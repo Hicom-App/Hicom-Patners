@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
 import 'package:hicom_patners/pages/home/notification_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
-import 'package:rive/rive.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -25,7 +23,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.black,
         body: Container(
             height: Get.height,
             width: Get.width,

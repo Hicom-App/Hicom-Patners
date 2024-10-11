@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../models/districts_model.dart';
@@ -142,8 +144,11 @@ class GetController extends GetxController {
   @override
   void onClose() {
     controller?.dispose();
+    nameController.dispose();
+
     super.onClose();
   }
+
 
   var districtsModel = DistrictsModel().obs;
   var provinceModel = ProvinceModel().obs;
@@ -439,4 +444,57 @@ class GetController extends GetxController {
   var categories = [].obs;
   var products = [].obs;
   var token = ''.obs;
+
+
+  var isKeyboardVisible = false.obs;
+  var animateTextFields = false.obs;
+
+  var selectedDate = DateTime.now().obs;
+  var formattedDate = ''.obs;
+
+  // Method to trigger animation
+  void startDelayedAnimation() {
+    animateTextFields.value = true;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      animateTextFields.value = false;
+    });
+  }
+
+  // Method to update keyboard visibility
+  void updateKeyboardVisibility(bool isVisible) {
+    isKeyboardVisible.value = isVisible;
+  }
+  // Update selected date
+  void updateSelectedDate(DateTime newDate) {
+    selectedDate.value = newDate;
+    //formattedDate = DateFormat('dd/MM/yyyy').format(selectedDate);
+    formattedDate.value = DateFormat('dd.MM.yyyy').format(selectedDate.value);
+    print(newDate);
+    print(formattedDate.value);
+    update();
+  }
+
+  // Show Cupertino Date Picker
+  void showCupertinoDatePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 250,
+          child: CupertinoDatePicker(
+            initialDateTime: selectedDate.value,
+            minimumDate: DateTime(1900),
+            maximumDate: DateTime.now().add(const Duration(days: 365)),
+            onDateTimeChanged: (DateTime newDate) {
+              updateSelectedDate(newDate);
+            },
+            mode: CupertinoDatePickerMode.date,
+          ),
+        );
+      },
+    );
+  }
+
+
+
 }
