@@ -39,7 +39,7 @@ class _LoginPageState extends State<RegisterPage> {
       _getController.startDelayedAnimation();
     }
 
-    ApiController().getCountries();
+    //ApiController().getCountries();
 
 
     return GestureDetector(

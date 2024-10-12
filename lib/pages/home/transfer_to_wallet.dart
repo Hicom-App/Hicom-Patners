@@ -2,6 +2,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/filds/text_large.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
@@ -18,9 +19,9 @@ class TransferToWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        backgroundColor: AppColors.greys,
         appBar: AppBar(
-            backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+            backgroundColor: AppColors.greys,
             foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
             surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
             title: TextSmall(text: 'Kartaga o`tkazmalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
@@ -29,13 +30,12 @@ class TransferToWallet extends StatelessWidget {
             scrollController: _getController.scrollTransferWalletController,
             child: Column(
                 children: [
-                  SizedBox(height: 20.h),
                   Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To`lovga tasdiqlangan'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
                   Container(
                       width: Get.width,
-                      margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h),
-                      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
-                      decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
+                      margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 11.h),
+                      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
+                      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
                           Icon(EneftyIcons.card_bold, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: 40.sp),
@@ -44,58 +44,72 @@ class TransferToWallet extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500),
-                              TextSmall(text: _getController.listProductPrice[index] + ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                              TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: AppColors.black, fontSize: 11.sp, fontWeight: FontWeight.w500),
+                              Row(
+                                children: [
+                                  TextSmall(text: '125 ' +_getController.listProductPrice[index], color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
+                                  TextSmall(text: ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                                ],
+                              )
                             ]
                           )
                         ]
                       )
                   ),
-                  SizedBox(height: 20.h),
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
+                  SizedBox(height: 35.h),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 15.sp)),
                   GestureDetector(
                       onTap: () => InstrumentComponents().bottomSheetMeCards(context),
                       child: Container(
                           width: Get.width,
-                          margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 10.h,),
-                          padding: EdgeInsets.only(left: 10.w, right: 15.w, top: 10.h, bottom: 10.h),
+                          margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 8.h,),
+                          padding: EdgeInsets.only(left: 20.w, right: 15.w, top: 10.h, bottom: 10.h),
                           decoration: BoxDecoration(
                               color: AppColors.grey.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(20.r),
-                              image: DecorationImage(image: NetworkImage(_getController.listCardBackImage[0]), fit: BoxFit.cover)
+                              border: Border.all(color: AppColors.blue,width: 2.w),
+                              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))],
+                              image: DecorationImage(image: Image.asset('assets/images/card_fon.png').image, fit: BoxFit.cover)
                           ),
-                          child: Row(
-                              children: [
-                                SizedBox(
-                                    height: 70.h,
-                                    width: 70.w,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(300.r),
-                                        child: FadeInImage(
-                                            image: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
-                                            placeholder: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
-                                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                            fit: BoxFit.cover
-                                        )
-                                    )
-                                ),
-                                SizedBox(width: 10.w),
-                                Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      TextSmall(text: _getController.fullName.value, color: AppColors.white, fontWeight: FontWeight.w500),
-                                      TextSmall(text: '9860 **** **** 8996'.tr, color: AppColors.white, fontWeight: FontWeight.w500)
-                                    ]
-                                ),
-                                const Spacer(),
-                                Column(
-                                    children: [
-                                      Icon(Icons.keyboard_arrow_up, color: AppColors.blue, size: 20.sp),
-                                      Icon(Icons.keyboard_arrow_down, color: AppColors.blue, size: 20.sp),
-                                    ]
-                                )
-                              ]
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 60.h,
+                                  width: 60.w,
+                                  margin: EdgeInsets.only(right: 10.w, top: 5.h, bottom: 5.h),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(300.r),
+                                      child: FadeInImage(
+                                          image: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
+                                          placeholder: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
+                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                          fit: BoxFit.cover
+                                      )
+                                  )
+                              ),
+                              TextSmall(text: '9860 **** **** 8996'.tr, color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
+                              TextSmall(text: _getController.fullName.value, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                              SizedBox(height: 4.h)
+                            ],
+                          )
+                      )
+                  ),
+                  GestureDetector(
+                      onTap: () => InstrumentComponents().bottomSheetMeCards(context),
+                      child: Container(
+                          width: Get.width,
+                          height: 136.h,
+                          margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 30.h,bottom: 12.h),
+                          decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(20.r),
+                            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))],
+                              //image: DecorationImage(image: Image.asset('assets/images/card_fon.png').image, fit: BoxFit.cover)
+                          ),
+                          child: Center(
+                            child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp),
                           )
                       )
                   ),
@@ -104,8 +118,8 @@ class TransferToWallet extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
                       child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                   ),
-                  TextFieldCustom(fillColor: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), hint: '828', controller: _getController.noteProjectController),
-                  SizedBox(height: Get.height * 0.05),
+                  TextFieldCustom(fillColor: AppColors.white, hint: '828', controller: _getController.noteProjectController),
+                  SizedBox(height: Get.height * 0.025),
                   Container(
                     margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
                     child: ElevatedButton(
