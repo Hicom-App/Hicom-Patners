@@ -96,6 +96,11 @@ class InstrumentComponents {
                         Container(height: Get.height * 0.005, width: Get.width * 0.2, margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03), decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(10.0))),
                         TextLarge(text: title.toString(), color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
                         SizedBox(height: Get.height * 0.02),
+                        if (cat == 0 && _getController.countriesModel.value.countries == null || cat == 1 && _getController.regionsModel.value.regions == null || cat == 2 && _getController.citiesModel.value.cities == null)
+                          Expanded(
+                            child: TextSmall(text: 'Malumotlarni tanlang', color: Theme.of(context).colorScheme.onSurface, maxLines: 3),
+                          )
+                        else
                         Expanded(
                               child: ListView.builder(
                                   itemCount: cat == 0 ? _getController.dropDownItemsCountries.length : cat == 1 ? _getController.dropDownItemsRegions.length : _getController.dropDownItemsCities.length,
@@ -106,7 +111,11 @@ class InstrumentComponents {
                                             Get.back();
                                             cat == 0 ? _getController.changeDropDownItems(1, index) : cat == 1 ? _getController.changeDropDownItems(2, index) : _getController.changeDropDownItems(3, index);
                                             if (cat == 0) {
-                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!);
+                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!).then((value) {
+                                                if (_getController.regionsModel.value.regions != null && _getController.regionsModel.value.regions!.isNotEmpty) {
+                                                  ApiController().getCities(_getController.regionsModel.value.regions!.first.id!);
+                                                }
+                                              });
                                               _getController.clearRegionsModel();
                                             }
                                             if (cat == 1) {

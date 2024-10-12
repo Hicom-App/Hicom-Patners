@@ -86,7 +86,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                     SizedBox(height: Get.height * 0.01),
                                                     AnimatedOpacity(
                                                       opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
-                                                      duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                                      duration: const Duration(milliseconds: 1500),
                                                       child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.nameController)
                                                     ),
                                                     SizedBox(height: Get.height * 0.01),
@@ -100,7 +100,6 @@ class _LoginPageState extends State<RegisterPage> {
                                                               InkWell(
                                                                   onTap: () => _getController.showCupertinoDatePicker(context),
                                                                   child: Container(
-                                                                    //width: Get.width * 0.4,
                                                                       height: 40.h,
                                                                       margin: EdgeInsets.only(top: Get.height * 0.01),
                                                                       decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), bottomLeft: Radius.circular(10.r)), color: AppColors.white),
@@ -162,7 +161,9 @@ class _LoginPageState extends State<RegisterPage> {
                                                     SizedBox(height: 5.h),
                                                     Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Mamlakat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                     InkWell(
-                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0),
+                                                      onTap: () {
+                                                        _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);
+                                                        },
                                                       child: Container(
                                                           width: Get.width,
                                                           height: 40.h,
@@ -173,25 +174,16 @@ class _LoginPageState extends State<RegisterPage> {
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                Obx(() => TextSmall(
-                                                                    text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat',
-                                                                    color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    maxLines: 3,
-                                                                    fontSize: 13.sp)),
+                                                                Obx(() => TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
                                                                 const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                               ]
                                                           )
-                                                      ),
+                                                      )
                                                     ),
                                                     SizedBox(height: 5.h),
-                                                    Container(
-                                                        width: Get.width,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        child: TextSmall(text: 'Viloyat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)
-                                                    ),
+                                                    Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Viloyat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                     InkWell(
-                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1),
+                                                      onTap: () => _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1),
                                                       child: Container(
                                                           width: Get.width,
                                                           height: 40.h,
@@ -202,25 +194,16 @@ class _LoginPageState extends State<RegisterPage> {
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                Obx(() => TextSmall(
-                                                                    text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang',
-                                                                    color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    maxLines: 3,
-                                                                    fontSize: 13.sp)),
+                                                                Obx(() => TextSmall(text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang', color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
                                                                 const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                               ]
                                                           )
-                                                      ),
+                                                      )
                                                     ),
                                                     SizedBox(height: 5.h),
-                                                    Container(
-                                                        width: Get.width,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        child: TextSmall(text: 'Shaxar', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 14.sp)
-                                                    ),
+                                                    Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Shaxar', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 14.sp)),
                                                     InkWell(
-                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2),
+                                                      onTap: () => _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2),
                                                       child: Container(
                                                           width: Get.width,
                                                           height: 40.h,
@@ -231,16 +214,12 @@ class _LoginPageState extends State<RegisterPage> {
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                Obx(() => TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon',
-                                                                    color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    maxLines: 3,
-                                                                    fontSize: 13.sp)),
+                                                                Obx(() => TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon', color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
                                                                 const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                               ]
                                                           )
-                                                      ),
-                                                    ),
+                                                      )
+                                                    )
                                                   ]
                                               )
                                             )
