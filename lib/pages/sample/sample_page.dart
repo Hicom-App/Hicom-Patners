@@ -35,7 +35,7 @@ class SamplePage extends StatelessWidget {
           elevation: 7.sp,
           activeColor: AppColors.red,
           initialActiveIndex: 0,
-          height: 48.h,
+          height: 50.sp,
           items: [
             const TabItem(icon:EneftyIcons.home_bold),
             const TabItem(icon: EneftyIcons.profile_bold),

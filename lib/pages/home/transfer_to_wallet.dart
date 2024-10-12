@@ -1,6 +1,7 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_large.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
@@ -34,11 +35,11 @@ class TransferToWallet extends StatelessWidget {
                   Container(
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 11.h),
-                      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
+                      padding: EdgeInsets.only(left: 15.w, right: 10.w, top: 5.h, bottom: 5.h),
                       decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r)),
                       child: Row(
                         children: [
-                          Icon(EneftyIcons.card_bold, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: 40.sp),
+                          Icon(EneftyIcons.card_bold, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: 35.sp),
                           SizedBox(width: 10.w),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +50,7 @@ class TransferToWallet extends StatelessWidget {
                                 children: [
                                   TextSmall(text: '125 ' +_getController.listProductPrice[index], color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
                                   TextSmall(text: ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
-                                ],
+                                ]
                               )
                             ]
                           )
@@ -68,7 +69,7 @@ class TransferToWallet extends StatelessWidget {
                               color: AppColors.grey.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(color: AppColors.blue,width: 2.w),
-                              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))],
+                              boxShadow: [BoxShadow(color: AppColors.black70.withOpacity(0.1), blurRadius: 25.r, spreadRadius: 25.r, offset: const Offset(0, 1))],
                               image: DecorationImage(image: Image.asset('assets/images/card_fon.png').image, fit: BoxFit.cover)
                           ),
                           child: Column(
@@ -76,23 +77,15 @@ class TransferToWallet extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                  height: 60.h,
-                                  width: 60.w,
-                                  margin: EdgeInsets.only(right: 10.w, top: 5.h, bottom: 5.h),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(300.r),
-                                      child: FadeInImage(
-                                          image: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
-                                          placeholder: const NetworkImage('https://yt3.googleusercontent.com/ytc/AIdro_l_peMiKFSyyS_s4U7M4vsx_vel0cyoCGrWP50n8udhig=s900-c-k-c0x00ffffff-no-rj'),
-                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                          fit: BoxFit.cover
-                                      )
-                                  )
+                                  height: 50.h,
+                                  width: 50.w,
+                                  margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h),
+                                  child: SvgPicture.asset('assets/svg_assets/uz_card.svg', color: AppColors.white, fit: BoxFit.contain)
                               ),
-                              TextSmall(text: '9860 **** **** 8996'.tr, color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
+                              TextSmall(text: '9860   35**   ****   8996'.tr, color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
                               TextSmall(text: _getController.fullName.value, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 13.sp),
                               SizedBox(height: 4.h)
-                            ],
+                            ]
                           )
                       )
                   ),
@@ -101,7 +94,7 @@ class TransferToWallet extends StatelessWidget {
                       child: Container(
                           width: Get.width,
                           height: 136.h,
-                          margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 30.h,bottom: 12.h),
+                          margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 30.h,bottom: 12.h),
                           decoration: BoxDecoration(
                               color: AppColors.white,
                               borderRadius: BorderRadius.circular(20.r),
