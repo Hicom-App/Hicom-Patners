@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../pages/auth/login_page.dart';
 import '../../pages/home/add_card_page.dart';
@@ -13,35 +14,9 @@ import '../filds/text_small.dart';
 class InstrumentComponents {
   final GetController _getController = Get.put(GetController());
 
-  final List locale =[
-    {'name':'English','locale':const Locale('en','US')},
-    {'name':'Русский','locale':const Locale('ru','RU')},
-    {'name':'O‘zbekcha','locale':const Locale('uz','UZ')},
-    {'name':'Ўзбекча','locale':const Locale('oz','OZ')},
-  ];
+  final List locale =[{'name':'English','locale':const Locale('en','US')}, {'name':'Русский','locale':const Locale('ru','RU')}, {'name':'O‘zbekcha','locale':const Locale('uz','UZ')}, {'name':'Ўзбекча','locale':const Locale('oz','OZ')}];
 
-  updateLanguage(Locale locale){
-    Get.updateLocale(locale);
-    _getController.saveLanguage(locale);
-  }
-
-  void showToast(context,String title,String message, error,sec) => Get.snackbar(
-      title.tr,
-      message.tr,
-      backgroundColor: error ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurface,
-      colorText: error ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.surface,
-      snackPosition: SnackPosition.BOTTOM,
-      margin: EdgeInsets.only(bottom: Get.height * 0.03, left: Get.width * 0.04, right: Get.width * 0.04),
-      borderRadius: 12,
-      duration: Duration(seconds: sec),
-      icon: error ? Icon(Icons.error, color: Theme.of(context).colorScheme.onError) : null
-    );
-
-  void showDialogConnectivity(context) => showDialog(context: context, builder: (BuildContext context) => AlertDialog(
-          title: TextLarge(text: 'Diqqat!', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-          content: TextSmall(text: 'Internet bog‘lanmadi'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-          actions: <Widget>[TextButton(child: TextSmall(text: 'Iltimos, qayta urinib ko‘ring'.tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400), onPressed: () {Navigator.of(context).pop();})]
-  ));
+  updateLanguage(Locale locale){Get.updateLocale(locale);_getController.saveLanguage(locale);}
 
   bottomBuildLanguageDialog(BuildContext context,title,cat) => Get.bottomSheet(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
@@ -58,99 +33,7 @@ class InstrumentComponents {
                         Container(height: Get.height * 0.005, width: Get.width * 0.2, margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03), decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(10.0))),
                         TextLarge(text: title.toString(), color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
                         SizedBox(height: Get.height * 0.02),
-                        if (cat == 0)
-                          Expanded(
-                              child: ListView.builder(
-                                  itemCount: _getController.provinceModel.value.regions!.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            if (index != 0) {
-                                              Get.back();
-                                              _getController.changeDropDownItems(0, index);
-                                            }
-                                          });
-                                        },
-                                        child: Padding(
-                                            padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-                                            child: Column(
-                                                children: [
-                                                  SizedBox(height: Get.height * 0.01),
-                                                  Container(
-                                                      height: Get.height * 0.04,
-                                                      width: Get.width,
-                                                      margin: EdgeInsets.only(bottom: Get.height * 0.01),
-                                                      child: Center(
-                                                          child: Row(
-                                                              children: [
-                                                                TextSmall(text: _getController.provinceModel.value.regions![index].name.toString(), color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-                                                                const Spacer(),
-                                                                if (_getController.dropDownItems[0] == index)
-                                                                  Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface)
-                                                                else
-                                                                  Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
-                                                              ]
-                                                          )
-                                                      )
-                                                  ),
-                                                  if (_getController.provinceModel.value.regions!.length - 1 != index)
-                                                    const Divider(),
-                                                  if (_getController.provinceModel.value.regions!.length - 1 == index)
-                                                    SizedBox(height: Get.height * 0.01),
-                                                ]
-                                            )
-                                        )
-                                    );
-                                  }
-                              )
-                          )
-                        else if (cat == 1)
-                          Expanded(
-                              child: Obx(() => ListView.builder(
-                                  itemCount: _getController.districtsModel.value.districts!.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                        onTap: () {
-                                          if (index != 0) {
-                                            Get.back();
-                                            setState(() {
-                                              _getController.changeDropDownItems(1, index);
-                                            });
-                                          }
-                                        },
-                                        child: Padding(padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-                                            child: Column(
-                                                children: [
-                                                  SizedBox(height: Get.height * 0.01),
-                                                  Container(
-                                                      height: Get.height * 0.04,
-                                                      width: Get.width,
-                                                      margin: EdgeInsets.only(bottom: Get.height * 0.01),
-                                                      child: Center(
-                                                          child: Row(
-                                                              children: [
-                                                                TextSmall(text: _getController.districtsModel.value.districts![index].name.toString(), color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-                                                                const Spacer(),
-                                                                if (_getController.dropDownItems[1] == index)
-                                                                  Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface)
-                                                                else
-                                                                  Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
-                                                              ]
-                                                          )
-                                                      )
-                                                  ),
-                                                  //if (_getController.state.length - 1 != index)
-                                                  const Divider()
-                                                ]
-                                            )
-                                        )
-                                    );
-                                  }
-                              ))
-                          )
-                        else
-                          Expanded(
+                        Expanded(
                               child: ListView.builder(
                                   itemCount: _getController.dropDownItem.length,
                                   itemBuilder: (context, index) {
@@ -158,7 +41,7 @@ class InstrumentComponents {
                                         onTap: () {
                                           setState(() {
                                             Get.back();
-                                            _getController.changeDropDownItems(2, index);
+                                            _getController.changeDropDownItems(0, index);
                                           });
                                         },
                                         child: Padding(
@@ -173,9 +56,9 @@ class InstrumentComponents {
                                                       child: Center(
                                                           child: Row(
                                                               children: [
-                                                                TextSmall(text: _getController.dropDownItem[index].tr, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
+                                                                TextSmall(text: _getController.dropDownItem[index].tr, color: AppColors.black, fontWeight: FontWeight.w400),
                                                                 const Spacer(),
-                                                                if (_getController.dropDownItems[2] == index)
+                                                                if (_getController.dropDownItems[0] == index)
                                                                   Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface)
                                                                 else
                                                                   Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
@@ -198,60 +81,78 @@ class InstrumentComponents {
             })
     );
 
-  bottomSheetAccountsDelete(BuildContext context) => Get.bottomSheet(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
-      enableDrag: false,
-      isScrollControlled: false,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
-                //height: Get.height * 0.3,
-                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0))),
-                width: Get.width,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppBar(
-                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
-                          title: TextLarge(text: 'Hisobni o‘chirish', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
-                          centerTitle: false,
-                          backgroundColor: Theme.of(context).colorScheme.surface,
-                          elevation: 0,
-                          leadingWidth: 0,
-                          leading: Container(),
-                          actions: [
-                            IconButton(onPressed: () => Get.back(), icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface, size: Theme.of(context).buttonTheme.height))
-                          ]
-                      ),
-                      SizedBox(height: Get.height * 0.02),
-                      Container(
-                          padding: EdgeInsets.only(left: Get.width * 0.035, right: Get.width * 0.035),
-                          width: Get.width,
-                          child: TextSmall(text: 'delete log', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400,maxLines: 10)),
-                      SizedBox(height: Get.height * 0.04),
-                      Container(
-                          padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
-                          child: Obx(() => _getController.countdownDuration.value.inSeconds == 0
-                              ? ElevatedButton(
-                              onPressed: () async {
-                                //ApiController().deleteAccount();
-                              },
-                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.secondaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                              child:const Center(child: TextSmall(text: 'O‘chirishni tasdiqlang', color: AppColors.white, fontWeight: FontWeight.w400))
+  bottomSheetsCountries(BuildContext context,title,cat) => Get.bottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
+        enableDrag: true,
+        isScrollControlled: true,
+        backgroundColor: AppColors.white,
+        StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return SizedBox(
+                  height: Get.height * 0.7,
+                  width: double.infinity,
+                  child: Column(
+                      children: [
+                        Container(height: Get.height * 0.005, width: Get.width * 0.2, margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03), decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(10.0))),
+                        TextLarge(text: title.toString(), color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
+                        SizedBox(height: Get.height * 0.02),
+                        Expanded(
+                              child: ListView.builder(
+                                  //itemCount: cat == 0 ? _getController.dropDownItemsCountries.length : _getController.dropDownItemsRegions.length,
+                                  itemCount: cat == 0 ? _getController.dropDownItemsCountries.length : cat == 1 ? _getController.dropDownItemsRegions.length : _getController.dropDownItemsCities.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            Get.back();
+                                            cat == 0 ? _getController.changeDropDownItems(1, index) : cat == 1 ? _getController.changeDropDownItems(2, index) : _getController.changeDropDownItems(3, index);
+                                            if (cat == 0) {
+                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!);
+                                              print('Viloyatlar ro\'yxati: ${_getController.countriesModel.value.countries![index].id}');
+                                              _getController.clearRegionsModel();
+                                            }
+                                            if (cat == 1) {
+                                              ApiController().getCities(_getController.regionsModel.value.regions![index].id!);
+                                              _getController.clearCitiesModel();
+                                            }
+                                          });
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
+                                            child: Column(
+                                                children: [
+                                                  SizedBox(height: Get.height * 0.01),
+                                                  Container(
+                                                      height: Get.height * 0.04,
+                                                      width: Get.width,
+                                                      margin: EdgeInsets.only(bottom: Get.height * 0.01),
+                                                      child: Center(
+                                                          child: Row(
+                                                              children: [
+                                                                TextSmall(text: cat == 0 ? _getController.dropDownItemsCountries[index].tr : cat == 1 ? _getController.dropDownItemsRegions[index].tr : _getController.dropDownItemsCities[index].tr, color: AppColors.black, fontWeight: FontWeight.w400),
+                                                                const Spacer(),
+                                                                if (_getController.dropDownItems[cat == 0 ? 1 : cat == 1 ? 2 : 3] == index)
+                                                                  Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface)
+                                                                else
+                                                                  Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
+                                                              ]
+                                                          )
+                                                      )
+                                                  ),
+                                                  if (cat == 0 && _getController.dropDownItemsCountries.length - 1 != index || cat == 1 && _getController.dropDownItemsRegions.length - 1 != index)
+                                                    const Divider()
+                                                ]
+                                            )
+                                        )
+                                    );
+                                  }
+                              )
                           )
-                              : ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                              child: Center(child: TextSmall(text: '${'O‘chirishni tasdiqlang'.tr} (${(_getController.countdownDuration.value.inSeconds % 60).toString()})', color: AppColors.white, fontWeight: FontWeight.w400)))
-                          )
-                      )
-                    ]
-                )
-            );
-          }
-      )
-  );
+                      ]
+                  )
+              );
+            })
+    );
 
   bottomSheetMeCards(BuildContext context) => Get.bottomSheet(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
@@ -359,29 +260,6 @@ class InstrumentComponents {
       )
   );
 
-  void loadingDialogs(BuildContext context) {
-    final GetController getController = Get.put(GetController());
-    Get.dialog(
-      AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        title: TextLarge(text: 'Kuting!', color: Theme.of(context).colorScheme.onSurface),
-        content: SizedBox(
-          height: Get.height * 0.055,
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [CircularProgressIndicator(color: Theme.of(context).colorScheme.primary,valueColor: const AlwaysStoppedAnimation<Color>(AppColors.blue))])
-        )
-      )
-    );
-
-    ever<bool>(getController.back, (back) {
-      if (!back) {
-        getController.back.value = true;  // Reset back value
-        if (Get.isDialogOpen ?? false) {
-          Get.back();  // Close the dialog
-        }
-      }
-    });
-  }
-
   void logOutDialog(BuildContext context) => Get.dialog(
         AlertDialog(
           title: TextLarge(text: 'Tasdiqlash', color: Theme.of(context).colorScheme.error),
@@ -468,34 +346,5 @@ class InstrumentComponents {
               );
             })
     );
-
-  void rebootDialog(BuildContext context,projectId,serialNumber,index) => Get.dialog(
-        AlertDialog(
-          title: TextLarge(text: 'Diqqat!', color: Theme.of(context).colorScheme.error),
-          content: TextSmall(text: 'Siz rostdan ham ushbu portni o‘chirib yoqishni xohlaysizmi?', color: Theme.of(context).colorScheme.onSurface,maxLines: 4),
-          actions: [
-            TextButton(onPressed: () => Get.back(), child: TextSmall(text: 'Bekor qilish', color: Theme.of(context).colorScheme.primary)),
-            TextButton(onPressed: () => {Get.back(),}, child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary))
-          ]
-        )
-    );
-
-  void showRateDialog(BuildContext context) {
-    Get.defaultDialog(
-        title: 'Dasturni baholash'.tr,
-        titleStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        confirm: ElevatedButton(
-            onPressed: () => Get.back(),
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-              backgroundColor: AppColors.primaryColor,
-              //minimumSize: Size(Get.width * 0.4, Get.height * 0.05),
-            ),
-            child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white)
-        ),
-    );
-  }
-
 
 }

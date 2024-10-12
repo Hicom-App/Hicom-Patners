@@ -1,224 +1,234 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'get_controller.dart'; // GetController-ni implement qilgan fayl
+
+import '../models/auth/countries_model.dart';
+import 'get_controller.dart';
 
 class ApiController extends GetxController {
-  final String baseUrl = 'http://185.196.213.76:8080/api';
   final GetController _getController = Get.put(GetController());
 
-  // Davlatlar ro'yxatini olish
-  Future<List<dynamic>> getCountries({int offset = 0, int limit = 10}) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/place/countries'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "offset": offset,
-        "limit": limit,
-      }),
-    );
+  final String baseUrl = 'http://185.196.213.76:8080/api';
 
+  // Tokenni saqlash
+  final String bearerToken = 'YOUR_TOKEN_HERE'; // Bu yerda haqiqiy tokeningizni joylashtiring
+
+  // Davlatlar ro'yxatini o'qish
+  Future<void> getCountries({int? offset, int? limit}) async {
+    String url = '$baseUrl/place/countries';
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['result']; // Davlatlar ro'yxati
+        _getController.changeCountriesModel(CountriesModel.fromJson(data));
+        print('Davlatlar ro\'yxati: ${data['countries']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Viloyatlar ro'yxatini olish
-  Future<List<dynamic>> getRegions(int countryId, {int offset = 0, int limit = 0}) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/place/regions'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "country_id": countryId,
-        "offset": offset,
-        "limit": limit,
-      }),
-    );
-
+  // Viloyatlar ro'yxatini o'qish
+  Future<void> getRegions(int countryId) async {
+    String url = '$baseUrl/place/regions?country_id=$countryId';
+    final response = await http.get(Uri.parse(url));
+    print(response.body);
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['result']; // Viloyatlar ro'yxati
+        _getController.changeRegionsModel(CountriesModel.fromJson(data));
+        print('Viloyatlar ro\'yxati: ${data['regions']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Shahar/Tumanlar ro'yxatini olish
-  Future<List<dynamic>> getCities(int regionId, {int offset = 0, int limit = 0}) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/place/cities'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "region_id": regionId,
-        "offset": offset,
-        "limit": limit,
-      }),
-    );
-
+  // Shaharlar ro'yxatini o'qish
+  Future<void> getCities(int regionId, {int? offset, int? limit}) async {
+    String url = '$baseUrl/place/cities?region_id=$regionId';
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['result']; // Shaharlar ro'yxati
+        print('Shaharlar ro\'yxati: ${data['cities']}');
+        _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Kirish (Login)
+  // Kirish (login)
   Future<void> login(String phone) async {
+    String url = '$baseUrl/auth/login';
+    Map<String, dynamic> body = {'phone': phone};
+
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'),
+      Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({"phone": phone}),
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        // Muvaffaqiyatli login, kerakli ma'lumotlarni saqlash mumkin
+        print('Login muvaffaqiyatli: ${data['message']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
   // Registratsiya
   Future<void> register(String phone) async {
+    String url = '$baseUrl/auth/register';
+    Map<String, dynamic> body = {'phone': phone};
+
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/register'),
+      Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({"phone": phone}),
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        // Muvaffaqiyatli registratsiya
+        print('Registratsiya muvaffaqiyatli: ${data['message']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Profilni o'qish
-  Future<Map<String, dynamic>> getProfile(String token) async {
+  // Telefon raqamni tasdiqlash
+  Future<void> verifyPhone(String phone, String code) async {
+    String url = '$baseUrl/auth/verify';
+    Map<String, dynamic> body = {'phone': phone, 'code': code};
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        print('Telefon tasdiqlandi va token olindi: ${data['token']}');
+      } else {
+        print('Xatolik: ${data['message']}');
+      }
+    } else {
+      print('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
+  // Profil ma'lumotlarini olish
+  Future<void> getProfile() async {
+    String url = '$baseUrl/profile/info';
+
     final response = await http.get(
-      Uri.parse('$baseUrl/profile/info'),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
+      Uri.parse(url),
+      headers: {'Authorization': 'Bearer $bearerToken'},
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['profile']; // Profil ma'lumotlari
+        print('Profil ma\'lumotlari: ${data['profile']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Profilni yangilash
-  Future<void> updateProfile(String token, String firstName, String lastName, String birthday, int countryId, int regionId, int cityId, String userType) async {
+  // Profil ma'lumotlarini o'zgartirish
+  Future<void> updateProfile(String firstName, String lastName, String birthday,
+      String userType, int countryId, int regionId, int cityId) async {
+    String url = '$baseUrl/profile/info';
+    Map<String, dynamic> body = {
+      'first_name': firstName,
+      'last_name': lastName,
+      'birthday': birthday,
+      'user_type': userType,
+      'country_id': countryId,
+      'region_id': regionId,
+      'city_id': cityId,
+    };
+
     final response = await http.post(
-      Uri.parse('$baseUrl/profile/info'),
+      Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $bearerToken',
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({
-        "first_name": firstName,
-        "last_name": lastName,
-        "birthday": birthday,
-        "user_type": userType,
-        "country_id": countryId,
-        "region_id": regionId,
-        "city_id": cityId,
-      }),
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data['status'] != 0) {
-        throw Exception('Xatolik: ${data['message']}');
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        print('Profil muvaffaqiyatli o\'zgartirildi');
+      } else {
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
-  // Mahsulot kategoriyalarini olish
-  Future<List<dynamic>> getCategories(String token, {int offset = 0, int limit = 0}) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/catalog/categories'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        "offset": offset,
-        "limit": limit,
-      }),
+  // Mahsulot kategoriyalari ro'yxatini olish
+  Future<void> getCategories({int? offset, int? limit}) async {
+    String url = '$baseUrl/catalog/categories';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {'Authorization': 'Bearer $bearerToken'},
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['result']; // Kategoriyalar ro'yxati
+        print('Kategoriyalar ro\'yxati: ${data['result']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
 
   // Mahsulotlar ro'yxatini olish
-  Future<List<dynamic>> getProducts(String token, int categoryId, {int offset = 0, int limit = 0}) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/catalog/products'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        "category_id": categoryId,
-        "offset": offset,
-        "limit": limit,
-      }),
+  Future<void> getProducts(int categoryId, {int? offset, int? limit}) async {
+    String url = '$baseUrl/catalog/products';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {'Authorization': 'Bearer $bearerToken'},
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        return data['result']; // Mahsulotlar ro'yxati
+        print('Mahsulotlar ro\'yxati: ${data['result']}');
       } else {
-        throw Exception('Xatolik: ${data['message']}');
+        print('Xatolik: ${data['message']}');
       }
     } else {
-      throw Exception('Server bilan bog\'lanishda xatolik');
+      print('Xatolik: Serverga ulanishda muammo');
     }
   }
-
 }

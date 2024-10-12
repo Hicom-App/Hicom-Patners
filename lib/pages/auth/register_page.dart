@@ -1,20 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/auth/verify_page_number.dart';
-import 'package:intl/intl.dart';
 import '../../companents/filds/text_field_register.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
-import '../sample/sample_page.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  const RegisterPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -39,7 +36,8 @@ class _LoginPageState extends State<RegisterPage> {
       _getController.startDelayedAnimation();
     }
 
-    //ApiController().getCountries();
+    ApiController().getCountries();
+    _getController.updateSelectedDate(DateTime.now());
 
 
     return GestureDetector(
@@ -123,7 +121,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                   )
                                                               )
                                                             ]
-                                                        ),),
+                                                        )),
 
                                                         SizedBox(width: Get.width * 0.02),
                                                         Expanded(
@@ -146,33 +144,45 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             const Icon(Icons.keyboard_arrow_down, color: AppColors.black),
                                                                             Obx(() => TextSmall(
                                                                               //text: _getController.dropDownItems[2], // Use .value to access the DateTime
-                                                                                text: _getController.dropDownItem[_getController.dropDownItems[2]].toString(),
+                                                                                text: _getController.dropDownItem[_getController.dropDownItems[0]].toString(),
                                                                                 color: AppColors.black,
                                                                                 fontWeight: FontWeight.bold,
                                                                                 maxLines: 3,
                                                                                 fontSize: 13.sp
                                                                             ))
-                                                                          ],
+                                                                          ]
                                                                         )
                                                                     )
                                                                   ]
                                                               )
                                                           )
                                                         )
-
                                                       ]
                                                     ),
                                                     SizedBox(height: 5.h),
-                                                    Container(
-                                                        width: Get.width,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        child: TextSmall(text: 'Mamlakat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)
-                                                    ),
-                                                    Container(
-                                                        width: Get.width,
-                                                        height: 40.h,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white)
+                                                    Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Mamlakat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                    InkWell(
+                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0),
+                                                      child: Container(
+                                                          width: Get.width,
+                                                          height: 40.h,
+                                                          padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                          margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
+                                                          child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: [
+                                                                Obx(() => TextSmall(
+                                                                    text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat',
+                                                                    color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    maxLines: 3,
+                                                                    fontSize: 13.sp)),
+                                                                const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
+                                                              ]
+                                                          )
+                                                      ),
                                                     ),
                                                     SizedBox(height: 5.h),
                                                     Container(
@@ -180,11 +190,28 @@ class _LoginPageState extends State<RegisterPage> {
                                                         margin: EdgeInsets.only(top: Get.height * 0.01),
                                                         child: TextSmall(text: 'Viloyat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)
                                                     ),
-                                                    Container(
-                                                        width: Get.width,
-                                                        height: 40.h,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white)
+                                                    InkWell(
+                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1),
+                                                      child: Container(
+                                                          width: Get.width,
+                                                          height: 40.h,
+                                                          padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                          margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
+                                                          child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: [
+                                                                Obx(() => TextSmall(
+                                                                    text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang',
+                                                                    color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    maxLines: 3,
+                                                                    fontSize: 13.sp)),
+                                                                const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
+                                                              ]
+                                                          )
+                                                      ),
                                                     ),
                                                     SizedBox(height: 5.h),
                                                     Container(
@@ -192,12 +219,28 @@ class _LoginPageState extends State<RegisterPage> {
                                                         margin: EdgeInsets.only(top: Get.height * 0.01),
                                                         child: TextSmall(text: 'Shaxar', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 14.sp)
                                                     ),
-                                                    Container(
-                                                        width: Get.width,
-                                                        height: 40.h,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white)
-                                                    )
+                                                    InkWell(
+                                                      onTap: () => InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2),
+                                                      child: Container(
+                                                          width: Get.width,
+                                                          height: 40.h,
+                                                          padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                          margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
+                                                          child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: [
+                                                                Obx(() => TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon',
+                                                                    color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    maxLines: 3,
+                                                                    fontSize: 13.sp)),
+                                                                const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
+                                                              ]
+                                                          )
+                                                      ),
+                                                    ),
                                                   ]
                                               )
                                             )
