@@ -98,7 +98,6 @@ class InstrumentComponents {
                         SizedBox(height: Get.height * 0.02),
                         Expanded(
                               child: ListView.builder(
-                                  //itemCount: cat == 0 ? _getController.dropDownItemsCountries.length : _getController.dropDownItemsRegions.length,
                                   itemCount: cat == 0 ? _getController.dropDownItemsCountries.length : cat == 1 ? _getController.dropDownItemsRegions.length : _getController.dropDownItemsCities.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
@@ -108,7 +107,6 @@ class InstrumentComponents {
                                             cat == 0 ? _getController.changeDropDownItems(1, index) : cat == 1 ? _getController.changeDropDownItems(2, index) : _getController.changeDropDownItems(3, index);
                                             if (cat == 0) {
                                               ApiController().getRegions(_getController.countriesModel.value.countries![index].id!);
-                                              print('Viloyatlar ro\'yxati: ${_getController.countriesModel.value.countries![index].id}');
                                               _getController.clearRegionsModel();
                                             }
                                             if (cat == 1) {
@@ -147,7 +145,7 @@ class InstrumentComponents {
                                     );
                                   }
                               )
-                          )
+                        )
                       ]
                   )
               );
