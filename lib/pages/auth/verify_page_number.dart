@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:pinput/pinput.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -54,38 +55,13 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
       ),
     );
 
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-        border: Border.all(color: AppColors.blue),
-        color: AppColors.grey.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10.r)
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-          color: AppColors.grey.withOpacity(0.1)
-      ),
-    );
-
-    final errorPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-          color: AppColors.red.withOpacity(0.1),
-          border: Border.all(color: AppColors.red),
-          borderRadius: BorderRadius.circular(10.r)
-      ),
-    );
-
-    final successPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-          color: AppColors.green.withOpacity(0.1),
-          border: Border.all(color: AppColors.green),
-          borderRadius: BorderRadius.circular(10.r)
-      ),
-    );
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(border: Border.all(color: AppColors.blue), color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(10.r));
+    final submittedPinTheme = defaultPinTheme.copyWith(decoration: defaultPinTheme.decoration?.copyWith(color: AppColors.grey.withOpacity(0.1)));
+    final errorPinTheme = defaultPinTheme.copyWith(decoration: defaultPinTheme.decoration?.copyWith(color: AppColors.red.withOpacity(0.1), border: Border.all(color: AppColors.red), borderRadius: BorderRadius.circular(10.r)));
+    final successPinTheme = defaultPinTheme.copyWith(decoration: defaultPinTheme.decoration?.copyWith(color: AppColors.green.withOpacity(0.1), border: Border.all(color: AppColors.green), borderRadius: BorderRadius.circular(10.r)));
     isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
 
-    if (!isKeyboardVisible) {
-      _startDelayedAnimation();
-    }
+    if (!isKeyboardVisible) _startDelayedAnimation();
 
     return GestureDetector(
         onTap: () {
@@ -115,11 +91,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                       height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
                                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                                       curve: Curves.easeInOut,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)),
-                                          image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover),
-                                          boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))]
-                                      )
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))])
                                   )
                               ),
                               Positioned(top: Get.height * 0.05, left: 0, child: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 45.sp))),
@@ -165,17 +137,17 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                                           controller: _getController.verifyCodeControllers,
                                                           keyboardType: TextInputType.number,
                                                           errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
-
                                                           onCompleted: (value) {
-                                                            Get.offAll(SamplePage());
+                                                            //Get.offAll(SamplePage());
+                                                            ApiController().verifyPhone();
                                                           }
                                                       )),
                                                   ),
                                                   Padding(
                                                       padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03,top: Get.height * 0.01),
                                                       child: Obx(() =>_getController.countdownDuration.value.inSeconds == 0
-                                                          ? TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
-                                                          :TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'.tr}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
+                                                          ? TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {ApiController().sendCode();_getController.resetTimer();}, child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
+                                                          : TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
                                                       )
                                                   )
                                                 ]

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:hicom_patners/pages/auth/register_page.dart';
+import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:http/http.dart' as http;
-
 import '../models/auth/countries_model.dart';
+import '../pages/auth/verify_page_number.dart';
 import 'get_controller.dart';
 
 class ApiController extends GetxController {
@@ -10,8 +12,51 @@ class ApiController extends GetxController {
 
   final String baseUrl = 'http://185.196.213.76:8080/api';
 
-  // Tokenni saqlash
-  final String bearerToken = 'YOUR_TOKEN_HERE'; // Bu yerda haqiqiy tokeningizni joylashtiring
+  // Registratsiya
+  Future<void> sendCode() async {
+    String url = '$baseUrl/auth/register';
+    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
+    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    print(_getController.code.value + _getController.phoneController.text);
+    print(response.body);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        //{"status":0,"message":"OK"}
+        print('Registratsiya muvaffaqiyatli: ${data['message']}');
+        if (data['status'] == 0 && data['message'] == 'OK') {
+          Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
+        }
+      } else {
+        print('Xatolik: ${data['message']}');
+      }
+    } else {
+      print('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
+  // Telefon raqamni tasdiqlash
+  Future<void> verifyPhone() async {
+    String url = '$baseUrl/auth/verify';
+    Map<String, dynamic> body = {
+      'phone': _getController.code.value + _getController.phoneController.text,
+      'code': _getController.verifyCodeControllers.text
+    };
+    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        _getController.saveToken(data['result']['token']);
+        _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
+        login();
+        print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+      } else {
+        print('Xatolik: ${data['message']}');
+      }
+    } else {
+      print('Xatolik: Serverga ulanishda muammo');
+    }
+  }
 
   // Davlatlar ro'yxatini o'qish
   Future<void> getCountries({int? offset, int? limit}) async {
@@ -21,7 +66,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeCountriesModel(CountriesModel.fromJson(data));
-        print('Davlatlar ro\'yxati: ${data['countries']}');
+        print('Davlatlar ro‘yxati: ${data['countries']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -66,66 +111,18 @@ class ApiController extends GetxController {
   }
 
   // Kirish (login)
-  Future<void> login(String phone) async {
-    String url = '$baseUrl/auth/login';
-    Map<String, dynamic> body = {'phone': phone};
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(body),
-    );
-
+  Future<void> login() async {
+    Map<String, dynamic> body = {'phone': _getController.phoneNumber};
+    print(body);
+    final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${_getController.token}'}, body: jsonEncode(body));
+    print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         print('Login muvaffaqiyatli: ${data['message']}');
-      } else {
-        print('Xatolik: ${data['message']}');
-      }
-    } else {
-      print('Xatolik: Serverga ulanishda muammo');
-    }
-  }
-
-  // Registratsiya
-  Future<void> register(String phone) async {
-    String url = '$baseUrl/auth/register';
-    Map<String, dynamic> body = {'phone': phone};
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(body),
-    );
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        print('Registratsiya muvaffaqiyatli: ${data['message']}');
-      } else {
-        print('Xatolik: ${data['message']}');
-      }
-    } else {
-      print('Xatolik: Serverga ulanishda muammo');
-    }
-  }
-
-  // Telefon raqamni tasdiqlash
-  Future<void> verifyPhone(String phone, String code) async {
-    String url = '$baseUrl/auth/verify';
-    Map<String, dynamic> body = {'phone': phone, 'code': code};
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(body),
-    );
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        print('Telefon tasdiqlandi va token olindi: ${data['token']}');
+        Get.to(() => SamplePage());
+      } else if (data['status'] == 3 || data['status'] == 4) {
+        Get.to(() => const RegisterPage());
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -140,7 +137,7 @@ class ApiController extends GetxController {
 
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $bearerToken'},
+      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
     );
 
     if (response.statusCode == 200) {
@@ -156,8 +153,7 @@ class ApiController extends GetxController {
   }
 
   // Profil ma'lumotlarini o'zgartirish
-  Future<void> updateProfile(String firstName, String lastName, String birthday,
-      String userType, int countryId, int regionId, int cityId) async {
+  Future<void> updateProfile(String firstName, String lastName, String birthday, String userType, int countryId, int regionId, int cityId) async {
     String url = '$baseUrl/profile/info';
     Map<String, dynamic> body = {
       'first_name': firstName,
@@ -172,7 +168,7 @@ class ApiController extends GetxController {
     final response = await http.post(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $bearerToken',
+        'Authorization': 'Bearer ${_getController.token.value}',
         'Content-Type': 'application/json',
       },
       body: jsonEncode(body),
@@ -196,7 +192,7 @@ class ApiController extends GetxController {
 
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $bearerToken'},
+      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
     );
 
     if (response.statusCode == 200) {
@@ -217,7 +213,7 @@ class ApiController extends GetxController {
 
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $bearerToken'},
+      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
     );
 
     if (response.statusCode == 200) {

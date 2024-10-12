@@ -87,29 +87,21 @@ class GetController extends GetxController {
   }
 
   void changeDropDownItems(int index, int newValue) {
-    if (index >= 0 && index < dropDownItems.length) {
-      dropDownItems[index] = newValue;
-    }
+    if (index >= 0 && index < dropDownItems.length) dropDownItems[index] = newValue;
   }
 
   void changeDropDownItemsCountries(int index, String newValue) {
-    if (index >= 0 && index < dropDownItemsCountries.length) {
-      dropDownItemsCountries[index] = newValue;
-    }
+    if (index >= 0 && index < dropDownItemsCountries.length) dropDownItemsCountries[index] = newValue;
     update();
   }
 
   void changeDropDownItemsRegions(int index, String newValue) {
-    if (index >= 0 && index < dropDownItemsRegions.length) {
-      dropDownItemsRegions[index] = newValue;
-    }
+    if (index >= 0 && index < dropDownItemsRegions.length) dropDownItemsRegions[index] = newValue;
     update();
   }
 
   void changeDropDownItemsDistricts(int index, String newValue) {
-    if (index >= 0 && index < dropDownItemsCities.length) {
-      dropDownItemsCities[index] = newValue;
-    }
+    if (index >= 0 && index < dropDownItemsCities.length) dropDownItemsCities[index] = newValue;
     update();
   }
 
@@ -130,6 +122,19 @@ class GetController extends GetxController {
 
     super.onClose();
   }
+
+  //add localstorage save token and phone number
+
+  void saveToken(String token) {
+    GetStorage().write('token', token);
+  }
+
+  void savePhoneNumber(String phoneNumber) {
+    GetStorage().write('phoneNumber', phoneNumber);
+  }
+
+  get phoneNumber => GetStorage().read('phoneNumber');
+  get token => GetStorage().read('token');
 
   int getType() => dropDownItems[2];
 
@@ -242,9 +247,6 @@ class GetController extends GetxController {
 
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
   final ScrollController scrollGuaranteeController = ScrollController();
-
-  final RefreshController refreshAccountController = RefreshController(initialRefresh: false);
-  final ScrollController scrollAccountController = ScrollController();
 
   final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
   final ScrollController scrollTransferWalletController = ScrollController();
@@ -545,7 +547,6 @@ class GetController extends GetxController {
   var cities = [].obs;
   var categories = [].obs;
   var products = [].obs;
-  var token = ''.obs;
 
   var isKeyboardVisible = false.obs;
   var animateTextFields = false.obs;

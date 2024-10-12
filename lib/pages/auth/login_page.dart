@@ -70,21 +70,15 @@ class _LoginPageState extends State<LoginPage> {
                     top: 0,
                     child: AnimatedContainer(
                       width: Get.width,
-                      //height: isKeyboardVisible ? 200.h : 380.h,
                       height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                       curve: Curves.easeInOut,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)),
-                        image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover),
-                        boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))]
-                      )
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))])
                     )
                   ),
                   Positioned.fill(
                     child: Column(
                       children: [
-                        //SizedBox(height: 280.h),
                         SizedBox(height: Get.height * 0.3),
                         AnimatedSlide(
                           offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
@@ -92,16 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                           curve: Curves.easeInOut,
                           child: Column(
                             children: [
-                              Container(
-                                width: Get.width,
-                                margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)
-                              ),
-                              Container(
-                                width: Get.width,
-                                margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04),
-                                child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)
-                              ),
+                              Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
+                              Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
                               AnimatedOpacity(
                                 opacity: 1.0,
                                 duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
@@ -115,19 +101,15 @@ class _LoginPageState extends State<LoginPage> {
                                       controller: _getController.phoneController,
                                       keyboardType: TextInputType.phone,
                                       textInputAction: TextInputAction.done,
-                                      onSubmitted: (_) {
-                                        _focusNode.unfocus();
-                                      },
+                                      onSubmitted: (_) {_focusNode.unfocus();},
                                       flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
-                                      onChanged: (phone) {
-                                        if (phone.countryISOCode != 'uz') {
-                                          _getController.countryCode.value = phone.countryISOCode;
-                                        }
-                                      },
+                                      onChanged: (phone) {if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
                                       onCountryChanged: (phone) {
                                         _getController.code.value = '+${phone.fullCountryCode}';
                                         _getController.countryCode.value = phone.regionCode;
                                         _getController.phoneController.clear();
+                                        print(phone.fullCountryCode);
+                                        print(phone.regionCode);
                                       },
                                       invalidNumberMessage: null,
                                       decoration: InputDecoration(
@@ -162,9 +144,9 @@ class _LoginPageState extends State<LoginPage> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                 onPressed: () {
-                                  //ApiController().sendCode();
+                                  ApiController().sendCode();
                                   //Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
-                                  Get.to(() => RegisterPage(),transition: Transition.downToUp);
+                                  //Get.to(() => RegisterPage(),transition: Transition.downToUp);
                                 },
                                 child: Icon(
                                   Icons.arrow_forward,

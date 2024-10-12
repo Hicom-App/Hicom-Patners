@@ -97,9 +97,7 @@ class InstrumentComponents {
                         TextLarge(text: title.toString(), color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
                         SizedBox(height: Get.height * 0.02),
                         if (cat == 0 && _getController.countriesModel.value.countries == null || cat == 1 && _getController.regionsModel.value.regions == null || cat == 2 && _getController.citiesModel.value.cities == null)
-                          Expanded(
-                            child: TextSmall(text: 'Malumotlarni tanlang', color: Theme.of(context).colorScheme.onSurface, maxLines: 3),
-                          )
+                          Expanded(child: TextSmall(text: 'Yuklanmoqda...', color: Theme.of(context).colorScheme.onSurface, maxLines: 3),)
                         else
                         Expanded(
                               child: ListView.builder(
