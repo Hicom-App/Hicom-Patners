@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/auth/verify_page_number.dart';
@@ -12,6 +13,17 @@ class ApiController extends GetxController {
   final GetController _getController = Get.put(GetController());
 
   final String baseUrl = 'http://185.196.213.76:8080/api';
+
+
+
+  //return header function
+  Map<String, String> headersBearer() {
+    return {
+      'Accept-Language': Get.locale!.languageCode,
+      'Authorization': 'Bearer ${_getController.token}',
+    };
+  }
+
 
   // Registratsiya
   Future<void> sendCode() async {
@@ -113,7 +125,7 @@ class ApiController extends GetxController {
   Future<void> login() async {
     Map<String, dynamic> body = {'phone': _getController.phoneNumber};
     print(body);
-    final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${_getController.token}'}, body: jsonEncode(body));
+    final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -133,7 +145,7 @@ class ApiController extends GetxController {
 
   // Profil ma'lumotlarini olish
   Future<void> getProfile() async {
-    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: {'Authorization': 'Bearer ${_getController.token}'});
+    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -153,24 +165,21 @@ class ApiController extends GetxController {
   }
 
   // Profil ma'lumotlarini o'zgartirish
-  Future<void> updateProfile(String firstName, String lastName, String birthday, String userType, int countryId, int regionId, int cityId) async {
+  Future<void> updateProfile() async {
     String url = '$baseUrl/profile/info';
     Map<String, dynamic> body = {
-      'first_name': firstName,
-      'last_name': lastName,
-      'birthday': birthday,
-      'user_type': userType,
-      'country_id': countryId,
-      'region_id': regionId,
-      'city_id': cityId,
+      'first_name': _getController.nameController.text,
+      'last_name': _getController.surNameController.text,
+      'birthday': DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value),
+      'user_type': _getController.dropDownItems[0],
+      'country_id': _getController.dropDownItems[1],
+      'region_id': _getController.dropDownItems[2],
+      'city_id': _getController.dropDownItems[3]
     };
 
     final response = await http.post(
       Uri.parse(url),
-      headers: {
-        'Authorization': 'Bearer ${_getController.token.value}',
-        'Content-Type': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
 

@@ -119,29 +119,26 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                                   AnimatedOpacity(
                                                       opacity: animateTextFields ? 1.0 : 1.0,
                                                       duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
-                                                      child: Obx(() => Pinput(
-                                                          length: 5,
-                                                          defaultPinTheme: defaultPinTheme,
-                                                          focusedPinTheme: focusedPinTheme,
-                                                          submittedPinTheme: submittedPinTheme,
-                                                          showCursor: false,
-                                                          pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                                                          forceErrorState: _getController.errorField.value,
-                                                          errorBuilder: (context, error) {
-                                                            return TextSmall(text: error, color: AppColors.red, fontWeight: FontWeight.w500);
-                                                          },
-                                                          errorPinTheme: _getController.errorFieldOk.value ? successPinTheme : errorPinTheme,
-                                                          inputFormatters: [
-                                                            FilteringTextInputFormatter.digitsOnly
-                                                          ],
-                                                          controller: _getController.verifyCodeControllers,
-                                                          keyboardType: TextInputType.number,
-                                                          errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
-                                                          onCompleted: (value) {
-                                                            //Get.offAll(SamplePage());
-                                                            ApiController().verifyPhone();
-                                                          }
-                                                      )),
+                                                      child: Obx(() =>
+                                                          Pinput(
+                                                              length: 5,
+                                                              defaultPinTheme: defaultPinTheme,
+                                                              focusedPinTheme: focusedPinTheme,
+                                                              submittedPinTheme: submittedPinTheme,
+                                                              showCursor: false,
+                                                              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                                                              forceErrorState: _getController.errorField.value,
+                                                              errorBuilder: (context, error) => TextSmall(text: error, color: AppColors.red, fontWeight: FontWeight.w500),
+                                                              errorPinTheme: _getController.errorFieldOk.value ? successPinTheme : errorPinTheme,
+                                                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                                              controller: _getController.verifyCodeControllers,
+                                                              keyboardType: TextInputType.number,
+                                                              errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+                                                              onCompleted: (value) {
+                                                                ApiController().verifyPhone();
+                                                              }
+                                                          )
+                                                      )
                                                   ),
                                                   Padding(
                                                       padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03,top: Get.height * 0.01),
@@ -152,30 +149,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                                   )
                                                 ]
                                             )
-                                        ),
-                                        const Spacer(),
-                                        Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                  height: 40.h,
-                                                  margin: EdgeInsets.only(bottom: Get.height * 0.06),
-                                                  child: ElevatedButton(
-                                                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                                      onPressed: () {
-                                                        Get.offAll(SamplePage());
-                                                      },
-                                                      child: Icon(
-                                                          Icons.arrow_forward,
-                                                          color: AppColors.white,
-                                                          size: 30.sp
-                                                      )
-                                                  )
-                                              )
-                                            ]
-                                        ),
-                                        SizedBox(height: Get.height * 0.05)
+                                        )
                                       ]
                                   )
                               )

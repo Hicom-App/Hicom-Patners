@@ -87,7 +87,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                     AnimatedOpacity(
                                                       opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                       duration: const Duration(milliseconds: 1500),
-                                                      child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.nameController)
+                                                      child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.surNameController)
                                                     ),
                                                     SizedBox(height: Get.height * 0.01),
                                                     Row(
@@ -164,21 +164,21 @@ class _LoginPageState extends State<RegisterPage> {
                                                       onTap: () {
                                                         _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);
                                                         },
-                                                      child: Container(
-                                                          width: Get.width,
-                                                          height: 40.h,
-                                                          padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                                          margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
-                                                          child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              children: [
-                                                                Obx(() => TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
-                                                                const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
-                                                              ]
-                                                          )
-                                                      )
+                                                        child: Container(
+                                                            width: Get.width,
+                                                            height: 40.h,
+                                                            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                            margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
+                                                            child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                children: [
+                                                                  Obx(() => TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
+                                                                  const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
+                                                                ]
+                                                            )
+                                                        )
                                                     ),
                                                     SizedBox(height: 5.h),
                                                     Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Viloyat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
@@ -234,7 +234,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                   margin: EdgeInsets.only(bottom: Get.height * 0.06),
                                                   child: ElevatedButton(
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                                      onPressed: () => Get.to(VerifyPageNumber()),
+                                                      onPressed: () => ApiController().updateProfile,
                                                       child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
                                                   )
                                               )
@@ -250,11 +250,7 @@ class _LoginPageState extends State<RegisterPage> {
                                       height: _getController.isKeyboardVisible.value ? Get.height * 0.13 : Get.height * 0.13,
                                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                                       curve: Curves.easeInOut,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.r), bottomRight: Radius.circular(40.r)),
-                                          image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.fitWidth),
-                                          boxShadow: [BoxShadow(color: Colors.grey.shade400, spreadRadius: 15, blurRadius: 30, offset: Offset(0, 2))]
-                                      )
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.r), bottomRight: Radius.circular(40.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.fitWidth), boxShadow: [BoxShadow(color: Colors.grey.shade400, spreadRadius: 15, blurRadius: 30, offset: const Offset(0, 2))])
                                   )
                               ),
                               Positioned(top: Get.height * 0.05, left: 10, child: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 45.sp)))
