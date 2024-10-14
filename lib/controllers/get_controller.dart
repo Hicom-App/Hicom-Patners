@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../models/auth/countries_model.dart';
+import '../models/sample/profile_info_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
 import '../resource/colors.dart';
@@ -602,6 +603,7 @@ class GetController extends GetxController {
   var countriesModel = CountriesModel().obs;
   var regionsModel = CountriesModel().obs;
   var citiesModel = CountriesModel().obs;
+  var profileInfoModel = ProfileInfoModel().obs;
 
 
   //change models
@@ -611,16 +613,18 @@ class GetController extends GetxController {
     dropDownItemsCountries.value = countriesModel.countries!.map((e) => e.name!).toList();
   }
 
-
   void changeRegionsModel(CountriesModel regionsModel) {
     this.regionsModel.value = regionsModel;
     dropDownItemsRegions.value = regionsModel.regions!.map((e) => e.name!).toList();
   }
 
-
   void changeCitiesModel(CountriesModel citiesModel) {
     this.citiesModel.value = citiesModel;
     dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
+  }
+
+  void changeProfileInfoModel(ProfileInfoModel profileInfoModel) {
+    this.profileInfoModel.value = profileInfoModel;
   }
 
 
@@ -636,7 +640,6 @@ class GetController extends GetxController {
     dropDownItems[3] = 0;
   }
 
-
   void clearRegionsModel() {
     regionsModel.value = CountriesModel();
     dropDownItemsRegions.value = [];
@@ -645,7 +648,6 @@ class GetController extends GetxController {
     dropDownItems[3] = 0;
   }
 
-
   void clearCitiesModel() {
     citiesModel.value = CountriesModel();
     dropDownItemsCities.value = [];
@@ -653,7 +655,8 @@ class GetController extends GetxController {
   }
 
 
-  //add models
-
+  void clearProfileInfoModel() {
+    profileInfoModel.value = ProfileInfoModel();
+  }
 
 }

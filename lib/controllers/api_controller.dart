@@ -4,6 +4,7 @@ import 'package:hicom_patners/pages/auth/register_page.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:http/http.dart' as http;
 import '../models/auth/countries_model.dart';
+import '../models/sample/profile_info_model.dart';
 import '../pages/auth/verify_page_number.dart';
 import 'get_controller.dart';
 
@@ -77,14 +78,13 @@ class ApiController extends GetxController {
 
   // Viloyatlar ro'yxatini o'qish
   Future<void> getRegions(int countryId) async {
-    String url = '$baseUrl/place/regions?country_id=$countryId';
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeRegionsModel(CountriesModel.fromJson(data));
-        print('Viloyatlar ro\'yxati: ${data['regions']}');
+        print('Viloyatlar ro‘yxati: ${data['regions']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -95,12 +95,11 @@ class ApiController extends GetxController {
 
   // Shaharlar ro'yxatini o'qish
   Future<void> getCities(int regionId, {int? offset, int? limit}) async {
-    String url = '$baseUrl/place/cities?region_id=$regionId';
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Shaharlar ro\'yxati: ${data['cities']}');
+        print('Shaharlar ro‘yxati: ${data['cities']}');
         _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
         print('Xatolik: ${data['message']}');
@@ -120,7 +119,8 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         print('Login muvaffaqiyatli: ${data['message']}');
-        Get.to(() => SamplePage());
+        //Get.to(() => SamplePage());
+        getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
         Get.to(() => const RegisterPage());
       } else {
@@ -133,17 +133,12 @@ class ApiController extends GetxController {
 
   // Profil ma'lumotlarini olish
   Future<void> getProfile() async {
-    String url = '$baseUrl/profile/info';
-
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
-    );
-
+    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Profil ma\'lumotlari: ${data['profile']}');
+        print('Profil ma‘lumotlari: ${data['profile']}');
+        _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -177,7 +172,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Profil muvaffaqiyatli o\'zgartirildi');
+        print('Profil muvaffaqiyatli o‘zgartirildi');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -198,7 +193,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Kategoriyalar ro\'yxati: ${data['result']}');
+        print('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -219,7 +214,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Mahsulotlar ro\'yxati: ${data['result']}');
+        print('Mahsulotlar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
