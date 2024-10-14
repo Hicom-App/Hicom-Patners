@@ -123,15 +123,9 @@ class GetController extends GetxController {
     super.onClose();
   }
 
-  //add localstorage save token and phone number
+  void saveToken(String token) => GetStorage().write('token', token);
 
-  void saveToken(String token) {
-    GetStorage().write('token', token);
-  }
-
-  void savePhoneNumber(String phoneNumber) {
-    GetStorage().write('phoneNumber', phoneNumber);
-  }
+  void savePhoneNumber(String phoneNumber) => GetStorage().write('phoneNumber', phoneNumber);
 
   void logout() {
     GetStorage().erase();

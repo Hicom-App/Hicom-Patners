@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,25 +16,32 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
   final FocusNode _focusNode = FocusNode();
+  late AnimationController _animationController;
+  late Animation<double> _shakeAnimation;
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
+  bool error = false;
 
   @override
   void initState() {
     super.initState();
     _startDelayedAnimation();
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
   }
 
   void _startDelayedAnimation() {
-    Future.delayed(const Duration(milliseconds: 100), () {
-      setState(() {
-        animateTextFields = true;
-      });
-    });
+    Future.delayed(const Duration(milliseconds: 100), () => setState(() => animateTextFields = true));
     animateTextFields = false;
+  }
+
+  void _triggerShake() {
+    if (!_animationController.isAnimating) {
+      _animationController.forward(from: 0);
+    }
   }
 
   @override
@@ -69,97 +77,115 @@ class _LoginPageState extends State<LoginPage> {
                     child: AnimatedContainer(
                       width: Get.width,
                       height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
-                      duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))])
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 16, offset: Offset(0, 3))])
                     )
                   ),
                   Positioned.fill(
-                    child: Column(
-                      children: [
-                        SizedBox(height: Get.height * 0.3),
-                        AnimatedSlide(
-                          offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
-                          duration: Duration(milliseconds: animateTextFields ? 550 : 400),
-                          curve: Curves.easeInOut,
-                          child: Column(
-                            children: [
-                              Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
-                              Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
-                              AnimatedOpacity(
-                                opacity: 1.0,
-                                duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
-                                child: Container(
-                                  width: Get.width,
-                                  margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
-                                  child: Center(
-                                    child: IntlPhoneField(
-                                      focusNode: _focusNode,
-                                      controller: _getController.phoneController,
-                                      keyboardType: TextInputType.phone,
-                                      textInputAction: TextInputAction.done,
-                                      onSubmitted: (_) {_focusNode.unfocus();},
-                                      flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
-                                      onChanged: (phone) {if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
-                                      onCountryChanged: (phone) {
-                                        _getController.code.value = '+${phone.fullCountryCode}';
-                                        _getController.countryCode.value = phone.regionCode;
-                                        _getController.phoneController.clear();
-                                        print(phone.fullCountryCode);
-                                        print(phone.regionCode);
-                                      },
-                                      invalidNumberMessage: null,
-                                      decoration: InputDecoration(
-                                        hintText: 'Telefon raqam'.tr,
-                                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
-                                        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7)), borderSide: BorderSide.none),
-                                        counterText: '',
-                                        counter: null,
-                                        isDense: true
-                                      ),
-                                      style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
-                                      showCountryFlag: true,
-                                      showCursor: true,
-                                      showDropdownIcon: false,
-                                      initialCountryCode: 'UZ',
-                                      dropdownTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize)
-                                    )
-                                  )
-                                )
-                              )
-                            ]
-                          )
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                      child: Column(
                           children: [
-                            Container(
-                              height: 40.h,
-                              margin: EdgeInsets.only(bottom: Get.height * 0.06),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                onPressed: () {
-                                  if (_getController.phoneController.text.isNotEmpty)
-                                    ApiController().sendCode();
-                                  else
-                                    Get.snackbar('Xatolik', 'Telefon raqam kiritilmadi');
-                                  //ApiController().sendCode();
-                                },
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: AppColors.white,
-                                  size: 30.sp
-                                )
-                              )
-                            )
+                            SizedBox(height: Get.height * 0.3),
+                            AnimatedBuilder(
+                              animation: _shakeAnimation,
+                              builder: (context, child) {
+                                double offset = sin(_shakeAnimation.value * pi * 2);
+                                return Transform.translate(
+                                  offset: Offset(offset * 5, 0), // Horizontal shaking
+                                  child: AnimatedSlide(
+                                      offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
+                                      duration: Duration(milliseconds: animateTextFields ? 550 : 400),
+                                      curve: Curves.easeInOut,
+                                      child: Column(
+                                          children: [
+                                            Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
+                                            Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
+                                            AnimatedOpacity(
+                                                opacity: 1.0,
+                                                duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                                child: Container(
+                                                    width: Get.width,
+                                                    margin: EdgeInsets.only(left: 25.w, right: 25.w),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                                                        border: Border.all(
+                                                            color: error ? AppColors.red : AppColors.greys,
+                                                            width: 1
+                                                      )
+                                                    ),
+                                                    child: Center(
+                                                        child: IntlPhoneField(
+                                                            focusNode: _focusNode,
+                                                            controller: _getController.phoneController,
+                                                            keyboardType: TextInputType.phone,
+                                                            textInputAction: TextInputAction.done,
+                                                            onSubmitted: (_) {_focusNode.unfocus();},
+                                                            flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
+                                                            onChanged: (phone) {if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
+                                                            onCountryChanged: (phone) {
+                                                              _getController.code.value = '+${phone.fullCountryCode}';
+                                                              _getController.countryCode.value = phone.regionCode;
+                                                              _getController.phoneController.clear();
+                                                              print(phone.fullCountryCode);
+                                                              print(phone.regionCode);
+                                                            },
+                                                            invalidNumberMessage: null,
+                                                            decoration: InputDecoration(
+                                                                error: error
+                                                                    ? Container(
+                                                                  width: Get.width,
+                                                                  margin: EdgeInsets.only(left: 25.w, right: 25.w),)
+                                                                    : null,
+                                                                hintText: 'Telefon raqam'.tr,
+                                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none),
+                                                                counterText: '',
+                                                                counter: null,
+                                                                isDense: true
+                                                            ),
+                                                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                            showCountryFlag: true,
+                                                            showCursor: true,
+                                                            showDropdownIcon: false,
+                                                            initialCountryCode: 'UZ',
+                                                            dropdownTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize)
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                          ]
+                                      )
+                                  )
+                                );
+                              }
+                            ),
+                            const Spacer(),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                      height: 40.h,
+                                      margin: EdgeInsets.only(bottom: Get.height * 0.06),
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
+                                          onPressed: () {
+                                            if (_getController.phoneController.text.isNotEmpty) {
+                                              ApiController().sendCode();
+                                            } else {
+                                              error = true;
+                                              _getController.tapTimes(() {error = false;},1);
+                                              _triggerShake();
+                                            }
+                                          },
+                                          child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
+                                      )
+                                  )
+                                ]
+                            ),
+                            SizedBox(height: 50.h)
                           ]
-                        ),
-                        SizedBox(height: 50.h)
-                      ]
-                    )
+                      )
                   )
                 ]
               )
