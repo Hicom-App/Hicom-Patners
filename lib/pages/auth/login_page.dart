@@ -10,7 +10,7 @@ import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -23,13 +23,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late Animation<double> _shakeAnimation;
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
-  bool error = false;
 
   @override
   void initState() {
     super.initState();
     _startDelayedAnimation();
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     _shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
   }
 
@@ -109,7 +108,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                                     decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
                                                         border: Border.all(
-                                                            color: error ? AppColors.red : AppColors.greys,
+                                                            color: _getController.errorInput[0] ? AppColors.red : AppColors.greys,
                                                             width: 1
                                                       )
                                                     ),
@@ -131,11 +130,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                                             },
                                                             invalidNumberMessage: null,
                                                             decoration: InputDecoration(
-                                                                error: error
-                                                                    ? Container(
-                                                                  width: Get.width,
-                                                                  margin: EdgeInsets.only(left: 25.w, right: 25.w),)
-                                                                    : null,
                                                                 hintText: 'Telefon raqam'.tr,
                                                                 hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
                                                                 border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none),
@@ -173,8 +167,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                             if (_getController.phoneController.text.isNotEmpty) {
                                               ApiController().sendCode();
                                             } else {
-                                              error = true;
-                                              _getController.tapTimes(() {error = false;},1);
+                                              _getController.changeErrorInput(0, true);
+                                              _getController.tapTimes(() {
+                                                _getController.changeErrorInput(0, false);
+                                                },1);
                                               _triggerShake();
                                             }
                                           },

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,7 @@ class GetController extends GetxController {
   RxList<String> dropDownItemsRegions = <String>[].obs;
   RxList<String> dropDownItemsCities = <String>[].obs;
   RxList<String> dropDownItem = <String>['Sotuvchi'.tr, 'O‘rnatuvchi'.tr, 'Buyurtmachi'.tr].obs;
+  RxList<bool> errorInput = <bool>[false, false, false, false, false, false, false].obs;
   RxBool whileApi = true.obs;
   RxBool errorField = false.obs;
   RxBool errorFieldOk = false.obs;
@@ -50,6 +52,12 @@ class GetController extends GetxController {
       onTap();
       _timer = null;
     });
+  }
+
+  //errorInput index change value
+  void changeErrorInput(int index, bool value) {
+    errorInput[index] = value;
+    update();
   }
 
   void onQRViewCreated(QRViewController qrController) {
