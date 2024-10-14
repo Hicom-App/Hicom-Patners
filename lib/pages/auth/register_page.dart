@@ -234,7 +234,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                   margin: EdgeInsets.only(bottom: Get.height * 0.06),
                                                   child: ElevatedButton(
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                                      onPressed: () => ApiController().updateProfile,
+                                                      onPressed: () => ApiController().updateProfile(),
                                                       child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
                                                   )
                                               )

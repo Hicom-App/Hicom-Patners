@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/auth/register_page.dart';
-import 'package:hicom_patners/pages/auth/verify_page_number.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -144,9 +142,11 @@ class _LoginPageState extends State<LoginPage> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                 onPressed: () {
-                                  ApiController().sendCode();
-                                  //Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
-                                  //Get.to(() => RegisterPage(),transition: Transition.downToUp);
+                                  if (_getController.phoneController.text.isNotEmpty)
+                                    ApiController().sendCode();
+                                  else
+                                    Get.snackbar('Xatolik', 'Telefon raqam kiritilmadi');
+                                  //ApiController().sendCode();
                                 },
                                 child: Icon(
                                   Icons.arrow_forward,

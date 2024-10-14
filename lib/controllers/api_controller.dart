@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/auth/verify_page_number.dart';
+import '../pages/not_connection.dart';
 import 'get_controller.dart';
 
 class ApiController extends GetxController {
@@ -15,15 +16,13 @@ class ApiController extends GetxController {
   final String baseUrl = 'http://185.196.213.76:8080/api';
 
 
-
   //return header function
   Map<String, String> headersBearer() {
     return {
-      'Accept-Language': Get.locale!.languageCode,
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_getController.token}',
     };
   }
-
 
   // Registratsiya
   Future<void> sendCode() async {
@@ -136,7 +135,7 @@ class ApiController extends GetxController {
       } else if (data['status'] == 3 || data['status'] == 4) {
         Get.to(() => const RegisterPage());
       } else {
-        print('Xatolik: ${data['message']}');
+        Get.offAll(NotConnection());
       }
     } else {
       print('Xatolik: Serverga ulanishda muammo');
