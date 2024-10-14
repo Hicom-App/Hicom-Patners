@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
+import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/favorites_page.dart';
 import '../account/notification_page.dart';
@@ -21,6 +22,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final ScrollController _scrollController = ScrollController();
+  final GetController _getController = Get.put(GetController());
   double _imageHeight = 0.28; // Initial height as 28% of the screen height
 
   @override
@@ -62,24 +64,18 @@ class _AccountPageState extends State<AccountPage> {
                         imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                         child: Image.network(
                           'https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                          fit: BoxFit.cover
+                        )
+                      )
+                    )
                   ),
                   Positioned(
                     bottom: 0,
                     child: Container(
                       width: Get.width,
                       height: Get.height * 0.1,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
-                        ),
-                      ),
-                    ),
+                      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)))
+                    )
                   ),
                   Positioned(
                     bottom: Get.height * 0.03,
@@ -91,62 +87,33 @@ class _AccountPageState extends State<AccountPage> {
                           width: 130.w,
                           height: 130.h,
                           child: Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 30,
-                                  offset: Offset(0, 20),
-                                ),
-                              ],
-                            ),
+                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(400),
-                              child: Image.network(
-                                'https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                              child: Image.network('https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg', fit: BoxFit.cover)
+                            )
+                          )
+                        )
+                      ]
+                    )
+                  )
+                ]
+              )
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextSmall(
-                  text: 'Dilshodjon',
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                TextSmall(text: _getController.profileInfoModel.value.profile?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                 SizedBox(width: 5.w),
-                TextSmall(
-                  text: 'Haydarov',
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                ),
-              ],
+                TextSmall(text: _getController.profileInfoModel.value.profile?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
+              ]
             ),
-            TextSmall(
-              text: '+998995340313',
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
-              fontSize: 15,
-            ),
+            TextSmall(text: _getController.profileInfoModel.value.profile?.first.phone ?? '', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
             _buildListTile(
               context: context,
               icon: Icons.person,
               title: 'Profilim',
-              onTap: () => Get.to(() => const MyAccountPage(), transition: Transition.downToUp),
-            ),
+              onTap: () => Get.to(() => const MyAccountPage(), transition: Transition.downToUp)),
             _buildListTile(
               context: context,
               icon: Icons.wallet_travel,
@@ -203,11 +170,7 @@ class _AccountPageState extends State<AccountPage> {
               onTap: () => InstrumentComponents().logOutDialog(context),
             ),
             SizedBox(height: 20.h),
-            TextSmall(
-              text: 'Ilova versiyasi: 1.0.0',
-              color: Colors.black,
-              fontSize: 12.sp,
-            ),
+            TextSmall(text: 'Ilova versiyasi: 1.0.0', color: Colors.black, fontSize: 12.sp),
             SizedBox(height: Get.height * 0.2)
           ]
         )

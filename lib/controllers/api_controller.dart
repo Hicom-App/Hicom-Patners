@@ -139,6 +139,11 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         print('Profil ma‘lumotlari: ${data['profile']}');
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
+        if (_getController.profileInfoModel.value.profile?.first.firstName == null || _getController.profileInfoModel.value.profile?.first.lastName == '') {
+          Get.to(() => const RegisterPage());
+        } else {
+          Get.to(() => SamplePage());
+        }
       } else {
         print('Xatolik: ${data['message']}');
       }

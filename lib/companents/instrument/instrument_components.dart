@@ -265,27 +265,24 @@ class InstrumentComponents {
       )
   );
 
-  void logOutDialog(BuildContext context) => Get.dialog(
-        AlertDialog(
-          title: TextLarge(text: 'Tasdiqlash', color: Theme.of(context).colorScheme.error),
-          content: TextSmall(text: 'Hisobdan chiqishni xohlaysizmi?', color: Theme.of(context).colorScheme.onSurface,maxLines: 3),
-          actions: [
-            TextButton(
-                onPressed: () => Get.back(),
-                child: TextSmall(text: 'Bekor qilish', color: Theme.of(context).colorScheme.primary)
-            ),
-            TextButton(
-                onPressed: () => {
-                  Get.back(),
-                  _getController.isRequest.value = true,
-                  _getController.sec.value = 0,
-                  Get.offAll(() => LoginPage())
-                },
-                child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary)
-            )
-          ]
-        )
-    );
+  void logOutDialog(BuildContext context) =>
+      Get.dialog(
+          AlertDialog(
+              title: TextLarge(text: 'Tasdiqlash', color: Theme.of(context).colorScheme.error),
+              content: TextSmall(text: 'Hisobdan chiqishni xohlaysizmi?', color: Theme.of(context).colorScheme.onSurface,maxLines: 3),
+              actions: [
+                TextButton(onPressed: () => Get.back(), child: TextSmall(text: 'Bekor qilish', color: Theme.of(context).colorScheme.primary)),
+                TextButton(
+                    onPressed: () => {
+                      Get.back(),
+                      _getController.logout(),
+                      Get.offAll(() => LoginPage())
+                    },
+                    child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary)
+                )
+              ]
+          )
+      );
 
   void languageDialog(BuildContext context) => Get.bottomSheet(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),

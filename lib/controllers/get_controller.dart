@@ -19,8 +19,7 @@ class GetController extends GetxController {
   var id = 1209098100.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
-  var sec = 0.obs;
-  RxBool isRequest = true.obs;
+  //var sec = 0.obs;
   RxBool back = true.obs;
   var code = '+998'.obs;
   RxString countryCode = ''.obs;
@@ -132,6 +131,11 @@ class GetController extends GetxController {
 
   void savePhoneNumber(String phoneNumber) {
     GetStorage().write('phoneNumber', phoneNumber);
+  }
+
+  void logout() {
+    GetStorage().erase();
+    Get.delete<GetController>();
   }
 
   get phoneNumber => GetStorage().read('phoneNumber');
