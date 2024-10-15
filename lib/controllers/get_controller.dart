@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,6 +33,7 @@ class GetController extends GetxController {
   RxBool whileApi = true.obs;
   RxBool errorField = false.obs;
   RxBool errorFieldOk = false.obs;
+  Timer? _timerTap;
   Timer? _timer;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
@@ -48,10 +48,10 @@ class GetController extends GetxController {
   }
 
   void tapTimes(Function onTap, int sec) {
-    if (_timer != null) stopTimer();
-    _timer = Timer(Duration(seconds: sec), () {
+    if (_timerTap != null) stopTimerTap();
+    _timerTap = Timer(Duration(seconds: sec), () {
       onTap();
-      _timer = null;
+      _timerTap = null;
     });
   }
 
@@ -159,6 +159,7 @@ class GetController extends GetxController {
           timer.cancel();
         } else {
           countdownDuration.value = countdownDuration.value - oneSec;
+          print(countdownDuration.value.inSeconds);
         }
       }
       );
@@ -166,6 +167,7 @@ class GetController extends GetxController {
   }
 
   void stopTimer() => _timer!.cancel();
+  void stopTimerTap() => _timerTap!.cancel();
 
   void resetTimer() {
     if (_timer != null && _timer!.isActive) {
