@@ -34,6 +34,7 @@ class GetController extends GetxController {
   RxBool whileApi = true.obs;
   RxBool errorField = false.obs;
   RxBool errorFieldOk = false.obs;
+  Timer? _timer;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();
@@ -145,20 +146,22 @@ class GetController extends GetxController {
 
   int getType() => dropDownItems[2];
 
-  final countdownDuration = const Duration(minutes: 1, seconds: 59).obs;
-  Timer? _timer;
+  final countdownDuration = const Duration(minutes: 0, seconds: 7).obs;
 
   void startTimer() {
     if (_timer != null && _timer!.isActive) _timer!.cancel();
     if (countdownDuration.value.inSeconds > 0) {
+      print(countdownDuration.value.inSeconds);
       const oneSec = Duration(seconds: 1);
-      _timer = Timer.periodic(oneSec, (timer) {
+      _timer = Timer.periodic(
+          oneSec, (timer) {
         if (countdownDuration.value.inSeconds == 0) {
           timer.cancel();
         } else {
           countdownDuration.value = countdownDuration.value - oneSec;
         }
-      });
+      }
+      );
     }
   }
 
@@ -179,6 +182,7 @@ class GetController extends GetxController {
     countdownDuration.value = const Duration(minutes: 0, seconds: 05);
     startTimer();
   }
+
 
   final TextEditingController searchController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
@@ -602,6 +606,12 @@ class GetController extends GetxController {
     );
   }
 
+
+  var shouldShake = false.obs;
+
+  void triggerShake() {
+    shouldShake.value = true;
+  }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

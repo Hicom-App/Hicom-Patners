@@ -1,4 +1,4 @@
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +9,6 @@ import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
-import '../sample/sample_page.dart';
 
 class VerifyPageNumber extends StatefulWidget {
   const VerifyPageNumber({super.key});
@@ -18,16 +17,19 @@ class VerifyPageNumber extends StatefulWidget {
   _VerifyPageNumberState createState() => _VerifyPageNumberState();
 }
 
-class _VerifyPageNumberState extends State<VerifyPageNumber> {
+class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
-  final FocusNode _focusNode = FocusNode();
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
+  late AnimationController _animationController;
+  late Animation<double> _shakeAnimation;
 
   @override
   void initState() {
     super.initState();
     _startDelayedAnimation();
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
   }
 
   void _startDelayedAnimation() {
@@ -37,11 +39,21 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
       });
     });
     animateTextFields = false;
+    Future.delayed(const Duration(milliseconds: 100), () => setState(() => animateTextFields = true));
+    animateTextFields = false;
   }
+
+
+  void _triggerShake() {
+    if (!_animationController.isAnimating) {
+      _animationController.forward(from: 0);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    _getController.startTimer();
     final defaultPinTheme = PinTheme(
       width: Theme.of(context).textTheme.headlineLarge!.fontSize! * 1.4,
       height: Theme.of(context).textTheme.headlineLarge!.fontSize! * 1.6,
@@ -99,60 +111,67 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> {
                                   child: Column(
                                       children: [
                                         SizedBox(height: Get.height * 0.3),
-                                        AnimatedSlide(
-                                            offset: animateTextFields ? const Offset(0, 0.0) : const Offset(0, 0.8),
-                                            duration: Duration(milliseconds: animateTextFields ? 550 : 400),
-                                            curve: Curves.easeInOut, // Uyg'un ravishda
-                                            child: Column(
-                                                children: [
-                                                  Container(
-                                                      width: Get.width,
-                                                      margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                                      child: TextLarge(text: '${'Kodni kiriting'.tr}:', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)
-                                                  ),
-                                                  Container(
-                                                      width: Get.width,
-                                                      margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                                      child: TextSmall(text: '${'Faollashtirish kodi'.tr} ${'raqamiga SMS tarzida yuborildi.'.tr}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)
-                                                  ),
-                                                  SizedBox(height: Get.height * 0.02),
-                                                  AnimatedOpacity(
-                                                      opacity: animateTextFields ? 1.0 : 1.0,
-                                                      duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
-                                                      child: Obx(() =>
-                                                          Pinput(
-                                                              length: 5,
-                                                              defaultPinTheme: defaultPinTheme,
-                                                              focusedPinTheme: focusedPinTheme,
-                                                              submittedPinTheme: submittedPinTheme,
-                                                              showCursor: false,
-                                                              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                                                              forceErrorState: _getController.errorField.value,
-                                                              errorBuilder: (context, error) => TextSmall(text: error, color: AppColors.red, fontWeight: FontWeight.w500),
-                                                              errorPinTheme: _getController.errorFieldOk.value ? successPinTheme : errorPinTheme,
-                                                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                                              controller: _getController.verifyCodeControllers,
-                                                              keyboardType: TextInputType.number,
-                                                              errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
-                                                              onCompleted: (value) {
-                                                                ApiController().verifyPhone();
-                                                              }
-                                                          )
-                                                      )
-                                                  ),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03,top: Get.height * 0.01),
-                                                      child: Obx(() =>_getController.countdownDuration.value.inSeconds == 0
-                                                          ? TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {ApiController().sendCode();_getController.resetTimer();}, child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
-                                                          : TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
-                                                      )
+                                        AnimatedBuilder(
+                                            animation: _shakeAnimation,
+                                            builder: (context, child) {
+                                              double offset = sin(_shakeAnimation.value * pi * 2);
+                                              return Transform.translate(
+                                                  offset: Offset(offset * 5, 0), // Horizontal shaking
+                                                  child: AnimatedSlide(
+                                                      offset: animateTextFields ? const Offset(0, 0.0) : const Offset(0, 0.8),
+                                                      duration: Duration(milliseconds: animateTextFields ? 550 : 400),
+                                                      curve: Curves.easeInOut, // Uyg'un ravishda
+                                                      child:
+                                                      Obx(() => Column(
+                                                          children: [
+                                                            Container(
+                                                                width: Get.width,
+                                                                margin: EdgeInsets.only(left: 25.w, right: 25.w),
+                                                                child: TextLarge(text: '${'Kodni kiriting'.tr}:', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)
+                                                            ),
+                                                            Container(
+                                                                width: Get.width,
+                                                                margin: EdgeInsets.only(left: 25.w, right: 25.w),
+                                                                child: TextSmall(text: '${'Faollashtirish kodi'.tr} ${'raqamiga SMS tarzida yuborildi.'.tr}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)
+                                                            ),
+                                                            SizedBox(height: Get.height * 0.02),
+                                                            AnimatedOpacity(
+                                                                opacity: animateTextFields ? 1.0 : 1.0,
+                                                                duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                                                child: Pinput(
+                                                                    length: 5,
+                                                                    defaultPinTheme: defaultPinTheme,
+                                                                    focusedPinTheme: focusedPinTheme,
+                                                                    submittedPinTheme: submittedPinTheme,
+                                                                    showCursor: false,
+                                                                    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                                                                    forceErrorState: _getController.errorField.value,
+                                                                    errorBuilder: (context, error) => TextSmall(text: error, color: AppColors.red, fontWeight: FontWeight.w500),
+                                                                    errorPinTheme: _getController.errorFieldOk.value ? successPinTheme : errorPinTheme,
+                                                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                                                    controller: _getController.verifyCodeControllers,
+                                                                    keyboardType: TextInputType.number,
+                                                                    errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+                                                                    onCompleted: (value) {
+                                                                      _triggerShake();
+                                                                      ApiController().verifyPhone();
+                                                                    })
+                                                            ),
+                                                            Obx(() => Padding(
+                                                                padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03,top: Get.height * 0.01),
+                                                                child: _getController.countdownDuration.value.inSeconds == 0
+                                                                    ? TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {ApiController().sendCode();_getController.resetTimer();}, child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
+                                                                    : TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
+                                                            ))
+                                                          ]
+                                                      ))
                                                   )
-                                                ]
-                                            )
-                                        )
+                                              );
+                                            }
+                                        ),
                                       ]
                                   )
-                              )
+                              ),
                             ]
                         )
                     )

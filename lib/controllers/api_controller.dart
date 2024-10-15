@@ -37,6 +37,7 @@ class ApiController extends GetxController {
         //{"status":0,"message":"OK"}
         print('Registratsiya muvaffaqiyatli: ${data['message']}');
         if (data['status'] == 0 && data['message'] == 'OK') {
+          _getController.startTimer();
           Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
         }
       } else {
@@ -61,9 +62,16 @@ class ApiController extends GetxController {
         _getController.saveToken(data['result']['token']);
         _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
         login();
+        _getController.errorFieldOk.value = true;
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
         print('Xatolik: ${data['message']}');
+        _getController.changeErrorInput(0, true);
+        _getController.errorField.value = true;
+        _getController.triggerShake();
+        _getController.triggerShake();
+        print('Xatolik: xaaa0');
+        _getController.tapTimes((){print('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
       }
     } else {
       print('Xatolik: Serverga ulanishda muammo');

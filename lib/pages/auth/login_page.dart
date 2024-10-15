@@ -105,13 +105,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                                 child: Container(
                                                     width: Get.width,
                                                     margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-                                                        border: Border.all(
-                                                            color: _getController.errorInput[0] ? AppColors.red : AppColors.greys,
-                                                            width: 1
-                                                      )
-                                                    ),
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), border: Border.all(color: _getController.errorInput[0] ? AppColors.red : AppColors.greys, width: 1)),
                                                     child: Center(
                                                         child: IntlPhoneField(
                                                             focusNode: _focusNode,
@@ -125,18 +119,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                                               _getController.code.value = '+${phone.fullCountryCode}';
                                                               _getController.countryCode.value = phone.regionCode;
                                                               _getController.phoneController.clear();
-                                                              print(phone.fullCountryCode);
-                                                              print(phone.regionCode);
                                                             },
                                                             invalidNumberMessage: null,
-                                                            decoration: InputDecoration(
-                                                                hintText: 'Telefon raqam'.tr,
-                                                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
-                                                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none),
-                                                                counterText: '',
-                                                                counter: null,
-                                                                isDense: true
-                                                            ),
+                                                            decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
                                                             style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
                                                             showCountryFlag: true,
                                                             showCursor: true,
@@ -168,9 +153,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                               ApiController().sendCode();
                                             } else {
                                               _getController.changeErrorInput(0, true);
-                                              _getController.tapTimes(() {
-                                                _getController.changeErrorInput(0, false);
-                                                },1);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
                                               _triggerShake();
                                             }
                                           },
