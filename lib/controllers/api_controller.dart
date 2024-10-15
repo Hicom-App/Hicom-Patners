@@ -61,8 +61,14 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         _getController.saveToken(data['result']['token']);
         _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
-        login();
         _getController.errorFieldOk.value = true;
+        _getController.errorField.value = true;
+        _getController.tapTimes((){
+          _getController.errorFieldOk.value = false;
+          _getController.errorField.value = false;
+          login();
+          }, 1);
+
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
         print('Xatolik: ${data['message']}');
