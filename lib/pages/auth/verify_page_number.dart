@@ -10,6 +10,8 @@ import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
+final GlobalKey<_VerifyPageNumberState> verifyPageKey = GlobalKey<_VerifyPageNumberState>();
+
 class VerifyPageNumber extends StatefulWidget {
   const VerifyPageNumber({super.key});
 
@@ -99,7 +101,6 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                   top: 0,
                                   child: AnimatedContainer(
                                       width: Get.width,
-                                      //height: isKeyboardVisible ? 200.h : 380.h,
                                       height: isKeyboardVisible ? Get.height * 0.22 : Get.height * 0.4,
                                       duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
                                       curve: Curves.easeInOut,
