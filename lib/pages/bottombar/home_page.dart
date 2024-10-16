@@ -164,15 +164,16 @@ class HomePage extends StatelessWidget {
                                                           //child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600))
                                                           child: Center(
                                                               child: _getController.categoriesModel.value.result != null
-                                                                  ? TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600)
-                                                                  : Container()
+                                                                  ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(),
+                                                                  color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600)
+                                                                  : const SizedBox()
                                                           )
                                                       )
                                                     ]
                                                 )
                                             )
                                         ),
-                                        itemCount: 10,
+                                        itemCount: _getController.categoriesModel.value.result!.length,
                                         shrinkWrap: true
                                     )
                                 ),
