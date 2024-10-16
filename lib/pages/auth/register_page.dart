@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/auth/verify_page_number.dart';
 import '../../companents/filds/text_field_register.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -234,7 +233,14 @@ class _LoginPageState extends State<RegisterPage> {
                                                   margin: EdgeInsets.only(bottom: Get.height * 0.06),
                                                   child: ElevatedButton(
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                                      onPressed: () => ApiController().updateProfile(),
+                                                      //onPressed: () => ApiController().updateProfile(),
+                                                      onPressed: (){
+                                                        if (_getController.dropDownItems[0] == 0 || _getController.dropDownItems[1] == 0 || _getController.dropDownItems[2] == 0 || _getController.dropDownItems[3] == 0){
+                                                          Get.snackbar('Xatolik', 'Barcha maydonlarni to\'ldiring',snackPosition: SnackPosition.BOTTOM, backgroundColor: AppColors.red, colorText: AppColors.white);
+                                                        } else{
+                                                          ApiController().updateProfile();
+                                                        }
+                                                      },
                                                       child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
                                                   )
                                               )
