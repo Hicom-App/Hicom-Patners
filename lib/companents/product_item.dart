@@ -55,7 +55,6 @@ class ProductItem extends StatelessWidget{
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
                               TextSmall(
-                                  //text: _getController.listStar[index],
                                   text: '${_getController.productsModel.value.result![index].rating == null ? '0': _getController.productsModel.value.result![index].rating.toString()} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo',
                                   color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
@@ -63,7 +62,8 @@ class ProductItem extends StatelessWidget{
                       ]
                   )
               )
-            ])
+            ],
+        )
     );
   }
 
