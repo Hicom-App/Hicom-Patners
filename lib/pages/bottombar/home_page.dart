@@ -244,10 +244,7 @@ class HomePage extends StatelessWidget {
                                       )
                                     ]
                                 ),
-                                SizedBox(height: Get.height * 0.01),
-                                SizedBox(height: Get.height * 0.01),
-                                SizedBox(height: Get.height * 0.01),
-                                SizedBox(height: Get.height * 0.01)
+                                SizedBox(height: Get.height * 0.1)
                               ]
                           ))
                       )
