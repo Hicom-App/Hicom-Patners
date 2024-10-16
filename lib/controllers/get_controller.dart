@@ -616,6 +616,10 @@ class GetController extends GetxController {
     shouldShake.value = true;
   }
 
+  String getCategoryName(int id) {
+    //return categoriesModel in result list in id element get name
+    return categoriesModel.value.result!.firstWhere((element) => element.id == id).name!;
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -624,6 +628,7 @@ class GetController extends GetxController {
   var citiesModel = CountriesModel().obs;
   var profileInfoModel = ProfileInfoModel().obs;
   var categoriesModel = CategoriesModel().obs;
+  var productsModel = CategoriesModel().obs;
 
 
   //change models
@@ -643,10 +648,11 @@ class GetController extends GetxController {
     dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
   }
 
-  void changeProfileInfoModel(ProfileInfoModel profileInfoModel) => this.profileInfoModel.value = profileInfoModel;
+  void changeProfileInfoModel(ProfileInfoModel profileInfo) => profileInfoModel.value = profileInfo;
 
-  void changeCategoriesModel(CategoriesModel categoriesModel) => this.categoriesModel.value = categoriesModel;
+  void changeCategoriesModel(CategoriesModel categories) => categoriesModel.value = categories;
 
+  void changeProductsModel(CategoriesModel categoriesModel) => productsModel.value = categoriesModel;
   //clear models
 
   void clearCountriesModel() {

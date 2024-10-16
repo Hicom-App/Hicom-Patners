@@ -161,7 +161,6 @@ class HomePage extends StatelessWidget {
                                                       Container(
                                                           margin: EdgeInsets.only(top: 5.h),
                                                           width: 71.w,
-                                                          //child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600))
                                                           child: Center(
                                                               child: _getController.categoriesModel.value.result != null
                                                                   ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(),
@@ -173,7 +172,7 @@ class HomePage extends StatelessWidget {
                                                 )
                                             )
                                         ),
-                                        itemCount: _getController.categoriesModel.value.result!.length,
+                                        itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
                                         shrinkWrap: true
                                     )
                                 ),
@@ -201,8 +200,10 @@ class HomePage extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 SizedBox(width: 35.w),
-                                                for (int index = 0; index < _getController.listImage.length; index++)
-                                                  InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                                //for (int index = 0; index < _getController.listImage.length; index++)
+                                                if (_getController.productsModel.value.result != null)
+                                                  for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                    InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
                                               ],
                                             )
                                         )
@@ -233,8 +234,9 @@ class HomePage extends StatelessWidget {
                                               child: Row(
                                                   children: [
                                                     SizedBox(width: 35.w),
-                                                    for (int index = 0; index < _getController.listImage.length; index++)
-                                                      InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                                    if (_getController.productsModel.value.result != null)
+                                                      for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                        InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
                                                   ]
                                               )
                                           )

@@ -162,7 +162,7 @@ class ApiController extends GetxController {
         if (_getController.profileInfoModel.value.profile?.first.firstName == null || _getController.profileInfoModel.value.profile?.first.lastName == '') {
           Get.to(() => const RegisterPage());
         } else {
-          Get.to(() => SamplePage());
+          Get.offAll(() => SamplePage());
         }
       } else {
         print('Xatolik: ${data['message']}');
@@ -210,6 +210,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
+        getProducts(0);
         print('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
@@ -221,16 +222,12 @@ class ApiController extends GetxController {
 
   // Mahsulotlar ro'yxatini olish
   Future<void> getProducts(int categoryId, {int? offset, int? limit}) async {
-    String url = '$baseUrl/catalog/products';
-
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
-    );
+    final response = await http.get(Uri.parse('$baseUrl/catalog/products'), headers: {'Authorization': 'Bearer ${_getController.token}'},);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
+        _getController.changeProductsModel(CategoriesModel.fromJson(data));
         print('Mahsulotlar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
@@ -239,4 +236,6 @@ class ApiController extends GetxController {
       print('Xatolik: Serverga ulanishda muammo');
     }
   }
+
+
 }

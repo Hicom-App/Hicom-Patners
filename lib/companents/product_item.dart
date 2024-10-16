@@ -21,14 +21,7 @@ class ProductItem extends StatelessWidget{
         decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(20.r),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  blurRadius: 15.r,
-                  spreadRadius: 15.r,
-                  offset: const Offset(0, 0)
-              )
-            ]
+            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]
         ),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -54,8 +47,8 @@ class ProductItem extends StatelessWidget{
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextSmall(text: _getController.listImageName[index].toString().toUpperCase(), color: AppColors.black,fontWeight: FontWeight.bold, fontSize: 15.sp),
-                        TextSmall(text: _getController.listImagePrice[index], color: AppColors.black70, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 12.sp),
+                        TextSmall(text: _getController.getCategoryName(int.parse(_getController.productsModel.value.result![index].categoryId.toString())).toUpperCase(), color: AppColors.black,fontWeight: FontWeight.bold, fontSize: 15.sp),
+                        TextSmall(text: _getController.productsModel.value.result![index].name.toString(), color: AppColors.black70, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 12.sp),
                         Row(
                             children: [
                               SizedBox(width: 3.w),
