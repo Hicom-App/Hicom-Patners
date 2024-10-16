@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getCategories();
     return Scaffold(
+        backgroundColor: AppColors.white,
         body: Container(
             height: Get.height,
             width: Get.width,
