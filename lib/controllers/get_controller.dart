@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../models/auth/countries_model.dart';
+import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
@@ -622,6 +623,7 @@ class GetController extends GetxController {
   var regionsModel = CountriesModel().obs;
   var citiesModel = CountriesModel().obs;
   var profileInfoModel = ProfileInfoModel().obs;
+  var categoriesModel = CategoriesModel().obs;
 
 
   //change models
@@ -641,10 +643,9 @@ class GetController extends GetxController {
     dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
   }
 
-  void changeProfileInfoModel(ProfileInfoModel profileInfoModel) {
-    this.profileInfoModel.value = profileInfoModel;
-  }
+  void changeProfileInfoModel(ProfileInfoModel profileInfoModel) => this.profileInfoModel.value = profileInfoModel;
 
+  void changeCategoriesModel(CategoriesModel categoriesModel) => this.categoriesModel.value = categoriesModel;
 
   //clear models
 

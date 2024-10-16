@@ -5,6 +5,7 @@ import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
+import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/auth/verify_page_number.dart';
 import '../pages/not_connection.dart';
@@ -69,7 +70,6 @@ class ApiController extends GetxController {
         print('Xatolik: ${data['message']}');
         _getController.changeErrorInput(0, true);
         _getController.errorField.value = true;
-        _getController.triggerShake();
         _getController.triggerShake();
         print('Xatolik: xaaa0');
         _getController.tapTimes((){print('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
@@ -194,7 +194,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Profil muvaffaqiyatli o‘zgartirildi');
+        login();
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -205,16 +205,11 @@ class ApiController extends GetxController {
 
   // Mahsulot kategoriyalari ro'yxatini olish
   Future<void> getCategories({int? offset, int? limit}) async {
-    String url = '$baseUrl/catalog/categories';
-
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {'Authorization': 'Bearer ${_getController.token.value}'},
-    );
-
+    final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
+        _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
         print('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');

@@ -2,6 +2,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
 import 'package:hicom_patners/pages/home/notification_page.dart';
@@ -22,13 +23,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiController().getCategories();
     return Scaffold(
         body: Container(
             height: Get.height,
             width: Get.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover),
-            ),
+            decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover)),
             child: RefreshComponent(
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: Column(
+                          child: Obx(() => Column(
                               children: [
                                 SizedBox(height: 25.h),
                                 SearchTextField(color: AppColors.grey.withOpacity(0.2)),
@@ -161,7 +161,12 @@ class HomePage extends StatelessWidget {
                                                       Container(
                                                           margin: EdgeInsets.only(top: 5.h),
                                                           width: 71.w,
-                                                          child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600))
+                                                          //child: Center(child: TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600))
+                                                          child: Center(
+                                                              child: _getController.categoriesModel.value.result != null
+                                                                  ? TextSmall(text: _getController.list[index].tr, color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600)
+                                                                  : Container()
+                                                          )
                                                       )
                                                     ]
                                                 )
@@ -188,39 +193,6 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 345.h,
-                                      width: Get.width,
-                                      child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          children: [
-                                            SizedBox(width: 35.w),
-                                            for (int index = 0; index < _getController.listImage.length; index++)
-                                              InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
-                                          ],
-                                        )
-                                      )
-                                    )
-                                  ],
-                                ),
-
-                                Stack(
-                                  children: [
-                                    Positioned(
-                                      child: Container(
-                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                          child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                                const Spacer(),
-                                                TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
-                                              ]
-                                          )
-                                      ),
-                                    ),
-                                    SizedBox(
                                         height: 345.h,
                                         width: Get.width,
                                         child: SingleChildScrollView(
@@ -234,15 +206,46 @@ class HomePage extends StatelessWidget {
                                             )
                                         )
                                     )
-                                  ]
+                                  ],
                                 ),
-
-
+                                Stack(
+                                    children: [
+                                      Positioned(
+                                          child: Container(
+                                              margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                              child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                    const Spacer(),
+                                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                                  ]
+                                              )
+                                          )
+                                      ),
+                                      SizedBox(
+                                          height: 345.h,
+                                          width: Get.width,
+                                          child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                  children: [
+                                                    SizedBox(width: 35.w),
+                                                    for (int index = 0; index < _getController.listImage.length; index++)
+                                                      InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                                  ]
+                                              )
+                                          )
+                                      )
+                                    ]
+                                ),
                                 SizedBox(height: Get.height * 0.01),
                                 SizedBox(height: Get.height * 0.01),
                                 SizedBox(height: Get.height * 0.01),
                                 SizedBox(height: Get.height * 0.01)
-                              ])
+                              ]
+                          ))
                       )
                     ]
                 )
