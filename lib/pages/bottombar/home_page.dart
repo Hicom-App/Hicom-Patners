@@ -62,11 +62,11 @@ class HomePage extends StatelessWidget {
                                                         TextLarge(text: _getController.fullName.value.toString().split(' ')[1].toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
                                                       ]
                                                     ),
-                                                    TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                                    TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                                   ]
                                               ),
                                               actions: [
-                                                IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
+                                                IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
                                               ]
                                           ),
                                           Column(
@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                         children: [
                                                                           TextSmall(text: _getController.listProductPrice[index].tr, color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
-                                                                          TextSmall(text: ' so‘m', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                                                          TextSmall(text: ' so‘m', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
                                                                         ]
                                                                     )
                                                                   ]
@@ -185,7 +185,7 @@ class HomePage extends StatelessWidget {
                                               children: [
                                                 TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                 const Spacer(),
-                                                TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                                TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                               ]
                                           )
                                       )
@@ -202,11 +202,11 @@ class HomePage extends StatelessWidget {
                                                 if (_getController.productsModel.value.result != null)
                                                   for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
                                                     InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
-                                              ],
+                                              ]
                                             )
                                         )
                                     )
-                                  ],
+                                  ]
                                 ),
                                 Stack(
                                     children: [
@@ -219,7 +219,7 @@ class HomePage extends StatelessWidget {
                                                   children: [
                                                     TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                     const Spacer(),
-                                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                   ]
                                               )
                                           )
