@@ -149,14 +149,11 @@ class HomePage extends StatelessWidget {
                                                     children: [
                                                       SizedBox(
                                                           width: 35.w,
-                                                          child: ClipRRect(
-                                                              borderRadius: const BorderRadius.all(Radius.circular(0)),
-                                                              child: FadeInImage(
-                                                                  image: NetworkImage(_getController.listCategoryIcon[index]),
-                                                                  placeholder:NetworkImage(_getController.listCategoryIcon[index]),
-                                                                  imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://img.icons8.com/?size=100&id=91076&format=png&color=000000'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(20.r))));},
-                                                                  fit: BoxFit.cover,color: AppColors.white
-                                                              )
+                                                          child: FadeInImage(
+                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString()),
+                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                              fit: BoxFit.cover,color: AppColors.white
                                                           )
                                                       ),
                                                       Container(
@@ -191,7 +188,7 @@ class HomePage extends StatelessWidget {
                                                 TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
                                               ]
                                           )
-                                      ),
+                                      )
                                     ),
                                     SizedBox(
                                         height: 345.h,
