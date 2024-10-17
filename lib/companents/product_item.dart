@@ -32,9 +32,9 @@ class ProductItem extends StatelessWidget{
                     ClipRRect(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
                         child: FadeInImage(
-                            image: NetworkImage(_getController.listImage[index]),
-                            placeholder: NetworkImage(_getController.listImage[index]),
-                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                            image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
+                            placeholder: const AssetImage('assets/images/logo_back.png'),
+                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                             fit: BoxFit.cover
                         )
                     ),
