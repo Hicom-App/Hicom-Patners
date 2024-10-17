@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -234,7 +235,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   )
                               ),
                               SizedBox(height: 5.h),
-                              _buildListTileDelete(icon:  EneftyIcons.profile_delete_bold,color: Colors.red, title: 'Hisobni o`chirish', onTap: (){}),
+                              _buildListTileDelete(icon:  EneftyIcons.profile_delete_bold,color: Colors.red, title: 'Hisobni o`chirish', onTap: (){
+                                _getController.deleteTimer();
+                                InstrumentComponents().bottomSheetAccountsDelete(context);
+                              }),
                               SizedBox(height: 500.h)
                             ]
                         )

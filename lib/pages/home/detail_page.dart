@@ -55,14 +55,28 @@ class DetailPage extends StatelessWidget {
                                     backgroundColor: Colors.grey.shade200,
                                     centerTitle: true,
                                     elevation: 0,
-                                    title: TextLarge(text: listImageName[index].toString().toUpperCase(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 20.sp),
+                                    title: TextLarge(
+                                        //text: listImageName[index].toString().toUpperCase(),
+                                        text: _getController.getCategoryName(_getController.productsModel.value.result![index].categoryId!).toString().toUpperCase(),
+                                        color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500,fontSize: 20.sp),
                                     actions: [
                                       IconButton(icon: Icon(Icons.share, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
                                       IconButton(icon: Icon(Icons.more_vert, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
                                     ]
                                 )
                             ),
-                            Expanded(child: Container(width: Get.width, decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(listImage[index]), fit: BoxFit.scaleDown))))
+                            //Expanded(child: Container(width: Get.width, decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(listImage[index]), fit: BoxFit.scaleDown))))
+                            Expanded(
+                                child: SizedBox(
+                                  width: Get.width,
+                                  child: FadeInImage(
+                                    image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
+                                    placeholder: const AssetImage('assets/images/logo_back.png'),
+                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                    fit: BoxFit.cover
+                                  )
+                                )
+                            )
                           ]
                       )
                   ),
@@ -79,8 +93,13 @@ class DetailPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextLarge(text: listImagePrice[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp),
-                                  TextLarge(text: listImageName[index], color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp),
+                                  TextLarge(
+                                      //text: listImagePrice[index],
+                                      text: _getController.productsModel.value.result![index].name.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp),
+                                  TextLarge(
+                                      //text: listImageName[index],
+                                      text: _getController.getCategoryName(_getController.productsModel.value.result![index].categoryId!).toString(),
+                                      color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
                                 ]
                               ),
                               Container(
@@ -108,43 +127,37 @@ class DetailPage extends StatelessWidget {
                                         children: [
                                           Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp),
                                           SizedBox(width: Get.width * 0.01),
-                                          TextSmall(text: '3.9', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15),
+                                          TextSmall(
+                                              //text: '3.9',
+                                              text: _getController.productsModel.value.result![index].rating != null ? _getController.productsModel.value.result![index].rating.toString() : '0',
+                                              color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
                                         ]
                                       )
                                     ]
                                   )
                                 ),
-                                const VerticalDivider(
-                                  color: Colors.grey,  // The color of the divider
-                                  thickness: 1,        // The thickness of the divider
-                                  width: 20,           // The total width of the space taken by the divider (including padding)
-                                  indent: 10,          // Empty space to the top of the divider
-                                  endIndent: 10,       // Empty space to the bottom of the divider
-                                ),
+                                const VerticalDivider(color: Colors.grey, thickness: 1, width: 20, indent: 10, endIndent: 10),
                                 Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       TextSmall(text: 'Kafolat', color: AppColors.black70,fontSize: 10.sp),
                                       SizedBox(width: Get.width * 0.01),
-                                      TextSmall(text: '1 yil', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15),
+                                      TextSmall(
+                                          //text: '1 yil',
+                                          text: '${_getController.productsModel.value.result![index].warranty != null ? _getController.productsModel.value.result![index].warranty.toString() : '0'} kun',
+                                          color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
                                     ]
                                   )
                                 ),
-                                const VerticalDivider(
-                                  color: Colors.grey,  // The color of the divider
-                                  thickness: 1,        // The thickness of the divider
-                                  width: 20,           // The total width of the space taken by the divider (including padding)
-                                  indent: 10,          // Empty space to the top of the divider
-                                  endIndent: 10,       // Empty space to the bottom of the divider
-                                ),
+                                const VerticalDivider(color: Colors.grey, thickness: 1, width: 20, indent: 10, endIndent: 10),
                                 Center(
                                   child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         TextSmall(text: 'Brend', color: AppColors.black70,fontSize: 10.sp),
                                         SizedBox(width: Get.width * 0.01),
-                                        TextSmall(text: 'Hicom', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15),
+                                        TextSmall(text: 'Hicom', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
                                     ]
                                   )
                                 )
@@ -168,8 +181,12 @@ class DetailPage extends StatelessWidget {
                                       padding: EdgeInsets.zero,
                                       physics: const NeverScrollableScrollPhysics(),
                                       controller: _getController.scrollControllerOk,
-                                      itemBuilder: (context, index) => TextSmall(text: _getController.listImageInfo[index], color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
-                                      itemCount: _getController.listImageInfo.length
+                                      //itemBuilder: (context, index) => TextSmall(text: _getController.listImageInfo[index], color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
+                                      itemBuilder: (context, index) => TextSmall(
+                                          text: _getController.productsModel.value.result![index].description!.toString(),
+                                          color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
+                                      //itemCount: _getController.listImageInfo.length
+                                      itemCount: _getController.productsModel.value.result![index].description!.length
                                     )
                                   )
                                 ),
@@ -187,7 +204,8 @@ class DetailPage extends StatelessWidget {
                           const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
                           SizedBox(height: Get.height * 0.01),
                           RatingBar.builder(
-                              initialRating: 3,
+                              //initialRating: 3,
+                              initialRating: _getController.productsModel.value.result![index].rating != null ? _getController.productsModel.value.result![index].rating!.toDouble() : 0,
                               minRating: 0,
                               direction: Axis.horizontal,
                               allowHalfRating: true,
@@ -198,7 +216,7 @@ class DetailPage extends StatelessWidget {
                               itemBuilder: (context, _) =>
                               const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                               onRatingUpdate: (rating) {}
-                          ),
+                          )
                         ]
                     )
                   ),
@@ -215,10 +233,10 @@ class DetailPage extends StatelessWidget {
                                   children: [
                                     TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                     const Spacer(),
-                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)),)
+                                    TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                   ]
                               )
-                          ),
+                          )
                         ),
                         SizedBox(
                             height: 355.h,
@@ -228,13 +246,14 @@ class DetailPage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     SizedBox(width: 35.w),
-                                    for (int index = 0; index < _getController.listImage.length; index++)
-                                      InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
-                                  ],
+                                    if (_getController.productsModel.value.result != null)
+                                      for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                        InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                  ]
                                 )
                             )
                         )
-                      ],
+                      ]
                     )
                   ),
                   SizedBox(height: Get.height * 0.1)

@@ -25,6 +25,9 @@ class ApiController extends GetxController {
     };
   }
 
+
+  //Auth
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Registratsiya
   Future<void> sendCode() async {
     String url = '$baseUrl/auth/register';
@@ -202,6 +205,22 @@ class ApiController extends GetxController {
       print('Xatolik: Serverga ulanishda muammo');
     }
   }
+
+  Future<void> deleteProfile() async {
+    print('Profil o\'chirish');
+    final response = await http.get(Uri.parse('$baseUrl/profile/delete'), headers: headersBearer());
+    print(response.body);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        login();
+      } else {
+        print('Xatolik: ${data['message']}');
+      }
+    } else {
+    }
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Mahsulot kategoriyalari ro'yxatini olish
   Future<void> getCategories({int? offset, int? limit}) async {

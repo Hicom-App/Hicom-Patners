@@ -35,15 +35,11 @@ class CategoryPage extends StatelessWidget {
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:_getController.getCrossAxisCount(),
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 15.sp,
-                    childAspectRatio: 0.78
-                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
                 padding: EdgeInsets.only(left: 15.w, right: 5.w),
                 itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
-                itemCount: _getController.listImage.length
+                //itemCount: _getController.listImage.length
+                itemCount: _getController.productsModel.value.result!.length
               )
             )
           ]
