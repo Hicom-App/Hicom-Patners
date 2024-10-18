@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -629,6 +630,7 @@ class GetController extends GetxController {
   var profileInfoModel = ProfileInfoModel().obs;
   var categoriesModel = CategoriesModel().obs;
   var productsModel = CategoriesModel().obs;
+  var categoriesProductsModel = CategoriesProductsModel().obs;
 
 
   //change models
@@ -653,6 +655,25 @@ class GetController extends GetxController {
   void changeCategoriesModel(CategoriesModel categories) => categoriesModel.value = categories;
 
   void changeProductsModel(CategoriesModel categoriesModel) => productsModel.value = categoriesModel;
+
+  /*void addCategoriesProductsModel(CategoriesModel categories) {
+    //print(jsonEncode(categoriesModel.toJson()));
+    categoriesProductsModel.value.result!.add(categories);
+    print(jsonEncode(categoriesProductsModel.value.toJson()));
+  }
+*/
+  void addCategoriesProductsModel(CategoriesModel categories) {
+    //categoriesProductsModel.value.result ??= <CategoriesModel>[];
+    //categoriesProductsModel.value.result!.add(categories);
+    if (categoriesProductsModel.value.all == null) {
+      categoriesProductsModel.value.all = <CategoriesModel>[];
+    } else {
+      categoriesProductsModel.value.all!.add(categories);
+    }
+    print(jsonEncode(categoriesProductsModel.value.toJson()));
+  }
+
+
   //clear models
 
   void clearCountriesModel() {
@@ -679,9 +700,12 @@ class GetController extends GetxController {
     dropDownItems[3] = 0;
   }
 
+  void clearProfileInfoModel() => profileInfoModel.value = ProfileInfoModel();
 
-  void clearProfileInfoModel() {
-    profileInfoModel.value = ProfileInfoModel();
-  }
+  void clearCategoriesProductsModel() => categoriesProductsModel.value = CategoriesProductsModel();
+
 
 }
+
+
+

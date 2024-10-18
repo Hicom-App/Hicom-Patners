@@ -1,8 +1,31 @@
+class CategoriesProductsModel {
+  List<CategoriesModel>? all;
+
+  CategoriesProductsModel({this.all});
+
+  CategoriesProductsModel.fromJson(Map<String, dynamic> json) {
+    if (json['all'] != null) {
+      all = <CategoriesModel>[];
+      json['all'].forEach((v) {
+        all!.add(CategoriesModel.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (all != null) {
+      data['all'] = all!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+
 class CategoriesModel {
   int? status;
   String? message;
   List<Result>? result;
-
   CategoriesModel({this.status, this.message, this.result});
 
   CategoriesModel.fromJson(Map<String, dynamic> json) {
@@ -22,34 +45,6 @@ class CategoriesModel {
     return data;
   }
 }
-
-/*
-class Result {
-  int? id;
-  String? name;
-  String? photoUrl;
-  String? description;
-
-  Result({this.id, this.name, this.photoUrl, this.description});
-
-  Result.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    photoUrl = json['photo_url'];
-    description = json['description'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['photo_url'] = photoUrl;
-    data['description'] = description;
-    return data;
-  }
-}
-*/
-
 
 class Result {
   int? id;

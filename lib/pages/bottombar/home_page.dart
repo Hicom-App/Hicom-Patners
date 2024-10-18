@@ -11,6 +11,7 @@ import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/product_item.dart';
+import '../../companents/product_items.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../home/checks_page.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ApiController().getCategories();
+    //ApiController().getAllCatProducts();
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -33,6 +35,10 @@ class HomePage extends StatelessWidget {
             child: RefreshComponent(
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
+                onLoading: () async {
+                  _getController.clearCategoriesProductsModel();
+                  ApiController().getAllCatProducts();
+                },
                 child: Column(
                     children: [
                       SizedBox(
@@ -126,11 +132,13 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: Obx(() => Column(
+                          child: Obx(() => _getController.categoriesModel.value.result != null ?
+                              Column(
                               children: [
                                 SizedBox(height: 25.h),
                                 SearchTextField(color: AppColors.grey.withOpacity(0.2)),
                                 SizedBox(height: 15.h),
+                                //categoriya
                                 SizedBox(
                                     width: Get.width,
                                     height: 82.h,
@@ -148,12 +156,14 @@ class HomePage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       SizedBox(
-                                                          width: 35.w,
+                                                          width: 30.w,
                                                           child: FadeInImage(
-                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString()),
+                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
+                                                              //image: NetworkImage('http://185.196.213.76:8080/api/catalog/categories/photo?id=1',headers: ApiController().headersBearer()),
                                                               placeholder: const AssetImage('assets/images/logo_back.png'),
                                                               imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
-                                                              fit: BoxFit.cover,color: AppColors.white
+                                                              fit: BoxFit.cover,
+                                                              //color: AppColors.white
                                                           )
                                                       ),
                                                       Container(
@@ -174,6 +184,7 @@ class HomePage extends StatelessWidget {
                                         shrinkWrap: true
                                     )
                                 ),
+
                                 Stack(
                                   children: [
                                     Positioned(
@@ -241,9 +252,49 @@ class HomePage extends StatelessWidget {
                                       )
                                     ]
                                 ),
+                                if (_getController.categoriesProductsModel.value.all != null)
+                                  Column(
+                                    children: [
+                                      for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
+                                        if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
+                                          Stack(
+                                            children: [
+                                              Positioned(
+                                                child: Container(
+                                                  margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i+1].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                      const Spacer(),
+                                                      TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                    ]
+                                                  )
+                                                )
+                                              ),
+                                              SizedBox(
+                                                height: 345.h,
+                                                width: Get.width,
+                                                child: SingleChildScrollView(
+                                                  scrollDirection: Axis.horizontal,
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width: 35.w),
+                                                      if (_getController.productsModel.value.result != null)
+                                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                          InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItems(index: i , i: index))
+                                                    ]
+                                                  )
+                                                )
+                                              )
+                                            ]
+                                          )
+                                    ]
+                                  ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
-                          ))
+                          ) : const Center(child: CircularProgressIndicator()))
                       )
                     ]
                 )

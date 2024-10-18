@@ -220,6 +220,7 @@ class ApiController extends GetxController {
     } else {
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Mahsulot kategoriyalari ro'yxatini olish
@@ -230,7 +231,8 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
         getProducts(0);
-        print('Kategoriyalar ro‘yxati: ${data['result']}');
+        //getAllCatProducts();
+        //print('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -247,7 +249,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeProductsModel(CategoriesModel.fromJson(data));
-        print('Mahsulotlar ro‘yxati: ${data['result']}');
+        //print('Mahsulotlar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -256,5 +258,25 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> getProduct(categoryId) async {
+    final response = await http.get(Uri.parse('$baseUrl/catalog/products${categoryId == 0 || categoryId == null ? '' : '?category_id=$categoryId'}'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      //print(data);
+      //print(data['status']);
+      if (data['status'] == 0 && data['result'] != null) {
+        _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+      } else {
+        print('Xatolik: ${data['message']}');
+      }
+    } else {
+      print('Xatolik: Serverga ulanishda muammo');
+    }
+  }
 
+  Future<void> getAllCatProducts() async {
+    for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
+      await getProduct(_getController.categoriesModel.value.result![i].id);
+    }
+  }
 }

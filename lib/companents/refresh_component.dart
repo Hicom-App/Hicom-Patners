@@ -7,7 +7,9 @@ class RefreshComponent extends StatelessWidget {
   final Widget child;
   final RefreshController refreshController;
   final ScrollController scrollController;
-  const RefreshComponent({super.key, required this.child, required this.refreshController, required this.scrollController});
+  final Function()? onLoading;
+  final Function()? onRefresh;
+  const RefreshComponent({super.key, required this.child, required this.refreshController, required this.scrollController, this.onLoading, this.onRefresh});
 
   void _getData() {
     refreshController.refreshCompleted();
@@ -26,8 +28,10 @@ class RefreshComponent extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         header: const CustomRefreshHeader(),
         footer: const CustomRefreshFooter(),
-        onLoading: _onLoading,
-        onRefresh: _getData,
+        /*onLoading: _onLoading,
+        onRefresh: _getData,*/
+        onLoading: onLoading ?? _onLoading,
+        onRefresh: onRefresh ?? _getData,
         controller: refreshController,
         scrollController: scrollController,
         child: SingleChildScrollView(
