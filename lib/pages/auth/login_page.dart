@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +20,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   final GetController _getController = Get.put(GetController());
   final FocusNode _focusNode = FocusNode();
   late AnimationController _animationController;
-  late Animation<double> _shakeAnimation;
+  //late Animation<double> _shakeAnimation;
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
 
@@ -30,7 +29,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     super.initState();
     _startDelayedAnimation();
     _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
+    //_shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
   }
 
   void _startDelayedAnimation() {

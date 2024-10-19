@@ -31,9 +31,12 @@ class CategoriesModel {
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['result'] != null) {
+    if (json['categories'] != null) {
       result = <Result>[];
-      json['result'].forEach((v) {result!.add(Result.fromJson(v));});
+      json['categories'].forEach((v) {result!.add(Result.fromJson(v));});
+    } else if (json['products'] != null) {
+      result = <Result>[];
+      json['products'].forEach((v) {result!.add(Result.fromJson(v));});
     }
   }
 
@@ -41,13 +44,22 @@ class CategoriesModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (result != null) {data['result'] = result!.map((v) => v.toJson()).toList();}
+    /*if (result != null) {
+      data['categories'] = result!.map((v) => v.toJson()).toList();
+    }*/
+    //if data['categories'] or data['products'] is null
+    if (result != null && result!.isNotEmpty) {
+      data['categories'] = result!.map((v) => v.toJson()).toList();
+    } else {
+      data['products'] = result!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
 class Result {
   int? id;
+  int? active;
   String? name;
   int? categoryId;
   int? cashback;
@@ -55,14 +67,15 @@ class Result {
   int? price;
   int? discount;
   int? reviews;
-  int? rating;
+  var rating;
   String? description;
   String? photoUrl;
 
-  Result({this.id, this.name, this.categoryId, this.cashback, this.warranty, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl});
+  Result({this.id, this.active, this.name, this.categoryId, this.cashback, this.warranty, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    active = json['active'];
     name = json['name'];
     categoryId = json['category_id'];
     cashback = json['cashback'];
@@ -78,6 +91,7 @@ class Result {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['active'] = active;
     data['name'] = name;
     data['category_id'] = categoryId;
     data['cashback'] = cashback;

@@ -14,8 +14,8 @@ import 'get_controller.dart';
 class ApiController extends GetxController {
   final GetController _getController = Get.put(GetController());
 
+  final api = 'http://185.196.213.76:8080';
   final  baseUrl = 'http://185.196.213.76:8080/api';
-
 
   //return header function
   Map<String, String> headersBearer() {
@@ -38,12 +38,8 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        //{"status":0,"message":"OK"}
-        print('Registratsiya muvaffaqiyatli: ${data['message']}');
-        if (data['status'] == 0 && data['message'] == 'OK') {
-          _getController.startTimer();
-          Get.to(() => VerifyPageNumber(),transition: Transition.downToUp);
-        }
+        _getController.startTimer();
+        Get.to(() => const VerifyPageNumber(),transition: Transition.downToUp);
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -162,7 +158,7 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         print('Profil ma‘lumotlari: ${data['profile']}');
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (_getController.profileInfoModel.value.profile?.first.firstName == null || _getController.profileInfoModel.value.profile?.first.lastName == '') {
+        if (_getController.profileInfoModel.value.profile?.firstName == null || _getController.profileInfoModel.value.profile?.lastName == '') {
           Get.to(() => const RegisterPage());
         } else {
           Get.offAll(() => SamplePage());
@@ -228,8 +224,11 @@ class ApiController extends GetxController {
     final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data);
+      //print(data);
       if (data['status'] == 0) {
         _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
+        print(jsonEncode(_getController.categoriesModel.value));
         getProducts(0);
         //getAllCatProducts();
         //print('Kategoriyalar ro‘yxati: ${data['result']}');
@@ -249,6 +248,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeProductsModel(CategoriesModel.fromJson(data));
+        //print(jsonEncode(data));
         //print('Mahsulotlar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');

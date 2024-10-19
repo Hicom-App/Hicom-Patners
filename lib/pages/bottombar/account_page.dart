@@ -103,12 +103,12 @@ class _AccountPageState extends State<AccountPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextSmall(text: _getController.profileInfoModel.value.profile?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                TextSmall(text: _getController.profileInfoModel.value.profile?.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                 SizedBox(width: 5.w),
-                TextSmall(text: _getController.profileInfoModel.value.profile?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
+                TextSmall(text: _getController.profileInfoModel.value.profile?.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
               ]
             ),
-            TextSmall(text: _getController.profileInfoModel.value.profile?.first.phone ?? '', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+            TextSmall(text: _getController.profileInfoModel.value.profile?.phone ?? '', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
             _buildListTile(
               context: context,
               icon: Icons.person,
