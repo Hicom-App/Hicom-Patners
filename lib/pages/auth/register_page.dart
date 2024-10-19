@@ -10,6 +10,7 @@ import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -346,7 +347,7 @@ class _LoginPageState extends State<RegisterPage> {
                                       decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.r), bottomRight: Radius.circular(40.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.fitWidth), boxShadow: [BoxShadow(color: Colors.grey.shade400, spreadRadius: 15, blurRadius: 30, offset: const Offset(0, 2))])
                                   )
                               ),
-                              Positioned(top: Get.height * 0.05, left: 10, child: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 45.sp)))
+                              Positioned(top: Get.height * 0.05, left: 10, child: IconButton(onPressed: () {_getController.logout();Get.offAll(() => LoginPage());}, icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 45.sp)))
                             ]
                         )
                     )
