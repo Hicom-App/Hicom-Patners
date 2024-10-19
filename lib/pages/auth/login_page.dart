@@ -6,6 +6,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
@@ -85,7 +86,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       child: Column(
                           children: [
                             SizedBox(height: Get.height * 0.3),
-                            AnimatedBuilder(
+                            /*AnimatedBuilder(
                               animation: _shakeAnimation,
                               builder: (context, child) {
                                 double offset = sin(_shakeAnimation.value * pi * 2);
@@ -137,6 +138,57 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                   )
                                 );
                               }
+                            ),*/
+                            ShakeWidget(
+                                key: _getController.shakeKey[0],
+                                shakeOffset: 5,
+                                shakeCount: 15,
+                                shakeDuration: const Duration(milliseconds: 500),
+                                shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
+                                child: AnimatedSlide(
+                                    offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
+                                    duration: Duration(milliseconds: animateTextFields ? 550 : 400),
+                                    curve: Curves.easeInOut,
+                                    child: Column(
+                                        children: [
+                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
+                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz Tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
+                                          AnimatedOpacity(
+                                              opacity: 1.0,
+                                              duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                              child: Container(
+                                                  width: Get.width,
+                                                  margin: EdgeInsets.only(left: 25.w, right: 25.w),
+                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1), border: Border.all(color: _getController.errorInput[0] ? AppColors.red : AppColors.greys, width: 1)),
+                                                  child: Center(
+                                                      child: IntlPhoneField(
+                                                          focusNode: _focusNode,
+                                                          controller: _getController.phoneController,
+                                                          keyboardType: TextInputType.phone,
+                                                          textInputAction: TextInputAction.done,
+                                                          onSubmitted: (_) {_focusNode.unfocus();},
+                                                          flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
+                                                          onChanged: (phone) {if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
+                                                          onCountryChanged: (phone) {
+                                                            _getController.code.value = '+${phone.fullCountryCode}';
+                                                            _getController.countryCode.value = phone.regionCode;
+                                                            _getController.phoneController.clear();
+                                                          },
+                                                          invalidNumberMessage: null,
+                                                          decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
+                                                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                          showCountryFlag: true,
+                                                          showCursor: true,
+                                                          showDropdownIcon: false,
+                                                          initialCountryCode: 'UZ',
+                                                          dropdownTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize)
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                        ]
+                                    )
+                                )
                             ),
                             const Spacer(),
                             Row(
@@ -154,7 +206,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                             } else {
                                               _getController.changeErrorInput(0, true);
                                               _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
+                                              _getController.shakeKey[0].currentState?.shake();
                                               _triggerShake();
+
                                             }
                                           },
                                           child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)

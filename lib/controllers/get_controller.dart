@@ -9,6 +9,7 @@ import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import '../companents/instrument/shake_widget.dart';
 import '../models/auth/countries_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
@@ -616,6 +617,16 @@ class GetController extends GetxController {
   void triggerShake() {
     shouldShake.value = true;
   }
+
+  //final GlobalKey<ShakeWidgetState> shakeKey = GlobalKey<ShakeWidgetState>();
+  List shakeKey = [
+    GlobalKey<ShakeWidgetState>(),
+    GlobalKey<ShakeWidgetState>(),
+    GlobalKey<ShakeWidgetState>(),
+    GlobalKey<ShakeWidgetState>(),
+  ];
+  int textCount = 0;
+  final int limitTextLength = 20;
 
   String getCategoryName(int id) {
     //return categoriesModel in result list in id element get name

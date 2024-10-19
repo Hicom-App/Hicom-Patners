@@ -1,27 +1,20 @@
 class ProfileInfoModel {
   int? status;
-  String? message;
-  List<Profile>? profile;
+  Profile? profile;
 
-  ProfileInfoModel({this.status, this.message, this.profile});
+  ProfileInfoModel({this.status, this.profile});
 
   ProfileInfoModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    message = json['message'];
-    if (json['profile'] != null) {
-      profile = <Profile>[];
-      json['profile'].forEach((v) {
-        profile!.add(Profile.fromJson(v));
-      });
-    }
+    profile =
+    json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    data['message'] = message;
     if (profile != null) {
-      data['profile'] = profile!.map((v) => v.toJson()).toList();
+      data['profile'] = profile!.toJson();
     }
     return data;
   }
@@ -39,8 +32,9 @@ class Profile {
   String? address;
   String? phone;
   String? photoUrl;
+  Cashback? cashback;
 
-  Profile({this.id, this.firstName, this.lastName, this.birthday, this.userType, this.countryId, this.regionId, this.cityId, this.address, this.phone, this.photoUrl});
+  Profile({this.id, this.firstName, this.lastName, this.birthday, this.userType, this.countryId, this.regionId, this.cityId, this.address, this.phone, this.photoUrl, this.cashback});
 
   Profile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,6 +48,9 @@ class Profile {
     address = json['address'];
     phone = json['phone'];
     photoUrl = json['photo_url'];
+    cashback = json['cashback'] != null
+        ? new Cashback.fromJson(json['cashback'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +66,34 @@ class Profile {
     data['address'] = address;
     data['phone'] = phone;
     data['photo_url'] = photoUrl;
+    if (cashback != null) {
+      data['cashback'] = cashback!.toJson();
+    }
+    return data;
+  }
+}
+
+class Cashback {
+  int? calculated;
+  int? withdrawn;
+  int? waiting;
+  int? rejected;
+
+  Cashback({this.calculated, this.withdrawn, this.waiting, this.rejected});
+
+  Cashback.fromJson(Map<String, dynamic> json) {
+    calculated = json['calculated'];
+    withdrawn = json['withdrawn'];
+    waiting = json['waiting'];
+    rejected = json['rejected'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['calculated'] = calculated;
+    data['withdrawn'] = withdrawn;
+    data['waiting'] = waiting;
+    data['rejected'] = rejected;
     return data;
   }
 }

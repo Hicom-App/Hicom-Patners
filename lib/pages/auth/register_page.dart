@@ -6,6 +6,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import '../../companents/filds/text_field_register.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
@@ -70,88 +71,122 @@ class _LoginPageState extends State<RegisterPage> {
                                               child: Column(
                                                   children: [
                                                     SizedBox(width: Get.width, child: TextLarge(text: '${'Ro‘yhatdan o‘tish'.tr}:', color: AppColors.black, fontWeight: FontWeight.bold)),
-                                                    Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.02), child: TextSmall(text: 'Ism', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
-                                                    SizedBox(height: Get.height * 0.01),
-                                                    AnimatedOpacity(
-                                                      opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
-                                                      duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
-                                                      child: TextFieldRegister(fillColor: AppColors.white, hint: 'Dilshodjon', controller: _getController.nameController)
+                                                    ShakeWidget(
+                                                        key: _getController.shakeKey[0],
+                                                        shakeOffset: 5,
+                                                        shakeCount: 15,
+                                                        shakeDuration: const Duration(milliseconds: 500),
+                                                        shakeDirection: Axis.horizontal,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.02), child: TextSmall(text: 'Ism', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                            SizedBox(height: Get.height * 0.01),
+                                                            AnimatedOpacity(
+                                                                opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
+                                                                duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                                                child: TextFieldRegister(fillColor: AppColors.white, hint: 'Dilshodjon', controller: _getController.nameController)
+                                                            )
+                                                          ]
+                                                        )
                                                     ),
-                                                    Container(
-                                                        width: Get.width,
-                                                        margin: EdgeInsets.only(top: Get.height * 0.013),
-                                                        child: TextSmall(text: 'Familya', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)
+                                                    ShakeWidget(
+                                                        key: _getController.shakeKey[1],
+                                                        shakeOffset: 5,
+                                                        shakeCount: 15,
+                                                        shakeDuration: const Duration(milliseconds: 500),
+                                                        shakeDirection: Axis.horizontal,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.013), child: TextSmall(text: 'Familya', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                            SizedBox(height: Get.height * 0.01),
+                                                            AnimatedOpacity(
+                                                                opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
+                                                                duration: const Duration(milliseconds: 1500),
+                                                                child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.surNameController)
+                                                            )
+                                                          ]
+                                                        )
                                                     ),
-                                                    SizedBox(height: Get.height * 0.01),
-                                                    AnimatedOpacity(
-                                                      opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
-                                                      duration: const Duration(milliseconds: 1500),
-                                                      child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.surNameController)
-                                                    ),
+
                                                     SizedBox(height: Get.height * 0.01),
                                                     Row(
                                                       children: [
-                                                        Expanded(child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              TextSmall(text: 'kun / oy / yil', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
-                                                              InkWell(
-                                                                  onTap: () => _getController.showCupertinoDatePicker(context),
-                                                                  child: Container(
-                                                                      height: 40.h,
-                                                                      margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), bottomLeft: Radius.circular(10.r)), color: AppColors.white),
-                                                                      child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Obx(() => TextSmall(
-                                                                                text: _getController.formattedDate.value.toString(), // Use .value to access the DateTime
-                                                                                color: AppColors.black,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                maxLines: 3,
-                                                                                fontSize: 13.sp
-                                                                            )),
-                                                                            const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
-                                                                          ]
-                                                                      )
-                                                                  )
-                                                              )
-                                                            ]
-                                                        )),
-
-                                                        SizedBox(width: Get.width * 0.02),
                                                         Expanded(
-                                                          child: InkWell(
-                                                              onTap: () => InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0'),
+                                                          child: ShakeWidget(
+                                                              key: _getController.shakeKey[2],
+                                                              shakeOffset: 5,
+                                                              shakeCount: 15,
+                                                              shakeDuration: const Duration(milliseconds: 500),
+                                                              shakeDirection: Axis.horizontal,
                                                               child: Column(
                                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                   children: [
-                                                                    TextSmall(text: 'Foydalanuvchi', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
-                                                                    Container(
-                                                                      // width: Get.width * 0.,
-                                                                        height: 40.h,
-                                                                        margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)), color: AppColors.white),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            const Icon(Icons.keyboard_arrow_down, color: AppColors.black),
-                                                                            Obx(() => TextSmall(
-                                                                              //text: _getController.dropDownItems[2], // Use .value to access the DateTime
-                                                                                text: _getController.dropDownItem[_getController.dropDownItems[0]].toString(),
-                                                                                color: AppColors.black,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                maxLines: 3,
-                                                                                fontSize: 13.sp
-                                                                            ))
-                                                                          ]
+                                                                    TextSmall(text: 'kun / oy / yil', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
+                                                                    InkWell(
+                                                                        onTap: () => _getController.showCupertinoDatePicker(context),
+                                                                        child: Container(
+                                                                            height: 40.h,
+                                                                            margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                                            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), bottomLeft: Radius.circular(10.r)), color: AppColors.white),
+                                                                            child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Obx(() => TextSmall(
+                                                                                      text: _getController.formattedDate.value.toString(), // Use .value to access the DateTime
+                                                                                      color: AppColors.black,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      maxLines: 3,
+                                                                                      fontSize: 13.sp
+                                                                                  )),
+                                                                                  const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
+                                                                                ]
+                                                                            )
                                                                         )
                                                                     )
                                                                   ]
+                                                              )
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: Get.width * 0.02),
+                                                        Expanded(
+                                                          child: ShakeWidget(
+                                                              key: _getController.shakeKey[3],
+                                                              shakeOffset: 5,
+                                                              shakeCount: 15,
+                                                              shakeDuration: const Duration(milliseconds: 500),
+                                                              shakeDirection: Axis.horizontal,
+                                                              child: InkWell(
+                                                                  onTap: () => InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0'),
+                                                                  child: Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      children: [
+                                                                        TextSmall(text: 'Foydalanuvchi', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
+                                                                        Container(
+                                                                          // width: Get.width * 0.,
+                                                                            height: 40.h,
+                                                                            margin: EdgeInsets.only(top: Get.height * 0.01),
+                                                                            decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)), color: AppColors.white),
+                                                                            child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  const Icon(Icons.keyboard_arrow_down, color: AppColors.black),
+                                                                                  Obx(() => TextSmall(
+                                                                                    //text: _getController.dropDownItems[2], // Use .value to access the DateTime
+                                                                                      text: _getController.dropDownItem[_getController.dropDownItems[0]].toString(),
+                                                                                      color: AppColors.black,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      maxLines: 3,
+                                                                                      fontSize: 13.sp
+                                                                                  ))
+                                                                                ]
+                                                                            )
+                                                                        )
+                                                                      ]
+                                                                  )
                                                               )
                                                           )
                                                         )
@@ -235,10 +270,14 @@ class _LoginPageState extends State<RegisterPage> {
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                                       //onPressed: () => ApiController().updateProfile(),
                                                       onPressed: (){
+                                                        _getController.shakeKey[0].currentState?.shake();
+                                                        _getController.shakeKey[1].currentState?.shake();
+                                                        _getController.shakeKey[2].currentState?.shake();
+                                                        _getController.shakeKey[3].currentState?.shake();
                                                         if (_getController.dropDownItems[0] == 0 || _getController.dropDownItems[1] == 0 || _getController.dropDownItems[2] == 0 || _getController.dropDownItems[3] == 0){
-                                                          Get.snackbar('Xatolik', 'Barcha maydonlarni to\'ldiring',snackPosition: SnackPosition.BOTTOM, backgroundColor: AppColors.red, colorText: AppColors.white);
                                                         } else{
-                                                          ApiController().updateProfile();
+                                                          Get.snackbar('Xatolik', 'Barcha maydonlarni to\'ldiring',snackPosition: SnackPosition.BOTTOM, backgroundColor: AppColors.red, colorText: AppColors.white);
+                                                          //ApiController().updateProfile();
                                                         }
                                                       },
                                                       child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
