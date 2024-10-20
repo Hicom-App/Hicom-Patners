@@ -31,12 +31,10 @@ class CategoriesModel {
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['categories'] != null) {
+
+    if (json['result'] != null) {
       result = <Result>[];
-      json['categories'].forEach((v) {result!.add(Result.fromJson(v));});
-    } else if (json['products'] != null) {
-      result = <Result>[];
-      json['products'].forEach((v) {result!.add(Result.fromJson(v));});
+      json['result'].forEach((v) {result!.add(Result.fromJson(v));});
     }
   }
 
@@ -49,9 +47,9 @@ class CategoriesModel {
     }*/
     //if data['categories'] or data['products'] is null
     if (result != null && result!.isNotEmpty) {
-      data['categories'] = result!.map((v) => v.toJson()).toList();
+      data['result'] = result!.map((v) => v.toJson()).toList();
     } else {
-      data['products'] = result!.map((v) => v.toJson()).toList();
+      data['result'] = result!.map((v) => v.toJson()).toList();
     }
     return data;
   }

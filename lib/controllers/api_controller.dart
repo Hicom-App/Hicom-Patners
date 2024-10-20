@@ -136,6 +136,7 @@ class ApiController extends GetxController {
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print('haaaa $data');
       if (data['status'] == 0) {
         print('Login muvaffaqiyatli: ${data['message']}');
         //Get.to(() => SamplePage());
@@ -155,6 +156,7 @@ class ApiController extends GetxController {
     final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data);
       if (data['status'] == 0) {
         print('Profil ma‘lumotlari: ${data['profile']}');
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));

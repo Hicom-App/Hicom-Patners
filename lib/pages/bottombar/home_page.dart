@@ -158,7 +158,7 @@ class HomePage extends StatelessWidget {
                                                       SizedBox(
                                                           width: 30.w,
                                                           child: FadeInImage(
-                                                              image: NetworkImage(ApiController().api+_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
+                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
                                                               //image: NetworkImage('http://185.196.213.76:8080/api/catalog/categories/photo?id=1',headers: ApiController().headersBearer()),
                                                               placeholder: const AssetImage('assets/images/logo_back.png'),
                                                               imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},

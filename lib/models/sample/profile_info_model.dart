@@ -7,14 +7,14 @@ class ProfileInfoModel {
   ProfileInfoModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     profile =
-    json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
+    json['result'] != null ? Profile.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (profile != null) {
-      data['profile'] = profile!.toJson();
+      data['result'] = profile!.toJson();
     }
     return data;
   }

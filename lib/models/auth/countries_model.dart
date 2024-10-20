@@ -10,17 +10,17 @@ class CountriesModel {
   CountriesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['countries'] != null) {
+    if (json['result'] != null) {
       countries = <Countries>[];
-      json['countries'].forEach((v) {countries!.add(Countries.fromJson(v));});
+      json['result'].forEach((v) {countries!.add(Countries.fromJson(v));});
     }
-    if (json['regions'] != null) {
+    if (json['result'] != null) {
       regions = <Regions>[];
-      json['regions'].forEach((v) {regions!.add(Regions.fromJson(v));});
+      json['result'].forEach((v) {regions!.add(Regions.fromJson(v));});
     }
-    if (json['cities'] != null) {
+    if (json['result'] != null) {
       cities = <Cities>[];
-      json['cities'].forEach((v) {cities!.add(Cities.fromJson(v));});
+      json['result'].forEach((v) {cities!.add(Cities.fromJson(v));});
     }
   }
 
@@ -28,9 +28,9 @@ class CountriesModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (countries != null) {data['countries'] = countries!.map((v) => v.toJson()).toList();}
-    if (regions != null) {data['regions'] = regions!.map((v) => v.toJson()).toList();}
-    if (cities != null) {data['cities'] = cities!.map((v) => v.toJson()).toList();}
+    if (countries != null) {data['result'] = countries!.map((v) => v.toJson()).toList();}
+    if (regions != null) {data['result'] = regions!.map((v) => v.toJson()).toList();}
+    if (cities != null) {data['result'] = cities!.map((v) => v.toJson()).toList();}
     return data;
   }
 }
