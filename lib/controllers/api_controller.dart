@@ -65,12 +65,12 @@ class ApiController extends GetxController {
         _getController.errorField.value = true;
         _getController.tapTimes((){_getController.errorFieldOk.value = false;_getController.errorField.value = false;_getController.verifyCodeControllers.clear();login();}, 1);
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+        _getController.shakeKey[1].currentState?.shake();
       } else {
         _getController.shakeKey[1].currentState?.shake();
         print('Xatolik: ${data['message']}');
         _getController.changeErrorInput(0, true);
         _getController.errorField.value = true;
-        _getController.triggerShake();
         print('Xatolik: xaaa0');
         _getController.tapTimes((){print('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
       }
@@ -207,7 +207,7 @@ class ApiController extends GetxController {
 
   Future<void> deleteProfile() async {
     print('Profil o‘chirish');
-    final response = await http.get(Uri.parse('$baseUrl/profile/delete'), headers: headersBearer());
+    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

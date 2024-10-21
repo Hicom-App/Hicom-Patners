@@ -550,10 +550,6 @@ class GetController extends GetxController {
   }
 
 
-  var shouldShake = false.obs;
-
-  void triggerShake() => shouldShake.value = true;
-
   //final GlobalKey<ShakeWidgetState> shakeKey = GlobalKey<ShakeWidgetState>();
   List shakeKey = [
     GlobalKey<ShakeWidgetState>(),

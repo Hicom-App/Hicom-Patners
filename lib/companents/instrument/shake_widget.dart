@@ -2,19 +2,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-abstract class AnimationControllerState<T extends StatefulWidget>
-    extends State<T> with SingleTickerProviderStateMixin {
+abstract class AnimationControllerState<T extends StatefulWidget> extends State<T> with SingleTickerProviderStateMixin {
   AnimationControllerState(this.animationDuration);
-
   final Duration animationDuration;
-
-  late final animationController =
-  AnimationController(vsync: this, duration: animationDuration);
-
-  late final CurvedAnimation animation = CurvedAnimation(
-    parent: animationController,
-    curve: Curves.elasticInOut, // You can change the curve here
-  );
+  late final animationController = AnimationController(vsync: this, duration: animationDuration);
+  late final CurvedAnimation animation = CurvedAnimation(parent: animationController, curve: Curves.elasticInOut,);
 
   @override
   void dispose() {
@@ -25,13 +17,13 @@ abstract class AnimationControllerState<T extends StatefulWidget>
 
 class ShakeWidget extends StatefulWidget {
   const ShakeWidget({
-    Key? key,
+    super.key,
     required this.child,
     required this.shakeOffset,
     this.shakeCount = 3,
     this.shakeDuration = const Duration(milliseconds: 400),
     this.shakeDirection = Axis.horizontal, // New parameter for shake direction
-  }) : super(key: key);
+  });
 
   final Widget child;
   final double shakeOffset;
@@ -93,80 +85,4 @@ class ShakeWidgetState extends AnimationControllerState<ShakeWidget> {
       },
     );
   }
-}
-
-// Usage Example: Custom TextView Widget
-Widget customTextView({
-  required double cornerRadius,
-  required Color backgroundColor,
-  required double height,
-  required int limitTextLength,
-  required GlobalKey<ShakeWidgetState> shakeKey,
-  required TextEditingController controller,
-  required Color alertColor,
-  required Color normalColor,
-  required String fontFamily,
-}) {
-  int textCount = 0;
-
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(cornerRadius),
-      color: backgroundColor,
-    ),
-    height: height,
-    child: Column(
-      children: [
-        Flexible(
-          child: TextFormField(
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(limitTextLength),
-            ],
-            onChanged: (value) {
-              textCount = controller.text.length;
-              if (textCount == limitTextLength) {
-                shakeKey.currentState?.shake(); // Trigger shake
-              }
-            },
-            controller: controller,
-            autofocus: true,
-            decoration: const InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              border: InputBorder.none,
-            ),
-            textInputAction: TextInputAction.newline,
-            keyboardType: TextInputType.multiline,
-            minLines: null,
-            maxLines: null,
-            expands: true,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10, bottom: 10),
-              child: ShakeWidget(
-                key: shakeKey,
-                shakeOffset: 2,
-                shakeCount: 10,
-                shakeDuration: const Duration(milliseconds: 500),
-                shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                child: Text(
-                  '$textCount/$limitTextLength',
-                  style: TextStyle(
-                    color: (textCount > (limitTextLength * 0.9))
-                        ? alertColor
-                        : normalColor,
-                    fontSize: 12,
-                    fontFamily: fontFamily,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
 }
