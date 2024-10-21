@@ -389,13 +389,7 @@ class GetController extends GetxController {
     '22:01',
     '12:01',
   ].obs;
-  var listTitle = [
-    'Jarayonda',
-    'To‘langan',
-    'Tasdiqlangan',
-    'To‘langan',
-    'Rad etilgan'
-  ].obs;
+  var listTitle = ['Jarayonda', 'To‘langan', 'Rad etilgan',].obs;
   var listPrice = [
     '01.02.2025',
     '09.01.2025',
