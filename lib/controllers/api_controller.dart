@@ -66,6 +66,7 @@ class ApiController extends GetxController {
         _getController.tapTimes((){_getController.errorFieldOk.value = false;_getController.errorField.value = false;_getController.verifyCodeControllers.clear();login();}, 1);
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
+        _getController.shakeKey[1].currentState?.shake();
         print('Xatolik: ${data['message']}');
         _getController.changeErrorInput(0, true);
         _getController.errorField.value = true;

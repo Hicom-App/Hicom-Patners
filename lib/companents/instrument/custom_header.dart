@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomRefreshHeader extends StatelessWidget {
   const CustomRefreshHeader({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomHeader(

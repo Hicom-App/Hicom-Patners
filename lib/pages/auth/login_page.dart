@@ -19,8 +19,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
   final FocusNode _focusNode = FocusNode();
-  late AnimationController _animationController;
-  //late Animation<double> _shakeAnimation;
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
 
@@ -28,8 +26,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   void initState() {
     super.initState();
     _startDelayedAnimation();
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    //_shakeAnimation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
   }
 
   void _startDelayedAnimation() {
@@ -37,11 +33,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     animateTextFields = false;
   }
 
-  void _triggerShake() {
-    if (!_animationController.isAnimating) {
-      _animationController.forward(from: 0);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -206,8 +197,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                               _getController.changeErrorInput(0, true);
                                               _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
                                               _getController.shakeKey[0].currentState?.shake();
-                                              _triggerShake();
-
                                             }
                                           },
                                           child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
