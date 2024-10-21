@@ -41,6 +41,7 @@ class ApiController extends GetxController {
         _getController.startTimer();
         Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
       } else {
+        _getController.shakeKey[8].currentState?.shake();
         print('Xatolik: ${data['message']}');
       }
     } else {
@@ -63,11 +64,15 @@ class ApiController extends GetxController {
         _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
         _getController.errorFieldOk.value = true;
         _getController.errorField.value = true;
-        _getController.tapTimes((){_getController.errorFieldOk.value = false;_getController.errorField.value = false;_getController.verifyCodeControllers.clear();login();}, 1);
+        _getController.tapTimes((){
+          _getController.errorFieldOk.value = false;
+          _getController.errorField.value = false;
+          _getController.verifyCodeControllers.clear();
+          login();
+          }, 1);
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
-        _getController.shakeKey[1].currentState?.shake();
       } else {
-        _getController.shakeKey[1].currentState?.shake();
+        _getController.shakeKey[7].currentState?.shake();
         print('Xatolik: ${data['message']}');
         _getController.changeErrorInput(0, true);
         _getController.errorField.value = true;
@@ -143,7 +148,7 @@ class ApiController extends GetxController {
         //Get.to(() => SamplePage());
         getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
-        Get.to(() => const RegisterPage(), transition: Transition.fadeIn);
+        Get.offAll(() => const RegisterPage(), transition: Transition.fadeIn);
       } else {
         Get.offAll(NotConnection(), transition: Transition.fadeIn);
       }

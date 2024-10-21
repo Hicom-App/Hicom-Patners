@@ -100,7 +100,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                               top: Get.height * 0.28,
                               width: Get.width,
                               child: ShakeWidget(
-                                  key: _getController.shakeKey[1],
+                                  key: _getController.shakeKey[7],
                                   shakeOffset: 5,
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),

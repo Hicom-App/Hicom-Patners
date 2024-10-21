@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 abstract class AnimationControllerState<T extends StatefulWidget> extends State<T> with SingleTickerProviderStateMixin {
   AnimationControllerState(this.animationDuration);
@@ -36,7 +35,7 @@ class ShakeWidget extends StatefulWidget {
 }
 
 class ShakeWidgetState extends AnimationControllerState<ShakeWidget> {
-  ShakeWidgetState(Duration duration) : super(duration);
+  ShakeWidgetState(super.duration);
 
   @override
   void initState() {

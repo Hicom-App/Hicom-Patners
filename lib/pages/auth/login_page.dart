@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           children: [
                             SizedBox(height: Get.height * 0.3),
                             ShakeWidget(
-                                key: _getController.shakeKey[0],
+                                key: _getController.shakeKey[8],
                                 shakeOffset: 5,
                                 shakeCount: 15,
                                 shakeDuration: const Duration(milliseconds: 500),
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                             } else {
                                               _getController.changeErrorInput(0, true);
                                               _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                              _getController.shakeKey[0].currentState?.shake();
+                                              _getController.shakeKey[8].currentState?.shake();
                                             }
                                           },
                                           child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)

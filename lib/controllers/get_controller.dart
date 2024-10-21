@@ -558,8 +558,12 @@ class GetController extends GetxController {
     GlobalKey<ShakeWidgetState>(),
     GlobalKey<ShakeWidgetState>(),
     GlobalKey<ShakeWidgetState>(),
+    GlobalKey<ShakeWidgetState>(),
+    GlobalKey<ShakeWidgetState>(),
     GlobalKey<ShakeWidgetState>()
   ];
+
+
   int textCount = 0;
   final int limitTextLength = 20;
 
