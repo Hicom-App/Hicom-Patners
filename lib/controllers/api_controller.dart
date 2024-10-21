@@ -39,7 +39,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(),transition: Transition.downToUp);
+        Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -143,9 +143,9 @@ class ApiController extends GetxController {
         //Get.to(() => SamplePage());
         getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
-        Get.to(() => const RegisterPage());
+        Get.to(() => const RegisterPage(), transition: Transition.fadeIn);
       } else {
-        Get.offAll(NotConnection());
+        Get.offAll(NotConnection(), transition: Transition.fadeIn);
       }
     } else {
       print('Xatolik: Serverga ulanishda muammo');

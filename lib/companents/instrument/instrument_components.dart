@@ -14,7 +14,6 @@ import '../filds/text_small.dart';
 class InstrumentComponents {
   final GetController _getController = Get.put(GetController());
 
-  final List locale =[{'name':'English','locale':const Locale('en','US')}, {'name':'Русский','locale':const Locale('ru','RU')}, {'name':'O‘zbekcha','locale':const Locale('uz','UZ')}, {'name':'Ўзбекча','locale':const Locale('oz','OZ')}];
 
   updateLanguage(Locale locale){Get.updateLocale(locale);_getController.saveLanguage(locale);}
 
@@ -331,7 +330,7 @@ class InstrumentComponents {
                     onPressed: () => {
                       Get.back(),
                       _getController.logout(),
-                      Get.offAll(() => LoginPage())
+                      Get.offAll(() => const LoginPage(), transition: Transition.fadeIn)
                     },
                     child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary)
                 )
@@ -360,7 +359,7 @@ class InstrumentComponents {
                         SizedBox(height: Get.height * 0.04),
                         Expanded(
                             child: ListView.builder(
-                                itemCount: locale.length,
+                                itemCount: _getController.locale.length,
                                 itemBuilder: (context, index){
                                   return Container(
                                       height: Get.height * 0.06,
@@ -374,11 +373,11 @@ class InstrumentComponents {
                                                 children: [
                                                   Row(
                                                       children: [
-                                                        TextSmall(text: locale[index]['name'], color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                        TextSmall(text: _getController.locale[index]['name'], color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
                                                         const Spacer(),
-                                                        if (locale[index]['locale'].toString() == _getController.language.toString())
+                                                        if (_getController.locale[index]['locale'].toString() == _getController.language.toString())
                                                           Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface),
-                                                        if (locale[index]['locale'].toString() != _getController.language.toString())
+                                                        if (_getController.locale[index]['locale'].toString() != _getController.language.toString())
                                                           Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
                                                       ]
                                                   ),
@@ -386,11 +385,11 @@ class InstrumentComponents {
                                                 ]
                                               ),
                                               onTap: (){
-                                                updateLanguage(locale[index]['locale']);
+                                                updateLanguage(_getController.locale[index]['locale']);
                                                 Get.back();
                                               }
                                           ),
-                                          if (index != locale.length - 1)
+                                          if (index != _getController.locale.length - 1)
                                           const Divider()
                                         ],
                                       )
