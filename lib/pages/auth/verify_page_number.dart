@@ -121,7 +121,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                                 Container(
                                                     width: Get.width,
                                                     margin: EdgeInsets.only(left: 25.w, right: 25.w),
-                                                    child: TextSmall(text: '${'Faollashtirish kodi'.tr} ${_getController.phoneController.text} ${'raqamiga SMS tarzida yuborildi.'.tr}', color: AppColors.black, fontWeight: FontWeight.w500, maxLines: 3)
+                                                    child: TextSmall(text: '${'Faollashtirish kodi'.tr} ${_getController.maskPhoneNumber('${_getController.code.value}${_getController.phoneController.text}')} ${'raqamiga SMS tarzida yuborildi.'.tr}', color: AppColors.black, fontWeight: FontWeight.w500, maxLines: 3)
                                                 ),
                                                 SizedBox(height: Get.height * 0.045),
                                                 AnimatedOpacity(

@@ -69,7 +69,7 @@ class ApiController extends GetxController {
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
           login();
-          }, 1);
+        }, 1);
         print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
         _getController.shakeKey[7].currentState?.shake();
@@ -148,6 +148,8 @@ class ApiController extends GetxController {
         //Get.to(() => SamplePage());
         getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
+        getCountries();
+        _getController.updateSelectedDate(DateTime.now());
         Get.offAll(() => const RegisterPage(), transition: Transition.fadeIn);
       } else {
         Get.offAll(NotConnection(), transition: Transition.fadeIn);
@@ -167,6 +169,8 @@ class ApiController extends GetxController {
         print('Profil ma‘lumotlari: ${data['profile']}');
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
         if (_getController.profileInfoModel.value.profile?.firstName == null || _getController.profileInfoModel.value.profile?.lastName == '') {
+          getCountries();
+          _getController.updateSelectedDate(DateTime.now());
           Get.to(() => const RegisterPage());
         } else {
           Get.offAll(() => SamplePage());
@@ -212,11 +216,13 @@ class ApiController extends GetxController {
 
   Future<void> deleteProfile() async {
     print('Profil o‘chirish');
-    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
+    final response = await http.delete(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
     print(response.body);
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
+        _getController.logout();
         login();
       } else {
         print('Xatolik: ${data['message']}');

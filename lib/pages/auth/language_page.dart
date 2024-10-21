@@ -38,7 +38,7 @@ class LanguagePage extends StatelessWidget {
                          Positioned.fill(
                              child: Column(
                                  children: [
-                                   SizedBox(height: Get.height * 0.47),
+                                   SizedBox(height: 360.h),
                                    const TextLarge(text: 'Tilni tanlang', color: AppColors.black, fontWeight: FontWeight.bold),
                                    for (var i = 0; i < _getController.locale.length; i++)
                                      LanguageSelectItem(index: i, selectedIndex: _getController.languageIndex, text: _getController.locale[i]['name'], onTap: () {

@@ -38,8 +38,7 @@ class _LoginPageState extends State<RegisterPage> {
       _getController.startDelayedAnimation();
     }
 
-    ApiController().getCountries();
-    _getController.updateSelectedDate(DateTime.now());
+
 
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -215,7 +214,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              Obx(() => TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
+                                                                              TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )
@@ -248,7 +247,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              Obx(() => TextSmall(text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang', color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
+                                                                              TextSmall(text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang', color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )
@@ -279,7 +278,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              Obx(() => TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon', color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp)),
+                                                                              TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon', color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )

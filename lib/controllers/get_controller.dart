@@ -144,6 +144,21 @@ class GetController extends GetxController {
 
   get phoneNumber => GetStorage().read('phoneNumber');
   get token => GetStorage().read('token');
+  String maskPhoneNumber(String phoneNumber) {
+    const int minimumLength = 12;
+    const String maskedPart = '*****';
+
+    // Return the original number if it doesn't meet the minimum length
+    if (phoneNumber.length < minimumLength) return phoneNumber;
+
+    // Calculate the prefix and suffix
+    String prefix = phoneNumber.substring(0, 7);
+    String suffix = phoneNumber.length > 7 ? phoneNumber.substring(phoneNumber.length - 1) : '';
+
+    // Return the formatted string
+    return '$prefix$maskedPart$suffix';
+  }
+
 
   int getType() => dropDownItems[2];
 

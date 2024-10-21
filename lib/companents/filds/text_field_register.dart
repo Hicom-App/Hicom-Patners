@@ -31,7 +31,7 @@ class TextFieldRegister extends StatelessWidget {
         child: TextField(
             controller: controller,
             keyboardType: mack == true ? TextInputType.number : TextInputType.text,
-            textInputAction: TextInputAction.search,
+            textInputAction: TextInputAction.next,
             inputFormatters: (mack ?? false) ? [mackFormater] : [],
             onChanged: (value) {
               if (controller == _getController.cardNumberController) {
