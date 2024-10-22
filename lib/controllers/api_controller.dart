@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
+import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
@@ -128,8 +129,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> login() async {
-    Map<String, dynamic> body = {'phone': _getController.phoneNumber};
-    print('phone number '+_getController.phoneNumber.toString());
+    Map<String, dynamic> body = {'phone': _getController.phoneNumber.toString()};
     print(body);
     final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
     print(response.body);
@@ -140,9 +140,9 @@ class ApiController extends GetxController {
         getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
         if (_getController.phoneNumber != '' && _getController.token != null) {
-          getCountries();
           _getController.updateSelectedDate(DateTime.now());
-          Get.offAll(() => const RegisterPage(), transition: Transition.fadeIn);
+          Get.to(() => const RegisterPage());
+          getCountries();
         } else {
           Get.offAll(const LoginPage(), transition: Transition.fadeIn);
         }
@@ -156,15 +156,14 @@ class ApiController extends GetxController {
 
   // Profil ma'lumotlarini olish
   Future<void> getProfile() async {
-    final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
+    final response = await http.get(Uri.parse('$baseUrl/users'), headers: headersBearer());
     print(response.statusCode);
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       print(data);
       if (data['status'] == 0) {
-        print('Profil ma‘lumotlari: ${data['profile']}');
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (_getController.profileInfoModel.value.profile?.firstName == null || _getController.profileInfoModel.value.profile?.lastName == '') {
+        if (_getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
           getCountries();
           _getController.updateSelectedDate(DateTime.now());
           Get.to(() => const RegisterPage());
@@ -188,7 +187,7 @@ class ApiController extends GetxController {
 
   // Profil ma'lumotlarini o'zgartirish
   Future<void> updateProfile() async {
-    String url = '$baseUrl/profile/info';
+    String url = '$baseUrl/users';
     Map<String, dynamic> body = {
       'first_name': _getController.nameController.text,
       'last_name': _getController.surNameController.text,
@@ -204,12 +203,16 @@ class ApiController extends GetxController {
       headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
-
-    if (response.statusCode == 200) {
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         login();
-      } else {
+      } else if (data['status'] == 1) {
+        Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+      }
+      else {
         print('Xatolik: ${data['message']}');
       }
     } else {

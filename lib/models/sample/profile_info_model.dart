@@ -1,26 +1,33 @@
 class ProfileInfoModel {
   int? status;
-  Profile? profile;
+  String? message;
+  List<Result>? result;
 
-  ProfileInfoModel({this.status, this.profile});
+  ProfileInfoModel({this.status, this.message, this.result});
 
   ProfileInfoModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    profile =
-    json['result'] != null ? Profile.fromJson(json['result']) : null;
+    message = json['message'];
+    if (json['result'] != null) {
+      result = <Result>[];
+      json['result'].forEach((v) {
+        result!.add(Result.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (profile != null) {
-      data['result'] = profile!.toJson();
+    data['message'] = message;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Profile {
+class Result {
   int? id;
   String? firstName;
   String? lastName;
@@ -32,11 +39,15 @@ class Profile {
   String? address;
   String? phone;
   String? photoUrl;
-  Cashback? cashback;
+  int? cashbackCalculated;
+  int? cashbackWithdrawn;
+  int? cashbackWaiting;
+  int? cashbackRejected;
+  int? cashbackRemain;
 
-  Profile({this.id, this.firstName, this.lastName, this.birthday, this.userType, this.countryId, this.regionId, this.cityId, this.address, this.phone, this.photoUrl, this.cashback});
+  Result({this.id, this.firstName, this.lastName, this.birthday, this.userType, this.countryId, this.regionId, this.cityId, this.address, this.phone, this.photoUrl, this.cashbackCalculated, this.cashbackWithdrawn, this.cashbackWaiting, this.cashbackRejected, this.cashbackRemain});
 
-  Profile.fromJson(Map<String, dynamic> json) {
+  Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -48,9 +59,11 @@ class Profile {
     address = json['address'];
     phone = json['phone'];
     photoUrl = json['photo_url'];
-    cashback = json['cashback'] != null
-        ? new Cashback.fromJson(json['cashback'])
-        : null;
+    cashbackCalculated = json['cashback_calculated'];
+    cashbackWithdrawn = json['cashback_withdrawn'];
+    cashbackWaiting = json['cashback_waiting'];
+    cashbackRejected = json['cashback_rejected'];
+    cashbackRemain = json['cashback_remain'];
   }
 
   Map<String, dynamic> toJson() {
@@ -66,34 +79,11 @@ class Profile {
     data['address'] = address;
     data['phone'] = phone;
     data['photo_url'] = photoUrl;
-    if (cashback != null) {
-      data['cashback'] = cashback!.toJson();
-    }
-    return data;
-  }
-}
-
-class Cashback {
-  int? calculated;
-  int? withdrawn;
-  int? waiting;
-  int? rejected;
-
-  Cashback({this.calculated, this.withdrawn, this.waiting, this.rejected});
-
-  Cashback.fromJson(Map<String, dynamic> json) {
-    calculated = json['calculated'];
-    withdrawn = json['withdrawn'];
-    waiting = json['waiting'];
-    rejected = json['rejected'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['calculated'] = calculated;
-    data['withdrawn'] = withdrawn;
-    data['waiting'] = waiting;
-    data['rejected'] = rejected;
+    data['cashback_calculated'] = cashbackCalculated;
+    data['cashback_withdrawn'] = cashbackWithdrawn;
+    data['cashback_waiting'] = cashbackWaiting;
+    data['cashback_rejected'] = cashbackRejected;
+    data['cashback_remain'] = cashbackRemain;
     return data;
   }
 }
