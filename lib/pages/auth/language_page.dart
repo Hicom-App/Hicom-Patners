@@ -38,6 +38,7 @@ class LanguagePage extends StatelessWidget {
                          Positioned.fill(
                              child: Column(
                                  children: [
+                                   const Spacer(),
                                    SizedBox(height: 360.h),
                                    const TextLarge(text: 'Tilni tanlang', color: AppColors.black, fontWeight: FontWeight.bold),
                                    for (var i = 0; i < _getController.locale.length; i++)

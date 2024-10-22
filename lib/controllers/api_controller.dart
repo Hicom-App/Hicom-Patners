@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:http/http.dart' as http;
@@ -49,14 +50,9 @@ class ApiController extends GetxController {
     }
   }
 
-  // Telefon raqamni tasdiqlash
   Future<void> verifyPhone() async {
-    String url = '$baseUrl/auth/verify';
-    Map<String, dynamic> body = {
-      'phone': _getController.code.value + _getController.phoneController.text,
-      'code': _getController.verifyCodeControllers.text
-    };
-    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text, 'code': _getController.verifyCodeControllers.text};
+    final response = await http.post(Uri.parse('$baseUrl/auth/verify'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -84,7 +80,6 @@ class ApiController extends GetxController {
     }
   }
 
-  // Davlatlar ro'yxatini o'qish
   Future<void> getCountries({int? offset, int? limit}) async {
     String url = '$baseUrl/place/countries';
     final response = await http.get(Uri.parse(url));
@@ -101,7 +96,6 @@ class ApiController extends GetxController {
     }
   }
 
-  // Viloyatlar ro'yxatini o'qish
   Future<void> getRegions(int countryId) async {
     final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
     print(response.body);
@@ -118,7 +112,6 @@ class ApiController extends GetxController {
     }
   }
 
-  // Shaharlar ro'yxatini o'qish
   Future<void> getCities(int regionId, {int? offset, int? limit}) async {
     final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
     if (response.statusCode == 200) {
@@ -134,23 +127,25 @@ class ApiController extends GetxController {
     }
   }
 
-  // Kirish (login)
   Future<void> login() async {
     Map<String, dynamic> body = {'phone': _getController.phoneNumber};
+    print('phone number '+_getController.phoneNumber.toString());
     print(body);
     final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print('haaaa $data');
       if (data['status'] == 0) {
         print('Login muvaffaqiyatli: ${data['message']}');
-        //Get.to(() => SamplePage());
         getProfile();
       } else if (data['status'] == 3 || data['status'] == 4) {
-        getCountries();
-        _getController.updateSelectedDate(DateTime.now());
-        Get.offAll(() => const RegisterPage(), transition: Transition.fadeIn);
+        if (_getController.phoneNumber != '' && _getController.token != null) {
+          getCountries();
+          _getController.updateSelectedDate(DateTime.now());
+          Get.offAll(() => const RegisterPage(), transition: Transition.fadeIn);
+        } else {
+          Get.offAll(const LoginPage(), transition: Transition.fadeIn);
+        }
       } else {
         Get.offAll(NotConnection(), transition: Transition.fadeIn);
       }
@@ -162,7 +157,8 @@ class ApiController extends GetxController {
   // Profil ma'lumotlarini olish
   Future<void> getProfile() async {
     final response = await http.get(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       print(data);
       if (data['status'] == 0) {
@@ -178,8 +174,15 @@ class ApiController extends GetxController {
       } else {
         print('Xatolik: ${data['message']}');
       }
-    } else {
-      print('Xatolik: Serverga ulanishda muammo');
+    } else if (response.statusCode == 401) {
+      _getController.logout();
+      login();
+    } else if (response.statusCode == 404) {
+      _getController.logout();
+      login();
+    }
+    else {
+      print('Xatolik1: Serverga ulanishda muammo');
     }
   }
 
