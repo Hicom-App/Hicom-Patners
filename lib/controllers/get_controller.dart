@@ -633,6 +633,7 @@ class GetController extends GetxController {
     } else {
       categoriesProductsModel.value.all!.add(categories);
     }
+    update();
     print(jsonEncode(categoriesProductsModel.value.toJson()));
   }
 

@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
     //ApiController().getAllCatProducts();
     return Scaffold(
         backgroundColor: AppColors.white,
-        body: Container(
+        body: Obx(() =>  Container(
             height: Get.height,
             width: Get.width,
             decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover)),
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   _getController.clearCategoriesProductsModel();
                   ApiController().getAllCatProducts();
                 },
-                child: Column(
+                child:Column(
                     children: [
                       SizedBox(
                           height: Get.height * 0.352,
@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: Obx(() => _getController.categoriesModel.value.result != null ?
+                          child:  _getController.categoriesModel.value.result != null ?
                               Column(
                               children: [
                                 SizedBox(height: 25.h),
@@ -286,9 +286,10 @@ class HomePage extends StatelessWidget {
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
-                          ) : const Center(child: CircularProgressIndicator()))
-                      )
-                    ]
+                          ) : const Center(child: CircularProgressIndicator())
+                          )
+
+                    ])
                 )
             )
         )

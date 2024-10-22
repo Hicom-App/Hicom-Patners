@@ -42,32 +42,14 @@ class CategoriesModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    /*if (result != null) {
-      data['categories'] = result!.map((v) => v.toJson()).toList();
-    }*/
-    //if data['categories'] or data['products'] is null
-    if (result != null && result!.isNotEmpty) {
-      data['result'] = result!.map((v) => v.toJson()).toList();
-    } else {
+    if (result != null) {
       data['result'] = result!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Result {
-  int? id;
-  int? active;
-  String? name;
-  int? categoryId;
-  int? cashback;
-  int? warranty;
-  int? price;
-  int? discount;
-  int? reviews;
-  var rating;
-  String? description;
-  String? photoUrl;
+class Result {int? id;int? active;String? name;int? categoryId;int? cashback;int? warranty;int? price;int? discount;int? reviews;var rating;String? description;String? photoUrl;
 
   Result({this.id, this.active, this.name, this.categoryId, this.cashback, this.warranty, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl});
 

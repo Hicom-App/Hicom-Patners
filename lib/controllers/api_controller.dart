@@ -268,8 +268,6 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeProductsModel(CategoriesModel.fromJson(data));
-        //print(jsonEncode(data));
-        //print('Mahsulotlar ro‘yxati: ${data['result']}');
       } else {
         print('Xatolik: ${data['message']}');
       }
@@ -282,8 +280,6 @@ class ApiController extends GetxController {
     final response = await http.get(Uri.parse('$baseUrl/catalog/products${categoryId == 0 || categoryId == null ? '' : '?category_id=$categoryId'}'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      //print(data);
-      //print(data['status']);
       if (data['status'] == 0 && data['result'] != null) {
         _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
       } else {
