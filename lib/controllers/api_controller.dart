@@ -222,7 +222,7 @@ class ApiController extends GetxController {
 
   Future<void> deleteProfile() async {
     print('Profil o‘chirish');
-    final response = await http.delete(Uri.parse('$baseUrl/profile/info'), headers: headersBearer());
+    final response = await http.delete(Uri.parse('$baseUrl/users'), headers: headersBearer());
     print(response.body);
     print(response.statusCode);
     if (response.statusCode == 200 || response.statusCode == 201) {
