@@ -62,10 +62,8 @@ class _AccountPageState extends State<AccountPage> {
                       margin: EdgeInsets.only(bottom: Get.height * 0.03),
                       child: ImageFiltered(
                         imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                        child: Image.network(
-                          'https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg',
-                          fit: BoxFit.cover
-                        )
+                        //child: Image.network('https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg', fit: BoxFit.cover
+                        child: Image.network(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13', fit: BoxFit.cover)
                       )
                     )
                   ),
@@ -90,7 +88,8 @@ class _AccountPageState extends State<AccountPage> {
                             decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(400),
-                              child: Image.network('https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg', fit: BoxFit.cover)
+                              //child: Image.network('https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg', fit: BoxFit.cover)
+                              child: Image.network(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13', fit: BoxFit.cover)
                             )
                           )
                         )
