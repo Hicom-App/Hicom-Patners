@@ -132,6 +132,7 @@ class _AccountPageState extends State<AccountPage> {
               icon: Icons.person,
               title: 'Profilim',
               onTap: () {
+                _getController.updateSelectedDate(DateTime.now());
                 ApiController().getCountries();
                 Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);
               }

@@ -157,9 +157,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
                                   decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
                                   child: TextField(
-                                      controller: _getController.nameController,
+                                      controller: _getController.streetController,
                                       textInputAction: TextInputAction.search,
-                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                      decoration: InputDecoration(hintText: '123 dom. 18-uy'.tr, hintStyle: TextStyle(color: AppColors.grey, fontSize: 16.sp), border: InputBorder.none)
                                   )
                               ),
                               SizedBox(height: 5.h),
@@ -168,11 +168,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   margin: EdgeInsets.only(top: 13.h),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                   child: ListTile(
-                                      onTap: (){},
+                                      onTap: (){
+                                        _getController.showCupertinoDatePicker(context);
+                                      },
                                       hoverColor: Colors.transparent,
                                       focusColor: Colors.transparent,
-                                      title: TextSmall(text: 'Tug`ilgan sana', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
-                                      trailing: TextSmall(text: '31 mar 2003', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey
+                                      title: TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
+                                      trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
                                       )
                                   )
                               ),

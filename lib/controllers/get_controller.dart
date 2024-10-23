@@ -67,7 +67,7 @@ class GetController extends GetxController {
     controller?.scannedDataStream.listen((scanData) {
       result.value = scanData;
       if (scanData.code != null) {
-        switchSerialProjectController.text = scanData.code.toString();
+        codeController.text = scanData.code.toString();
         controller?.pauseCamera();
         Get.back();
       }
@@ -206,14 +206,10 @@ class GetController extends GetxController {
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surNameController = TextEditingController();
+  final TextEditingController streetController = TextEditingController();
   final RefreshController refreshController = RefreshController(initialRefresh: false);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
-
-  final TextEditingController nameProjectController = TextEditingController();
-  final TextEditingController switchNameProjectController = TextEditingController();
-  final TextEditingController switchSerialProjectController = TextEditingController();
-  final TextEditingController noteProjectController = TextEditingController();
   final TextEditingController passwordProjectController = TextEditingController();
 
   final TextEditingController verifyCodeControllers = TextEditingController();
@@ -222,10 +218,6 @@ class GetController extends GetxController {
     nameController.clear();
     phoneController.clear();
     codeController.clear();
-    nameProjectController.clear();
-    switchNameProjectController.clear();
-    switchSerialProjectController.clear();
-    noteProjectController.clear();
     passwordProjectController.clear();
   }
 
@@ -625,25 +617,12 @@ class GetController extends GetxController {
     } else {
       categoriesProductsModel.value.all!.add(categories);
     }
-    print(jsonEncode(categoriesProductsModel.value.toJson()));
   }
-
-  /*void addCategoriesProductsModel(CategoriesModel categories) {
-    if (categoriesProductsModel.value.all == null) {
-      categoriesProductsModel.value.all = <CategoriesModel>[];
-    }
-    categoriesProductsModel.value.all!.add(categories);
-
-    // Reaktiv qiymatni yangilash:
-    categoriesProductsModel.refresh(); // .value ni o'zgartirgandan so'ng yangilanishini talab qiladi.
-    print(jsonEncode(categoriesProductsModel.value.toJson())); // To'liq yangilangan holatni chop etadi.
-  }*/
 
   void addCategoriesProductsModel(CategoriesModel categories) {
     categoriesProductsModel.value.all ??= <CategoriesModel>[];
     categoriesProductsModel.value.all!.add(categories);
     categoriesProductsModel.refresh();
-    print(jsonEncode(categoriesProductsModel.value.toJson()));
   }
 
   //clear models

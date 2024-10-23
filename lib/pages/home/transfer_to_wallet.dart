@@ -111,7 +111,7 @@ class TransferToWallet extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
                       child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                   ),
-                  TextFieldCustom(fillColor: AppColors.white, hint: '828', controller: _getController.noteProjectController),
+                  TextFieldCustom(fillColor: AppColors.white, hint: '828', controller: _getController.cardNumberController),
                   SizedBox(height: Get.height * 0.025),
                   Container(
                     margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
