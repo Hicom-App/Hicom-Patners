@@ -51,8 +51,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    _getController.nameController.text = _getController.fullName.value.substring(0, _getController.fullName.value.indexOf(' '));
-    _getController.surNameController.text = _getController.fullName.value.substring(_getController.fullName.value.indexOf(' '));
+    _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
+    _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(
@@ -72,22 +72,22 @@ class _MyAccountPageState extends State<MyAccountPage> {
                       builder: (BuildContext context, BoxConstraints constraints) {
                         return FlexibleSpaceBar(
                             title: AnimatedOpacity(
-                                opacity: _isTitleVisible ? 1.0 : 0.0,
-                                duration: const Duration(milliseconds: 300),
-                                child: const Text(
-                                    "Dilshodjon Haydarov",
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.black
-                                    )
-                                )
+                              opacity: _isTitleVisible ? 1.0 : 0.0,
+                              duration: const Duration(milliseconds: 300),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                                    SizedBox(width: 5.w),
+                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
+                                  ]
+                              )
                             ),
                             background: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: 40.h),
+                                  SizedBox(height: Get.height * 0.04),
                                   Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,17 +100,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       ]
                                   ),
                                   SizedBox(height: 10.h),
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(400.r),
-                                      child: Image.network(
-                                          'https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg',
-                                          height: 150.h,
-                                          width: 150.w,
-                                          fit: BoxFit.cover
+                                  Container(
+                                      height: Get.width * 0.35, width: Get.width * 0.35,
+                                      decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
+                                      child: ClipOval(
+                                          child: FadeInImage(
+                                              image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
+                                              placeholder: const AssetImage('assets/images/logo_back.png'),
+                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                              fit: BoxFit.cover
+                                          )
                                       )
                                   ),
                                   SizedBox(height: 10.h),
-                                  TextButton(onPressed: Get.back, child: TextSmall(text: 'Yangi rasm joylash'.tr, color: AppColors.blue, fontWeight: FontWeight.w500)),
+                                  TextButton(onPressed: Get.back, child: TextSmall(text: 'Yangi rasm joylash'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
                                 ]
                             )
                         );
@@ -132,11 +135,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   child: TextField(
                                       controller: _getController.nameController,
                                       textInputAction: TextInputAction.search,
-                                      decoration: InputDecoration(
-                                          hintText: 'Ism'.tr,
-                                          hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp),
-                                          border: InputBorder.none
-                                      )
+                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
                                   )
                               ),
                               Container(
@@ -146,20 +145,26 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   child: TextField(
                                       controller: _getController.surNameController,
                                       textInputAction: TextInputAction.search,
-                                      decoration: InputDecoration(
-                                          hintText: 'Ism'.tr,
-                                          hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp),
-                                          border: InputBorder.none
-                                      )
+                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
                                   )
                               ),
-                              _buildListTile(title: 'Sotuvchi', onTap: () {  }),
-                              _buildListTile(title: 'O‘zbekiston', onTap: () {  }),
-                              _buildListTile(title: 'Qo‘qon shaxar', onTap: () {  }),
-                              _buildListTileDelete(title: 'Qaysidur ko‘cha 12-uy', onTap: () {  }),
+                              _buildListTile(title: 'Sotuvchi', onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
+                              _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);}),
+                              _buildListTile(title: 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);}),
+                              _buildListTile(title: 'Qo‘qon shaxar', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);}),
+                              Container(
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
+                                  child: TextField(
+                                      controller: _getController.nameController,
+                                      textInputAction: TextInputAction.search,
+                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                  )
+                              ),
                               SizedBox(height: 5.h),
                               Container(
-                                  padding: EdgeInsets.symmetric(vertical: 5.h),
+                                  //padding: EdgeInsets.symmetric(vertical: 5.h),
                                   margin: EdgeInsets.only(top: 13.h),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                   child: ListTile(

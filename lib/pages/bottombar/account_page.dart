@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
@@ -130,7 +131,11 @@ class _AccountPageState extends State<AccountPage> {
               context: context,
               icon: Icons.person,
               title: 'Profilim',
-              onTap: () => Get.to(() => const MyAccountPage(), transition: Transition.downToUp)),
+              onTap: () {
+                ApiController().getCountries();
+                Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);
+              }
+            ),
             _buildListTile(
               context: context,
               icon: Icons.wallet_travel,

@@ -143,7 +143,7 @@ class InstrumentComponents {
                                                           )
                                                       )
                                                   ),
-                                                  if (cat == 0 && _getController.dropDownItemsCountries.length - 1 != index || cat == 1 && _getController.dropDownItemsRegions.length - 1 != index)
+                                                  if (cat == 0 && _getController.dropDownItemsCountries.length - 1 != index || cat == 1 && _getController.dropDownItemsRegions.length - 1 != index || cat == 2 && _getController.dropDownItemsCities.length - 1 != index)
                                                     const Divider()
                                                 ]
                                             )

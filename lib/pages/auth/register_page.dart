@@ -132,13 +132,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                                     children: [
-                                                                                     TextSmall(
-                                                                                          text: _getController.formattedDate.value.toString(), // Use .value to access the DateTime
-                                                                                          color: AppColors.black,
-                                                                                          fontWeight: FontWeight.bold,
-                                                                                          maxLines: 3,
-                                                                                          fontSize: 13.sp
-                                                                                      ),
+                                                                                      TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3, fontSize: 13.sp),
                                                                                       const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                                     ]
                                                                                 )
@@ -146,7 +140,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                         )
                                                                       ]
                                                                   )
-                                                              ),
+                                                              )
                                                             ),
                                                             SizedBox(width: Get.width * 0.02),
                                                             Expanded(
@@ -219,7 +213,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             ]
                                                                         )
                                                                     )
-                                                                ),
+                                                                )
                                                               ]
                                                           )
                                                       ),
