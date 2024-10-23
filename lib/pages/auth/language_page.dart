@@ -39,7 +39,7 @@ class LanguagePage extends StatelessWidget {
                              child: Column(
                                  children: [
                                    const Spacer(),
-                                   SizedBox(height: 360.h),
+                                   SizedBox(height: Get.height * 0.4),
                                    const TextLarge(text: 'Tilni tanlang', color: AppColors.black, fontWeight: FontWeight.bold),
                                    for (var i = 0; i < _getController.locale.length; i++)
                                      LanguageSelectItem(index: i, selectedIndex: _getController.languageIndex, text: _getController.locale[i]['name'], onTap: () {
@@ -63,7 +63,7 @@ class LanguagePage extends StatelessWidget {
                                          )
                                        ]
                                    ),
-                                   SizedBox(height: 50.h)
+                                   //SizedBox(height: 50.h)
                                  ]
                              )
                          )
