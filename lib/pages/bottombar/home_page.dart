@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
     //ApiController().getAllCatProducts();
     return Scaffold(
         backgroundColor: AppColors.white,
-        body: Obx(() =>  Container(
+        body: Container(
             height: Get.height,
             width: Get.width,
             decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover)),
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   _getController.clearCategoriesProductsModel();
                   ApiController().getAllCatProducts();
                 },
-                child:Column(
+                child: Obx(() => Column(
                     children: [
                       SizedBox(
                           height: Get.height * 0.352,
@@ -258,7 +258,7 @@ class HomePage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i+1].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                      TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
                                                       const Spacer(),
                                                       TextButton(onPressed: () => Get.to(CategoryPage()), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                     ]

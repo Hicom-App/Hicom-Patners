@@ -619,24 +619,32 @@ class GetController extends GetxController {
 
   void changeProductsModel(CategoriesModel categoriesModel) => productsModel.value = categoriesModel;
 
-  /*void addCategoriesProductsModel(CategoriesModel categories) {
-    //print(jsonEncode(categoriesModel.toJson()));
-    categoriesProductsModel.value.result!.add(categories);
-    print(jsonEncode(categoriesProductsModel.value.toJson()));
-  }
-*/
-  void addCategoriesProductsModel(CategoriesModel categories) {
-    //categoriesProductsModel.value.result ??= <CategoriesModel>[];
-    //categoriesProductsModel.value.result!.add(categories);
+  void addCategoriesProductsModels(CategoriesModel categories) {
     if (categoriesProductsModel.value.all == null) {
       categoriesProductsModel.value.all = <CategoriesModel>[];
     } else {
       categoriesProductsModel.value.all!.add(categories);
     }
-    update();
     print(jsonEncode(categoriesProductsModel.value.toJson()));
   }
 
+  /*void addCategoriesProductsModel(CategoriesModel categories) {
+    if (categoriesProductsModel.value.all == null) {
+      categoriesProductsModel.value.all = <CategoriesModel>[];
+    }
+    categoriesProductsModel.value.all!.add(categories);
+
+    // Reaktiv qiymatni yangilash:
+    categoriesProductsModel.refresh(); // .value ni o'zgartirgandan so'ng yangilanishini talab qiladi.
+    print(jsonEncode(categoriesProductsModel.value.toJson())); // To'liq yangilangan holatni chop etadi.
+  }*/
+
+  void addCategoriesProductsModel(CategoriesModel categories) {
+    categoriesProductsModel.value.all ??= <CategoriesModel>[];
+    categoriesProductsModel.value.all!.add(categories);
+    categoriesProductsModel.refresh();
+    print(jsonEncode(categoriesProductsModel.value.toJson()));
+  }
 
   //clear models
 

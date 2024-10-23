@@ -31,6 +31,7 @@ class ApiController extends GetxController {
   //Auth
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Registratsiya
+
   Future<void> sendCode() async {
     String url = '$baseUrl/auth/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
@@ -131,30 +132,35 @@ class ApiController extends GetxController {
   Future<void> login() async {
     Map<String, dynamic> body = {'phone': _getController.phoneNumber.toString()};
     print(body);
-    final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
-    print(response.body);
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        print('Login muvaffaqiyatli: ${data['message']}');
-        getProfile();
-      } else if (data['status'] == 3 || data['status'] == 4) {
-        if (_getController.phoneNumber != '' && _getController.token != null) {
-          _getController.updateSelectedDate(DateTime.now());
-          Get.to(() => const RegisterPage());
-          getCountries();
+    try {
+      final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
+      print(response.body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          print('Login muvaffaqiyatli: ${data['message']}');
+          getProfile();
+        } else if (data['status'] == 3 || data['status'] == 4) {
+          if (_getController.phoneNumber != '' && _getController.token != null) {
+            _getController.updateSelectedDate(DateTime.now());
+            Get.to(() => const RegisterPage());
+            getCountries();
+          } else {
+            Get.offAll(const LoginPage(), transition: Transition.fadeIn);
+          }
         } else {
-          Get.offAll(const LoginPage(), transition: Transition.fadeIn);
+          Get.offAll(NotConnection(), transition: Transition.fadeIn);
         }
       } else {
-        Get.offAll(NotConnection(), transition: Transition.fadeIn);
+        print('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      print('Xatolik: Serverga ulanishda muammo');
+    } catch(e) {
+      print('bilmasam endi: $e');
+      Get.offAll(NotConnection(), transition: Transition.fadeIn);
     }
+
   }
 
-  // Profil ma'lumotlarini olish
   Future<void> getProfile() async {
     final response = await http.get(Uri.parse('$baseUrl/users'), headers: headersBearer());
     print(response.statusCode);
@@ -185,7 +191,6 @@ class ApiController extends GetxController {
     }
   }
 
-  // Profil ma'lumotlarini o'zgartirish
   Future<void> updateProfile() async {
     String url = '$baseUrl/users';
     Map<String, dynamic> body = {
@@ -238,8 +243,8 @@ class ApiController extends GetxController {
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   // Mahsulot kategoriyalari ro'yxatini olish
+
   Future<void> getCategories({int? offset, int? limit}) async {
     final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
