@@ -125,7 +125,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                     Container(
                         color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
                         padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 16.h),
-                        child: Column(
+                        child: Obx(() => Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -164,7 +164,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               SizedBox(height: 5.h),
                               Container(
-                                  //padding: EdgeInsets.symmetric(vertical: 5.h),
+                                //padding: EdgeInsets.symmetric(vertical: 5.h),
                                   margin: EdgeInsets.only(top: 13.h),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                   child: ListTile(
@@ -183,9 +183,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                 _getController.deleteTimer();
                                 InstrumentComponents().bottomSheetAccountsDelete(context);
                               }),
-                              SizedBox(height: 500.h)
+                              SizedBox(height: 300.h)
                             ]
-                        )
+                        ))
                     )
                   ])
               )
