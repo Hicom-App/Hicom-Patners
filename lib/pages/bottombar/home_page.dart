@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
     //ApiController().getAllCatProducts();
     return Scaffold(
@@ -75,7 +76,8 @@ class HomePage extends StatelessWidget {
                                 Column(
                                     children: [
                                       TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                      TextLarge(text: '${_getController.profileInfoModel.value.result!.first.cashbackCalculated.toString()} ${'so‘m'.tr}', color: AppColors.white,fontWeight: FontWeight.bold)
+                                      //TextLarge(text: '${_getController.profileInfoModel.value.result!.first.cashbackCalculated.toString()} ${'so‘m'.tr}', color: AppColors.white,fontWeight: FontWeight.bold)
+                                      TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString() : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold)
                                     ]
                                 ),
                                 SizedBox(
@@ -110,7 +112,13 @@ class HomePage extends StatelessWidget {
                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                TextSmall(text: index == 0 ? _getController.profileInfoModel.value.result!.first.cashbackWaiting!.toString() : index == 1 ? _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString() : _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                                                TextSmall(
+                                                                    text: _getController.profileInfoModel.value.result != null
+                                                                        ? index == 0 ? _getController.profileInfoModel.value.result!.first.cashbackWaiting!.toString()
+                                                                        : index == 1 ? _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString()
+                                                                        : _getController.profileInfoModel.value.result!.first.cashbackRejected.toString()
+                                                                        : '0',
+                                                                    color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
                                                                 TextSmall(text: ' so‘m', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
                                                               ]
                                                           )

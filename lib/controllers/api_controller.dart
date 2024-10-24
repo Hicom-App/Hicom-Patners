@@ -218,6 +218,7 @@ class ApiController extends GetxController {
         var data = jsonDecode(responseBody);
         if (data['status'] == 0) {
           getProfile(isWorker: false);
+          Get.back();
         } else if (data['status'] == 1) {
           Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
         } else {

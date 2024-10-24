@@ -61,11 +61,6 @@ class _AccountPageState extends State<AccountPage> {
                   Positioned.fill(
                     child: Container(
                       margin: EdgeInsets.only(bottom: Get.height * 0.03),
-                      /*child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                        //child: Image.network('https://i.pinimg.com/564x/2f/57/8d/2f578d07945132849b05fbdaf78cba38.jpg', fit: BoxFit.cover
-                        child: Image.network(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13', fit: BoxFit.cover)
-                      )*/
                       child: ImageFiltered(
                           imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                           child: FadeInImage(
@@ -132,7 +127,7 @@ class _AccountPageState extends State<AccountPage> {
               icon: Icons.person,
               title: 'Profilim',
               onTap: () {
-                _getController.updateSelectedDate(DateTime.now());
+                //_getController.updateSelectedDate(DateTime.now());
                 ApiController().getCountries();
                 Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);
               }

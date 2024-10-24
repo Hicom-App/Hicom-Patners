@@ -116,9 +116,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold),
                                     SizedBox(width: 5.w),
-                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
+                                    TextSmall(text: _getController.profileInfoModel.value.result?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500)
                                   ]
                               )
                             ),
@@ -273,7 +273,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDirection: Axis.horizontal,
                                   child: Container(
                                       margin: EdgeInsets.only(top: 5.h),
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
+                                      decoration: BoxDecoration(
+                                          border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null,
+                                          borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
                                           onTap: (){
                                             _getController.showCupertinoDatePicker(context);
