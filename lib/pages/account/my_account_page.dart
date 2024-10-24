@@ -30,6 +30,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void initState() {
     super.initState();
+    _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
+    _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
+    _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
+
     ApiController().getRegions(int.parse(_getController.profileInfoModel.value.result!.first.countryId.toString()));
     ApiController().getCities(int.parse(_getController.profileInfoModel.value.result!.first.regionId.toString()));
     _getController.image.value = File('');
@@ -86,10 +90,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
-    _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
-    _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
-
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(
@@ -229,7 +229,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   )
                               ),
-                              _buildListTile(title: 'Sotuvchi', onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
+                              _buildListTile(title: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
                               ShakeWidget(
                                   key: _getController.shakeKey[4],
                                   shakeOffset: 5,
