@@ -8,6 +8,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hicom Patners</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>We need to access your photo library to pick images.</string>
 	<key>NSCameraUsageDescription</key>
     <string>Scan Qr Code</string>
 	<key>CFBundleExecutable</key>

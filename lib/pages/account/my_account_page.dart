@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -18,9 +20,6 @@ class MyAccountPage extends StatefulWidget {
 class _MyAccountPageState extends State<MyAccountPage> {
   final ScrollController _scrollController = ScrollController();
   bool _isTitleVisible = false;
-  double _avatarSize = 100.0;
-  final double _minAvatarSize = 50.0;
-  final double _maxAvatarSize = 160.0;
   bool fullImage = false;
 
   final GetController _getController = Get.put(GetController());
@@ -31,8 +30,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
-        _isTitleVisible = offset > 100; // Title ko‘rinadigan joy
-        _avatarSize = (_maxAvatarSize - offset).clamp(_minAvatarSize, _maxAvatarSize + _maxAvatarSize);
+        _isTitleVisible = offset > 100;
         if (offset < -200) {
           fullImage = true;
         } else if (offset > 100){
@@ -48,6 +46,39 @@ class _MyAccountPageState extends State<MyAccountPage> {
     super.dispose();
   }
 
+  File? _image;
+
+  Future<void> _pickImage() async {
+    print('Pick image');
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Suratni moslashtiring',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false
+          ),
+          IOSUiSettings(
+            title: 'Suratni moslashtiring'
+          )
+        ]
+      );
+
+      setState(() {
+        _image = File(croppedFile!.path);
+        print(_image!.path);
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +91,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: fullImage ? 260.sp : 260.sp,
+                  expandedHeight: fullImage ? 280.sp : 280.sp,
                   pinned: true,
                   elevation: 1,
                   backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
@@ -71,11 +102,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   flexibleSpace: LayoutBuilder(
                       builder: (BuildContext context, BoxConstraints constraints) {
                         return FlexibleSpaceBar(
+                            centerTitle: true,
                             title: AnimatedOpacity(
                               opacity: _isTitleVisible ? 1.0 : 0.0,
                               duration: const Duration(milliseconds: 300),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     TextSmall(text: _getController.profileInfoModel.value.result?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                                     SizedBox(width: 5.w),
@@ -87,7 +120,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: Get.height * 0.04),
+                                  SizedBox(height: 40.h),
                                   Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,25 +128,25 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(width: 15.w),
                                         TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         const Spacer(),
-                                        TextButton(onPressed: Get.back, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                        TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: 15.h),
                                   Container(
-                                      height: Get.width * 0.35, width: Get.width * 0.35,
+                                      height: 150.w, width: 150.w,
                                       decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
                                       child: ClipOval(
                                           child: FadeInImage(
                                               image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                               placeholder: const AssetImage('assets/images/logo_back.png'),
-                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
                                               fit: BoxFit.cover
                                           )
                                       )
                                   ),
-                                  SizedBox(height: 10.h),
-                                  TextButton(onPressed: Get.back, child: TextSmall(text: 'Yangi rasm joylash'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
+                                  SizedBox(height: 25.h),
+                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: 'Yangi rasm joylash'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
                                 ]
                             )
                         );
@@ -124,7 +157,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   delegate: SliverChildListDelegate([
                     Container(
                         color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-                        padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 16.h),
+                        padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 12.h),
                         child: Obx(() => Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -150,8 +183,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               _buildListTile(title: 'Sotuvchi', onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
                               _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);}),
-                              _buildListTile(title: 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);}),
-                              _buildListTile(title: 'Qo‘qon shaxar', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);}),
+                              _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);}),
+                              _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon sh.', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);}),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
                                   padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
@@ -164,8 +197,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               SizedBox(height: 5.h),
                               Container(
-                                //padding: EdgeInsets.symmetric(vertical: 5.h),
-                                  margin: EdgeInsets.only(top: 13.h),
+                                  margin: EdgeInsets.only(top: 5.h),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                   child: ListTile(
                                       onTap: (){
@@ -173,12 +205,12 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       },
                                       hoverColor: Colors.transparent,
                                       focusColor: Colors.transparent,
-                                      title: TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
+                                      title: const TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
                                       trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
                                       )
                                   )
                               ),
-                              SizedBox(height: 5.h),
+                              //SizedBox(height: 5.h),
                               _buildListTileDelete(color: AppColors.red, title: 'Hisobni o`chirish', onTap: (){
                                 _getController.deleteTimer();
                                 InstrumentComponents().bottomSheetAccountsDelete(context);
@@ -198,12 +230,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     return Container(
         margin: EdgeInsets.only(top: 10.h),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(
-            onTap: onTap,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            title: Text(title, style: TextStyle(fontSize: 14.sp, color: color)),
-        )
+        child: ListTile(onTap: onTap, hoverColor: Colors.transparent, focusColor: Colors.transparent, title: TextSmall(text: title, color: color))
     );
   }
 
@@ -212,13 +239,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     return Container(
         margin: EdgeInsets.only(top: 10.h),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(
-            onTap: onTap,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
-            trailing: Icon(EneftyIcons.arrow_down_outline, color: color)
-        )
+        child: ListTile(onTap: onTap, hoverColor: Colors.transparent, focusColor: Colors.transparent, title: TextSmall(text: title, color: color), trailing: Icon(EneftyIcons.arrow_down_outline, color: color))
     );
   }
 }
