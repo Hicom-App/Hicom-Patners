@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
-    //ApiController().getAllCatProducts();
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -63,7 +62,7 @@ class HomePage extends StatelessWidget {
                                               children: [
                                                 TextLarge(text: _getController.fullName.value.toString().split(' ')[0].toString(), color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                                 SizedBox(width: 5.w),
-                                                TextLarge(text: _getController.fullName.value.toString().split(' ')[1].toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1),
+                                                TextLarge(text: _getController.fullName.value.toString().split(' ')[1].toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                               ]
                                           ),
                                           TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
@@ -157,14 +156,13 @@ class HomePage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       SizedBox(
-                                                          width: 30.w,
+                                                          width: 40.w,
+                                                          height: 38.w,
                                                           child: FadeInImage(
                                                               image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
-                                                              //image: NetworkImage('http://185.196.213.76:8080/api/catalog/categories/photo?id=1',headers: ApiController().headersBearer()),
                                                               placeholder: const AssetImage('assets/images/logo_back.png'),
                                                               imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
-                                                              fit: BoxFit.cover,
-                                                              //color: AppColors.white
+                                                              fit: BoxFit.contain
                                                           )
                                                       ),
                                                       Container(

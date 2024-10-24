@@ -28,11 +28,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   flutter_screenutil: ^5.9.3
   pinput: ^5.0.0
-  rive: ^0.13.13
-  glyph: ^1.0.2
   fading_edge_scrollview: ^4.1.1
   flutter_rating_bar: ^4.0.1
-  glassmorphism: ^3.0.0
   enefty_icons: ^1.0.7
   url_launcher: ^6.2.6
   adaptive_theme: ^3.6.0
