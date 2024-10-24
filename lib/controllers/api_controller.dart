@@ -1,4 +1,55 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
@@ -35,8 +86,8 @@ class ApiController extends GetxController {
     String url = '$baseUrl/auth/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    print(_getController.code.value + _getController.phoneController.text);
-    print(response.body);
+    debugPrint(_getController.code.value + _getController.phoneController.text);
+    debugPrint(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -44,10 +95,10 @@ class ApiController extends GetxController {
         Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
       } else {
         _getController.shakeKey[8].currentState?.shake();
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
@@ -67,17 +118,17 @@ class ApiController extends GetxController {
           _getController.verifyCodeControllers.clear();
           login();
         }, 1);
-        print('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+        debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
         _getController.shakeKey[7].currentState?.shake();
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
         _getController.changeErrorInput(0, true);
         _getController.errorField.value = true;
-        print('Xatolik: xaaa0');
-        _getController.tapTimes((){print('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
+        debugPrint('Xatolik: xaaa0');
+        _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
@@ -88,28 +139,28 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeCountriesModel(CountriesModel.fromJson(data));
-        print('Davlatlar ro‘yxati: ${data['countries']}');
+        debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
   Future<void> getRegions(int countryId) async {
     final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-    print(response.body);
+    debugPrint(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeRegionsModel(CountriesModel.fromJson(data));
-        print('Viloyatlar ro‘yxati: ${data['regions']}');
+        debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
@@ -118,26 +169,26 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        print('Shaharlar ro‘yxati: ${data['cities']}');
+        debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
         _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
   Future<void> login() async {
     Map<String, dynamic> body = {'phone': _getController.phoneNumber.toString()};
-    print(body);
+    debugPrint(body.toString());
     try {
       final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['status'] == 0) {
-          print('Login muvaffaqiyatli: ${data['message']}');
+          debugPrint('Login muvaffaqiyatli: ${data['message']}');
           getProfile();
         } else if (data['status'] == 3 || data['status'] == 4) {
           if (_getController.phoneNumber != '' && _getController.token != null) {
@@ -151,32 +202,32 @@ class ApiController extends GetxController {
           Get.offAll(NotConnection(), transition: Transition.fadeIn);
         }
       } else {
-        print('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
     } catch(e) {
-      print('bilmasam endi: $e');
+      debugPrint('bilmasam endi: $e');
       Get.offAll(NotConnection(), transition: Transition.fadeIn);
     }
 
   }
 
-  Future<void> getProfile() async {
+  Future<void> getProfile({bool isWorker = true}) async {
     final response = await http.get(Uri.parse('$baseUrl/users'), headers: headersBearer());
-    print(response.statusCode);
+    debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
-      print(data);
+      debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (_getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
+        if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
           getCountries();
           _getController.updateSelectedDate(DateTime.now());
           Get.to(() => const RegisterPage());
-        } else {
+        } else if (isWorker) {
           Get.offAll(() => SamplePage());
         }
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else if (response.statusCode == 401) {
       _getController.logout();
@@ -186,25 +237,14 @@ class ApiController extends GetxController {
       login();
     }
     else {
-      print('Xatolik1: Serverga ulanishda muammo');
+      debugPrint('Xatolik1: Serverga ulanishda muammo');
     }
   }
 
-  Future<void> updateProfile() async {
+  Future<void> updateProfiles() async {
     try {
-      // Create multipart request
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('$baseUrl/users'),
-      );
-
-      // Add headers
-      request.headers.addAll({
-        'Authorization': 'Bearer ${_getController.token}',
-        'Content-Type': 'multipart/form-data',
-      });
-
-      // Add profile fields as text fields
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users'),);
+      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
       request.fields['first_name'] = _getController.nameController.text;
       request.fields['last_name'] = _getController.surNameController.text;
       request.fields['birthday'] = DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value);
@@ -212,8 +252,7 @@ class ApiController extends GetxController {
       request.fields['country_id'] = _getController.dropDownItems[1].toString();
       request.fields['region_id'] = _getController.dropDownItems[2].toString();
       request.fields['city_id'] = _getController.dropDownItems[3].toString();
-
-      // Add the photo file if it exists
+      request.fields['address'] = _getController.streetController.text;
       if (_getController.image.value.path != '') {
         var photo = await http.MultipartFile.fromPath('photo', _getController.image.value.path);
         request.files.add(photo);
@@ -223,28 +262,28 @@ class ApiController extends GetxController {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
 
-      print(responseBody);
-      print(response.statusCode);
+      debugPrint(responseBody);
+      debugPrint(response.statusCode.toString());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(responseBody);
         if (data['status'] == 0) {
-          login();
+          getProfile(isWorker: false);
         } else if (data['status'] == 1) {
           Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
         } else {
-          print('Xatolik: ${data['message']}');
+          debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        print('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
     } catch (e) {
-      print('Xatolik: $e');
+      debugPrint('Xatolik: $e');
     }
   }
 
 
-  Future<void> updateProfiles() async {
+  Future<void> updateProfile() async {
     Map<String, dynamic> body = {
       'first_name': _getController.nameController.text,
       'last_name': _getController.surNameController.text,
@@ -259,8 +298,8 @@ class ApiController extends GetxController {
       headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
-    print(response.body);
-    print(response.statusCode);
+    debugPrint(response.body);
+    debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -269,25 +308,25 @@ class ApiController extends GetxController {
         Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
       }
       else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
   Future<void> deleteProfile() async {
-    print('Profil o‘chirish');
+    debugPrint('Profil o‘chirish');
     final response = await http.delete(Uri.parse('$baseUrl/users'), headers: headersBearer());
-    print(response.body);
-    print(response.statusCode);
+    debugPrint(response.body);
+    debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.logout();
         login();
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
     }
@@ -300,19 +339,18 @@ class ApiController extends GetxController {
     final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(data);
-      //print(data);
+      debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
-        print(jsonEncode(_getController.categoriesModel.value));
+        debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
         getProducts(0);
         //getAllCatProducts();
-        //print('Kategoriyalar ro‘yxati: ${data['result']}');
+        //debugPrint('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
@@ -325,10 +363,10 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         _getController.changeProductsModel(CategoriesModel.fromJson(data));
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 
@@ -339,10 +377,10 @@ class ApiController extends GetxController {
       if (data['status'] == 0 && data['result'] != null) {
         _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
       } else {
-        print('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: ${data['message']}');
       }
     } else {
-      print('Xatolik: Serverga ulanishda muammo');
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 

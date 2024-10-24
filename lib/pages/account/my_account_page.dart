@@ -83,6 +83,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
     _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
+    _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(
@@ -127,7 +128,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(width: 15.w),
                                         TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         const Spacer(),
-                                        TextButton(onPressed: () => ApiController().updateProfile(), child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                        TextButton(onPressed: () => ApiController().updateProfiles(), child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),
