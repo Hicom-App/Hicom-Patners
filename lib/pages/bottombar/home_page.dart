@@ -259,20 +259,6 @@ class HomePage extends StatelessWidget {
                                         if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
                                           Stack(
                                             children: [
-                                              Positioned(
-                                                child: Container(
-                                                  margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                                  child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    children: [
-                                                      TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
-                                                      const Spacer(),
-                                                      TextButton(onPressed: () => Get.to(CategoryPage(index: i)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                                    ]
-                                                  )
-                                                )
-                                              ),
                                               SizedBox(
                                                 height: 345.h,
                                                 width: Get.width,
@@ -287,6 +273,20 @@ class HomePage extends StatelessWidget {
                                                     ]
                                                   )
                                                 )
+                                              ),
+                                              Positioned(
+                                                  child: Container(
+                                                      margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                      child: Row(
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          children: [
+                                                            TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                            const Spacer(),
+                                                            TextButton(onPressed: () => Get.to(CategoryPage(index: i)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                          ]
+                                                      )
+                                                  )
                                               )
                                             ]
                                           )

@@ -26,13 +26,8 @@ class CategoryPage extends StatelessWidget {
 
     ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        foregroundColor: AppColors.black,
-        surfaceTintColor: AppColors.white,
-        title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
-      ),
+      backgroundColor: AppColors.white,
+      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
