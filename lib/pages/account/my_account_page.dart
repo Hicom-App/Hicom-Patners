@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../companents/filds/text_small.dart';
@@ -27,6 +28,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void initState() {
     super.initState();
+    _getController.image.value = File('');
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
@@ -125,7 +127,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(width: 15.w),
                                         TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         const Spacer(),
-                                        TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                        TextButton(onPressed: () => ApiController().updateProfile(), child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),

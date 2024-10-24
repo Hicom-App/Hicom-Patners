@@ -191,7 +191,60 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfile() async {
-    String url = '$baseUrl/users';
+    try {
+      // Create multipart request
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/users'),
+      );
+
+      // Add headers
+      request.headers.addAll({
+        'Authorization': 'Bearer ${_getController.token}',
+        'Content-Type': 'multipart/form-data',
+      });
+
+      // Add profile fields as text fields
+      request.fields['first_name'] = _getController.nameController.text;
+      request.fields['last_name'] = _getController.surNameController.text;
+      request.fields['birthday'] = DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value);
+      request.fields['user_type'] = _getController.dropDownItems[0].toString();
+      request.fields['country_id'] = _getController.dropDownItems[1].toString();
+      request.fields['region_id'] = _getController.dropDownItems[2].toString();
+      request.fields['city_id'] = _getController.dropDownItems[3].toString();
+
+      // Add the photo file if it exists
+      if (_getController.image.value.path != '') {
+        var photo = await http.MultipartFile.fromPath('photo', _getController.image.value.path);
+        request.files.add(photo);
+      }
+
+      // Send the request and get response
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
+      print(responseBody);
+      print(response.statusCode);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(responseBody);
+        if (data['status'] == 0) {
+          login();
+        } else if (data['status'] == 1) {
+          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+        } else {
+          print('Xatolik: ${data['message']}');
+        }
+      } else {
+        print('Xatolik: Serverga ulanishda muammo');
+      }
+    } catch (e) {
+      print('Xatolik: $e');
+    }
+  }
+
+
+  Future<void> updateProfiles() async {
     Map<String, dynamic> body = {
       'first_name': _getController.nameController.text,
       'last_name': _getController.surNameController.text,
@@ -201,9 +254,8 @@ class ApiController extends GetxController {
       'region_id': _getController.dropDownItems[2],
       'city_id': _getController.dropDownItems[3]
     };
-
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse('$baseUrl/users'),
       headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
