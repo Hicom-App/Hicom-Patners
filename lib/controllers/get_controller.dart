@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +37,7 @@ class GetController extends GetxController {
   RxBool errorFieldOk = false.obs;
   Timer? _timerTap;
   Timer? _timer;
+  var image = File('').obs;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();

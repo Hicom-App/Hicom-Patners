@@ -46,7 +46,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
     super.dispose();
   }
 
-  File? _image;
 
   Future<void> _pickImage() async {
     print('Pick image');
@@ -66,15 +65,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false
           ),
-          IOSUiSettings(
-            title: 'Suratni moslashtiring'
-          )
+          IOSUiSettings(title: 'Suratni moslashtiring')
         ]
       );
 
       setState(() {
-        _image = File(croppedFile!.path);
-        print(_image!.path);
+        _getController.image.value = File(croppedFile!.path);
+        debugPrint(_getController.image.value.path);
       });
     }
   }
@@ -138,7 +135,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
                                       child: ClipOval(
                                           child: FadeInImage(
-                                              image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
+                                              image: _getController.image.value.path == ''
+                                                  ? NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13')
+                                                  : AssetImage(_getController.image.value.path),
                                               placeholder: const AssetImage('assets/images/logo_back.png'),
                                               imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
                                               fit: BoxFit.cover
@@ -210,7 +209,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   )
                               ),
-                              //SizedBox(height: 5.h),
                               _buildListTileDelete(color: AppColors.red, title: 'Hisobni o`chirish', onTap: (){
                                 _getController.deleteTimer();
                                 InstrumentComponents().bottomSheetAccountsDelete(context);
