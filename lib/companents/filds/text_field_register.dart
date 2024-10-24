@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
@@ -13,16 +14,16 @@ class TextFieldRegister extends StatelessWidget {
   final bool? mack;
   final TextEditingController controller;
   final bool? errorIndex;
+  final double? height;
 
-  TextFieldRegister({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorIndex});
+  TextFieldRegister({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorIndex, this.height});
   final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 43.sp,
-        //padding: EdgeInsets.only(right: 5.sp),
+        height: height ?? 43.sp,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r),
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
@@ -46,7 +47,7 @@ class TextFieldRegister extends StatelessWidget {
                 border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
                 fillColor: fillColor,
                 hintText: hint.tr,
-                hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.5) : AppColors.white.withOpacity(0.6), fontSize: 13.sp),
+                hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 13.sp),
                 prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 15.sp)) : const SizedBox(height: 0, width: 0)
             )
         )

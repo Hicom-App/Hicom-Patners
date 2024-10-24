@@ -9,6 +9,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
@@ -133,7 +134,33 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(width: 15.w),
                                         TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         const Spacer(),
-                                        TextButton(onPressed: () => ApiController().updateProfiles(), child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                        TextButton(
+                                            onPressed: () {
+                                              if (_getController.nameController.text.isEmpty) {
+                                                _getController.shakeKey[0].currentState?.shake();
+                                                _getController.changeErrorInput(0, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
+                                              } else if (_getController.surNameController.text.isEmpty) {
+                                                _getController.shakeKey[1].currentState?.shake();
+                                                _getController.changeErrorInput(1, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(1, false),1);
+                                              } else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime.now())) {
+                                                _getController.shakeKey[2].currentState?.shake();
+                                                _getController.changeErrorInput(2, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                                              } else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
+                                                _getController.shakeKey[5].currentState?.shake();
+                                                _getController.changeErrorInput(5, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(5, false),1);
+                                              } else if (_getController.citiesModel.value.cities == null || _getController.dropDownItemsCities.isEmpty) {
+                                                _getController.shakeKey[6].currentState?.shake();
+                                                _getController.changeErrorInput(6, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(6, false),1);
+                                              } else {
+                                                ApiController().updateProfiles();
+                                              }
+                                              },
+                                            child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),
@@ -169,29 +196,64 @@ class _MyAccountPageState extends State<MyAccountPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
-                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
-                                  child: TextField(
-                                      controller: _getController.nameController,
-                                      textInputAction: TextInputAction.search,
-                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                              ShakeWidget(
+                                  key: _getController.shakeKey[0],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                      decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[0] ? AppColors.red : AppColors.white, width: 1), borderRadius: BorderRadius.circular(15.r), color: Colors.grey.withOpacity(0.2)),
+                                      child: TextField(
+                                          controller: _getController.nameController,
+                                          textInputAction: TextInputAction.search,
+                                          decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                      )
                                   )
                               ),
-                              Container(
-                                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
-                                  margin: EdgeInsets.only(top: 10.h),
-                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
-                                  child: TextField(
-                                      controller: _getController.surNameController,
-                                      textInputAction: TextInputAction.search,
-                                      decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                              ShakeWidget(
+                                  key: _getController.shakeKey[1],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                      margin: EdgeInsets.only(top: 10.h),
+                                      decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[1] ? AppColors.red : AppColors.white, width: 1), color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
+                                      child: TextField(
+                                          controller: _getController.surNameController,
+                                          textInputAction: TextInputAction.search,
+                                          decoration: InputDecoration(hintText: 'Familiya'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                      )
                                   )
                               ),
                               _buildListTile(title: 'Sotuvchi', onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
-                              _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);}),
-                              _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);}),
-                              _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon sh.', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);}),
+                              ShakeWidget(
+                                  key: _getController.shakeKey[4],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);})
+                              ),
+                              ShakeWidget(
+                                  key: _getController.shakeKey[5],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);})
+                              ),
+                              ShakeWidget(
+                                  key: _getController.shakeKey[6],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon sh.', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);})
+                              ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
                                   padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
@@ -203,17 +265,24 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   )
                               ),
                               SizedBox(height: 5.h),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5.h),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
-                                  child: ListTile(
-                                      onTap: (){
-                                        _getController.showCupertinoDatePicker(context);
-                                      },
-                                      hoverColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      title: const TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
-                                      trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
+                              ShakeWidget(
+                                  key: _getController.shakeKey[2],
+                                  shakeOffset: 5,
+                                  shakeCount: 15,
+                                  shakeDuration: const Duration(milliseconds: 500),
+                                  shakeDirection: Axis.horizontal,
+                                  child: Container(
+                                      margin: EdgeInsets.only(top: 5.h),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
+                                      child: ListTile(
+                                          onTap: (){
+                                            _getController.showCupertinoDatePicker(context);
+                                          },
+                                          hoverColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          title: const TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
+                                          trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
+                                          )
                                       )
                                   )
                               ),
