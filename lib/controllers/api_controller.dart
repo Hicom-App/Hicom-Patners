@@ -192,6 +192,9 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfiles() async {
+    print(_getController.dropDownItems[1].toString());
+    print(_getController.dropDownItems[2].toString());
+    print(_getController.dropDownItems[3].toString());
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users'),);
       request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
@@ -199,9 +202,9 @@ class ApiController extends GetxController {
       request.fields['last_name'] = _getController.surNameController.text;
       request.fields['birthday'] = DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value);
       request.fields['user_type'] = _getController.dropDownItems[0].toString();
-      request.fields['country_id'] = _getController.dropDownItems[1].toString();
-      request.fields['region_id'] = _getController.dropDownItems[2].toString();
-      request.fields['city_id'] = _getController.dropDownItems[3].toString();
+      request.fields['country_id'] = _getController.countriesModel.value.countries![_getController.dropDownItems[1]].id.toString();
+      request.fields['region_id'] = _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id.toString();
+      request.fields['city_id'] = _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id.toString();
       request.fields['address'] = _getController.streetController.text;
       if (_getController.image.value.path != '') {
         var photo = await http.MultipartFile.fromPath('photo', _getController.image.value.path);
@@ -238,9 +241,9 @@ class ApiController extends GetxController {
       'last_name': _getController.surNameController.text,
       'birthday': DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value),
       'user_type': _getController.dropDownItems[0],
-      'country_id': _getController.dropDownItems[1],
-      'region_id': _getController.dropDownItems[2],
-      'city_id': _getController.dropDownItems[3]
+      'country_id': _getController.countriesModel.value.countries![_getController.dropDownItems[1]].id,
+      'region_id': _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id,
+      'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id,
     };
     final response = await http.post(
       Uri.parse('$baseUrl/users'),

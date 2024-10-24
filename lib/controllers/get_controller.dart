@@ -596,8 +596,7 @@ class GetController extends GetxController {
     this.countriesModel.value = countriesModel;
     dropDownItemsCountries.value = countriesModel.countries!.map((e) => e.name!).toList();
 
-    int? profileCountryId = profileInfoModel.value.result!.first.countryId;
-    int matchingIndex = countriesModel.countries!.indexWhere((country) => country.id == profileCountryId);
+    int matchingIndex = countriesModel.countries!.indexWhere((country) => country.id == profileInfoModel.value.result!.first.countryId);
     if (matchingIndex != -1) {
       dropDownItems[1] = matchingIndex;
     }
