@@ -210,11 +210,8 @@ class ApiController extends GetxController {
         var photo = await http.MultipartFile.fromPath('photo', _getController.image.value.path);
         request.files.add(photo);
       }
-
-      // Send the request and get response
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-
       debugPrint(responseBody.toString());
       debugPrint(response.statusCode.toString());
 
