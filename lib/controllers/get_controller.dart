@@ -595,16 +595,34 @@ class GetController extends GetxController {
   void changeCountriesModel(CountriesModel countriesModel) {
     this.countriesModel.value = countriesModel;
     dropDownItemsCountries.value = countriesModel.countries!.map((e) => e.name!).toList();
+
+    int? profileCountryId = profileInfoModel.value.result!.first.countryId;
+    int matchingIndex = countriesModel.countries!.indexWhere((country) => country.id == profileCountryId);
+    if (matchingIndex != -1) {
+      dropDownItems[1] = matchingIndex;
+    }
   }
 
   void changeRegionsModel(CountriesModel regionsModel) {
     this.regionsModel.value = regionsModel;
     dropDownItemsRegions.value = regionsModel.regions!.map((e) => e.name!).toList();
+
+    int? profileRegionId = profileInfoModel.value.result!.first.regionId;
+    int matchingIndex = regionsModel.regions!.indexWhere((region) => region.id == profileRegionId);
+    if (matchingIndex != -1) {
+      dropDownItems[2] = matchingIndex;
+    }
   }
 
   void changeCitiesModel(CountriesModel citiesModel) {
     this.citiesModel.value = citiesModel;
     dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
+
+    int? profileCityId = profileInfoModel.value.result!.first.cityId;
+    int matchingIndex = citiesModel.cities!.indexWhere((city) => city.id == profileCityId);
+    if (matchingIndex != -1) {
+      dropDownItems[3] = matchingIndex;
+    }
   }
 
   void changeProfileInfoModel(ProfileInfoModel profileInfo) => profileInfoModel.value = profileInfo;

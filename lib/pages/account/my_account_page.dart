@@ -7,6 +7,7 @@ import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -28,7 +29,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void initState() {
     super.initState();
+    ApiController().getRegions(int.parse(_getController.profileInfoModel.value.result!.first.countryId.toString()));
+    ApiController().getCities(int.parse(_getController.profileInfoModel.value.result!.first.regionId.toString()));
     _getController.image.value = File('');
+    _getController.formattedDate.value = DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
@@ -84,6 +88,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
     _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
     _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
+
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: CustomScrollView(

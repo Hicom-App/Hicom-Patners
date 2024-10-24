@@ -37,7 +37,7 @@ class ApiController extends GetxController {
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
     debugPrint(_getController.code.value + _getController.phoneController.text);
-    debugPrint(response.body);
+    debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -100,7 +100,7 @@ class ApiController extends GetxController {
 
   Future<void> getRegions(int countryId) async {
     final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-    debugPrint(response.body);
+    debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
@@ -134,7 +134,7 @@ class ApiController extends GetxController {
     debugPrint(body.toString());
     try {
       final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
-      debugPrint(response.body);
+      debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['status'] == 0) {
@@ -212,7 +212,7 @@ class ApiController extends GetxController {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
 
-      debugPrint(responseBody);
+      debugPrint(responseBody.toString());
       debugPrint(response.statusCode.toString());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -247,7 +247,7 @@ class ApiController extends GetxController {
       headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
-    debugPrint(response.body);
+    debugPrint(response.body.toString());
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
@@ -267,7 +267,7 @@ class ApiController extends GetxController {
   Future<void> deleteProfile() async {
     debugPrint('Profil o‘chirish');
     final response = await http.delete(Uri.parse('$baseUrl/users'), headers: headersBearer());
-    debugPrint(response.body);
+    debugPrint(response.body.toString());
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
