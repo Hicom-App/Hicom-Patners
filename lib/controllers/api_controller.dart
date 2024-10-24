@@ -310,7 +310,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        if (isCategory) {
+        if (isCategory == true) {
           _getController.changeProductsModel(CategoriesModel.fromJson(data));
         } else {
           _getController.changeCatProductsModel(CategoriesModel.fromJson(data));

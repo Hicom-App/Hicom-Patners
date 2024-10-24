@@ -21,7 +21,11 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: true);
+    debugPrint(index.toString());
+    debugPrint('========================================');
+    debugPrint(_getController.categoriesModel.value.result![index].id!.toString());
+
+    ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
