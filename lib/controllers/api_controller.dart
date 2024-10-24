@@ -17,7 +17,6 @@ import 'get_controller.dart';
 class ApiController extends GetxController {
   final GetController _getController = Get.put(GetController());
 
-  final api = 'http://185.196.213.76:8080';
   final  baseUrl = 'http://185.196.213.76:8080/api';
 
   //return header function
