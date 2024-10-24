@@ -203,20 +203,11 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  Container _buildListTile({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    Color? color,
-  }) {
+  Container _buildListTile({required BuildContext context, required IconData icon, required String title, required VoidCallback onTap, Color? color}) {
     color ??= Colors.black;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Colors.grey.withOpacity(0.2),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
       child: ListTile(
         onTap: onTap,
         leading: Icon(icon, color: color),
