@@ -25,7 +25,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final ScrollController _scrollController = ScrollController();
   final GetController _getController = Get.put(GetController());
-  double _imageHeight = 0.28; // Initial height as 28% of the screen height
+  double _imageHeight = 0.28;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _AccountPageState extends State<AccountPage> {
     _scrollController.addListener(() {
       setState(() {
         _imageHeight = 0.28 - (_scrollController.offset / 1000);
-        if (_imageHeight < 0.15) _imageHeight = 0.15; // Minimum height threshold
+        if (_imageHeight < 0.15) _imageHeight = 0.15;
       });
     });
   }
@@ -208,12 +208,7 @@ class _AccountPageState extends State<AccountPage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon, color: color),
-        title: Text(title, style: TextStyle(fontSize: 16.sp)),
-        trailing: Icon(Icons.chevron_right, color: color)
-      )
+      child: ListTile(onTap: onTap, leading: Icon(icon, color: color), title: Text(title, style: TextStyle(fontSize: 16.sp)), trailing: Icon(Icons.chevron_right, color: color))
     );
   }
 }
