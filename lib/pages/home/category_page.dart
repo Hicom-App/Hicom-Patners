@@ -19,9 +19,9 @@ class CategoryPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-        foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-        surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        backgroundColor: AppColors.white,
+        foregroundColor: AppColors.black,
+        surfaceTintColor: AppColors.white,
         title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
       ),
       body: RefreshComponent(
@@ -38,7 +38,6 @@ class CategoryPage extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
                 padding: EdgeInsets.only(left: 15.w, right: 5.w),
                 itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index)),
-                //itemCount: _getController.listImage.length
                 itemCount: _getController.productsModel.value.result!.length
               )
             )
