@@ -7,7 +7,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/cat_product_item.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_small.dart';
-import '../../companents/product_item.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
