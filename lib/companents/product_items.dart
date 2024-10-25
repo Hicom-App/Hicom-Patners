@@ -15,10 +15,7 @@ class ProductItems extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    print(_getController.categoriesProductsModel.value.all![index].result!.length);
-   // print(_getController.categoriesProductsModel.value.result![index].result![i].name);
-
-    return _getController.categoriesProductsModel.value.all![index] != null && _getController.categoriesProductsModel.value.all![index].result!.length > i ?
+    return _getController.categoriesProductsModel.value.all![index].result!.length > i ?
       Container(
         height: 225.h,
         width: 165.w,

@@ -587,6 +587,7 @@ class GetController extends GetxController {
   var profileInfoModel = ProfileInfoModel().obs;
   var categoriesModel = CategoriesModel().obs;
   var productsModel = CategoriesModel().obs;
+  var productsModelDetail = CategoriesModel().obs;
   var categoryProductsModel = CategoriesModel().obs;
   var categoriesProductsModel = CategoriesProductsModel().obs;
 
@@ -630,6 +631,7 @@ class GetController extends GetxController {
   void changeCategoriesModel(CategoriesModel categories) => categoriesModel.value = categories;
 
   void changeProductsModel(CategoriesModel categoriesModel) => productsModel.value = categoriesModel;
+  void changeProductsModelDetail(CategoriesModel categoriesModel) => productsModelDetail.value = categoriesModel;
 
   void changeCatProductsModel(CategoriesModel categoriesModel) => categoryProductsModel.value = categoriesModel;
 
@@ -676,6 +678,8 @@ class GetController extends GetxController {
   void clearProfileInfoModel() => profileInfoModel.value = ProfileInfoModel();
 
   void clearCategoriesProductsModel() => categoriesProductsModel.value = CategoriesProductsModel();
+
+  void clearProductsModelDetail() => productsModelDetail.value = CategoriesModel();
 
 }
 

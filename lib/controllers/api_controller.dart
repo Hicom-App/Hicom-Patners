@@ -293,8 +293,6 @@ class ApiController extends GetxController {
         _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
         debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
         getProducts(0);
-        //getAllCatProducts();
-        //debugPrint('Kategoriyalar ro‘yxati: ${data['result']}');
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }
@@ -305,10 +303,11 @@ class ApiController extends GetxController {
 
   // Mahsulotlar ro'yxatini olish
   Future<void> getProducts(int categoryId, {bool isCategory = true, int? offset, int? limit}) async {
-    final response = await http.get(Uri.parse('$baseUrl/catalog/products${categoryId == 0 ? '' : '?category_id=$categoryId'}'),
-      headers: {'Authorization': 'Bearer ${_getController.token}'},);
+    final response = await http.get(Uri.parse('$baseUrl/catalog/products?category_id=$categoryId'),
+      headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      debugPrint(data.toString());
       if (data['status'] == 0) {
         if (isCategory == true) {
           _getController.changeProductsModel(CategoriesModel.fromJson(data));
@@ -323,12 +322,20 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getProduct(categoryId) async {
-    final response = await http.get(Uri.parse('$baseUrl/catalog/products${categoryId == 0 || categoryId == null ? '' : '?category_id=$categoryId'}'), headers: headersBearer());
+  Future<void> getProduct(int categoryId, {bool isCategory = true, int? offset, int? limit}) async {
+    print('$baseUrl/catalog/products?id=$categoryId');
+    print(headersBearer().toString());
+    final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data.toString());
       if (data['status'] == 0 && data['result'] != null) {
-        _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+        if (isCategory == true) {
+          _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+        } else {
+          _getController.clearProductsModelDetail();
+          _getController.changeProductsModelDetail(CategoriesModel.fromJson(data));
+        }
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }
@@ -339,7 +346,7 @@ class ApiController extends GetxController {
 
   Future<void> getAllCatProducts() async {
     for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
-      await getProduct(_getController.categoriesModel.value.result![i].id);
+      await getProduct(_getController.categoriesModel.value.result![i].id ?? 0);
     }
   }
 }

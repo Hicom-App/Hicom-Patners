@@ -209,10 +209,9 @@ class HomePage extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 SizedBox(width: 35.w),
-                                                //for (int index = 0; index < _getController.listImage.length; index++)
                                                 if (_getController.productsModel.value.result != null)
                                                   for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                    InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                                    InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
                                               ]
                                             )
                                         )
@@ -245,7 +244,7 @@ class HomePage extends StatelessWidget {
                                                     SizedBox(width: 35.w),
                                                     if (_getController.productsModel.value.result != null)
                                                       for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                        InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItem(index: index))
+                                                        InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
                                                   ]
                                               )
                                           )
@@ -269,7 +268,7 @@ class HomePage extends StatelessWidget {
                                                       SizedBox(width: 35.w),
                                                       if (_getController.productsModel.value.result != null)
                                                         for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                          InkWell(onTap: () => Get.to(DetailPage(index: index)), child: ProductItems(index: i , i: index))
+                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id)), child: ProductItems(index: i , i: index))
                                                     ]
                                                   )
                                                 )
