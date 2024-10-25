@@ -516,6 +516,7 @@ class GetController extends GetxController {
 
   var selectedDate = DateTime.now().obs;
   var formattedDate = ''.obs;
+  RxBool fullText = false.obs;
 
   // Method to trigger animation
   void startDelayedAnimation() {

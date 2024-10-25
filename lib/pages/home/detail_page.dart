@@ -149,7 +149,7 @@ class DetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: Get.height * 0.02),
                             const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
-                            Container(
+                            /*Container(
                                 width: Get.width,
                                 height: 140.h,
                                 padding: EdgeInsets.only(top: Get.height * 0.01),
@@ -171,7 +171,8 @@ class DetailPage extends StatelessWidget {
                                                   itemCount: _getController.productsModelDetail.value.result!.first.description != null ? _getController.productsModelDetail.value.result!.first.description!.length : 0
                                               )
                                           )
-                                      ) : Skeletonizer(child: SizedBox(height: 105.h, child:  ListView.builder(
+                                      )
+                                          : Skeletonizer(child: SizedBox(height: 105.h, child:  ListView.builder(
                                                 shrinkWrap: true,
                                                 padding: EdgeInsets.zero,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -179,16 +180,95 @@ class DetailPage extends StatelessWidget {
                                                 itemBuilder: (context, index) => const TextSmall(text: ' text: _getController.productivity: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
                                                 itemCount: 10
                                             ))),
-                                      Row(
-                                          children: [
-                                            TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1,fontSize: 14.sp),
-                                            Icon(Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.fill)
-                                          ]
+                                      InkWell(
+                                        onTap: () {
+                                          print('fullText: ${_getController.fullText.value}');
+                                          _getController.fullText.value = !_getController.fullText.value;
+                                        },
+                                        child: Row(
+                                            children: [
+                                              TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1,fontSize: 14.sp),
+                                              Icon(Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.fill)
+                                            ]
+                                        )
                                       )
                                     ]
                                 )
+                            ),*/
+                      Container(
+                        width: Get.width,
+                        padding: EdgeInsets.only(top: Get.height * 0.01),
+                        child: Column(
+                          children: [
+                            _getController.productsModelDetail.value.result != null
+                                ? AnimatedSize(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                              child: Container(
+                                height: _getController.fullText.value ? null : 105.h,
+                                child: FadingEdgeScrollView.fromScrollView(
+                                  gradientFractionOnEnd: 0.5,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    controller: _getController.scrollControllerOk,
+                                    itemBuilder: (context, index) => TextSmall(
+                                      text: _getController.productsModelDetail.value.result!.first.description ?? '-',
+                                      color: RiveAppTheme.shadow,
+                                      fontWeight: FontWeight.w400,
+                                      maxLines: _getController.productsModelDetail.value.result!.first.description!.length,
+                                      fontSize: 10,
+                                    ),
+                                    itemCount: 1,
+                                  ),
+                                ),
+                              ),
+                            )
+                                : Skeletonizer(
+                              child: SizedBox(
+                                height: 105.h,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  controller: _getController.scrollControllerOk,
+                                  itemBuilder: (context, index) => const TextSmall(
+                                    text: 'text: _getController.productsModel.value.result![index].description!.toString(),',
+                                    color: RiveAppTheme.shadow,
+                                    fontWeight: FontWeight.w400,
+                                    maxLines: 1000,
+                                    fontSize: 10,
+                                  ),
+                                  itemCount: 10,
+                                ),
+                              ),
                             ),
-                            const Divider(color: Colors.grey, thickness: 1),
+                            InkWell(
+                              onTap: () {
+                                _getController.fullText.value = !_getController.fullText.value;
+                              },
+                              child: Row(
+                                children: [
+                                  TextSmall(
+                                    text: 'Batafsil',
+                                    color: AppColors.blue,
+                                    fontWeight: FontWeight.w400,
+                                    maxLines: 1,
+                                    fontSize: 14.sp,
+                                  ),
+                                  Icon(
+                                    _getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                    color: AppColors.blue,
+                                    size: Theme.of(context).iconTheme.size,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(color: Colors.grey, thickness: 1),
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
                             SizedBox(height: Get.height * 0.01),
