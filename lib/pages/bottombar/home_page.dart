@@ -7,9 +7,12 @@ import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
 import 'package:hicom_patners/pages/home/notification_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/home/skeleton_category.dart';
+import '../../companents/home/skeleton_products.dart';
 import '../../companents/product_item.dart';
 import '../../companents/product_items.dart';
 import '../../companents/refresh_component.dart';
@@ -25,7 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
-    ApiController().getCategories();
+    //ApiController().getCategories();
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -133,13 +136,16 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child:  _getController.categoriesModel.value.result != null ?
-                              Column(
+                          child: Column(
                               children: [
                                 SizedBox(height: 25.h),
-                                SearchTextField(color: AppColors.grey.withOpacity(0.2)),
+                                if (_getController.categoriesModel.value.result != null)
+                                  SearchTextField(color: AppColors.grey.withOpacity(0.2))
+                                else
+                                  Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
                                 SizedBox(height: 15.h),
-                                SizedBox(
+                                if (_getController.categoriesModel.value.result != null)
+                                  SizedBox(
                                     width: Get.width,
                                     height: 82.h,
                                     child: ListView.builder(
@@ -184,8 +190,11 @@ class HomePage extends StatelessWidget {
                                         itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
                                         shrinkWrap: true
                                     )
-                                ),
-                                Stack(
+                                )
+                                else
+                                  const SkeletonCategory(),
+                                if (_getController.productsModel.value.result != null)
+                                  Stack(
                                   children: [
                                     Positioned(
                                       child: Container(
@@ -217,8 +226,11 @@ class HomePage extends StatelessWidget {
                                         )
                                     )
                                   ]
-                                ),
-                                Stack(
+                                )
+                                else
+                                  const SkeletonProducts(),
+                                if (_getController.productsModel.value.result != null)
+                                  Stack(
                                     children: [
                                       Positioned(
                                           child: Container(
@@ -250,7 +262,9 @@ class HomePage extends StatelessWidget {
                                           )
                                       )
                                     ]
-                                ),
+                                )
+                                else
+                                  const SkeletonProducts(),
                                 if (_getController.categoriesProductsModel.value.all != null)
                                   Column(
                                     children: [
@@ -293,9 +307,8 @@ class HomePage extends StatelessWidget {
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
-                          ) : const Center(child: CircularProgressIndicator())
                           )
-
+                      )
                     ])
                 )
             )
