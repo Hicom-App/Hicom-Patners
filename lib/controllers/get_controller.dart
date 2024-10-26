@@ -682,6 +682,12 @@ class GetController extends GetxController {
 
   void clearProductsModelDetail() => productsModelDetail.value = CategoriesModel();
 
+  //productsModel
+
+  void clearProductsModel () => productsModel.value = CategoriesModel();
+
+  void clearCategoriesModel () => categoriesModel.value = CategoriesModel();
+
 }
 
 

@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
-    //ApiController().getCategories();
+    ApiController().getCategories();
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -39,8 +39,19 @@ class HomePage extends StatelessWidget {
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
                 onLoading: () async {
-                  _getController.clearCategoriesProductsModel();
+                  print('load');
+                  //_getController.clearCategoriesProductsModel();
                   ApiController().getAllCatProducts();
+                  _getController.refreshController.refreshCompleted();
+                  _getController.refreshController.loadComplete();
+                },
+                onRefresh: () async {
+                  _getController.refreshController.refreshCompleted();
+                  _getController.clearCategoriesProductsModel();
+                  _getController.clearProductsModel();
+                  _getController.clearCategoriesModel();
+                  ApiController().getCategories();
+
                 },
                 child: Obx(() => Column(
                     children: [
