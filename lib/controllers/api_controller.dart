@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
+import '../pages/auth/passcode_page.dart';
 import '../pages/auth/verify_page_number.dart';
 import '../pages/not_connection.dart';
 import 'get_controller.dart';
@@ -173,7 +174,8 @@ class ApiController extends GetxController {
           _getController.updateSelectedDate(DateTime.now());
           Get.to(() => const RegisterPage());
         } else if (isWorker) {
-          Get.offAll(() => SamplePage());
+          //Get.offAll(() => SamplePage());
+          Get.offAll(() => PasscodePage());
         }
       } else {
         debugPrint('Xatolik: ${data['message']}');
@@ -195,7 +197,7 @@ class ApiController extends GetxController {
     print(_getController.dropDownItems[2].toString());
     print(_getController.dropDownItems[3].toString());
     try {
-      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users'),);
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'),);
       request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
       request.fields['first_name'] = _getController.nameController.text;
       request.fields['last_name'] = _getController.surNameController.text;
@@ -243,7 +245,7 @@ class ApiController extends GetxController {
       'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id,
     };
     final response = await http.post(
-      Uri.parse('$baseUrl/users'),
+      Uri.parse('$baseUrl/users/profile'),
       headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
       body: jsonEncode(body),
     );
@@ -266,7 +268,7 @@ class ApiController extends GetxController {
 
   Future<void> deleteProfile() async {
     debugPrint('Profil o‘chirish');
-    final response = await http.delete(Uri.parse('$baseUrl/users'), headers: headersBearer());
+    final response = await http.delete(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
     debugPrint(response.body.toString());
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {

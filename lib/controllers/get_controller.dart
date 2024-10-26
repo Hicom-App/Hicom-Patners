@@ -560,17 +560,17 @@ class GetController extends GetxController {
   }
 
 
-  //final GlobalKey<ShakeWidgetState> shakeKey = GlobalKey<ShakeWidgetState>();
   List shakeKey = [
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>(),
-    GlobalKey<ShakeWidgetState>()
+    GlobalKey<ShakeWidgetState>(), //0
+    GlobalKey<ShakeWidgetState>(), //1
+    GlobalKey<ShakeWidgetState>(), //2
+    GlobalKey<ShakeWidgetState>(), //3
+    GlobalKey<ShakeWidgetState>(), //4
+    GlobalKey<ShakeWidgetState>(), //5
+    GlobalKey<ShakeWidgetState>(), //6
+    GlobalKey<ShakeWidgetState>(), //7
+    GlobalKey<ShakeWidgetState>(), //8
+    GlobalKey<ShakeWidgetState>()  //9
   ];
 
 

@@ -39,8 +39,6 @@ class HomePage extends StatelessWidget {
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
                 onLoading: () async {
-                  print('load');
-                  //_getController.clearCategoriesProductsModel();
                   ApiController().getAllCatProducts();
                   _getController.refreshController.refreshCompleted();
                   _getController.refreshController.loadComplete();
@@ -51,7 +49,6 @@ class HomePage extends StatelessWidget {
                   _getController.clearProductsModel();
                   _getController.clearCategoriesModel();
                   ApiController().getCategories();
-
                 },
                 child: Obx(() => Column(
                     children: [
