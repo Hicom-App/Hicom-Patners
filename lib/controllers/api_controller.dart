@@ -161,7 +161,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> getProfile({bool isWorker = true}) async {
-    final response = await http.get(Uri.parse('$baseUrl/users'), headers: headersBearer());
+    final response = await http.get(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);

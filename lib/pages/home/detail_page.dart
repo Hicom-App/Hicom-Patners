@@ -149,52 +149,6 @@ class DetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: Get.height * 0.02),
                             const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
-                            /*Container(
-                                width: Get.width,
-                                height: 140.h,
-                                padding: EdgeInsets.only(top: Get.height * 0.01),
-                                child: Column(
-                                    children: [
-                                      _getController.productsModelDetail.value.result != null
-                                          ? SizedBox(
-                                          height: 105.h,
-                                          child: FadingEdgeScrollView.fromScrollView(
-                                              gradientFractionOnEnd: 0.5,
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  padding: EdgeInsets.zero,
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  controller: _getController.scrollControllerOk,
-                                                  itemBuilder: (context, index) => TextSmall(
-                                                      text: _getController.productsModelDetail.value.result!.first.description != null ? _getController.productsModelDetail.value.result!.first.description!.toString() : '-',
-                                                      color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
-                                                  itemCount: _getController.productsModelDetail.value.result!.first.description != null ? _getController.productsModelDetail.value.result!.first.description!.length : 0
-                                              )
-                                          )
-                                      )
-                                          : Skeletonizer(child: SizedBox(height: 105.h, child:  ListView.builder(
-                                                shrinkWrap: true,
-                                                padding: EdgeInsets.zero,
-                                                physics: const NeverScrollableScrollPhysics(),
-                                                controller: _getController.scrollControllerOk,
-                                                itemBuilder: (context, index) => const TextSmall(text: ' text: _getController.productivity: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10),
-                                                itemCount: 10
-                                            ))),
-                                      InkWell(
-                                        onTap: () {
-                                          print('fullText: ${_getController.fullText.value}');
-                                          _getController.fullText.value = !_getController.fullText.value;
-                                        },
-                                        child: Row(
-                                            children: [
-                                              TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1,fontSize: 14.sp),
-                                              Icon(Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.fill)
-                                            ]
-                                        )
-                                      )
-                                    ]
-                                )
-                            ),*/
                       Container(
                         width: Get.width,
                         padding: EdgeInsets.only(top: Get.height * 0.01),
@@ -307,7 +261,7 @@ class DetailPage extends StatelessWidget {
                                 )
                             ),
                             SizedBox(
-                                height: 355.h,
+                                height: 345.h,
                                 width: Get.width,
                                 child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -316,8 +270,18 @@ class DetailPage extends StatelessWidget {
                                           SizedBox(width: 35.w),
                                           if (_getController.productsModel.value.result != null)
                                             for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                            //InkWell(onTap: () => print(_getController.categoriesProductsModel.value.all![i].result![index].id), child: ProductItems(index: i , i: index))
-                                              InkWell(onTap: () => Get.to(DetailPage(index: index, id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
+                                              InkWell(
+                                                onTap: () {
+                                                  // Ensure the id exists
+                                                  final productId = _getController.productsModel.value.result![index].id;
+                                                  if (productId != null) {
+                                                    Get.to(() => DetailPage(id: productId));
+                                                  }
+                                                },
+                                                child: ProductItem(index: index),
+                                              )
+                                              //InkWell(onTap: () {Get.to(DetailPage(id: _getController.productsModel.value.result![index].id));}, child: ProductItem(index: index))
+                                              //InkWell(onTap: () => print(_getController.productsModel.value.result![index].id), child: ProductItem(index: index))
                                         ]
                                     )
                                 )
