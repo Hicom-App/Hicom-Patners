@@ -16,9 +16,8 @@ import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'category_page.dart';
 
 class DetailPage extends StatelessWidget {
-  final int? index;
   final int? id;
-  DetailPage({super.key, this.index, this.id});
+  DetailPage({super.key, this.id});
 
   final GetController _getController = Get.put(GetController());
 
