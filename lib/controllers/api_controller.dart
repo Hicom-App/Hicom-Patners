@@ -45,6 +45,7 @@ class ApiController extends GetxController {
       if (data['status'] == 0) {
         //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
         _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
         _getController.startTimer();
         Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
       } else {
@@ -146,11 +147,12 @@ class ApiController extends GetxController {
           getProfile();
         } else if (data['status'] == 3 || data['status'] == 4) {
           Get.offAll(const LoginPage(), transition: Transition.fadeIn);
-          /*if (_getController.phoneNumber != '' && _getController.token != null) {
-            _getController.updateSelectedDate(DateTime.now());
-            Get.to(() => const RegisterPage());
-            getCountries();
-          } else {
+          if (_getController.phoneNumber != '' && _getController.token != null) {
+            //_getController.updateSelectedDate(DateTime.now());
+            Get.offAll(const LoginPage(), transition: Transition.fadeIn);
+            //getCountries();
+          }
+          /*else {
             Get.offAll(const LoginPage(), transition: Transition.fadeIn);
           }*/
         } else {
@@ -173,12 +175,11 @@ class ApiController extends GetxController {
       debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (isWorker == true && _getController.sendCodeModel.value.result != null && _getController.sendCodeModel.value.result!.newUser == false) {
+        if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
           getCountries();
           _getController.updateSelectedDate(DateTime.now());
-          _getController.clearSendCodeModel();
           Get.to(() => const RegisterPage());
-        } else if (isWorker == true) {
+        } else if (isWorker) {
           Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
         }
       } else {
