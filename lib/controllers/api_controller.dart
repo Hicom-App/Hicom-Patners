@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
-import '../pages/auth/passcode_page.dart';
+import '../pages/auth/passcode/create_passcode_page.dart';
+import '../pages/auth/passcode/passcode_page.dart';
 import '../pages/auth/verify_page_number.dart';
 import '../pages/not_connection.dart';
 import 'get_controller.dart';
@@ -175,7 +176,8 @@ class ApiController extends GetxController {
           Get.to(() => const RegisterPage());
         } else if (isWorker) {
           //Get.offAll(() => SamplePage());
-          Get.offAll(() => PasscodePage());
+          //Get.offAll(() => PasscodePage());
+          Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
         }
       } else {
         debugPrint('Xatolik: ${data['message']}');

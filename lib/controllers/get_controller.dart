@@ -35,9 +35,14 @@ class GetController extends GetxController {
   RxBool whileApi = true.obs;
   RxBool errorField = false.obs;
   RxBool errorFieldOk = false.obs;
+  var hasFingerprint = false.obs;
+  var hasFaceID = false.obs;
   Timer? _timerTap;
   Timer? _timer;
   var image = File('').obs;
+  RxString firstPasscode = ''.obs;
+  RxString enteredPasscode = ''.obs;
+  RxBool isCreatingPasscode = true.obs;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();
@@ -145,19 +150,15 @@ class GetController extends GetxController {
   }
 
   get phoneNumber => GetStorage().read('phoneNumber');
+
   get token => GetStorage().read('token');
+
   String maskPhoneNumber(String phoneNumber) {
     const int minimumLength = 12;
     const String maskedPart = '*****';
-
-    // Return the original number if it doesn't meet the minimum length
     if (phoneNumber.length < minimumLength) return phoneNumber;
-
-    // Calculate the prefix and suffix
     String prefix = phoneNumber.substring(0, 7);
     String suffix = phoneNumber.length > 7 ? phoneNumber.substring(phoneNumber.length - 1) : '';
-
-    // Return the formatted string
     return '$prefix$maskedPart$suffix';
   }
 
@@ -185,6 +186,7 @@ class GetController extends GetxController {
   }
 
   void stopTimer() => _timer!.cancel();
+
   void stopTimerTap() => _timerTap!.cancel();
 
   void resetTimer() {
@@ -252,8 +254,20 @@ class GetController extends GetxController {
     Get.updateLocale(locale);
   }
 
+  void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
+
+  void saveBiometrics(bool value) => GetStorage().write('biometrics', value);
+
+  bool getBiometrics() => GetStorage().read('biometrics') ?? false;
+
+  String getPassCode() => GetStorage().read('passCode') ?? '';
+
+  bool checkPassCode(String passCode) => GetStorage().read('passCode') == passCode;
+
+  void deletePassCode() => GetStorage().remove('passCode');
+
   Locale get language => Locale(GetStorage().read('language') ?? 'uz_UZ');
-  //if language == 'uz_UZ' return '1', if language == 'ru_RU' return '2', if language == 'en_US' return '3'
+
   int get languageIndex => language.languageCode == 'uz_UZ' ? 0 : language.languageCode == 'oz_OZ' ? 1 : language.languageCode == 'ru_RU' ? 2 : 3;
 
   String languageName(language) {
@@ -690,5 +704,18 @@ class GetController extends GetxController {
 
 }
 
+
+/*class GetController extends GetxController {
+  RxString enteredPasscode = ''.obs;
+  RxBool errorField = false.obs;
+  RxBool errorFieldOk = false.obs;
+  var hasFingerprint = false.obs;
+  var hasFaceID = false.obs;
+  void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
+
+  String getPassCode() => GetStorage().read('passCode');
+
+  bool checkPassCode(String passCode) => GetStorage().read('passCode') == passCode;
+}*/
 
 
