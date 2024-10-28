@@ -78,6 +78,7 @@ class CreatePasscodePage extends StatelessWidget {
   void _showBiometricDialog() {
     Get.defaultDialog(
       backgroundColor: AppColors.white,
+      barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       title: 'Biometrik autentifikatsiyadan foydalanasizmi?',
       titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -165,13 +166,14 @@ class CreatePasscodePage extends StatelessWidget {
                                     itemCount: 12,
                                     itemBuilder: (context, index) {
                                       if (index == 9) {
-                                        return IconButton(
+                                        return const SizedBox();
+                                        /*return IconButton(
                                           icon: Icon(
                                             _getController.hasFingerprint.value ? Icons.fingerprint : _getController.hasFaceID.value ? Icons.face : null,
                                             size: 28,
                                           ),
                                           onPressed: () => _showBiometricDialog(),
-                                        );
+                                        );*/
                                       } else if (index == 10) {
                                         return _buildNumberButton('0');
                                       } else if (index == 11) {
