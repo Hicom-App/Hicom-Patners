@@ -12,6 +12,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../companents/instrument/shake_widget.dart';
 import '../models/auth/countries_model.dart';
+import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/bottombar/account_page.dart';
@@ -605,6 +606,7 @@ class GetController extends GetxController {
   var productsModelDetail = CategoriesModel().obs;
   var categoryProductsModel = CategoriesModel().obs;
   var categoriesProductsModel = CategoriesProductsModel().obs;
+  var sendCodeModel = SendCodeModel().obs;
 
 
   //change models
@@ -664,6 +666,8 @@ class GetController extends GetxController {
     categoriesProductsModel.refresh();
   }
 
+  void changeSendCodeModel(SendCodeModel sendCodeModels) => sendCodeModel.value = sendCodeModels;
+
   //clear models
 
   void clearCountriesModel() {
@@ -696,11 +700,11 @@ class GetController extends GetxController {
 
   void clearProductsModelDetail() => productsModelDetail.value = CategoriesModel();
 
-  //productsModel
-
   void clearProductsModel () => productsModel.value = CategoriesModel();
 
   void clearCategoriesModel () => categoriesModel.value = CategoriesModel();
+
+  void clearSendCodeModel () => sendCodeModel.value = SendCodeModel();
 
 }
 

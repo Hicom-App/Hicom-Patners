@@ -8,6 +8,7 @@ import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
+import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
@@ -42,6 +43,8 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
+        //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
+        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
         _getController.startTimer();
         Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
       } else {
@@ -142,13 +145,14 @@ class ApiController extends GetxController {
           debugPrint('Login muvaffaqiyatli: ${data['message']}');
           getProfile();
         } else if (data['status'] == 3 || data['status'] == 4) {
-          if (_getController.phoneNumber != '' && _getController.token != null) {
+          Get.offAll(const LoginPage(), transition: Transition.fadeIn);
+          /*if (_getController.phoneNumber != '' && _getController.token != null) {
             _getController.updateSelectedDate(DateTime.now());
             Get.to(() => const RegisterPage());
             getCountries();
           } else {
             Get.offAll(const LoginPage(), transition: Transition.fadeIn);
-          }
+          }*/
         } else {
           Get.offAll(NotConnection(), transition: Transition.fadeIn);
         }
@@ -159,7 +163,6 @@ class ApiController extends GetxController {
       debugPrint('bilmasam endi: $e');
       Get.offAll(NotConnection(), transition: Transition.fadeIn);
     }
-
   }
 
   Future<void> getProfile({bool isWorker = true}) async {
@@ -170,13 +173,12 @@ class ApiController extends GetxController {
       debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
+        if (isWorker == true && _getController.sendCodeModel.value.result != null && _getController.sendCodeModel.value.result!.newUser == false) {
           getCountries();
           _getController.updateSelectedDate(DateTime.now());
+          _getController.clearSendCodeModel();
           Get.to(() => const RegisterPage());
-        } else if (isWorker) {
-          //Get.offAll(() => SamplePage());
-          //Get.offAll(() => PasscodePage());
+        } else if (isWorker == true) {
           Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
         }
       } else {
@@ -221,10 +223,12 @@ class ApiController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(responseBody);
         if (data['status'] == 0) {
+          _getController.clearSendCodeModel();
           getProfile(isWorker: false);
           Get.back();
         } else if (data['status'] == 1) {
           Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
