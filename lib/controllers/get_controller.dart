@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -611,6 +612,7 @@ class GetController extends GetxController {
   var categoriesProductsModel = CategoriesProductsModel().obs;
   var sendCodeModel = SendCodeModel().obs;
   var warrantyModel = WarrantyModel().obs;
+  var sortedWarrantyModel = SortedWarrantyModel().obs;
 
 
   //change models
@@ -672,7 +674,12 @@ class GetController extends GetxController {
 
   void changeSendCodeModel(SendCodeModel sendCodeModels) => sendCodeModel.value = sendCodeModels;
 
-  void changeWarrantyModel(WarrantyModel warrantyModels) => warrantyModel.value = warrantyModels;
+  void changeWarrantyModel(WarrantyModel warrantyModels) {
+    warrantyModel.value = warrantyModels;
+    warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
+    sortedWarrantyModel.value = convertToSortedWarrantyModel(warrantyModel.value);
+    print(sortedWarrantyModel.value.toJson());
+  }
 
   //clear models
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class WarrantyModel {
   int? status;
   String? message;
@@ -41,7 +43,20 @@ class Result {
   String? photoUrl;
   String? description;
 
-  Result({this.id, this.productId, this.serialCode, this.cashback, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.name, this.categoryId, this.brand, this.photoUrl, this.description});
+  Result({
+    this.id,
+    this.productId,
+    this.serialCode,
+    this.cashback,
+    this.warrantyStart,
+    this.warrantyExpire,
+    this.dateCreated,
+    this.name,
+    this.categoryId,
+    this.brand,
+    this.photoUrl,
+    this.description,
+  });
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -75,3 +90,139 @@ class Result {
     return data;
   }
 }
+
+class SortedWarrantyModel {
+  int? status;
+  String? message;
+  List<SortedResult>? result;
+
+  SortedWarrantyModel({this.status, this.message, this.result});
+
+  SortedWarrantyModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    if (json['result'] != null) {
+      result = <SortedResult>[];
+      json['result'].forEach((v) {
+        result!.add(SortedResult.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class SortedResult {
+  String? date;
+  List<Result>? result;
+
+  SortedResult({this.date, this.result});
+
+  SortedResult.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    if (json['result'] != null) {
+      result = <Result>[];
+      json['result'].forEach((v) {
+        result!.add(Result.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['date'] = date;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+// Function to convert the original data to sorted structure
+SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
+  SortedWarrantyModel sortedModel = SortedWarrantyModel(
+    status: warrantyModel.status,
+    message: warrantyModel.message,
+    result: [],
+  );
+
+  // For demonstration purposes, we're using static dates.
+  // You can implement your own logic to determine the dates based on your requirements.
+  Map<String, List<Result>> groupedResults = {};
+
+  for (var res in warrantyModel.result!) {
+    String dateKey = ""; // Use logic to determine date key based on warrantyStart or other fields
+    if (res.warrantyStart!.contains("2024-10-29")) {
+      dateKey = "bugun";
+    } else if (res.warrantyStart!.contains("2024-10-28")) {
+      dateKey = "kecha";
+    } else {
+      dateKey = "27 Oct"; // Example for other dates
+    }
+
+    if (!groupedResults.containsKey(dateKey)) {
+      groupedResults[dateKey] = [];
+    }
+    groupedResults[dateKey]!.add(res);
+  }
+
+  groupedResults.forEach((key, value) {
+    sortedModel.result!.add(SortedResult(date: key, result: value));
+  });
+
+  return sortedModel;
+}
+
+/*void main() {
+  String jsonString = '''{
+    "status": 0,
+    "message": "OK",
+    "result": [
+      {
+        "id": 3001,
+        "product_id": 17,
+        "serial_code": "3001>wnuGikAPCvrIwJi56SXhMQ==",
+        "cashback": null,
+        "warranty_start": "2024-10-28T12:13:05.000Z",
+        "warranty_expire": "2025-10-28T12:13:05.000Z",
+        "date_created": "2024-10-22T05:28:12.000Z",
+        "name": "Test uchun Mahsulot",
+        "category_id": 1,
+        "brand": "",
+        "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
+        "description": "Qanaqadir switch"
+      },
+      {
+        "id": 3002,
+        "product_id": 17,
+        "serial_code": "3002>a0+q/nMmVq3B0R5I3nkrnQ==",
+        "cashback": null,
+        "warranty_start": "2024-10-29T06:03:25.000Z",
+        "warranty_expire": "2025-10-29T06:03:25.000Z",
+        "date_created": "2024-10-22T05:28:12.000Z",
+        "name": "Test uchun Mahsulot",
+        "category_id": 1,
+        "brand": "",
+        "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
+        "description": "Qanaqadir switch"
+      }
+    ]
+  }''';
+
+  // Parse JSON
+  WarrantyModel warrantyModel = WarrantyModel.fromJson(json.decode(jsonString));
+
+  // Convert to SortedWarrantyModel
+  SortedWarrantyModel sortedWarrantyModel = convertToSortedWarrantyModel(warrantyModel);
+
+  // Print result
+  print(json.encode(sortedWarrantyModel.toJson()));
+}*/
