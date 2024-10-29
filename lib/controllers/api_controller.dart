@@ -403,4 +403,23 @@ class ApiController extends GetxController {
     }
   }
 
+  //curl -X 'DELETE' \
+  //   'http://185.196.213.76:8080/api/warranty/products?id=17' \
+  //   -H 'accept: application/json' \
+  //   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJUeXBlIjowLCJkYXRlU2Vzc2lvbiI6MTczMDExNDk4NTg2NywiaWF0IjoxNzMwMTE0OTg1LCJleHAiOjE3Mzg3NTQ5ODV9.mzyQcYF_hcr1B3bafn1C6OntpZfGKwW7qUevN4er7ak'
+  Future<void> deleteWarrantyProduct(int id) async {
+    final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        getWarrantyProducts();
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
 }
