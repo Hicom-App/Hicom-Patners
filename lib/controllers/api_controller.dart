@@ -11,6 +11,7 @@ import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
+import '../models/sample/warranty_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
 import '../pages/auth/verify_page_number.dart';
@@ -358,4 +359,48 @@ class ApiController extends GetxController {
       await getProduct(_getController.categoriesModel.value.result![i].id ?? 0);
     }
   }
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Kafolatli mahsulotlar
+
+  Future<void> addWarrantyProduct(String code) async {
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
+    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+    request.fields.addAll({'qrcode': _getController.codeController.text});
+    var response = await request.send();
+    var responseBody = await response.stream.bytesToString();
+    debugPrint(responseBody.toString());
+    if (response.statusCode == 200) {
+      _getController.tabController.index = 2;
+      _getController.changeIndex(2);
+      _getController.changeWidgetOptions();
+      _getController.searchController.clear();
+      var data = jsonDecode(responseBody);
+      if (data['status'] == 0) {
+        debugPrint(data.toString());
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    }
+  }
+
+  //get warranty products
+  Future<void> getWarrantyProducts() async {
+    final response = await http.get(Uri.parse('$baseUrl/warranty/products'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
 }

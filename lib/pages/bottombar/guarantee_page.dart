@@ -1,7 +1,7 @@
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
@@ -16,6 +16,7 @@ class GuaranteePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiController().getWarrantyProducts();
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(

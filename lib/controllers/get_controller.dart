@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
@@ -15,9 +15,9 @@ import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
+import '../models/sample/warranty_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
-import '../resource/colors.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
@@ -76,7 +76,9 @@ class GetController extends GetxController {
       result.value = scanData;
       if (scanData.code != null) {
         codeController.text = scanData.code.toString();
+        ApiController().addWarrantyProduct(scanData.code.toString());
         controller?.pauseCamera();
+        controller?.dispose();
         Get.back();
       }
     });
@@ -227,6 +229,7 @@ class GetController extends GetxController {
   }
 
   late TabController tabController;
+
 
   String maskString(String input) {
     if (input.length < 20) return input;
@@ -607,6 +610,7 @@ class GetController extends GetxController {
   var categoryProductsModel = CategoriesModel().obs;
   var categoriesProductsModel = CategoriesProductsModel().obs;
   var sendCodeModel = SendCodeModel().obs;
+  var warrantyModel = WarrantyModel().obs;
 
 
   //change models
@@ -668,6 +672,8 @@ class GetController extends GetxController {
 
   void changeSendCodeModel(SendCodeModel sendCodeModels) => sendCodeModel.value = sendCodeModels;
 
+  void changeWarrantyModel(WarrantyModel warrantyModels) => warrantyModel.value = warrantyModels;
+
   //clear models
 
   void clearCountriesModel() {
@@ -706,20 +712,7 @@ class GetController extends GetxController {
 
   void clearSendCodeModel () => sendCodeModel.value = SendCodeModel();
 
+  void clearWarrantyModel () => warrantyModel.value = WarrantyModel();
+
 }
-
-
-/*class GetController extends GetxController {
-  RxString enteredPasscode = ''.obs;
-  RxBool errorField = false.obs;
-  RxBool errorFieldOk = false.obs;
-  var hasFingerprint = false.obs;
-  var hasFaceID = false.obs;
-  void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
-
-  String getPassCode() => GetStorage().read('passCode');
-
-  bool checkPassCode(String passCode) => GetStorage().read('passCode') == passCode;
-}*/
-
 

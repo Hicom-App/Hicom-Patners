@@ -22,15 +22,15 @@ class SamplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _getController.changeWidgetOptions();
-    return Scaffold(
+    return Obx(() =>  Scaffold(
         drawerEnableOpenDragGesture: false,
-        body: Obx(() => _getController.widgetOptions.elementAt(_getController.index.value)),
+        body:_getController.widgetOptions.elementAt(_getController.index.value),
         extendBody: true,
         bottomNavigationBar: ConvexAppBar(
           style: TabStyle.fixedCircle,
           cornerRadius: 25.r,
           color: AppColors.black70,
-          backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+          backgroundColor: AppColors.white,
           shadowColor: AppColors.grey,
           elevation: 7.sp,
           activeColor: AppColors.red,
@@ -50,8 +50,8 @@ class SamplePage extends StatelessWidget {
             const TabItem(icon: EneftyIcons.box_3_bold),
             const TabItem(icon: EneftyIcons.chart_2_bold),
           ],
-          onTap: (int i) => _onItemTapped(i >= 3 ? i-1 : i),
+          onTap: (int i) => _onItemTapped(i >= 3 ? i-1 : i)
         )
-    );
+    ));
   }
 }
