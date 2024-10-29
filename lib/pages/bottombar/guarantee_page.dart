@@ -211,54 +211,18 @@ class GuaranteePage extends StatelessWidget {
                                                           Positioned(
                                                               width: 2,
                                                               height: Get.height * 0.11,
-                                                              child: Center(
-                                                                  child: Container(
-                                                                    alignment: Alignment.center,
-                                                                    width: 2.w,
-                                                                    height: Get.height * 0.09,
-                                                                    decoration: BoxDecoration(
-                                                                        color: AppColors.black,
-                                                                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                                                                        boxShadow: [
-                                                                          BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))
-                                                                        ]
-                                                                    ),
-                                                                  )
-                                                              )
+                                                              child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(10.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))])))
                                                           ),
                                                           Positioned(
                                                               right: 0,
                                                               width: 2,
                                                               height: Get.height * 0.11,
-                                                              child: Center(
-                                                                  child: Container(
-                                                                    alignment: Alignment.center,
-                                                                    width: 2.w,
-                                                                    height: Get.height * 0.09,
-                                                                    decoration: BoxDecoration(
-                                                                        color: AppColors.black,
-                                                                        borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                                                                        boxShadow: [
-                                                                          BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))
-                                                                        ]
-                                                                    ),
-                                                                  )
-                                                              )
+                                                              child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(20.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))]),))
                                                           ),
                                                           Positioned.fill(
                                                               child: Container(
-                                                                  width: Get.width * 0.30,
-                                                                  height: Get.height * 0.11,
                                                                   decoration: const BoxDecoration(color: AppColors.white),
-                                                                  child: ClipRRect(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                                                                      child: FadeInImage(
-                                                                          image: NetworkImage(_getController.warrantyModel.value.result![index].photoUrl ?? 'https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'),
-                                                                          placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                                          imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                                                          fit: BoxFit.cover
-                                                                      )
-                                                                  )
+                                                                  child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(20.r)), child: FadeInImage(image: NetworkImage(_getController.warrantyModel.value.result![index].photoUrl ?? 'https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));}, fit: BoxFit.cover))
                                                               )
                                                           )
                                                         ]
@@ -282,39 +246,25 @@ class GuaranteePage extends StatelessWidget {
                                                           Row(
                                                               children: [
                                                                 SizedBox(width: 75.w, child: TextSmall(text: 'Kategoriya:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 11.sp)),
-                                                                SizedBox(
-                                                                    width: Get.width * 0.225,
-                                                                    child: TextSmall(text: _getController.getCategoryName(_getController.warrantyModel.value.result![index].categoryId!.toInt()), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp)
-                                                                )
+                                                                SizedBox(width: Get.width * 0.225, child: TextSmall(text: _getController.getCategoryName(_getController.warrantyModel.value.result![index].categoryId!.toInt()), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp))
                                                               ]
                                                           ),
                                                           Row(
                                                               children: [
                                                                 SizedBox(width: 75.w, child: TextSmall(text: 'Qo`shilgan:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 11.sp)),
-                                                                SizedBox(
-                                                                    width: Get.width * 0.225,
-                                                                    child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.warrantyModel.value.result![index].dateCreated.toString())), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp)
-                                                                )
+                                                                SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.warrantyModel.value.result![index].dateCreated.toString())), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp))
                                                               ]
                                                           ),
                                                           Row(
                                                               children: [
                                                                 SizedBox(width: 75.w, child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 11.sp)),
-                                                                SizedBox(
-                                                                    width: Get.width * 0.225,
-                                                                    child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp)
-                                                                )
+                                                                SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold,fontSize: 11.sp))
                                                               ]
                                                           ),
                                                           SizedBox(height: 6.h),
                                                           Row(
                                                               children: [
-                                                                Container(
-                                                                    width: 80.w,
-                                                                    padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                                                                    decoration: BoxDecoration(color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(11.r)),
-                                                                    child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas' : 'Faol', color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
-                                                                ),
+                                                                Container(width: 80.w, padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2), decoration: BoxDecoration(color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(11.r)), child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas' : 'Faol', color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))),
                                                                 const Spacer(),
                                                                 Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp),
                                                                 SizedBox(width: 11.w)
