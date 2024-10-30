@@ -371,7 +371,7 @@ class ApiController extends GetxController {
 
   Future<void> addFavorites(int id) async {
     final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'),
-        body: {'product_id': id.toString()},
+        body: {'product_id': id.toString(),'favorite': '1'},
         headers: {'Authorization': 'Bearer ${_getController.token}'});
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
