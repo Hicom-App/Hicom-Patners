@@ -329,6 +329,7 @@ class InstrumentComponents {
                 TextButton(
                     onPressed: () => {
                       Get.back(),
+                      ApiController().logout(),
                       _getController.logout(),
                       Get.offAll(() => const LoginPage(), transition: Transition.fadeIn)
                     },

@@ -2,6 +2,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
@@ -41,7 +42,9 @@ class ProductItem extends StatelessWidget{
                             fit: BoxFit.cover
                         )
                     ),
-                    Positioned(right: 12.w, top: 10.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
+                    Positioned(right: 12.w, top: 10.h, child: InkWell(
+                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt()),
+                        child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : AppColors.black, size: 20.sp)))
                   ]
               ),
               Padding(

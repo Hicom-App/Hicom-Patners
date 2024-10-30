@@ -13,33 +13,18 @@ class CustomRefreshHeader extends StatelessWidget {
       builder: (BuildContext context, RefreshStatus? mode) {
         Widget body;
         if (mode == RefreshStatus.idle) {
-          body = Text(
-            'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: color),
-          );
+          body = Text('Ma’lumotlarni yangilash uchun tashlang'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         } else if (mode == RefreshStatus.refreshing) {
-          body = Container(
-            margin: EdgeInsets.only(top: 20.sp),
-            child: const CircularProgressIndicator(color: Colors.blue, backgroundColor: Colors.white, strokeWidth: 2),
-          );
+          body = Container(margin: EdgeInsets.only(top: 20.sp), child: const CircularProgressIndicator(color: Colors.blue, backgroundColor: Colors.white, strokeWidth: 2));
         } else if (mode == RefreshStatus.failed) {
-          body = Text(
-            'Ex nimadir xato ketdi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: color),
-          );
+          body = Text('Ex nimadir xato ketdi'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         } else if (mode == RefreshStatus.canRefresh) {
-          body = Text(
-            'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: color),
-          );
+          body = Text('Ma’lumotlarni yangilash uchun tashlang'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         } else {
-          body = Text(
-            'Ma’lumotlar yangilandi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: color),
-          );
+          body = Text('Ma’lumotlar yangilandi'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         }
         return SizedBox(height: 60.sp, child: Center(child: body));
-      },
+      }
     );
   }
 }

@@ -64,6 +64,8 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
+        _getController.deletePassCode();
+        _getController.saveBiometrics(false);
         _getController.saveToken(data['result']['token']);
         _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
         _getController.errorFieldOk.value = true;
@@ -291,6 +293,17 @@ class ApiController extends GetxController {
     }
   }
 
+  //curl -X 'GET' \
+  //   'http://185.196.213.76:8080/api/users/logout' \
+  //   -H 'accept: application/json' \
+  //   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJUeXBlIjowLCJkYXRlU2Vzc2lvbiI6MTczMDI3OTM3MTI0MiwiaWF0IjoxNzMwMjc5MzcxLCJleHAiOjE3Mzg5MTkzNzF9.GYoD1_rFKsmPk5A8TY47T_VwHWunw0HEfLQuUUFQfKk'
+
+  Future<void> logout() async {
+    final response = await http.get(Uri.parse('$baseUrl/users/logout'), headers: headersBearer());
+    debugPrint(response.body.toString());
+    debugPrint(response.statusCode.toString());
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
 
@@ -360,6 +373,21 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> addFavorites(int id) async {
+    final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'),
+        body: {'product_id': id.toString()},
+        headers: {'Authorization': 'Bearer ${_getController.token}'});
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        print(data.toString());
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    }
+  }
 
 
 
