@@ -231,7 +231,6 @@ class GetController extends GetxController {
 
   late TabController tabController;
 
-
   String maskString(String input) {
     if (input.length < 20) return input;
     String prefix = input.substring(0, 6);
@@ -254,7 +253,7 @@ class GetController extends GetxController {
   }
 
   void saveLanguage(Locale locale) {
-    print(locale.languageCode);
+    debugPrint(locale.languageCode.toString());
     GetStorage().write('language', '${locale.languageCode}_${locale.countryCode}');
     Get.updateLocale(locale);
   }
@@ -478,7 +477,6 @@ class GetController extends GetxController {
     'HDD',
     'camera'
   ].obs;
-
   var listCardBackImage = [
     'https://i.pinimg.com/564x/9c/68/86/9c6886dd642a4869f3fa4578f9fe34ef.jpg',
     'https://i.pinimg.com/474x/f2/32/41/f2324123ed322610368ebc8c8c871b6e.jpg',
@@ -540,15 +538,11 @@ class GetController extends GetxController {
   // Method to trigger animation
   void startDelayedAnimation() {
     animateTextFields.value = true;
-    Future.delayed(const Duration(milliseconds: 100), () {
-      animateTextFields.value = false;
-    });
+    Future.delayed(const Duration(milliseconds: 100), () => animateTextFields.value = false);
   }
 
   // Method to update keyboard visibility
-  void updateKeyboardVisibility(bool isVisible) {
-    isKeyboardVisible.value = isVisible;
-  }
+  void updateKeyboardVisibility(bool isVisible) => isKeyboardVisible.value = isVisible;
 
   // Update selected date
   void updateSelectedDate(DateTime newDate) {
@@ -568,16 +562,13 @@ class GetController extends GetxController {
             initialDateTime: selectedDate.value,
             minimumDate: DateTime(1900),
             maximumDate: DateTime.now().add(const Duration(days: 365)),
-            onDateTimeChanged: (DateTime newDate) {
-              updateSelectedDate(newDate);
-            },
-            mode: CupertinoDatePickerMode.date,
-          ),
+            onDateTimeChanged: (DateTime newDate) => updateSelectedDate(newDate),
+            mode: CupertinoDatePickerMode.date
+          )
         );
-      },
+      }
     );
   }
-
 
   List shakeKey = [
     GlobalKey<ShakeWidgetState>(), //0
@@ -591,7 +582,6 @@ class GetController extends GetxController {
     GlobalKey<ShakeWidgetState>(), //8
     GlobalKey<ShakeWidgetState>()  //9
   ];
-
 
   int textCount = 0;
   final int limitTextLength = 20;
@@ -654,6 +644,7 @@ class GetController extends GetxController {
   void changeCategoriesModel(CategoriesModel categories) => categoriesModel.value = categories;
 
   void changeProductsModel(CategoriesModel categoriesModel) => productsModel.value = categoriesModel;
+
   void changeProductsModelDetail(CategoriesModel categoriesModel) => productsModelDetail.value = categoriesModel;
 
   void changeCatProductsModel(CategoriesModel categoriesModel) => categoryProductsModel.value = categoriesModel;
@@ -720,6 +711,8 @@ class GetController extends GetxController {
   void clearSendCodeModel () => sendCodeModel.value = SendCodeModel();
 
   void clearWarrantyModel () => warrantyModel.value = WarrantyModel();
+
+  void clearSortedWarrantyModel () => sortedWarrantyModel.value = SortedWarrantyModel();
 
 }
 
