@@ -35,7 +35,6 @@ class GuaranteePage extends StatelessWidget {
         refreshController: _getController.refreshGuaranteeController,
         scrollController: _getController.scrollGuaranteeController,
         child: Obx(() {
-          // Check if the warranty model has data
           if (_getController.warrantyModel.value.result != null) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
@@ -47,7 +46,6 @@ class GuaranteePage extends StatelessWidget {
               }
               groupedWarranty[formattedDate]!.add(warranty);
             }
-
             return Column(
               children: [
                 SizedBox(height: Get.height * 0.01),
