@@ -20,7 +20,7 @@ class GuaranteePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
-    //ApiController().getWarrantyProducts();
+    ApiController().getWarrantyProducts();
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
@@ -34,6 +34,7 @@ class GuaranteePage extends StatelessWidget {
       body: RefreshComponent(
         refreshController: _getController.refreshGuaranteeController,
         scrollController: _getController.scrollGuaranteeController,
+        color: AppColors.black,
         child: Obx(() {
           if (_getController.warrantyModel.value.result != null) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);

@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
             width: Get.width,
             decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover)),
             child: RefreshComponent(
+                color: AppColors.white,
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
                 onLoading: () async {

@@ -4,7 +4,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomRefreshHeader extends StatelessWidget {
-  const CustomRefreshHeader({super.key});
+  final Color? color;
+  const CustomRefreshHeader({super.key, this.color = Colors.white});
   @override
   Widget build(BuildContext context) {
     return CustomHeader(
@@ -14,7 +15,7 @@ class CustomRefreshHeader extends StatelessWidget {
         if (mode == RefreshStatus.idle) {
           body = Text(
             'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
+            style: TextStyle(fontSize: 14.sp, color: color),
           );
         } else if (mode == RefreshStatus.refreshing) {
           body = Container(
@@ -24,17 +25,17 @@ class CustomRefreshHeader extends StatelessWidget {
         } else if (mode == RefreshStatus.failed) {
           body = Text(
             'Ex nimadir xato ketdi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.error),
+            style: TextStyle(fontSize: 14.sp, color: color),
           );
         } else if (mode == RefreshStatus.canRefresh) {
           body = Text(
             'Ma’lumotlarni yangilash uchun tashlang'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
+            style: TextStyle(fontSize: 14.sp, color: color),
           );
         } else {
           body = Text(
             'Ma’lumotlar yangilandi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.surface),
+            style: TextStyle(fontSize: 14.sp, color: color),
           );
         }
         return SizedBox(height: 60.sp, child: Center(child: body));
@@ -44,7 +45,8 @@ class CustomRefreshHeader extends StatelessWidget {
 }
 
 class CustomRefreshFooter extends StatelessWidget {
-  const CustomRefreshFooter({super.key});
+  final Color? color;
+  const CustomRefreshFooter({super.key, this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {
@@ -56,20 +58,14 @@ class CustomRefreshFooter extends StatelessWidget {
         } else if (mode == LoadStatus.loading) {
           body = const CircularProgressIndicator(color: Colors.blue, backgroundColor: Colors.white, strokeWidth: 2);
         } else if (mode == LoadStatus.failed) {
-          body = Text(
-            'Ex nimadir xato ketdi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.error),
-          );
+          body = Text('Ex nimadir xato ketdi'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         } else if (mode == LoadStatus.canLoading) {
           body = const SizedBox();
         } else {
-          body = Text(
-            'Ma’lumotlar yangilandi'.tr,
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurface),
-          );
+          body = Text('Ma’lumotlar yangilandi'.tr, style: TextStyle(fontSize: 14.sp, color: color));
         }
         return SizedBox(height: 60.sp, child: Center(child: body));
-      },
+      }
     );
   }
 }
