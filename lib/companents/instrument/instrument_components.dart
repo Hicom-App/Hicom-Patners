@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import '../../pages/home/add_card_page.dart';
 import '../../resource/colors.dart';
 import '../filds/text_large.dart';
 import '../filds/text_small.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class InstrumentComponents {
   final GetController _getController = Get.put(GetController());
@@ -404,4 +406,83 @@ class InstrumentComponents {
             })
     );
 
+  void addRate(BuildContext context) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      title: 'Mahsulotni baxolang',
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: Get.height * 0.01),
+          RatingBar.builder(
+              initialRating: _getController.productsModelDetail.value.result!= null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
+              minRating: 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemSize: 25.sp,
+              itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),
+              unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+              itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
+              onRatingUpdate: (rating) {
+                _getController.ratings = rating;
+              }
+          ),
+          SizedBox(height: Get.height * 0.01),
+          TextSmall(text: 'Izoh qoldiring', color: Theme.of(context).colorScheme.onSurface),
+          SizedBox(height: Get.height * 0.01),
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: TextField(
+                controller: _getController.surNameController,
+                keyboardType: TextInputType.multiline,
+                maxLength: 200,
+                maxLines: null, // TextField avtomatik kattalashadi, lekin 150.sp dan oshmaydi
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
+                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1))
+                )
+              )
+          )
+        ]
+      ),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(
+              onPressed: () async {
+                ApiController().addReview(_getController.productsModelDetail.value.result!.first.id ?? 0);
+              },
+              child: TextSmall(text: 'Saqlash'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      ),
+      cancel: Container(
+          width: 120.w,
+          height: 42.h,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
+
+  //toast message
+  void showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.blue,
+        textColor: AppColors.white,
+        fontSize: 16.sp
+    );
+  }
 }

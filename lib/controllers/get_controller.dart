@@ -166,7 +166,6 @@ class GetController extends GetxController {
     return '$prefix$maskedPart$suffix';
   }
 
-
   int getType() => dropDownItems[2];
 
   final countdownDuration = const Duration(minutes: 0, seconds: 7).obs;
@@ -174,7 +173,6 @@ class GetController extends GetxController {
   void startTimer() {
     if (_timer != null && _timer!.isActive) _timer!.cancel();
     if (countdownDuration.value.inSeconds > 0) {
-      print(countdownDuration.value.inSeconds);
       const oneSec = Duration(seconds: 1);
       _timer = Timer.periodic(
           oneSec, (timer) {
@@ -182,7 +180,6 @@ class GetController extends GetxController {
           timer.cancel();
         } else {
           countdownDuration.value = countdownDuration.value - oneSec;
-          print(countdownDuration.value.inSeconds);
         }
       }
       );
@@ -194,9 +191,7 @@ class GetController extends GetxController {
   void stopTimerTap() => _timerTap!.cancel();
 
   void resetTimer() {
-    if (_timer != null && _timer!.isActive) {
-      stopTimer();
-    }
+    if (_timer != null && _timer!.isActive) stopTimer();
     countdownDuration.value = const Duration(minutes: 1, seconds: 59);
     startTimer();
   }
@@ -205,7 +200,7 @@ class GetController extends GetxController {
     if (_timer != null && _timer!.isActive) {
       stopTimer();
     }
-    countdownDuration.value = const Duration(minutes: 0, seconds: 05);
+    countdownDuration.value = const Duration(minutes: 1, seconds: 59);
     startTimer();
   }
 
@@ -219,7 +214,6 @@ class GetController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
   final TextEditingController passwordProjectController = TextEditingController();
-
   final TextEditingController verifyCodeControllers = TextEditingController();
 
   void clearControllers() {
@@ -603,6 +597,9 @@ class GetController extends GetxController {
   var sendCodeModel = SendCodeModel().obs;
   var warrantyModel = WarrantyModel().obs;
   var sortedWarrantyModel = SortedWarrantyModel().obs;
+
+  var rating = 0.0.obs;
+  set ratings(double ratings) => rating.value = ratings;
 
 
   //change models

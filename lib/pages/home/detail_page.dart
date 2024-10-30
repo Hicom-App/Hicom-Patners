@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -83,17 +84,11 @@ class DetailPage extends StatelessWidget {
                                   Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        _getController.productsModelDetail.value.result != null
-                                            ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)
-                                            : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
-                                        _getController.productsModelDetail.value.result != null
-                                            ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
-                                            : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
+                                        _getController.productsModelDetail.value.result != null ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp) : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
+                                        _getController.productsModelDetail.value.result != null ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp) : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
                                       ]
                                   ),
-                                  _getController.productsModelDetail.value.result != null
-                                      ? Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 19.sp))
-                                      : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
+                                  _getController.productsModelDetail.value.result != null ? Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)) : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
                                 ]
                             ),
                             SizedBox(height: Get.height * 0.02),
@@ -109,11 +104,7 @@ class DetailPage extends StatelessWidget {
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                TextSmall(text: 'Baxo', color: AppColors.black70,fontSize: 10.sp),
-                                                _getController.productsModelDetail.value.result != null
-                                                    ? Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: _getController.productsModelDetail.value.result!.first.rating != null ? _getController.productsModelDetail.value.result!.first.rating.toString() : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)])
-                                                    : Skeletonizer(child: Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: '289 ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)])
-                                                )
+                                                TextSmall(text: 'Baxo', color: AppColors.black70,fontSize: 10.sp), _getController.productsModelDetail.value.result != null ? Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: _getController.productsModelDetail.value.result!.first.rating != null ? _getController.productsModelDetail.value.result!.first.rating.toStringAsFixed(1) : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)]) : Skeletonizer(child: Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: '289 ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)]))
                                               ]
                                           )
                                       ),
@@ -124,9 +115,7 @@ class DetailPage extends StatelessWidget {
                                               children: [
                                                 TextSmall(text: 'Kafolat', color: AppColors.black70,fontSize: 10.sp),
                                                 SizedBox(width: Get.width * 0.01),
-                                                _getController.productsModelDetail.value.result != null
-                                                    ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} kun', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
-                                                    : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
+                                                _getController.productsModelDetail.value.result != null ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} kun', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15) : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
                                               ]
                                           )
                                       ),
@@ -137,9 +126,7 @@ class DetailPage extends StatelessWidget {
                                               children: [
                                                 TextSmall(text: 'Brend', color: AppColors.black70,fontSize: 10.sp),
                                                 SizedBox(width: Get.width * 0.01),
-                                                _getController.productsModelDetail.value.result != null
-                                                    ? TextSmall(text: _getController.productsModelDetail.value.result!.first.brand != '' ? _getController.productsModelDetail.value.result!.first.brand.toString() : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
-                                                    : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
+                                                _getController.productsModelDetail.value.result != null ? TextSmall(text: _getController.productsModelDetail.value.result!.first.brand != '' ? _getController.productsModelDetail.value.result!.first.brand.toString() : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15) : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
                                               ]
                                           )
                                       )
@@ -147,38 +134,36 @@ class DetailPage extends StatelessWidget {
                                 )
                             ),
                             SizedBox(height: Get.height * 0.02),
+                            if (_getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.first.description != null)
                             const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
-                      Container(
-                        width: Get.width,
-                        padding: EdgeInsets.only(top: Get.height * 0.01),
-                        child: Column(
-                          children: [
-                            _getController.productsModelDetail.value.result != null
-                                ? AnimatedSize(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                              child: Container(
-                                height: _getController.fullText.value ? null : 105.h,
-                                child: FadingEdgeScrollView.fromScrollView(
-                                  gradientFractionOnEnd: 0.5,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.zero,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    controller: _getController.scrollControllerOk,
-                                    itemBuilder: (context, index) => TextSmall(
-                                      text: _getController.productsModelDetail.value.result!.first.description ?? '-',
-                                      color: RiveAppTheme.shadow,
-                                      fontWeight: FontWeight.w400,
-                                      maxLines: _getController.productsModelDetail.value.result!.first.description!.length,
-                                      fontSize: 10,
-                                    ),
-                                    itemCount: 1,
-                                  ),
-                                ),
-                              ),
-                            )
-                                : Skeletonizer(
+                            Container(
+                                width: Get.width,
+                                padding: EdgeInsets.only(top: Get.height * 0.01),
+                                child: Column(
+                                    children: [
+                                      _getController.productsModelDetail.value.result != null ? AnimatedSize(duration: const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOut,
+                                        child: SizedBox(
+                                          height: _getController.fullText.value ? null : 105.h,
+                                          child: FadingEdgeScrollView.fromScrollView(
+                                            gradientFractionOnEnd: 0.5,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              controller: _getController.scrollControllerOk,
+                                              itemBuilder: (context, index) => TextSmall(
+                                                text: _getController.productsModelDetail.value.result!.first.description ?? '-',
+                                                color: RiveAppTheme.shadow,
+                                                fontWeight: FontWeight.w400,
+                                                maxLines: _getController.productsModelDetail.value.result!.first.description!.length,
+                                                fontSize: 10
+                                              ),
+                                              itemCount: 1
+                                            )
+                                          )
+                                        )
+                                      ) : Skeletonizer(
                               child: SizedBox(
                                 height: 105.h,
                                 child: ListView.builder(
@@ -197,7 +182,7 @@ class DetailPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            InkWell(
+                                      InkWell(
                               onTap: () {
                                 _getController.fullText.value = !_getController.fullText.value;
                               },
@@ -210,18 +195,15 @@ class DetailPage extends StatelessWidget {
                                     maxLines: 1,
                                     fontSize: 14.sp,
                                   ),
-                                  Icon(
-                                    _getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                                    color: AppColors.blue,
-                                    size: Theme.of(context).iconTheme.size,
-                                  ),
-                                ],
-                              ),
+                                  Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size
+                                  )
+                                ]
+                              )
+                            )
+                                    ]
+                                )
                             ),
-                          ],
-                        ),
-                      ),
-                      const Divider(color: Colors.grey, thickness: 1),
+                            const Divider(color: Colors.grey, thickness: 1),
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
                             SizedBox(height: Get.height * 0.01),
@@ -234,9 +216,11 @@ class DetailPage extends StatelessWidget {
                                 itemSize: 20.sp,
                                 itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),
                                 unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                                itemBuilder: (context, _) =>
-                                const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
-                                onRatingUpdate: (rating) {}
+                                itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
+                                onRatingUpdate: (rating) {
+                                  _getController.ratings = rating;
+                                  InstrumentComponents().addRate(context);
+                                }
                             )
                           ]
                       )
@@ -271,16 +255,13 @@ class DetailPage extends StatelessWidget {
                                             for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
                                               InkWell(
                                                 onTap: () {
-                                                  // Ensure the id exists
                                                   final productId = _getController.productsModel.value.result![index].id;
                                                   if (productId != null) {
                                                     Get.to(() => DetailPage(id: productId));
                                                   }
                                                 },
-                                                child: ProductItem(index: index),
+                                                child: ProductItem(index: index)
                                               )
-                                              //InkWell(onTap: () {Get.to(DetailPage(id: _getController.productsModel.value.result![index].id));}, child: ProductItem(index: index))
-                                              //InkWell(onTap: () => print(_getController.productsModel.value.result![index].id), child: ProductItem(index: index))
                                         ]
                                     )
                                 )

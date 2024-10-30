@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
@@ -293,11 +294,6 @@ class ApiController extends GetxController {
     }
   }
 
-  //curl -X 'GET' \
-  //   'http://185.196.213.76:8080/api/users/logout' \
-  //   -H 'accept: application/json' \
-  //   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJUeXBlIjowLCJkYXRlU2Vzc2lvbiI6MTczMDI3OTM3MTI0MiwiaWF0IjoxNzMwMjc5MzcxLCJleHAiOjE3Mzg5MTkzNzF9.GYoD1_rFKsmPk5A8TY47T_VwHWunw0HEfLQuUUFQfKk'
-
   Future<void> logout() async {
     final response = await http.get(Uri.parse('$baseUrl/users/logout'), headers: headersBearer());
     debugPrint(response.body.toString());
@@ -389,6 +385,25 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> addReview(int id) async {
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/catalog/reviews'));
+    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+    request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
+    var response = await request.send();
+    var responseBody = await response.stream.bytesToString();
+    debugPrint(responseBody.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(responseBody);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        print(data.toString());
+        InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
+        Get.back();
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    }
+  }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

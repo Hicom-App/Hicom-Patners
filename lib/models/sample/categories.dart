@@ -49,9 +49,10 @@ class CategoriesModel {
   }
 }
 
-class Result {int? id;int? active;String? name;int? categoryId;int? cashback;int? warranty; String? brand; int? price; int? discount;int? reviews;var rating;String? description;String? photoUrl;
+class Result {
+  int? id;int? active;String? name;int? categoryId;int? cashback;int? warranty; String? brand; int? price; int? discount;int? reviews;var rating;String? description;String? photoUrl;int? favorite;
 
-  Result({this.id, this.active, this.name, this.categoryId, this.cashback, this.warranty, this.brand, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl});
+  Result({this.id, this.active, this.name, this.categoryId, this.cashback, this.warranty, this.brand, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl, this.favorite});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,6 +68,7 @@ class Result {int? id;int? active;String? name;int? categoryId;int? cashback;int
     rating = json['rating'];
     description = json['description'];
     photoUrl = json['photo_url'];
+    favorite = json['favorite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -84,6 +86,7 @@ class Result {int? id;int? active;String? name;int? categoryId;int? cashback;int
     data['rating'] = rating;
     data['description'] = description;
     data['photo_url'] = photoUrl;
+    data['favorite'] = favorite;
     return data;
   }
 }
