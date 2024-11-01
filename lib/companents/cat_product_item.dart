@@ -72,5 +72,4 @@ class CatProductItem extends StatelessWidget{
         )
     );
   }
-
 }
