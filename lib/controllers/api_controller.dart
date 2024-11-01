@@ -11,6 +11,7 @@ import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
+import '../models/sample/reviews_model.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
@@ -415,6 +416,7 @@ class ApiController extends GetxController {
         } else {
           _getController.clearProductsModelDetail();
           _getController.changeProductsModelDetail(CategoriesModel.fromJson(data));
+          getReviews(categoryId);
         }
       } else {
         debugPrint('Xatolik: ${data['message']}');
@@ -466,6 +468,22 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> getReviews(int id) async {
+    _getController.clearReviewsModel();
+    final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        _getController.changeReviewsModel(ReviewsModel.fromJson(data));
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Kafolatli mahsulotlar
@@ -507,10 +525,6 @@ class ApiController extends GetxController {
     }
   }
 
-  //curl -X 'DELETE' \
-  //   'http://185.196.213.76:8080/api/warranty/products?id=17' \
-  //   -H 'accept: application/json' \
-  //   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJUeXBlIjowLCJkYXRlU2Vzc2lvbiI6MTczMDExNDk4NTg2NywiaWF0IjoxNzMwMTE0OTg1LCJleHAiOjE3Mzg3NTQ5ODV9.mzyQcYF_hcr1B3bafn1C6OntpZfGKwW7qUevN4er7ak'
   Future<void> deleteWarrantyProduct(int id) async {
     final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
     if (response.statusCode == 200) {

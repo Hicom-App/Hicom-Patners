@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
+import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -164,42 +165,42 @@ class DetailPage extends StatelessWidget {
                                           )
                                         )
                                       ) : Skeletonizer(
-                              child: SizedBox(
-                                height: 105.h,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  controller: _getController.scrollControllerOk,
-                                  itemBuilder: (context, index) => const TextSmall(
-                                    text: 'text: _getController.productsModel.value.result![index].description!.toString(),',
-                                    color: RiveAppTheme.shadow,
-                                    fontWeight: FontWeight.w400,
-                                    maxLines: 1000,
-                                    fontSize: 10,
-                                  ),
-                                  itemCount: 10,
-                                ),
-                              ),
-                            ),
+                                        child: SizedBox(
+                                          height: 105.h,
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.zero,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            controller: _getController.scrollControllerOk,
+                                            itemBuilder: (context, index) => const TextSmall(
+                                              text: 'text: _getController.productsModel.value.result![index].description!.toString(),',
+                                              color: RiveAppTheme.shadow,
+                                              fontWeight: FontWeight.w400,
+                                              maxLines: 1000,
+                                              fontSize: 10
+                                            ),
+                                            itemCount: 10
+                                          )
+                                        )
+                                      ),
                                       InkWell(
-                              onTap: () {
-                                _getController.fullText.value = !_getController.fullText.value;
-                              },
-                              child: Row(
-                                children: [
-                                  TextSmall(
-                                    text: 'Batafsil',
-                                    color: AppColors.blue,
-                                    fontWeight: FontWeight.w400,
-                                    maxLines: 1,
-                                    fontSize: 14.sp,
-                                  ),
-                                  Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size
-                                  )
-                                ]
-                              )
-                            )
+                                          onTap: () {
+                                            _getController.fullText.value = !_getController.fullText.value;
+                                            },
+                                          child: Row(
+                                              children: [
+                                                TextSmall(
+                                                  text: 'Batafsil',
+                                                  color: AppColors.blue,
+                                                  fontWeight: FontWeight.w400,
+                                                  maxLines: 1,
+                                                  fontSize: 14.sp,
+                                                ),
+                                                Icon(!_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size
+                                                )
+                                              ]
+                                          )
+                                      )
                                     ]
                                 )
                             ),
@@ -221,10 +222,75 @@ class DetailPage extends StatelessWidget {
                                   _getController.ratings = rating;
                                   InstrumentComponents().addRate(context);
                                 }
-                            )
+                            ),
+                            SizedBox(height: Get.height * 0.01),
+                            const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
+                            if (_getController.reviewsModel.value.result != null)
+                              for (int index = 0; index < _getController.reviewsModel.value.result!.length; index++)
+                                Container(
+                                  width: Get.width,
+                                  margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                          children: [
+                                            Container(
+                                                height: 25.w, width: 25.w,
+                                                margin: EdgeInsets.only(right: 6.w),
+                                                decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25, offset: Offset(0, 0))]),
+                                                child: ClipOval(
+                                                    child: FadeInImage(
+                                                        image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13') : AssetImage(_getController.image.value.path),
+                                                        placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                        imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)));},
+                                                        fit: BoxFit.cover
+                                                    )
+                                                )
+                                            ),
+                                            TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
+                                            TextSmall(text: ' | ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                                            Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))
+                                          ]
+                                      ),
+                                      SizedBox(height: Get.height * 0.01),
+                                      RatingBar.builder(
+                                          initialRating: _getController.reviewsModel.value.result![index].rating!.toDouble(),
+                                          minRating: 0,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 12.sp,
+                                          itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
+                                          unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                                          itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp), onRatingUpdate: (double value) {  },
+                                      ),
+                                      SizedBox(height: Get.height * 0.01),
+                                      TextSmall(text: 'The BMW M3 GTR is an iconic racing car renowned for its exceptional performance and aggressive styling. Equipped with a potent 4.0-liter V8 engine, it generates over 450 horsepower....With a 0-100 km/h acceleration time of just around 4 seconds, the M3 GTR boasts an impressive top speed exceeding 280 km/h.Featuring state-of-the-art aerodynamics and innovative handling technologies, the M3 GTR delivers unparalleled stability and precision, especially on the track.Originally priced at approximately \$1.3 million, the BMW M3 GTR stands as a symbol of high-performance engineering and automotive excellence.Its limited production run of only ten units adds to its allure, making it highly coveted by racing aficionados and collectors worldwide.Feel free to join my Instagram for regular quizzes and automotive updates!', color: AppColors.black70, fontSize: 12.sp),
+                                      //TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp),
+                                      Row(
+                                          children: [
+                                            TextSmall(text: 'To\'liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                            Icon(!_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                          ]
+                                      )
+                                    ]
+                                  )
+                                )
                           ]
                       )
                   ),
+
+                  /*for (int index = 0; index < _getController.reviewsModel.value.result!.length; index++)
+                    Container(
+                      width: Get.width,
+                      height: Get.height * 0.1,
+                      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                      padding: EdgeInsets.only(top: Get.height * 0.01 * index),
+                      color: AppColors.red,
+                    ),*/
+
                   Container(
                       color: AppColors.white,
                       child: Stack(

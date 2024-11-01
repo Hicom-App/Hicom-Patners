@@ -16,6 +16,7 @@ import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
+import '../models/sample/reviews_model.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
@@ -597,6 +598,7 @@ class GetController extends GetxController {
   var sendCodeModel = SendCodeModel().obs;
   var warrantyModel = WarrantyModel().obs;
   var sortedWarrantyModel = SortedWarrantyModel().obs;
+  var reviewsModel = ReviewsModel().obs;
 
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -669,6 +671,8 @@ class GetController extends GetxController {
     print(sortedWarrantyModel.value.toJson());
   }
 
+  void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;
+
   //clear models
 
   void clearCountriesModel() {
@@ -711,5 +715,6 @@ class GetController extends GetxController {
 
   void clearSortedWarrantyModel () => sortedWarrantyModel.value = SortedWarrantyModel();
 
+  void clearReviewsModel () => reviewsModel.value = ReviewsModel();
 }
 

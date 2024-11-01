@@ -438,7 +438,7 @@ class InstrumentComponents {
               child: TextField(
                 controller: _getController.surNameController,
                 keyboardType: TextInputType.multiline,
-                maxLength: 200,
+                maxLength: 162,
                 maxLines: null, // TextField avtomatik kattalashadi, lekin 150.sp dan oshmaydi
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
