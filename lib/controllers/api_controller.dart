@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
+import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
@@ -384,7 +385,6 @@ class ApiController extends GetxController {
 
   // Mahsulotlar ro'yxatini olish
   Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false}) async {
-    //final response = await http.get(Uri.parse('$baseUrl/catalog/products?category_id=$categoryId'),
     final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -509,7 +509,6 @@ class ApiController extends GetxController {
     }
   }
 
-  //get warranty products
   Future<void> getWarrantyProducts() async {
     final response = await http.get(Uri.parse('$baseUrl/warranty/products'), headers: headersBearer());
     if (response.statusCode == 200) {
@@ -532,6 +531,25 @@ class ApiController extends GetxController {
       debugPrint(data.toString());
       if (data['status'] == 0) {
         getWarrantyProducts();
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//To'lovlar
+
+  Future<void> getCards() async {
+    final response = await http.get(Uri.parse('$baseUrl/payment/cards'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        _getController.changeCardsModel(CardsModel.fromJson(data));
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }

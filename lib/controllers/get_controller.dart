@@ -14,6 +14,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../companents/instrument/shake_widget.dart';
 import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
+import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
@@ -237,6 +238,11 @@ class GetController extends GetxController {
   String formatPower(double? power) {
     if (power! <= 0) return "--";
     return "${power.toStringAsFixed(1)}W";
+  }
+
+  String formatNumber(String number) {
+    if (number.length != 16) {return number;}
+    return '${number.substring(0, 4)}   ${number.substring(4, 6)}**   ****   ${number.substring(12)}';
   }
 
   String getPortTypes(int port) {
@@ -611,6 +617,8 @@ class GetController extends GetxController {
   var warrantyModel = WarrantyModel().obs;
   var sortedWarrantyModel = SortedWarrantyModel().obs;
   var reviewsModel = ReviewsModel().obs;
+  //CardsModel
+  var cardsModel = CardsModel().obs;
 
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -685,8 +693,11 @@ class GetController extends GetxController {
 
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;
 
-  //_getController.categoriesProductsModel.value.all![index].result![i].favorite update models
+  void changeCardsModel(CardsModel cardsModels) => cardsModel.value = cardsModels;
 
+
+
+  //Functions change models
   void updateCategoriesProductsModel(int item, int index, int value) {
     if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {
       categoriesProductsModel.value.all![item].result![index].favorite = value;
@@ -711,6 +722,9 @@ class GetController extends GetxController {
       categoryProductsModel.refresh();
     }
   }
+
+
+
   //clear models
 
   void clearCountriesModel() {
