@@ -281,16 +281,6 @@ class DetailPage extends StatelessWidget {
                           ]
                       )
                   ),
-
-                  /*for (int index = 0; index < _getController.reviewsModel.value.result!.length; index++)
-                    Container(
-                      width: Get.width,
-                      height: Get.height * 0.1,
-                      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                      padding: EdgeInsets.only(top: Get.height * 0.01 * index),
-                      color: AppColors.red,
-                    ),*/
-
                   Container(
                       color: AppColors.white,
                       child: Stack(
