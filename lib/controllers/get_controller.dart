@@ -530,6 +530,18 @@ class GetController extends GetxController {
   var formattedDate = ''.obs;
   RxBool fullText = false.obs;
 
+  RxList<bool> isExpandedList = RxList<bool>();
+
+  void toggleExpandedComment(int index) {
+    isExpandedList[index] = !isExpandedList[index];
+    isExpandedList.refresh();
+  }
+
+  void initializeExpandedCommentList(int length) {
+    if (isExpandedList.length != length) {
+      isExpandedList = List<bool>.filled(length, false).obs;
+    }
+  }
   // Method to trigger animation
   void startDelayedAnimation() {
     animateTextFields.value = true;

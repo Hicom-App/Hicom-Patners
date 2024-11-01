@@ -432,10 +432,8 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> addFavorites(int id) async {
-    final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'),
-        body: {'product_id': id.toString(),'favorite': '1'},
-        headers: {'Authorization': 'Bearer ${_getController.token}'});
+  Future<void> addFavorites(int id, {bool isProduct = true}) async {
+    final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: {'Authorization': 'Bearer ${_getController.token}'});
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -476,6 +474,7 @@ class ApiController extends GetxController {
       debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeReviewsModel(ReviewsModel.fromJson(data));
+        _getController.initializeExpandedCommentList(data['result'].length);
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }

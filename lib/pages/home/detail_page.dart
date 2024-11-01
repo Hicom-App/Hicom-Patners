@@ -19,10 +19,10 @@ import 'category_page.dart';
 
 class DetailPage extends StatelessWidget {
   final int? id;
+
   DetailPage({super.key, this.id});
 
   final GetController _getController = Get.put(GetController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,49 +33,43 @@ class DetailPage extends StatelessWidget {
         body: RefreshComponent(
             refreshController: _getController.refreshGuaranteeController,
             scrollController: _getController.scrollGuaranteeController,
-            child: Obx(() => Column(
-                children: [
+            child: Obx(() => Column(children: [
                   SizedBox(
                       height: Get.height * 0.37,
                       width: Get.width,
-                      child: Column(
-                          children: [
-                            SizedBox(
+                      child: Column(children: [
+                        SizedBox(
+                            width: Get.width,
+                            child: AppBar(
+                                surfaceTintColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                foregroundColor: AppColors.blue,
+                                backgroundColor: Colors.grey.shade200,
+                                centerTitle: true,
+                                elevation: 0,
+                                title: _getController.productsModelDetail.value.result != null
+                                    ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString().toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)
+                                    : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)),
+                                actions: [
+                                  IconButton(icon: Icon(Icons.share, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
+                                  IconButton(icon: Icon(Icons.more_vert, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())])),
+                        Expanded(
+                            child: SizedBox(
                                 width: Get.width,
-                                child: AppBar(
-                                    surfaceTintColor: Colors.transparent,
-                                    shadowColor: Colors.transparent,
-                                    foregroundColor: AppColors.blue,
-                                    backgroundColor: Colors.grey.shade200,
-                                    centerTitle: true,
-                                    elevation: 0,
-                                    title: _getController.productsModelDetail.value.result != null
-                                        ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString().toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 20.sp)
-                                        : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 20.sp)),
-                                    actions: [
-                                      IconButton(icon: Icon(Icons.share, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
-                                      IconButton(icon: Icon(Icons.more_vert, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
-                                    ]
-                                )
-                            ),
-                            Expanded(
-                                child: SizedBox(
-                                    width: Get.width,
-                                    child: FadeInImage(
-                                        image: _getController.productsModelDetail.value.result != null ? NetworkImage(_getController.productsModelDetail.value.result!.first.photoUrl.toString()) : const AssetImage('assets/images/logo_back.png'),
-                                        placeholder: const AssetImage('assets/images/logo_back.png'),
-                                        imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
-                                        fit: BoxFit.cover
-                                    )
-                                )
+                                child: FadeInImage(
+                                    image: _getController.productsModelDetail.value.result != null ? NetworkImage(_getController.productsModelDetail.value.result!.first.photoUrl.toString()) : const AssetImage('assets/images/logo_back.png'),
+                                    placeholder: const AssetImage('assets/images/logo_back.png'),
+                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));}, fit: BoxFit.cover)
                             )
-                          ]
+                        )]
                       )
                   ),
-                  Container(
-                      width: Get.width,
-                      padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h, top: 20.h),
-                      decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)], color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+              Container(
+                  width: Get.width,
+                  padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h, top: 20.h),
+                      decoration: BoxDecoration(
+                          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)],
+                          color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -85,13 +79,22 @@ class DetailPage extends StatelessWidget {
                                   Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        _getController.productsModelDetail.value.result != null ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp) : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
-                                        _getController.productsModelDetail.value.result != null ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp) : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
+                                        _getController.productsModelDetail.value.result != null
+                                            ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)
+                                            : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
+                                        _getController.productsModelDetail.value.result != null
+                                            ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
+                                            : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
                                       ]
                                   ),
-                                  _getController.productsModelDetail.value.result != null ? Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)) : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
-                                ]
-                            ),
+                                  _getController.productsModelDetail.value.result != null
+                                      ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false)),
+                                      child: Container(
+                                          padding: EdgeInsets.all(9.r),
+                                          decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)),
+                                          child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
+                                      : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
+                                ]),
                             SizedBox(height: Get.height * 0.02),
                             Container(
                                 width: Get.width,
@@ -105,7 +108,26 @@ class DetailPage extends StatelessWidget {
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                TextSmall(text: 'Baxo', color: AppColors.black70,fontSize: 10.sp), _getController.productsModelDetail.value.result != null ? Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: _getController.productsModelDetail.value.result!.first.rating != null ? _getController.productsModelDetail.value.result!.first.rating.toStringAsFixed(1) : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)]) : Skeletonizer(child: Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp,size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: '289 ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)]))
+                                                TextSmall(text: 'Baxo', color: AppColors.black70, fontSize: 10.sp),
+                                                _getController.productsModelDetail.value.result != null
+                                                ? Row(
+                                                    children: [
+                                                      Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 15.sp),
+                                                      SizedBox(width: Get.width * 0.01),
+                                                      TextSmall(text: _getController.productsModelDetail.value.result!.first.rating != null ? _getController.productsModelDetail.value.result!.first.rating.toStringAsFixed(1) : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
+                                                  ])
+                                                : Skeletonizer(child: Row(children: [Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 15.sp), SizedBox(width: Get.width * 0.01), TextSmall(text: '289 ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)]))
+                                          ])),
+                                      const VerticalDivider(color: Colors.grey, thickness: 1, width: 20, indent: 10, endIndent: 10),
+                                      Center(
+                                          child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                TextSmall(text: 'Kafolat', color: AppColors.black70, fontSize: 10.sp),
+                                                SizedBox(width: Get.width * 0.01),
+                                                _getController.productsModelDetail.value.result != null
+                                                    ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} kun', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
+                                                    : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
                                               ]
                                           )
                                       ),
@@ -114,20 +136,11 @@ class DetailPage extends StatelessWidget {
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                TextSmall(text: 'Kafolat', color: AppColors.black70,fontSize: 10.sp),
-                                                SizedBox(width: Get.width * 0.01),
-                                                _getController.productsModelDetail.value.result != null ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} kun', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15) : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
-                                              ]
-                                          )
-                                      ),
-                                      const VerticalDivider(color: Colors.grey, thickness: 1, width: 20, indent: 10, endIndent: 10),
-                                      Center(
-                                          child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                TextSmall(text: 'Brend', color: AppColors.black70,fontSize: 10.sp),
-                                                SizedBox(width: Get.width * 0.01),
-                                                _getController.productsModelDetail.value.result != null ? TextSmall(text: _getController.productsModelDetail.value.result!.first.brand != '' ? _getController.productsModelDetail.value.result!.first.brand.toString() : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15) : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
+                                            TextSmall(text: 'Brend', color: AppColors.black70, fontSize: 10.sp),
+                                            SizedBox(width: Get.width * 0.01),
+                                            _getController.productsModelDetail.value.result != null
+                                                ? TextSmall(text: _getController.productsModelDetail.value.result!.first.brand != '' ? _getController.productsModelDetail.value.result!.first.brand.toString() : '-', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
+                                                : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
                                               ]
                                           )
                                       )
@@ -136,198 +149,168 @@ class DetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: Get.height * 0.02),
                             if (_getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.first.description != null)
-                            const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
+                              const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
                             Container(
                                 width: Get.width,
                                 padding: EdgeInsets.only(top: Get.height * 0.01),
-                                child: Column(
-                                    children: [
-                                      _getController.productsModelDetail.value.result != null ? AnimatedSize(duration: const Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut,
-                                        child: SizedBox(
-                                          height: _getController.fullText.value ? null : 105.h,
-                                          child: FadingEdgeScrollView.fromScrollView(
-                                            gradientFractionOnEnd: 0.5,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              padding: EdgeInsets.zero,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              controller: _getController.scrollControllerOk,
-                                              itemBuilder: (context, index) => TextSmall(
-                                                text: _getController.productsModelDetail.value.result!.first.description ?? '-',
-                                                color: RiveAppTheme.shadow,
-                                                fontWeight: FontWeight.w400,
-                                                maxLines: _getController.productsModelDetail.value.result!.first.description!.length,
-                                                fontSize: 10
-                                              ),
-                                              itemCount: 1
-                                            )
-                                          )
-                                        )
-                                      ) : Skeletonizer(
-                                        child: SizedBox(
-                                          height: 105.h,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            padding: EdgeInsets.zero,
-                                            physics: const NeverScrollableScrollPhysics(),
-                                            controller: _getController.scrollControllerOk,
-                                            itemBuilder: (context, index) => const TextSmall(
-                                              text: 'text: _getController.productsModel.value.result![index].description!.toString(),',
-                                              color: RiveAppTheme.shadow,
-                                              fontWeight: FontWeight.w400,
-                                              maxLines: 1000,
-                                              fontSize: 10
-                                            ),
-                                            itemCount: 10
-                                          )
-                                        )
-                                      ),
-                                      InkWell(
-                                          onTap: () {
-                                            _getController.fullText.value = !_getController.fullText.value;
-                                            },
-                                          child: Row(
-                                              children: [
-                                                TextSmall(
-                                                  text: 'Batafsil',
-                                                  color: AppColors.blue,
-                                                  fontWeight: FontWeight.w400,
-                                                  maxLines: 1,
-                                                  fontSize: 14.sp,
-                                                ),
-                                                Icon(!_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size
-                                                )
-                                              ]
-                                          )
-                                      )
-                                    ]
-                                )
+                                child: Column(children: [
+                                  _getController.productsModelDetail.value.result != null
+                                      ? AnimatedSize(
+                                          duration: const Duration(milliseconds: 300),
+                                          curve: Curves.easeInOut,
+                                          child: SizedBox(
+                                              height: _getController.fullText.value ? null : 105.h,
+                                              child: FadingEdgeScrollView.fromScrollView(
+                                                  gradientFractionOnEnd: 0.5,
+                                                  child: ListView.builder(
+                                                      shrinkWrap: true,
+                                                      padding: EdgeInsets.zero,
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      controller: _getController.scrollControllerOk,
+                                                      itemBuilder: (context, index) => TextSmall(text: _getController.productsModelDetail.value.result!.first.description ?? '-', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: _getController.productsModelDetail.value.result!.first.description!.length, fontSize: 10), itemCount: 1))))
+                                      : Skeletonizer(child: SizedBox(height: 105.h, child: ListView.builder(shrinkWrap: true, padding: EdgeInsets.zero, physics: const NeverScrollableScrollPhysics(), controller: _getController.scrollControllerOk, itemBuilder: (context, index) => const TextSmall(text: 'text: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10), itemCount: 10))),
+                                  InkWell(
+                                      onTap: () {
+                                        _getController.fullText.value = !_getController.fullText.value;
+                                      },
+                                      child: Row(children: [
+                                        TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp),
+                                        Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                      ]))
+                                ])
                             ),
                             const Divider(color: Colors.grey, thickness: 1),
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
                             SizedBox(height: Get.height * 0.01),
                             RatingBar.builder(
-                                initialRating: _getController.productsModelDetail.value.result!= null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
+                                initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
                                 minRating: 0,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemSize: 20.sp,
-                                itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),
+                                itemPadding:
+                                EdgeInsets.symmetric(horizontal: 5.sp),
                                 unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
                                 itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                                 onRatingUpdate: (rating) {
                                   _getController.ratings = rating;
                                   InstrumentComponents().addRate(context);
-                                }
-                            ),
+                                }),
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
                             if (_getController.reviewsModel.value.result != null)
-                              for (int index = 0; index < _getController.reviewsModel.value.result!.length; index++)
+                              for (int index = 0;
+                                  index < _getController.reviewsModel.value.result!.length; index++)
                                 Container(
-                                  width: Get.width,
-                                  margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                          children: [
+                                    width: Get.width,
+                                    margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h),
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(children: [
                                             Container(
-                                                height: 25.w, width: 25.w,
-                                                margin: EdgeInsets.only(right: 6.w),
-                                                decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25, offset: Offset(0, 0))]),
-                                                child: ClipOval(
-                                                    child: FadeInImage(
-                                                        image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13') : AssetImage(_getController.image.value.path),
-                                                        placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                        imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)));},
-                                                        fit: BoxFit.cover
-                                                    )
-                                                )
-                                            ),
-                                            TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
-                                            TextSmall(text: ' | ', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
-                                            Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))
-                                          ]
-                                      ),
-                                      SizedBox(height: Get.height * 0.01),
-                                      RatingBar.builder(
-                                          initialRating: _getController.reviewsModel.value.result![index].rating!.toDouble(),
-                                          minRating: 0,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 12.sp,
-                                          itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
-                                          unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                                          itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp), onRatingUpdate: (double value) {  },
-                                      ),
-                                      SizedBox(height: Get.height * 0.01),
-                                      TextSmall(text: 'The BMW M3 GTR is an iconic racing car renowned for its exceptional performance and aggressive styling. Equipped with a potent 4.0-liter V8 engine, it generates over 450 horsepower....With a 0-100 km/h acceleration time of just around 4 seconds, the M3 GTR boasts an impressive top speed exceeding 280 km/h.Featuring state-of-the-art aerodynamics and innovative handling technologies, the M3 GTR delivers unparalleled stability and precision, especially on the track.Originally priced at approximately \$1.3 million, the BMW M3 GTR stands as a symbol of high-performance engineering and automotive excellence.Its limited production run of only ten units adds to its allure, making it highly coveted by racing aficionados and collectors worldwide.Feel free to join my Instagram for regular quizzes and automotive updates!', color: AppColors.black70, fontSize: 12.sp),
-                                      //TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp),
-                                      Row(
-                                          children: [
-                                            TextSmall(text: 'To\'liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
-                                            Icon(!_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
-                                          ]
-                                      )
-                                    ]
-                                  )
-                                )
-                          ]
-                      )
-                  ),
-                  Container(
-                      color: AppColors.white,
-                      child: Stack(
-                          children: [
-                            Positioned(
-                                child: Container(
-                                    margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                    child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                          const Spacer(),
-                                          TextButton(onPressed: () => Get.to(CategoryPage(index: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                        ]
-                                    )
-                                )
-                            ),
-                            SizedBox(
-                                height: 345.h,
-                                width: Get.width,
-                                child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                        children: [
-                                          SizedBox(width: 35.w),
-                                          if (_getController.productsModel.value.result != null)
-                                            for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                              InkWell(
-                                                onTap: () {
-                                                  final productId = _getController.productsModel.value.result![index].id;
-                                                  if (productId != null) {
-                                                    Get.to(() => DetailPage(id: productId));
-                                                  }
+                                              height: 25.w,
+                                              width: 25.w,
+                                              margin: EdgeInsets.only(right: 6.w),
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  boxShadow: [
+                                                    BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]),
+                                              child: ClipOval(
+                                                  child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != ''
+                                                    ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!)
+                                                    : AssetImage(_getController.image.value.path),
+                                                    placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                    imageErrorBuilder: (context, error, stackTrace) {
+                                                    return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);
                                                 },
-                                                child: ProductItem(index: index)
+                                                fit: BoxFit.cover
+                                              ))
+                                            ),
+                                            // User name and date
+                                            TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
+                                            const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),
+                                            Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))]),
+                                          SizedBox(height: Get.height * 0.01),
+                                          RatingBar.builder(
+                                            initialRating: _getController.reviewsModel.value.result![index].rating!.toDouble(),
+                                            minRating: 0,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemSize: 12.sp,
+                                            itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
+                                            unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                                            itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
+                                            onRatingUpdate: (double value) {},
+                                          ),
+                                          SizedBox(height: Get.height * 0.01),
+                                          // Review text with expand/collapse
+                                          AnimatedSize(
+                                              duration: const Duration(milliseconds: 300),
+                                              curve: Curves.easeInOut,
+                                              child: SizedBox(height: _getController.isExpandedList[index] ? null : 100.h, child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp))),
+                                          InkWell(
+                                              onTap: () {
+                                                _getController.isExpandedList[index] = !_getController.isExpandedList[index];_getController.update(); // Update the UI to reflect changes
+                                              },
+                                              child: Row(
+                                                  children: [
+                                                    TextSmall(text: _getController.isExpandedList[index] ? 'Kamroq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                                    Icon(_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                                  ]
                                               )
+                                          )
                                         ]
                                     )
+                                )
+                          ])),
+              Container(
+                  color: AppColors.white,
+                  child: Stack(
+                      children: [
+                        Positioned(
+                            child: Container(
+                                margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                      const Spacer(),
+                                      TextButton(onPressed: () => Get.to(CategoryPage(index: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                    ]
                                 )
                             )
-                          ]
-                      )
-                  ),
-                  SizedBox(height: Get.height * 0.1)
-                ]
-            ))
+                        ),
+                        SizedBox(
+                            height: 345.h,
+                            width: Get.width,
+                            child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                    children: [
+                                      SizedBox(width: 35.w),
+                                      if (_getController.productsModel.value.result != null)
+                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                          InkWell(
+                                              onTap: () {final productId = _getController.productsModel.value.result![index].id;
+                                                if (productId != null) {
+                                                  Get.to(() => DetailPage(id: productId));
+                                                }},
+                                              child: ProductItem(index: index)
+                                          )
+                                    ]
+                                )
+                            )
+                        )
+                      ]
+                  )
+              ),
+              SizedBox(height: Get.height * 0.1)
+            ]))
         )
     );
   }
