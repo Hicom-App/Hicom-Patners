@@ -24,17 +24,23 @@ class SendCodeModel {
 }
 
 class Result {
-  bool? newUser;
+  int? attempts;
+  String? confirmationId;
+  String? validUntil;
 
-  Result({this.newUser});
+  Result({this.attempts, this.confirmationId, this.validUntil});
 
   Result.fromJson(Map<String, dynamic> json) {
-    newUser = json['new_user'];
+    attempts = json['attempts'];
+    confirmationId = json['confirmation_id'];
+    validUntil = json['valid_until'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['new_user'] = newUser;
+    data['attempts'] = attempts;
+    data['confirmation_id'] = confirmationId;
+    data['valid_until'] = validUntil;
     return data;
   }
 }

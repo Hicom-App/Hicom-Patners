@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
 
     print('${_getController.token} ${_getController.phoneNumber}');
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
-      ApiController().login();
+      ApiController().getProfile();
     } else {
       //Get.offAll(() => LoginPage(), transition: Transition.downToUp);
       Get.offAll(() => LanguagePage(), transition: Transition.fadeIn);

@@ -168,7 +168,7 @@ class GetController extends GetxController {
 
   int getType() => dropDownItems[2];
 
-  final countdownDuration = const Duration(minutes: 0, seconds: 7).obs;
+  final countdownDuration = const Duration(minutes: 1, seconds: 59).obs;
 
   void startTimer() {
     if (_timer != null && _timer!.isActive) _timer!.cancel();

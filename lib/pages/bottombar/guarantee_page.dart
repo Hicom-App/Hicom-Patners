@@ -36,7 +36,7 @@ class GuaranteePage extends StatelessWidget {
         scrollController: _getController.scrollGuaranteeController,
         color: AppColors.black,
         child: Obx(() {
-          if (_getController.warrantyModel.value.result != null) {
+          if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
             Map<String, List<dynamic>> groupedWarranty = {};
@@ -227,7 +227,7 @@ class GuaranteePage extends StatelessWidget {
               ]
             );
           }
-          else {
+          else if (_getController.warrantyModel.value.result == null || _getController.warrantyModel.value.result!.isNotEmpty) {
             return Skeletonizer(
                 child: Column(
                     children: [
@@ -394,8 +394,23 @@ class GuaranteePage extends StatelessWidget {
                 )
             );
           }
-        }),
-      ),
+          else {
+            return SizedBox(
+              height: Get.height * 0.8,
+              width: Get.width,
+              child: Column(
+                  children: [
+                    SizedBox(height: Get.height * 0.01),
+                    SearchTextField(color: Colors.grey.withOpacity(0.2)),
+                    const Spacer(),
+                    Center(child: TextSmall(text: 'Ma\'lumot topilmadi', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16.sp)),
+                    const Spacer(),
+                  ]
+              )
+            );
+          }
+        })
+      )
     );
   }
 }

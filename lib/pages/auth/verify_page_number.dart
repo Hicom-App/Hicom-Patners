@@ -13,7 +13,8 @@ import '../../resource/colors.dart';
 final GlobalKey<_VerifyPageNumberState> verifyPageKey = GlobalKey<_VerifyPageNumberState>();
 
 class VerifyPageNumber extends StatefulWidget {
-  const VerifyPageNumber({super.key});
+  final bool isRegister;
+  const VerifyPageNumber({super.key, required this.isRegister});
 
   @override
   _VerifyPageNumberState createState() => _VerifyPageNumberState();
@@ -142,7 +143,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                                         keyboardType: TextInputType.number,
                                                         errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
                                                         onCompleted: (value) {
-                                                          ApiController().verifyPhone();
+                                                          ApiController().verifyPhone(widget.isRegister);
                                                         })),
                                                 Obx(() => Padding(
                                                     padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, top: Get.height * 0.01),

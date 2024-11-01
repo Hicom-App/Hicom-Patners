@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
-import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -28,7 +27,7 @@ class ApiController extends GetxController {
   Map<String, String> headersBearer() {
     return {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${_getController.token}',
+      'Authorization': 'Bearer ${_getController.token}'
     };
   }
 
@@ -36,7 +35,7 @@ class ApiController extends GetxController {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Registratsiya
 
-  Future<void> sendCode() async {
+  /*Future<void> sendCode() async {
     String url = '$baseUrl/auth/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
@@ -57,9 +56,59 @@ class ApiController extends GetxController {
     } else {
       debugPrint('Xatolik: Serverga ulanishda muammo');
     }
+  }*/
+
+  Future<void> sendCodeRegister() async {
+    //http://185.196.213.76:8080/api/users/register
+    String url = '$baseUrl/users/register';
+    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
+    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    debugPrint(_getController.code.value + _getController.phoneController.text);
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
+        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
+        _getController.startTimer();
+        Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
+      } else {
+        _getController.shakeKey[8].currentState?.shake();
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
   }
 
-  Future<void> verifyPhone() async {
+  Future<void> sendCode() async {
+    String url = '$baseUrl/users/login';
+    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
+    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    debugPrint(_getController.code.value + _getController.phoneController.text);
+    debugPrint(response.body.toString());
+    debugPrint(response.statusCode.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
+        _getController.startTimer();
+        Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
+      } else if (data['status'] == 3){
+        sendCodeRegister();
+      }
+      else {
+        _getController.shakeKey[8].currentState?.shake();
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
+
+  /*Future<void> verifyPhone() async {
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text, 'code': _getController.verifyCodeControllers.text};
     final response = await http.post(Uri.parse('$baseUrl/auth/verify'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
     if (response.statusCode == 200) {
@@ -76,6 +125,44 @@ class ApiController extends GetxController {
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
           login();
+        }, 1);
+        debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+      } else {
+        _getController.shakeKey[7].currentState?.shake();
+        debugPrint('Xatolik: ${data['message']}');
+        _getController.changeErrorInput(0, true);
+        _getController.errorField.value = true;
+        debugPrint('Xatolik: xaaa0');
+        _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }*/
+
+  Future<void> verifyPhone(bool isRegister) async {
+    Map<String, dynamic> body = {'confirmation_id': _getController.sendCodeModel.value.result?.confirmationId.toString(), 'code': _getController.verifyCodeControllers.text};
+    final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        _getController.deletePassCode();
+        _getController.saveBiometrics(false);
+        _getController.saveToken(data['result']['token']);
+        _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
+        _getController.errorFieldOk.value = true;
+        _getController.errorField.value = true;
+        _getController.tapTimes((){
+          _getController.errorFieldOk.value = false;
+          _getController.errorField.value = false;
+          _getController.verifyCodeControllers.clear();
+          //login();
+          if (isRegister) {
+            //RegisterPage();
+            Get.to(() => const RegisterPage());
+          } else {
+            getProfile();
+          }
         }, 1);
         debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
       } else {
@@ -138,66 +225,40 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> login() async {
-    Map<String, dynamic> body = {'phone': _getController.phoneNumber.toString()};
-    debugPrint(body.toString());
+  Future<void> getProfile({bool isWorker = true}) async {
     try {
-      final response = await http.post(Uri.parse('$baseUrl/auth/login'), headers: headersBearer(), body: jsonEncode(body));
-      debugPrint(response.body.toString());
-      if (response.statusCode == 200) {
+      final response = await http.get(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
+        debugPrint(data.toString());
         if (data['status'] == 0) {
-          debugPrint('Login muvaffaqiyatli: ${data['message']}');
-          getProfile();
-        } else if (data['status'] == 3 || data['status'] == 4) {
-          Get.offAll(const LoginPage(), transition: Transition.fadeIn);
-          if (_getController.phoneNumber != '' && _getController.token != null) {
-            //_getController.updateSelectedDate(DateTime.now());
-            Get.offAll(const LoginPage(), transition: Transition.fadeIn);
-            //getCountries();
+          _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
+          if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
+            getCountries();
+            _getController.updateSelectedDate(DateTime.now());
+            Get.to(() => const RegisterPage());
+          } else if (isWorker) {
+            Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
           }
-          /*else {
-            Get.offAll(const LoginPage(), transition: Transition.fadeIn);
-          }*/
-        } else {
-          Get.offAll(NotConnection(), transition: Transition.fadeIn);
+        } else if (data['status'] == 4) {
+          logout();
+          _getController.logout();
+          Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
         }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+      } else if (response.statusCode == 401) {
+        logout();
+        _getController.logout();
+        Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+      } else if (response.statusCode == 404) {
+        Get.offAll(() => NotConnection(), transition: Transition.fadeIn);
+      }
+      else {
+        debugPrint('Xatolik1: Serverga ulanishda muammo');
       }
     } catch(e) {
       debugPrint('bilmasam endi: $e');
       Get.offAll(NotConnection(), transition: Transition.fadeIn);
-    }
-  }
-
-  Future<void> getProfile({bool isWorker = true}) async {
-    final response = await http.get(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
-          getCountries();
-          _getController.updateSelectedDate(DateTime.now());
-          Get.to(() => const RegisterPage());
-        } else if (isWorker) {
-          Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
-        }
-      } else {
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else if (response.statusCode == 401) {
-      _getController.logout();
-      login();
-    } else if (response.statusCode == 404) {
-      _getController.logout();
-      login();
-    }
-    else {
-      debugPrint('Xatolik1: Serverga ulanishda muammo');
     }
   }
 
@@ -265,7 +326,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        login();
+        getProfile(isWorker: false);
       } else if (data['status'] == 1) {
         Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
       }
@@ -286,7 +347,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.logout();
-        login();
+        Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }
