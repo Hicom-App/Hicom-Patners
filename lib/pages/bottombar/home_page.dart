@@ -160,9 +160,7 @@ class HomePage extends StatelessWidget {
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                         itemBuilder: (context, index) => InkWell(
-                                            onTap: () => Get.to(CategoryPage(
-                                              index: index,
-                                            )),
+                                            onTap: () => Get.to(CategoryPage(index: index, open: 0)),
                                             child:  Container(
                                                 margin: EdgeInsets.only(left: 15.w),
                                                 padding: EdgeInsets.only(left: 6.w, right: 6.w),
@@ -204,7 +202,7 @@ class HomePage extends StatelessWidget {
                                               children: [
                                                 TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                 const Spacer(),
-                                                TextButton(onPressed: () => Get.to(CategoryPage(index: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                               ]
                                           )
                                       )
@@ -239,7 +237,7 @@ class HomePage extends StatelessWidget {
                                                   children: [
                                                     TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                     const Spacer(),
-                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                   ]
                                               )
                                           )
@@ -294,7 +292,7 @@ class HomePage extends StatelessWidget {
                                                           children: [
                                                             TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
                                                             const Spacer(),
-                                                            TextButton(onPressed: () => Get.to(CategoryPage(index: i)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                            TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                           ]
                                                       )
                                                   )

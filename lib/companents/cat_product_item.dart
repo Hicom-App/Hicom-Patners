@@ -19,11 +19,7 @@ class CatProductItem extends StatelessWidget{
         height: 225.h,
         width: 165.w,
         margin: EdgeInsets.only(right: 15.w),
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(20.r),
-            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]
-        ),
+        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +58,7 @@ class CatProductItem extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              TextSmall(text: '${_getController.categoryProductsModel.value.result![index].rating == null ? '0': _getController.categoryProductsModel.value.result![index].rating.toString()} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                              TextSmall(text: '${_getController.categoryProductsModel.value.result![index].rating == null ? '0': _getController.categoryProductsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]

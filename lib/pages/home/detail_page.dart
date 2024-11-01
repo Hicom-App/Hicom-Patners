@@ -280,7 +280,7 @@ class DetailPage extends StatelessWidget {
                                     children: [
                                       TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
                                       const Spacer(),
-                                      TextButton(onPressed: () => Get.to(CategoryPage(index: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                      TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                     ]
                                 )
                             )

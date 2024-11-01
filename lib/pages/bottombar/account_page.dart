@@ -6,11 +6,13 @@ import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
+import '../../companents/cat_product_item.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/favorites_page.dart';
 import '../account/notification_page.dart';
 import '../account/settings_page.dart';
+import '../home/category_page.dart';
 import '../home/transfer_to_wallet.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:photo_view/photo_view.dart';
@@ -155,7 +157,7 @@ class _AccountPageState extends State<AccountPage> {
                 context: context,
                 icon: Icons.favorite,
                 title: 'Sevimlilar',
-                onTap: () => Get.to(() => FavoritesPage(), transition: Transition.downToUp),
+                onTap: () => Get.to(() => CategoryPage(index: 0, open: 1), transition: Transition.downToUp),
               ),
               _buildListTile(
                 context: context,

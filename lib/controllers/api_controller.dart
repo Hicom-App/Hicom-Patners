@@ -383,9 +383,9 @@ class ApiController extends GetxController {
   }
 
   // Mahsulotlar ro'yxatini olish
-  Future<void> getProducts(int categoryId, {bool isCategory = true, int? offset, int? limit}) async {
-    final response = await http.get(Uri.parse('$baseUrl/catalog/products?category_id=$categoryId'),
-      headers: {'Authorization': 'Bearer ${_getController.token}'});
+  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false}) async {
+    //final response = await http.get(Uri.parse('$baseUrl/catalog/products?category_id=$categoryId'),
+    final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId'), headers: {'Authorization': 'Bearer ${_getController.token}'});
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       debugPrint(data.toString());

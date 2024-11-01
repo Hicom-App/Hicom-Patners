@@ -60,6 +60,7 @@ class ProductItems extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
+                              TextSmall(text: '${_getController.categoriesProductsModel.value.all![index].result![i].rating?.toStringAsFixed(1) ?? '0.0'} * ${_getController.categoriesProductsModel.value.all![index].result![i].reviews ?? '0'} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]

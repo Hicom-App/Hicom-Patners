@@ -14,20 +14,22 @@ import 'detail_page.dart';
 
 class CategoryPage extends StatelessWidget {
   final int index;
-  CategoryPage({super.key, required this.index});
+  final int open;
+  CategoryPage({super.key, required this.index, required this.open});
 
   final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(index.toString());
-    debugPrint('========================================');
-    debugPrint(_getController.categoriesModel.value.result![index].id!.toString());
-
-    ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
+    if (open == 0) {
+      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
+    } else if (open == 1) {
+      ApiController().getProducts(0,isCategory: false, isFavorite: true);
+    }
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kategoriya'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
+      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white,
+          title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : 'Sevimli mahsulotlar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
