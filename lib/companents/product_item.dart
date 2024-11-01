@@ -37,14 +37,13 @@ class ProductItem extends StatelessWidget{
                         child: FadeInImage(
                             image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
-                            imageErrorBuilder: (context, error, stackTrace) {
-                              return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                             fit: BoxFit.cover
                         )
                     ),
                     Positioned(right: 12.w, top: 10.h, child: InkWell(
-                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt()),
-                        child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : AppColors.black, size: 20.sp)))
+                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false),
+                        child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))
                   ]
               ),
               Padding(
@@ -60,8 +59,6 @@ class ProductItem extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              //TextSmall(text: '${_getController.productsModel.value.result![index].rating == null ? '0': _getController.productsModel.value.result![index].rating.toString()} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
-                              //4.333333333333333 to 4.3
                               TextSmall(text: '${_getController.productsModel.value.result![index].rating == null ? '0': _getController.productsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp),
                             ]
                         )

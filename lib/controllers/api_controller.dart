@@ -439,6 +439,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       debugPrint(data.toString());
       if (data['status'] == 0) {
+        getCategories();
         print(data.toString());
       } else {
         debugPrint('Xatolik: ${data['message']}');
