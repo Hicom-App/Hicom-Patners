@@ -703,6 +703,14 @@ class GetController extends GetxController {
     }
   }
 
+  //_getController.categoryProductsModel.value.result![index].favorite
+
+  void updateCatProductsModel(int index, int value) {
+    if (categoryProductsModel.value.result != null) {
+      categoryProductsModel.value.result![index].favorite = value;
+      categoryProductsModel.refresh();
+    }
+  }
   //clear models
 
   void clearCountriesModel() {

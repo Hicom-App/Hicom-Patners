@@ -2,6 +2,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../controllers/api_controller.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
@@ -34,11 +35,18 @@ class CatProductItem extends StatelessWidget{
                         child: FadeInImage(
                             image: NetworkImage(_getController.categoryProductsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
-                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
                         )
                     ),
-                    Positioned(right: 12.w, top: 10.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
+                    Positioned(
+                        right: 12.w,
+                        top: 10.h,
+                        child: InkWell(
+                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString())).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
+                            child: Icon(_getController.categoryProductsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoryProductsModel.value.result![index].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)
+                        )
+                    )
                   ]
               ),
               Padding(
