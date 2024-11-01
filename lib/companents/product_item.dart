@@ -37,12 +37,12 @@ class ProductItem extends StatelessWidget{
                         child: FadeInImage(
                             image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
-                            imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
                         )
                     ),
                     Positioned(right: 12.w, top: 10.h, child: InkWell(
-                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false),
+                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateProductsModel(index, _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)),
                         child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))
                   ]
               ),

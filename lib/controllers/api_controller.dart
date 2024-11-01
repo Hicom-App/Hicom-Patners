@@ -439,7 +439,7 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       debugPrint(data.toString());
       if (data['status'] == 0) {
-        getCategories();
+        //getCategories();
         print(data.toString());
       } else {
         debugPrint('Xatolik: ${data['message']}');
@@ -448,7 +448,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> addReview(int id) async {
-    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/catalog/reviews'));
+    var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
     request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
     var response = await request.send();

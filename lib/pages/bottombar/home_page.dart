@@ -181,16 +181,7 @@ class HomePage extends StatelessWidget {
                                                               fit: BoxFit.contain
                                                           )
                                                       ),
-                                                      Container(
-                                                          margin: EdgeInsets.only(top: 5.h),
-                                                          width: 71.w,
-                                                          child: Center(
-                                                              child: _getController.categoriesModel.value.result != null
-                                                                  ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(),
-                                                                  color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600)
-                                                                  : const SizedBox()
-                                                          )
-                                                      )
+                                                      Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
                                                     ]
                                                 )
                                             )
@@ -235,8 +226,7 @@ class HomePage extends StatelessWidget {
                                     )
                                   ]
                                 )
-                                else
-                                  const SkeletonProducts(),
+                                else const SkeletonProducts(),
                                 if (_getController.productsModel.value.result != null)
                                   Stack(
                                     children: [

@@ -685,6 +685,24 @@ class GetController extends GetxController {
 
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;
 
+  //_getController.categoriesProductsModel.value.all![index].result![i].favorite update models
+
+  void updateCategoriesProductsModel(int item, int index, int value) {
+    if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {
+      categoriesProductsModel.value.all![item].result![index].favorite = value;
+      categoriesProductsModel.refresh();
+    }
+  }
+
+  //_getController.productsModel.value.result![index].favorite
+
+  void updateProductsModel(int index, int value) {
+    if (productsModel.value.result != null) {
+      productsModel.value.result![index].favorite = value;
+      productsModel.refresh();
+    }
+  }
+
   //clear models
 
   void clearCountriesModel() {
