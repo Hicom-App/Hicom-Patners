@@ -11,6 +11,7 @@ import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+import 'add_card_page.dart';
 
 class TransferToWallet extends StatelessWidget {
   final int index;
@@ -18,67 +19,10 @@ class TransferToWallet extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
-  // Refactored Card Display Widget
-  Widget _buildCardList(BuildContext context) {
-    final cards = _getController.cardsModel.value.result ?? [];
-
-    return cards.isNotEmpty
-        ? ListView.builder(
-        itemCount: cards.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          final card = cards[index];
-          return InkWell(
-              onTap: () => _getController.saveSelectedCardIndex(index),
-              overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent),
-              child: Container(
-                  width: Get.width,
-                  margin: EdgeInsets.only(left: _getController.selectedCard.value == index ? 15.w : 25.w, right: _getController.selectedCard.value == index ? 15.w : 25.w, top: 8.h),
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                    color: AppColors.grey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: AppColors.blue, width: 2.w),
-                    boxShadow: [BoxShadow(color: AppColors.black70.withOpacity(0.1), blurRadius: 25.r, spreadRadius: 25.r, offset: const Offset(0, 1))],
-                    image: const DecorationImage(image: AssetImage('assets/images/card_fon.png'), fit: BoxFit.cover),
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            height: 50.h,
-                            width: 50.w,
-                            margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h),
-                            child: SvgPicture.asset(card.cardNo!.startsWith('9860') ? 'assets/svg_assets/uz_card.svg' : 'assets/svg_assets/humo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)
-                        ),
-                        TextSmall(
-                            text: _getController.formatNumber(card.cardNo!),
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18.sp
-                        ),
-                        TextSmall(
-                            text: card.cardHolder!,
-                            color: AppColors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.sp
-                        ),
-                        SizedBox(height: 4.h)
-                      ]
-                  )
-              )
-          );
-        }
-        ) : Center(child: Text('No cards available', style: TextStyle(color: AppColors.black, fontSize: 16.sp)),
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
     _getController.clearCardsModel();
+    _getController.getSelectedCardIndex;
     ApiController().getCards();
     return Scaffold(
         backgroundColor: AppColors.greys,
@@ -107,7 +51,7 @@ class TransferToWallet extends StatelessWidget {
                                   TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: AppColors.black, fontSize: 11.sp, fontWeight: FontWeight.w500),
                                   Row(
                                       children: [
-                                        TextSmall(text: '125 ' +_getController.listProductPrice[index], color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
+                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
                                         TextSmall(text: ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                       ]
                                   )
@@ -118,20 +62,47 @@ class TransferToWallet extends StatelessWidget {
                   ),
                   SizedBox(height: 35.h),
                   Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w), child: TextSmall(text: 'Mening kartalarim'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 15.sp)),
-                  _buildCardList(context),
-                  if (_getController.cardsModel.value.result!.isEmpty || _getController.cardsModel.value.result!.length == 1)
-                    InkWell(
+                  ListView.builder(
+                    itemCount: _getController.cardsModel.value.result!.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => Obx(() => InkWell(
+                        onTap: () => _getController.saveSelectedCardIndex(index),
                         overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent),
-                        onTap: () => InstrumentComponents().bottomSheetMeCards(context),
-                        child: Container(
+                        child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            //width: _getController.selectedCard.value == index ? Get.width * 0.9 : Get.width * 0.8,
                             width: Get.width,
-                            height: 136.h,
-                            margin: EdgeInsets.only(left: 28.w, right: 28.w, top: 30.h,bottom: 12.h),
-                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
-                            child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp))
+                            margin: EdgeInsets.only(left: _getController.selectedCard.value == index? 15.w : 25.w, right: _getController.selectedCard.value == index? 15.w : 25.w, top: 8.h),
+                            padding: EdgeInsets.all(15.w),
+                            decoration: BoxDecoration(
+                              color: AppColors.grey.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(20.r),
+                              border: Border.all(color: _getController.selectedCard.value == index? AppColors.blue : Colors.transparent, width: 2.w),
+                              boxShadow: [BoxShadow(color: AppColors.black70.withOpacity(0.1), blurRadius: 25.r, spreadRadius: 25.r, offset: const Offset(0, 1))],
+                              image: const DecorationImage(image: AssetImage('assets/images/card_fon.png'), fit: BoxFit.cover),
+                            ),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(height: 50.h, width: 50.w, margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h), child: SvgPicture.asset(_getController.cardsModel.value.result![index].cardNo!.startsWith('9860') ? 'assets/svg_assets/uz_card.svg' : 'assets/svg_assets/humo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
+                                  TextSmall(text: _getController.formatNumber(_getController.cardsModel.value.result![index].cardNo!), color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
+                                  TextSmall(text: _getController.cardsModel.value.result![index].cardHolder!, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  SizedBox(height: 4.h)
+                                ]
+                            )
                         )
-                    ),
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h), child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
+                    ))
+                  ),
+                  if (_getController.cardsModel.value.result!.isEmpty || _getController.cardsModel.value.result!.length == 1)
+                    //InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => InstrumentComponents().bottomSheetMeCards(context), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
+                    InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => Get.to(() => AddCardPage()), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
+                  Container(
+                      width: Get.width,
+                      margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
+                      child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                  ),
                   TextFieldCustom(fillColor: AppColors.white, hint: '828', controller: _getController.cardNumberController),
                   SizedBox(height: Get.height * 0.025),
                   Container(
@@ -144,8 +115,7 @@ class TransferToWallet extends StatelessWidget {
                   )
                 ]
             )
-        )
-            : Skeletonizer(child: Column(
+        ) : Skeletonizer(child: Column(
             children: [
               Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To`lovga tasdiqlangan'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
               Container(
@@ -164,7 +134,7 @@ class TransferToWallet extends StatelessWidget {
                               TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: AppColors.black, fontSize: 11.sp, fontWeight: FontWeight.w500),
                               Row(
                                   children: [
-                                    TextSmall(text: '125 ' +_getController.listProductPrice[index], color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
+                                    TextSmall(text: '125 835', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
                                     TextSmall(text: ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                   ]
                               )
