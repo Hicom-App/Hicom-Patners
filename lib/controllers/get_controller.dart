@@ -150,6 +150,8 @@ class GetController extends GetxController {
 
   void savePhoneNumber(String phoneNumber) => GetStorage().write('phoneNumber', phoneNumber);
 
+  void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
+
   void logout() {
     GetStorage().erase();
     Get.delete<GetController>();
@@ -158,6 +160,10 @@ class GetController extends GetxController {
   get phoneNumber => GetStorage().read('phoneNumber');
 
   get token => GetStorage().read('token');
+
+  get getSelectedCardIndex => selectedCard.value = GetStorage().read('selectedCardIndex');
+
+  var selectedCard = 0.obs;
 
   String maskPhoneNumber(String phoneNumber) {
     const int minimumLength = 12;
@@ -768,5 +774,7 @@ class GetController extends GetxController {
   void clearSortedWarrantyModel () => sortedWarrantyModel.value = SortedWarrantyModel();
 
   void clearReviewsModel () => reviewsModel.value = ReviewsModel();
+
+  void clearCardsModel () => cardsModel.value = CardsModel();
 }
 
