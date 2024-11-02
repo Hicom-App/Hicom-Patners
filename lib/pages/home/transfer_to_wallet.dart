@@ -71,16 +71,15 @@ class TransferToWallet extends StatelessWidget {
                         overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent),
                         child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
-                            //width: _getController.selectedCard.value == index ? Get.width * 0.9 : Get.width * 0.8,
                             width: Get.width,
-                            margin: EdgeInsets.only(left: _getController.selectedCard.value == index? 15.w : 25.w, right: _getController.selectedCard.value == index? 15.w : 25.w, top: 8.h),
+                            margin: EdgeInsets.only(left: _getController.selectedCard.value == index? 15.w : 30.w, right: _getController.selectedCard.value == index? 15.w : 30.w, top: 10.h),
                             padding: EdgeInsets.all(15.w),
                             decoration: BoxDecoration(
                               color: AppColors.grey.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(color: _getController.selectedCard.value == index? AppColors.blue : Colors.transparent, width: 2.w),
                               boxShadow: [BoxShadow(color: AppColors.black70.withOpacity(0.1), blurRadius: 25.r, spreadRadius: 25.r, offset: const Offset(0, 1))],
-                              image: const DecorationImage(image: AssetImage('assets/images/card_fon.png'), fit: BoxFit.cover),
+                              image: DecorationImage(image: AssetImage(index == 0 ? 'assets/images/card_fon.png' : 'assets/images/card_fon_1.png'), fit: BoxFit.cover),
                             ),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +95,6 @@ class TransferToWallet extends StatelessWidget {
                     ))
                   ),
                   if (_getController.cardsModel.value.result!.isEmpty || _getController.cardsModel.value.result!.length == 1)
-                    //InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => InstrumentComponents().bottomSheetMeCards(context), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
                     InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => Get.to(() => AddCardPage()), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
                   Container(
                       width: Get.width,
@@ -109,7 +107,9 @@ class TransferToWallet extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), minimumSize: Size(Get.width, 50.h)),
-                          onPressed: (){},
+                          onPressed: (){
+
+                          },
                           child: TextSmall(text: 'Jo‘natish'.tr, color: AppColors.white, fontWeight: FontWeight.w500)
                       )
                   )

@@ -12,8 +12,9 @@ class TextFieldCustom extends StatelessWidget {
   final IconData? icons;
   final bool? mack;
   final TextEditingController controller;
+  final bool? errorInput;
 
-  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller});
+  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorInput});
   final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   final GetController _getController = Get.put(GetController());
 
@@ -21,8 +22,11 @@ class TextFieldCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 52.sp,
-      padding: EdgeInsets.only(right: 5.sp),
       margin: EdgeInsets.only(right: 15.sp, left: 15.sp),
+      decoration: BoxDecoration(border: Border.all(
+          color: errorInput == true ? AppColors.red : AppColors.blackTransparent,
+          width: 1),
+          borderRadius: BorderRadius.circular(20.sp)),
       child: TextField(
         controller: controller,
         keyboardType: mack == true ? TextInputType.number : TextInputType.text,
@@ -34,8 +38,7 @@ class TextFieldCustom extends StatelessWidget {
           } else if (controller == _getController.nameController) {
             _getController.cardNameText.value = _getController.nameController.text;
           }
-        },
-          style: TextStyle(fontSize: 19.sp, fontFamily: 'Schyler', color: AppColors.black),
+        }, style: TextStyle(fontSize: 19.sp, fontFamily: 'Schyler', color: AppColors.black),
         decoration: InputDecoration(
           filled: true,
           isDense: true,
