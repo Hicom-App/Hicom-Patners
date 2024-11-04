@@ -590,9 +590,9 @@ class ApiController extends GetxController {
   }
 
   Future<void> editCard(int id) async {
-    var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/payment/cards'));
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/cards'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
-    request.fields.addAll({'card_no': _getController.cardNumberController.text, 'card_holder': _getController.nameController.text, 'expiration_date': DateFormat('MM/yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 3, 1))});
+    request.fields.addAll({'id': id.toString(), 'card_no': _getController.cardNumberController.text, 'card_holder': _getController.nameController.text, 'expiration_date': DateFormat('MM/yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 3, 1))});
     try {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
@@ -601,17 +601,22 @@ class ApiController extends GetxController {
         _getController.cardNumberController.clear();
         _getController.nameController.clear();
         Get.back();
+        getCards();
+      } else {
         _getController.changeErrorInput(0, true);
         _getController.changeErrorInput(1, true);
         _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
         _getController.shakeKey[0].currentState?.shake();
         _getController.shakeKey[1].currentState?.shake();
-        getCards();
-      } else {
-        debugPrint('Failed to add card: ${response.statusCode}');
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
       }
     } catch (e) {
-      debugPrint('Error occurred: $e');
+      _getController.changeErrorInput(0, true);
+      _getController.changeErrorInput(1, true);
+      _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
+      _getController.shakeKey[0].currentState?.shake();
+      _getController.shakeKey[1].currentState?.shake();
+      InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
     }
   }
 
@@ -623,6 +628,29 @@ class ApiController extends GetxController {
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
+        Get.back();
+        getCards();
+      } else {
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
+      }
+    } catch (e) {
+      InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
+      debugPrint('Error occurred: $e');
+    }
+  }
+
+  // post, payment/withdraw, multipart/form-data, amount, card_id
+  Future<void> paymentWithdraw() async {
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/withdraw'));
+    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
+    request.fields.addAll({'amount': _getController.cardNumberController.text});
+    request.fields.addAll({'card_id': _getController.cardNumberController.value.toString()});
+    try {
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      if (response.statusCode == 200) {
+        _getController.cardNumberController.clear();
         Get.back();
         getCards();
       } else {

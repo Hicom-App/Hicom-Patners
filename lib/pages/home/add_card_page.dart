@@ -11,15 +11,27 @@ import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class AddCardPage extends StatelessWidget {
-  AddCardPage({super.key});
+  final bool? isEdit;
+  final int? index;
+  AddCardPage({super.key, this.isEdit, this.index});
 
   final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
+    _getController.cardNumberController.clear();
+    _getController.nameController.clear();
+    _getController.cardNameText.value = '';
+    _getController.cardNumberText.value = '';
+    _getController.tapTimes(() {
+      isEdit == true ? _getController.cardNumberController.text = _getController.cardsModel.value.result![index!].cardNo.toString().replaceAllMapped(RegExp(r'.{4}'), (match) => '${match.group(0)} ') : null;
+      isEdit == true ? _getController.nameController.text = _getController.cardsModel.value.result![index!].cardHolder.toString() : null;
+      isEdit == true ? _getController.cardNameText.value = _getController.cardsModel.value.result![index!].cardHolder.toString() : null;
+      isEdit == true ? _getController.cardNumberText.value = _getController.cardsModel.value.result![index!].cardNo.toString().replaceAllMapped(RegExp(r'.{4}'), (match) => '${match.group(0)} ') : null;
+      }, 1);
     return Scaffold(
         backgroundColor: AppColors.greys,
-        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.greys, title: TextSmall(text: 'Karta qo‘shish'.tr, color:AppColors.black, fontWeight: FontWeight.w500)),
+        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.greys, title: TextSmall(text: isEdit == true ? 'Kartani tahrirlash'.tr : 'Karta qo‘shish'.tr, color:AppColors.black, fontWeight: FontWeight.w500)),
         body: SingleChildScrollView(
           child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +75,7 @@ class AddCardPage extends StatelessWidget {
                   shakeCount: 15,
                   shakeDuration: const Duration(milliseconds: 500),
                   shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0]),
+                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true),
                 )),
 
                 Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp)),
@@ -73,7 +85,7 @@ class AddCardPage extends StatelessWidget {
                   shakeCount: 15,
                   shakeDuration: const Duration(milliseconds: 500),
                   shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'F.I.O', controller: _getController.nameController, errorInput: _getController.errorInput[1]),
+                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'F.I.O', controller: _getController.nameController, errorInput: _getController.errorInput[1], isNext: true),
                 )),
                 SizedBox(height: 50.h),
                 Container(
@@ -97,7 +109,7 @@ class AddCardPage extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)), backgroundColor: AppColors.blue, padding: EdgeInsets.only(top: 15.h, bottom: 15.h)),
                         onPressed: () {
-                          if (_getController.cardNumberController.text.isEmpty && _getController.cardNumberController.text.length < 16) {
+                          if (_getController.cardNumberController.text.isEmpty && _getController.cardNumberController.text.length <= 16) {
                             _getController.changeErrorInput(0, true);
                             _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
                             _getController.shakeKey[0].currentState?.shake();
@@ -109,9 +121,17 @@ class AddCardPage extends StatelessWidget {
                             _getController.shakeKey[1].currentState?.shake();
                             return;
                           }
-                          ApiController().addCard();
+                          if (isEdit == true && index != null) {
+                            print('edit card');
+                            ApiController().editCard(_getController.cardsModel.value.result![index!].id ?? 0);
+                          } else {
+                            print('add card');
+                            ApiController().addCard();
+                          }
                         },
-                        child: TextSmall(text: 'Qo‘shish'.tr, color: AppColors.white)
+                        child: TextSmall(
+                            text: isEdit == true ? 'Saqlash'.tr : 'Qo‘shish'.tr,
+                            color: AppColors.white)
                     )
                 )
               ]

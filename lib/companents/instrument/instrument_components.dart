@@ -236,8 +236,8 @@ class InstrumentComponents {
                 leading: Icon(Icons.edit, color: AppColors.blue, size: 20.sp),
                 title: Text('Kartani Tahrirlash'.tr),
                 onTap: () {
-
-                },
+                  Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn);
+                }
               ),
               const Divider(),
               ListTile(

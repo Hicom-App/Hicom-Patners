@@ -9,6 +9,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../companents/instrument/shake_widget.dart';
@@ -145,6 +146,8 @@ class GetController extends GetxController {
 
     super.onClose();
   }
+
+  var mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
 
   void saveToken(String token) => GetStorage().write('token', token);
 

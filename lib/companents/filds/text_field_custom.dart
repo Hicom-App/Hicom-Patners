@@ -13,9 +13,9 @@ class TextFieldCustom extends StatelessWidget {
   final bool? mack;
   final TextEditingController controller;
   final bool? errorInput;
+  final bool? isNext;
 
-  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorInput});
-  final mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorInput, this.isNext = false});
   final GetController _getController = Get.put(GetController());
 
   @override
@@ -30,13 +30,17 @@ class TextFieldCustom extends StatelessWidget {
       child: TextField(
         controller: controller,
         keyboardType: mack == true ? TextInputType.number : TextInputType.text,
-        textInputAction: TextInputAction.search,
-        inputFormatters: (mack ?? false) ? [mackFormater] : [],
+        textInputAction: isNext == true ? TextInputAction.next : TextInputAction.search,
+        onSubmitted: (isNext == true) ? (value) {Get.focusScope!.unfocus();} : null,
+        inputFormatters: (mack ?? false) ? [_getController.mackFormater] : [],
         onChanged: (value) {
           if (controller == _getController.cardNumberController) {
-            _getController.cardNumberText.value = _getController.cardNumberController.text;
+            _getController.cardNumberText.value = value;
+            if (value.length == 19) {
+              Get.focusScope!.unfocus();
+            }
           } else if (controller == _getController.nameController) {
-            _getController.cardNameText.value = _getController.nameController.text;
+            _getController.cardNameText.value = value;
           }
         }, style: TextStyle(fontSize: 19.sp, fontFamily: 'Schyler', color: AppColors.black),
         decoration: InputDecoration(

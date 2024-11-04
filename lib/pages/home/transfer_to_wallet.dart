@@ -90,7 +90,7 @@ class TransferToWallet extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(height: 50.h, width: 50.w, margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h), child: SvgPicture.asset(_getController.cardsModel.value.result![index].cardNo!.startsWith('9860') ? 'assets/svg_assets/uz_card.svg' : 'assets/svg_assets/humo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
+                                  Container(height: 50.h, width: 50.w, margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h), child: SvgPicture.asset(_getController.cardsModel.value.result![index].cardNo!.startsWith('8600') ? 'assets/svg_assets/uz_card.svg' : 'assets/svg_assets/humo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
                                   TextSmall(text: _getController.formatNumber(_getController.cardsModel.value.result![index].cardNo!), color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
                                   TextSmall(text: _getController.cardsModel.value.result![index].cardHolder!, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 13.sp),
                                   SizedBox(height: 4.h)
@@ -121,7 +121,8 @@ class TransferToWallet extends StatelessWidget {
                   )
                 ]
             )
-        ) : Skeletonizer(child: Column(
+        )
+            : Skeletonizer(child: Column(
             children: [
               Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To`lovga tasdiqlangan'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
               Container(
