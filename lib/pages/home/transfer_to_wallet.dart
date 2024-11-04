@@ -8,6 +8,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/instrument/shake_widget.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -52,7 +53,7 @@ class TransferToWallet extends StatelessWidget {
                                   TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: AppColors.black, fontSize: 11.sp, fontWeight: FontWeight.w500),
                                   Row(
                                       children: [
-                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
+                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
                                         TextSmall(text: ' so`m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                       ]
                                   )
@@ -102,19 +103,52 @@ class TransferToWallet extends StatelessWidget {
                   SizedBox(height: 15.h),
                   if (_getController.cardsModel.value.result!.isEmpty || _getController.cardsModel.value.result!.length == 1)
                     InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => Get.to(() => AddCardPage()), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
-                  Container(
-                      width: Get.width,
-                      margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
-                      child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                  ShakeWidget(
+                    key: _getController.shakeKey[2],
+                    shakeOffset: 5,
+                    shakeCount: 15,
+                    shakeDuration: const Duration(milliseconds: 500),
+                    shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
+                    child: Column(
+                      children: [
+                        Container(
+                            width: Get.width,
+                            margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
+                            child: TextSmall(text: 'To`lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                        ),
+                        TextFieldCustom(fillColor: AppColors.white, hint: _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString() + ' so`m'.tr, controller: _getController.paymentController,  errorInput: _getController.errorInput[2], isNext: true, inputType: TextInputType.number)
+                      ]
+                    )
                   ),
-                  TextFieldCustom(fillColor: AppColors.white, hint: '828', controller: _getController.cardNumberController),
                   SizedBox(height: Get.height * 0.025),
                   Container(
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), minimumSize: Size(Get.width, 50.h)),
                           onPressed: (){
-
+                            if (_getController.paymentController.text.isEmpty) {
+                              _getController.changeErrorInput(2, true);
+                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                              _getController.shakeKey[2].currentState?.shake();
+                              InstrumentComponents().showToast('To`lov summasini kiriting', color: AppColors.red);
+                              return;
+                            }
+                            if (_getController.profileInfoModel.value.result!.first.cashbackRemain! < int.parse(_getController.paymentController.text)) {
+                              InstrumentComponents().showToast('Tasdiqlash keshbekingizda yetarli summa mavjud emas', color: AppColors.red);
+                              _getController.changeErrorInput(2, true);
+                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                              _getController.shakeKey[2].currentState?.shake();
+                              return;
+                            }
+                            if (int.parse(_getController.paymentController.text) < 10000) {
+                              InstrumentComponents().showToast('Minimal summa 10000', color: AppColors.red);
+                              _getController.changeErrorInput(2, true);
+                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                              _getController.shakeKey[2].currentState?.shake();
+                              InstrumentComponents().showToast('Minimal summa 10000', color: AppColors.red);
+                              return;
+                            }
+                            ApiController().paymentWithdraw();
                           },
                           child: TextSmall(text: 'Jo‘natish'.tr, color: AppColors.white, fontWeight: FontWeight.w500)
                       )
@@ -216,7 +250,9 @@ class TransferToWallet extends StatelessWidget {
                   margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), minimumSize: Size(Get.width, 50.h)),
-                      onPressed: (){},
+                      onPressed: (){
+
+                      },
                       child: TextSmall(text: 'Jo‘natish'.tr, color: AppColors.white, fontWeight: FontWeight.w500)
                   )
               )

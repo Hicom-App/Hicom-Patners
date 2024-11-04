@@ -226,6 +226,7 @@ class GetController extends GetxController {
   final TextEditingController codeController = TextEditingController();
   final TextEditingController passwordProjectController = TextEditingController();
   final TextEditingController verifyCodeControllers = TextEditingController();
+  final TextEditingController paymentController = TextEditingController();
 
   void clearControllers() {
     nameController.clear();

@@ -14,8 +14,9 @@ class TextFieldCustom extends StatelessWidget {
   final TextEditingController controller;
   final bool? errorInput;
   final bool? isNext;
+  final TextInputType? inputType;
 
-  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorInput, this.isNext = false});
+  TextFieldCustom({super.key, required this.fillColor, required this.hint, this.icons, this.mack, required this.controller, this.errorInput, this.isNext = false, this.inputType = TextInputType.text});
   final GetController _getController = Get.put(GetController());
 
   @override
@@ -23,13 +24,10 @@ class TextFieldCustom extends StatelessWidget {
     return Container(
       height: 52.sp,
       margin: EdgeInsets.only(right: 15.sp, left: 15.sp),
-      decoration: BoxDecoration(border: Border.all(
-          color: errorInput == true ? AppColors.red : AppColors.blackTransparent,
-          width: 1),
-          borderRadius: BorderRadius.circular(20.sp)),
+      decoration: BoxDecoration(border: Border.all(color: errorInput == true ? AppColors.red : AppColors.blackTransparent, width: 1), borderRadius: BorderRadius.circular(20.sp)),
       child: TextField(
         controller: controller,
-        keyboardType: mack == true ? TextInputType.number : TextInputType.text,
+        keyboardType: inputType ?? TextInputType.text,
         textInputAction: isNext == true ? TextInputAction.next : TextInputAction.search,
         onSubmitted: (isNext == true) ? (value) {Get.focusScope!.unfocus();} : null,
         inputFormatters: (mack ?? false) ? [_getController.mackFormater] : [],

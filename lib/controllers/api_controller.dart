@@ -639,24 +639,38 @@ class ApiController extends GetxController {
     }
   }
 
-  // post, payment/withdraw, multipart/form-data, amount, card_id
   Future<void> paymentWithdraw() async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/withdraw'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
-    request.fields.addAll({'amount': _getController.cardNumberController.text});
-    request.fields.addAll({'card_id': _getController.cardNumberController.value.toString()});
+    request.fields.addAll({'amount': _getController.paymentController.text});
+    request.fields.addAll({'card_id': _getController.cardsModel.value.result![_getController.selectedCard.value].id.toString()});
     try {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
-        _getController.cardNumberController.clear();
-        Get.back();
-        getCards();
+        //{
+        //   "status": 0,
+        //   "message": "OK"
+        // }
+        if (jsonDecode(responseBody)['status'] == 0) {
+          _getController.paymentController.clear();
+          Get.back();
+          getProfile(isWorker: false);
+          getCards();
+          InstrumentComponents().showToast('Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi.', color: AppColors.green);
+        } else if (jsonDecode(responseBody)['status'] == 1) {
+
+        }
+
       } else {
+        _getController.changeErrorInput(2, true);
+        _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
         InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
       }
     } catch (e) {
+      _getController.changeErrorInput(2, true);
+      _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
       InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
       debugPrint('Error occurred: $e');
     }
