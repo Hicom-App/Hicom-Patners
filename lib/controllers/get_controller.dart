@@ -708,7 +708,6 @@ class GetController extends GetxController {
 
   void changeTransactionsModel(TransactionsModel transactionsModels) => transactionsModel.value = transactionsModels;
 
-  //Functions change models
   void updateCategoriesProductsModel(int item, int index, int value) {
     if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {
       categoriesProductsModel.value.all![item].result![index].favorite = value;
@@ -716,16 +715,12 @@ class GetController extends GetxController {
     }
   }
 
-  //_getController.productsModel.value.result![index].favorite
-
   void updateProductsModel(int index, int value) {
     if (productsModel.value.result != null) {
       productsModel.value.result![index].favorite = value;
       productsModel.refresh();
     }
   }
-
-  //_getController.categoryProductsModel.value.result![index].favorite
 
   void updateCatProductsModel(int index, int value) {
     if (categoryProductsModel.value.result != null) {
