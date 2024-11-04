@@ -66,6 +66,7 @@ class TransferToWallet extends StatelessWidget {
                   ListView.builder(
                     itemCount: _getController.cardsModel.value.result!.length,
                     shrinkWrap: true,
+                    padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => Obx(() => InkWell(
                         onTap: () => _getController.saveSelectedCardIndex(index),
@@ -76,7 +77,7 @@ class TransferToWallet extends StatelessWidget {
                         child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             width: Get.width,
-                            margin: EdgeInsets.only(left: _getController.selectedCard.value == index? 15.w : 30.w, right: _getController.selectedCard.value == index? 15.w : 30.w, top: 10.h),
+                            margin: EdgeInsets.only(left: _getController.selectedCard.value == index? 15.w : 30.w, right: _getController.selectedCard.value == index? 15.w : 30.w, top: 15.h),
                             padding: EdgeInsets.all(15.w),
                             decoration: BoxDecoration(
                               color: AppColors.grey.withOpacity(0.3),
@@ -98,6 +99,7 @@ class TransferToWallet extends StatelessWidget {
                         )
                     ))
                   ),
+                  SizedBox(height: 15.h),
                   if (_getController.cardsModel.value.result!.isEmpty || _getController.cardsModel.value.result!.length == 1)
                     InkWell(overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent), onTap: () => Get.to(() => AddCardPage()), child: Container(width: Get.width, height: 136.h, margin: EdgeInsets.only(left: 28.w, right: 28.w,bottom: 12.h), decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10.r, spreadRadius: 10.r, offset: const Offset(0, 0))]), child: Center(child: Icon(EneftyIcons.add_circle_outline, color: AppColors.greys, size: 70.sp)))),
                   Container(
