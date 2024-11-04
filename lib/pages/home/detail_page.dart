@@ -67,9 +67,7 @@ class DetailPage extends StatelessWidget {
               Container(
                   width: Get.width,
                   padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h, top: 20.h),
-                      decoration: BoxDecoration(
-                          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)],
-                          color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+                      decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)], color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -89,10 +87,7 @@ class DetailPage extends StatelessWidget {
                                   ),
                                   _getController.productsModelDetail.value.result != null
                                       ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false)),
-                                      child: Container(
-                                          padding: EdgeInsets.all(9.r),
-                                          decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)),
-                                          child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
+                                      child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
                                       : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
                                 ]),
                             SizedBox(height: Get.height * 0.02),
@@ -214,20 +209,7 @@ class DetailPage extends StatelessWidget {
                                               height: 25.w,
                                               width: 25.w,
                                               margin: EdgeInsets.only(right: 6.w),
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  boxShadow: [
-                                                    BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]),
-                                              child: ClipOval(
-                                                  child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != ''
-                                                    ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!)
-                                                    : AssetImage(_getController.image.value.path),
-                                                    placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                    imageErrorBuilder: (context, error, stackTrace) {
-                                                    return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);
-                                                },
-                                                fit: BoxFit.cover
-                                              ))
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);}, fit: BoxFit.cover))
                                             ),
                                             // User name and date
                                             TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),

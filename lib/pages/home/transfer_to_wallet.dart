@@ -19,6 +19,7 @@ class TransferToWallet extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
+
   @override
   Widget build(BuildContext context) {
     _getController.clearCardsModel();
@@ -68,6 +69,9 @@ class TransferToWallet extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => Obx(() => InkWell(
                         onTap: () => _getController.saveSelectedCardIndex(index),
+                        onLongPress: () {
+                          InstrumentComponents().bottomSheetCardOption(context, index);
+                        },
                         overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent),
                         child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),

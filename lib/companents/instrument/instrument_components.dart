@@ -215,6 +215,49 @@ class InstrumentComponents {
       )
   );
 
+  void bottomSheetCardOption(BuildContext context, int index) {
+    showModalBottomSheet(
+      context: context,
+      elevation: 15,
+      enableDrag: true,
+      showDragHandle: true,
+      isScrollControlled: true, // Allows full control over height
+      builder: (BuildContext context) {
+        return Container(
+          width: Get.width,
+          padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
+          height: Get.height * 0.4,
+          child: Wrap(
+            children: [
+              ListTile(
+                hoverColor: Colors.blue.withOpacity(0.3),
+                splashColor: Colors.blue.withOpacity(0.3),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                leading: Icon(Icons.edit, color: AppColors.blue, size: 20.sp),
+                title: Text('Kartani Tahrirlash'.tr),
+                onTap: () {
+
+                },
+              ),
+              const Divider(),
+              ListTile(
+                hoverColor: Colors.red.withOpacity(0.3),
+                splashColor: Colors.red.withOpacity(0.3),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                leading: Icon(Icons.delete, color: Colors.red, size: 20.sp),
+                title: Text('Kartani O‘chirish'.tr),
+                onTap: () {
+                  Get.back();
+                  deleteCard(context, index);
+                }
+              )
+            ]
+          )
+        );
+      }
+    );
+  }
+
   void logOutDialog(BuildContext context) =>
       Get.dialog(
           AlertDialog(
@@ -367,15 +410,49 @@ class InstrumentComponents {
       )
   );
 
+  void deleteCard(BuildContext context, int index) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w, bottom: 5.h),
+      title: 'Kardani o‘chirish'.tr,
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha transaktsiyalarni ro‘yhati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),
+      ),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+              onPressed: () async {
+                ApiController().deleteCard(_getController.cardsModel.value.result![index].id!.toInt());
+              },
+              child: TextSmall(text: 'o‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      ),
+      cancel: Container(
+          width: 120.w,
+          height: 42.h,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
+
   //toast message
-  void showToast(String message) {
+  void showToast(String message, {color = AppColors.blue, textColor = AppColors.white, duration = 2}) {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: AppColors.blue,
-        textColor: AppColors.white,
+        timeInSecForIosWeb: duration,
+        backgroundColor: color,
+        textColor: textColor,
         fontSize: 16.sp
     );
   }

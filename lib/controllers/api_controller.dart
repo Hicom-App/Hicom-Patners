@@ -18,6 +18,7 @@ import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
 import '../pages/auth/verify_page_number.dart';
 import '../pages/not_connection.dart';
+import '../resource/colors.dart';
 import 'get_controller.dart';
 
 class ApiController extends GetxController {
@@ -544,12 +545,16 @@ class ApiController extends GetxController {
 //To'lovlar
 
   Future<void> getCards() async {
+    _getController.clearCardsModel();
     final response = await http.get(Uri.parse('$baseUrl/payment/cards'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       debugPrint(data.toString());
       if (data['status'] == 0) {
         _getController.changeCardsModel(CardsModel.fromJson(data));
+        if (_getController.cardsModel.value.result!.length == 1) {
+          _getController.saveSelectedCardIndex(0);
+        }
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }
@@ -584,6 +589,49 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> editCard(int id) async {
+    var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/payment/cards'));
+    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
+    request.fields.addAll({'card_no': _getController.cardNumberController.text, 'card_holder': _getController.nameController.text, 'expiration_date': DateFormat('MM/yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 3, 1))});
+    try {
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      if (response.statusCode == 200) {
+        _getController.cardNumberController.clear();
+        _getController.nameController.clear();
+        Get.back();
+        _getController.changeErrorInput(0, true);
+        _getController.changeErrorInput(1, true);
+        _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
+        _getController.shakeKey[0].currentState?.shake();
+        _getController.shakeKey[1].currentState?.shake();
+        getCards();
+      } else {
+        debugPrint('Failed to add card: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error occurred: $e');
+    }
+  }
 
+  Future<void> deleteCard(int id) async {
+    var request = http.Request('DELETE', Uri.parse('$baseUrl/payment/cards?id=$id'));
+    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}'});
+    try {
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      if (response.statusCode == 200) {
+        Get.back();
+        getCards();
+      } else {
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
+      }
+    } catch (e) {
+      InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
+      debugPrint('Error occurred: $e');
+    }
+  }
 
 }
