@@ -140,7 +140,7 @@ class TransferToWallet extends StatelessWidget {
                               _getController.shakeKey[2].currentState?.shake();
                               return;
                             }
-                            if (int.parse(_getController.paymentController.text) < 10000) {
+                            if (int.parse(_getController.paymentController.text) < 1000) {
                               InstrumentComponents().showToast('Minimal summa 10000', color: AppColors.red);
                               _getController.changeErrorInput(2, true);
                               _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);

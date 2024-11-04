@@ -649,10 +649,6 @@ class ApiController extends GetxController {
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
-        //{
-        //   "status": 0,
-        //   "message": "OK"
-        // }
         if (jsonDecode(responseBody)['status'] == 0) {
           _getController.paymentController.clear();
           Get.back();
@@ -660,9 +656,14 @@ class ApiController extends GetxController {
           getCards();
           InstrumentComponents().showToast('Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi.', color: AppColors.green);
         } else if (jsonDecode(responseBody)['status'] == 1) {
-
+          _getController.changeErrorInput(2, true);
+          _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+          InstrumentComponents().showToast('Tasiqlangan keshbekingizda mablag‘ yetarli emas', color: AppColors.red);
+        } else {
+          _getController.changeErrorInput(2, true);
+          _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+          InstrumentComponents().showToast('Xatolik ${jsonDecode(responseBody)['message']}', color: AppColors.red);
         }
-
       } else {
         _getController.changeErrorInput(2, true);
         _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
