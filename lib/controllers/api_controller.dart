@@ -13,6 +13,7 @@ import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
+import '../models/sample/transactions_model.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
@@ -674,6 +675,21 @@ class ApiController extends GetxController {
       _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
       InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
       debugPrint('Error occurred: $e');
+    }
+  }
+
+  Future<void> getTransactions() async {
+    final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(data.toString());
+      if (data['status'] == 0) {
+        _getController.changeTransactionsModel(TransactionsModel.fromJson(data));
+      } else {
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
 

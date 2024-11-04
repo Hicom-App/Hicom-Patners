@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/api_controller.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
@@ -13,6 +14,7 @@ class ReportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiController().getTransactions();
     return Scaffold(
         body: Obx(() =>
             Column(

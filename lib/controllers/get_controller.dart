@@ -19,6 +19,7 @@ import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
+import '../models/sample/transactions_model.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
@@ -627,8 +628,8 @@ class GetController extends GetxController {
   var warrantyModel = WarrantyModel().obs;
   var sortedWarrantyModel = SortedWarrantyModel().obs;
   var reviewsModel = ReviewsModel().obs;
-  //CardsModel
   var cardsModel = CardsModel().obs;
+  var transactionsModel = TransactionsModel().obs;
 
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -705,7 +706,7 @@ class GetController extends GetxController {
 
   void changeCardsModel(CardsModel cardsModels) => cardsModel.value = cardsModels;
 
-
+  void changeTransactionsModel(TransactionsModel transactionsModels) => transactionsModel.value = transactionsModels;
 
   //Functions change models
   void updateCategoriesProductsModel(int item, int index, int value) {
@@ -780,5 +781,7 @@ class GetController extends GetxController {
   void clearReviewsModel () => reviewsModel.value = ReviewsModel();
 
   void clearCardsModel () => cardsModel.value = CardsModel();
+
+  void clearTransactionsModel () => transactionsModel.value = TransactionsModel();
 }
 
