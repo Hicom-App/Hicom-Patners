@@ -49,6 +49,7 @@ class GetController extends GetxController {
   RxString firstPasscode = ''.obs;
   RxString enteredPasscode = ''.obs;
   RxBool isCreatingPasscode = true.obs;
+  RxBool allComments = false.obs;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();

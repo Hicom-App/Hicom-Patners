@@ -27,6 +27,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('id: $id');
+    _getController.allComments.value = false;
     ApiController().getProduct(id!, isCategory: false);
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
@@ -196,11 +197,10 @@ class DetailPage extends StatelessWidget {
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
                             if (_getController.reviewsModel.value.result != null)
-                              for (int index = 0;
-                                  index < _getController.reviewsModel.value.result!.length; index++)
+                              for (int index = 0; index < (_getController.allComments.value == true || _getController.reviewsModel.value.result!.length < 3 ? _getController.reviewsModel.value.result!.length : 3); index++)
                                 Container(
                                     width: Get.width,
-                                    margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h),
+                                    margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h, bottom: 20.h),
                                     child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -211,7 +211,6 @@ class DetailPage extends StatelessWidget {
                                               margin: EdgeInsets.only(right: 6.w),
                                               decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);}, fit: BoxFit.cover))
                                             ),
-                                            // User name and date
                                             TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
                                             const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),
                                             Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))]),
@@ -235,7 +234,8 @@ class DetailPage extends StatelessWidget {
                                               child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp, maxLines: _getController.isExpandedList[index] ? 2 : _getController.reviewsModel.value.result![index].review!.length, overflow: TextOverflow.ellipsis)),
                                           InkWell(
                                               onTap: () {
-                                                _getController.isExpandedList[index] = !_getController.isExpandedList[index];_getController.update(); // Update the UI to reflect changes
+                                                _getController.isExpandedList[index] = !_getController.isExpandedList[index];
+                                                _getController.update();
                                               },
                                               child: Row(
                                                   children: [
@@ -246,8 +246,26 @@ class DetailPage extends StatelessWidget {
                                           )
                                         ]
                                     )
-                                )
-                          ])),
+                                ),
+                            if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false)
+                              ElevatedButton(
+                                  onPressed: (){
+                                    _getController.allComments.value = !_getController.allComments.value;
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+                                      fixedSize: Size(Get.width, 40.h),
+                                      surfaceTintColor: Colors.white,
+                                      shadowColor: Colors.white,
+                                      foregroundColor: Colors.white
+                                  ),
+                                  child: TextSmall(text: 'Barchasini ko`rish'.tr, color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp)
+                              )
+                          ]
+                      )
+              ),
               Container(
                   color: AppColors.white,
                   child: Stack(
