@@ -229,19 +229,18 @@ class DetailPage extends StatelessWidget {
                                             onRatingUpdate: (double value) {},
                                           ),
                                           SizedBox(height: Get.height * 0.01),
-                                          // Review text with expand/collapse
                                           AnimatedSize(
                                               duration: const Duration(milliseconds: 300),
                                               curve: Curves.easeInOut,
-                                              child: SizedBox(height: _getController.isExpandedList[index] ? null : 100.h, child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp))),
+                                              child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp, maxLines: _getController.isExpandedList[index] ? 2 : _getController.reviewsModel.value.result![index].review!.length, overflow: TextOverflow.ellipsis)),
                                           InkWell(
                                               onTap: () {
                                                 _getController.isExpandedList[index] = !_getController.isExpandedList[index];_getController.update(); // Update the UI to reflect changes
                                               },
                                               child: Row(
                                                   children: [
-                                                    TextSmall(text: _getController.isExpandedList[index] ? 'Kamroq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
-                                                    Icon(_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                                    TextSmall(text: _getController.isExpandedList[index] ? 'Ko`proq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                                    Icon(!_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
                                                   ]
                                               )
                                           )

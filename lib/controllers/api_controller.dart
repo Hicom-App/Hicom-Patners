@@ -452,7 +452,7 @@ class ApiController extends GetxController {
   Future<void> addReview(int id) async {
     var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
-    request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
+    request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': '${_getController.surNameController.text}.', 'user_id': '0'});
     var response = await request.send();
     var responseBody = await response.stream.bytesToString();
     debugPrint(responseBody.toString());
@@ -461,7 +461,9 @@ class ApiController extends GetxController {
       debugPrint(data.toString());
       if (data['status'] == 0) {
         print(data.toString());
+        _getController.surNameController.text = '';
         InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
+        getProduct(id, isCategory: false);
         Get.back();
       } else {
         debugPrint('Xatolik: ${data['message']}');

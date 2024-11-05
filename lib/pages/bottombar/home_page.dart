@@ -11,8 +11,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
-import '../../companents/home/skeleton_category.dart';
-import '../../companents/home/skeleton_products.dart';
+import '../../companents/skletons/skeleton_category.dart';
+import '../../companents/skletons/skeleton_products.dart';
 import '../../companents/product_item.dart';
 import '../../companents/product_items.dart';
 import '../../companents/refresh_component.dart';
@@ -72,12 +72,12 @@ class HomePage extends StatelessWidget {
                                         children: [
                                           Row(
                                               children: [
-                                                TextLarge(text: _getController.fullName.value.toString().split(' ')[0].toString(), color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
+                                                TextLarge(text: _getController.profileInfoModel.value.result!.first.firstName.toString(), color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                                 SizedBox(width: 5.w),
-                                                TextLarge(text: _getController.fullName.value.toString().split(' ')[1].toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                                TextLarge(text: _getController.profileInfoModel.value.result!.first.lastName.toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                               ]
                                           ),
-                                          TextSmall(text: 'ID: ${_getController.id.value.toString()}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                          TextSmall(text: 'ID: ${_getController.profileInfoModel.value.result!.first.id}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                         ]
                                     ),
                                     actions: [

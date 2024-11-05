@@ -371,18 +371,30 @@ class InstrumentComponents {
           TextSmall(text: 'Izoh qoldiring', color: Theme.of(context).colorScheme.onSurface),
           SizedBox(height: Get.height * 0.01),
           Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 160.h),
               child: TextField(
                 controller: _getController.surNameController,
                 keyboardType: TextInputType.multiline,
-                maxLength: 162,
-                maxLines: null, // TextField avtomatik kattalashadi, lekin 150.sp dan oshmaydi
+                maxLength: 501,
+                maxLines: null, // TextField avtomatik kattalashadi, lekin 200.h dan oshmaydi
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1))
-                )
-              )
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
+                  ),
+                ),
+              ),
+            ),
           )
         ]
       ),
@@ -392,6 +404,7 @@ class InstrumentComponents {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
           child: TextButton(
               onPressed: () async {
+                print('ok');
                 ApiController().addReview(_getController.productsModelDetail.value.result!.first.id ?? 0);
               },
               child: TextSmall(text: 'Saqlash'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
@@ -403,6 +416,7 @@ class InstrumentComponents {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
           child: TextButton(
             onPressed: () {
+              _getController.surNameController.text = '';
               Get.back();
             },
             child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
