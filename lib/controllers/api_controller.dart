@@ -13,7 +13,7 @@ import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
-import '../models/sample/transactions_model.dart';
+import '../models/sample/sorted_pay_transactions.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
@@ -684,7 +684,10 @@ class ApiController extends GetxController {
       var data = jsonDecode(response.body);
       debugPrint(data.toString());
       if (data['status'] == 0) {
-        _getController.changeTransactionsModel(TransactionsModel.fromJson(data));
+        //_getController.changeTransactionsModel(TransactionsModel.fromJson(data));
+        _getController.changeSortedTransactionsModel(SortedPayTransactions.fromJson(data));
+        debugPrint('====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================');
+        debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
       } else {
         debugPrint('Xatolik: ${data['message']}');
       }

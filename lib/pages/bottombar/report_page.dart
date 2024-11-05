@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
+import 'package:intl/intl.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
+import '../../companents/skletons/report_page_skleton.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import '../home/checks_detail.dart';
@@ -16,8 +18,8 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getTransactions();
     return Scaffold(
-        body: Obx(() =>
-            Column(
+        body: Obx(() => _getController.sortedTransactionsModel.value.result != null
+            ? Column(
                 children: [
                   Container(width: Get.width, height: Get.height * 0.431,
                       decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]),
@@ -75,7 +77,7 @@ class ReportPage extends StatelessWidget {
                                                     SizedBox(height: 4.h),
                                                     Row(
                                                         children: [
-                                                          TextSmall(text: _getController.transactionsModel.value.result!.length.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          TextSmall(text: _getController.sortedTransactionsModel.value.result!.length.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                           SizedBox(width: 5.w),
                                                           TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         ]
@@ -151,7 +153,7 @@ class ReportPage extends StatelessWidget {
                                                   SizedBox(height: 4.h),
                                                   Row(
                                                       children: [
-                                                        TextSmall(text: _getController.transactionsModel.value.result!.length.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        TextSmall(text: _getController.sortedTransactionsModel.value.result!.length.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         SizedBox(width: 5.w),
                                                         TextSmall(text: 'ta'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                       ]
@@ -200,6 +202,129 @@ class ReportPage extends StatelessWidget {
                       )
                   ),
                   SizedBox(
+                    width: Get.width,
+                    height: Get.height * 0.54,
+                    child: RefreshComponent(
+                      scrollController: _getController.scrollReportController,
+                      refreshController: _getController.refreshReportController,
+                      child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(), // Disable scrolling
+                        shrinkWrap: true,
+                        itemCount: _getController.sortedTransactionsModel.value.result?.length ?? 0,
+                        padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 13.h, bottom: 100.h),
+                        itemBuilder: (context, index) {
+                          var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
+                          var resultsList = transactionGroup.results;
+                          return Column(
+                            children: [
+                              // Header for the date
+                              Container(
+                                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
+                                child: TextSmall(
+                                  text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date',
+                                  color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              // Iterate through each Results object within the current Result
+                              for (var transaction in resultsList ?? [])
+                                GestureDetector(
+                                  onTap: () => Get.to(() => const ChecksDetail(), arguments: transaction),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
+                                    padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      color: AppColors.white,
+                                      boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: Get.width,
+                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                          child: TextSmall(
+                                            text: transaction.operation == 0 ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr,
+                                            color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 13.sp,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: Get.width,
+                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                          child: Row(
+                                            children: [
+                                              TextSmall(
+                                                text: transaction.operation == 0 ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr,
+                                                color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14.sp,
+                                              ),
+                                              const Spacer(),
+                                              TextSmall(
+                                                text: transaction.amount?.toString() ?? '0', // Display amount
+                                                color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14.sp,
+                                              ),
+                                              TextSmall(
+                                                text: '.00'.tr,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.sp,
+                                              ),
+                                              SizedBox(width: 5.w),
+                                              TextSmall(
+                                                text: 'so‘m'.tr,
+                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12.sp,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: Get.width,
+                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                          child: Row(
+                                            children: [
+                                              TextSmall(
+                                                text : transaction.dateCreated != null ? DateFormat.Hm().format(DateTime.parse(transaction.dateCreated!)) : 'No Date Created',
+                                                color: AppColors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10.sp,
+                                              ),
+                                              const Spacer(),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 3.h, right: 5.w),
+                                                padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(50.r),
+                                                  color: transaction.operation == 1 ? AppColors.green : transaction.operation == 2 ? AppColors.red : AppColors.primaryColor,
+                                                ),
+                                                child: TextSmall(
+                                                  text: transaction.operation == 1 ? 'To`landi'.tr : transaction.operation == 2 ? 'Rad etildi'.tr : 'Jarayonda'.tr,
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 10.sp,
+                                                )
+                                              )
+                                            ]
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  )
+                                )
+                            ]
+                          );
+                        }
+                      )
+                    )
+                  )
+                  /*SizedBox(
                       width: Get.width,
                       height: Get.height * 0.54,
                       child: RefreshComponent(
@@ -280,9 +405,10 @@ class ReportPage extends StatelessWidget {
                           )
                       )
                   )
-                  )
+                  )*/
                 ]
             )
+            : const ReportPageSkleton()
         )
     );
   }

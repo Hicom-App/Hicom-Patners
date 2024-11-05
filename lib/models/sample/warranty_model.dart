@@ -1,4 +1,7 @@
+
 import 'dart:convert';
+
+import 'package:intl/intl.dart';
 
 class WarrantyModel {
   int? status;
@@ -43,20 +46,7 @@ class Result {
   String? photoUrl;
   String? description;
 
-  Result({
-    this.id,
-    this.productId,
-    this.serialCode,
-    this.cashback,
-    this.warrantyStart,
-    this.warrantyExpire,
-    this.dateCreated,
-    this.name,
-    this.categoryId,
-    this.brand,
-    this.photoUrl,
-    this.description,
-  });
+  Result({this.id, this.productId, this.serialCode, this.cashback, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.name, this.categoryId, this.brand, this.photoUrl, this.description});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -103,9 +93,7 @@ class SortedWarrantyModel {
     message = json['message'];
     if (json['result'] != null) {
       result = <SortedResult>[];
-      json['result'].forEach((v) {
-        result!.add(SortedResult.fromJson(v));
-      });
+      json['result'].forEach((v) {result!.add(SortedResult.fromJson(v));});
     }
   }
 
@@ -113,9 +101,7 @@ class SortedWarrantyModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (result != null) {
-      data['result'] = result!.map((v) => v.toJson()).toList();
-    }
+    if (result != null) {data['result'] = result!.map((v) => v.toJson()).toList();}
     return data;
   }
 }
@@ -130,42 +116,65 @@ class SortedResult {
     date = json['date'];
     if (json['result'] != null) {
       result = <Result>[];
-      json['result'].forEach((v) {
-        result!.add(Result.fromJson(v));
-      });
+      json['result'].forEach((v) {result!.add(Result.fromJson(v));});
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['date'] = date;
-    if (result != null) {
-      data['result'] = result!.map((v) => v.toJson()).toList();
-    }
+    if (result != null) {data['result'] = result!.map((v) => v.toJson()).toList();}
     return data;
   }
 }
 
 // Function to convert the original data to sorted structure
 SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
-  SortedWarrantyModel sortedModel = SortedWarrantyModel(
-    status: warrantyModel.status,
-    message: warrantyModel.message,
-    result: [],
-  );
+  SortedWarrantyModel sortedModel = SortedWarrantyModel(status: warrantyModel.status, message: warrantyModel.message, result: []);
 
-  // For demonstration purposes, we're using static dates.
-  // You can implement your own logic to determine the dates based on your requirements.
   Map<String, List<Result>> groupedResults = {};
 
+  String getMonth(String date) {
+    switch (date) {
+      case "01":
+        return "yan";
+      case "02":
+        return "fev";
+      case "03":
+        return "mar";
+      case "04":
+        return "ap";
+      case "05":
+        return "may";
+      case "06":
+        return "iyn";
+      case "07":
+        return "iyl";
+      case "08":
+        return "avq";
+      case "09":
+        return "sen";
+      case "10":
+        return "okt";
+      case "11":
+        return "noy";
+      case "12":
+        return "dek";
+      default:
+        return "";
+    }
+  }
+
   for (var res in warrantyModel.result!) {
-    String dateKey = ""; // Use logic to determine date key based on warrantyStart or other fields
-    if (res.warrantyStart!.contains("2024-10-29")) {
+    String dateKey = "";
+    //if (res.warrantyStart!.contains("2024-11-9")) {
+    if (res.warrantyStart!.contains(DateFormat('yyyy-MM-dd').format(DateTime.now()))) {
       dateKey = "bugun";
-    } else if (res.warrantyStart!.contains("2024-10-28")) {
+    //} else if (res.warrantyStart!.contains("2024-10-28")) {
+    } else if (res.warrantyStart!.contains(DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 1))))) {
       dateKey = "kecha";
     } else {
-      dateKey = "27 Oct"; // Example for other dates
+      dateKey = "${DateFormat('dd').format(DateTime.parse(res.warrantyStart!))} ${getMonth(DateFormat('MM').format(DateTime.parse(res.warrantyStart!)))}";
     }
 
     if (!groupedResults.containsKey(dateKey)) {
@@ -181,7 +190,7 @@ SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
   return sortedModel;
 }
 
-/*void main() {
+void main() {
   String jsonString = '''{
     "status": 0,
     "message": "OK",
@@ -225,4 +234,9 @@ SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
 
   // Print result
   print(json.encode(sortedWarrantyModel.toJson()));
-}*/
+
+  //print all date
+  for (var res in sortedWarrantyModel.result!) {
+    print(res.date);
+  }
+}

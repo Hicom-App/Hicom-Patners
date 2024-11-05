@@ -19,7 +19,7 @@ import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
-import '../models/sample/transactions_model.dart';
+import '../models/sample/sorted_pay_transactions.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
@@ -629,7 +629,7 @@ class GetController extends GetxController {
   var sortedWarrantyModel = SortedWarrantyModel().obs;
   var reviewsModel = ReviewsModel().obs;
   var cardsModel = CardsModel().obs;
-  var transactionsModel = TransactionsModel().obs;
+  var sortedTransactionsModel = SortedPayTransactions().obs;
 
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -706,7 +706,8 @@ class GetController extends GetxController {
 
   void changeCardsModel(CardsModel cardsModels) => cardsModel.value = cardsModels;
 
-  void changeTransactionsModel(TransactionsModel transactionsModels) => transactionsModel.value = transactionsModels;
+
+  void changeSortedTransactionsModel(SortedPayTransactions sortedTransactionsModels) => sortedTransactionsModel.value = sortedTransactionsModels;
 
   void updateCategoriesProductsModel(int item, int index, int value) {
     if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {
@@ -777,6 +778,5 @@ class GetController extends GetxController {
 
   void clearCardsModel () => cardsModel.value = CardsModel();
 
-  void clearTransactionsModel () => transactionsModel.value = TransactionsModel();
 }
 

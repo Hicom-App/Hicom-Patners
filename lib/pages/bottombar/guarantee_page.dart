@@ -16,6 +16,45 @@ class GuaranteePage extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
+  void getData() {
+    _getController.clearWarrantyModel();
+    _getController.clearSortedWarrantyModel();
+    ApiController().getWarrantyProducts();
+    _getController.refreshGuaranteeController.refreshCompleted();
+    _getController.refreshGuaranteeController.loadComplete();
+  }
+
+  String getMonth(String date) {
+    switch (date) {
+      case "01":
+        return "yan";
+      case "02":
+        return "fev";
+      case "03":
+        return "mar";
+      case "04":
+        return "ap";
+      case "05":
+        return "may";
+      case "06":
+        return "iyn";
+      case "07":
+        return "iyl";
+      case "08":
+        return "avg";
+      case "09":
+        return "sen";
+      case "10":
+        return "okt";
+      case "11":
+        return "noy";
+      case "12":
+        return "dek";
+      default:
+        return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _getController.clearWarrantyModel();
@@ -35,13 +74,14 @@ class GuaranteePage extends StatelessWidget {
         refreshController: _getController.refreshGuaranteeController,
         scrollController: _getController.scrollGuaranteeController,
         color: AppColors.black,
+          onRefresh: () => getData(),
         child: Obx(() {
           if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
             Map<String, List<dynamic>> groupedWarranty = {};
             for (var warranty in sortedWarrantyList) {
-              String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.dateCreated.toString()));
+              String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
               if (!groupedWarranty.containsKey(formattedDate)) {
                 groupedWarranty[formattedDate] = [];
               }
@@ -66,11 +106,7 @@ class GuaranteePage extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(bottom: 20.h),
                                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015),
-                                child: TextSmall(
-                                  text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(Duration(days: 1))) ? 'Kecha' : dateKey,
-                                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(Duration(days: 1))) ? 'Kecha' : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400)
                               ),
                               ...warrantiesForDate.map((warranty) {
                                 return Container(
@@ -142,54 +178,28 @@ class GuaranteePage extends StatelessWidget {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
-                                                      SizedBox(
-                                                          width: 110.w,
-                                                          child: TextSmall(
-                                                            text: warranty.name.toString(),
-                                                            color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 18.sp,
-                                                          )
-                                                      ),
+                                                      SizedBox(width: 110.w, child: TextSmall(text: warranty.name.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 18.sp)),
                                                       const Spacer(),
-                                                      InkWell(
-                                                        onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt()),
-                                                        child: Icon(Icons.delete, color: AppColors.red, size: 18.sp),
-                                                      ),
+                                                      InkWell(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 18.sp)),
                                                       SizedBox(width: 12.w),
                                                     ]
                                                 ),
                                                 SizedBox(height: 12.h),
                                                 Row(
                                                     children: [
-                                                      SizedBox(
-                                                          width: 75.w,
-                                                          child: TextSmall(text: 'Kategoriya:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)
-                                                      ),
-                                                      SizedBox(
-                                                          width: Get.width * 0.225,
-                                                          child: TextSmall(text: _getController.getCategoryName(warranty.categoryId!.toInt()), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp)
-                                                      )
+                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Kategoriya:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
+                                                      SizedBox(width: Get.width * 0.225, child: TextSmall(text: _getController.getCategoryName(warranty.categoryId!.toInt()), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
                                                 Row(
                                                     children: [
-                                                      SizedBox(
-                                                          width: 75.w,
-                                                          child: TextSmall(text: 'Qo`shilgan:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)
-                                                      ),
-                                                      SizedBox(
-                                                          width: Get.width * 0.225,
-                                                          child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.dateCreated.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp)
-                                                      )
+                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Qo`shilgan:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
+                                                      SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.dateCreated.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
                                                 Row(
                                                     children: [
-                                                      SizedBox(
-                                                          width: 75.w,
-                                                          child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)
-                                                      ),
+                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
                                                       SizedBox(
                                                           width: Get.width * 0.225,
                                                           child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp)
@@ -403,7 +413,7 @@ class GuaranteePage extends StatelessWidget {
                     SizedBox(height: Get.height * 0.01),
                     SearchTextField(color: Colors.grey.withOpacity(0.2)),
                     const Spacer(),
-                    Center(child: TextSmall(text: 'Ma\'lumot topilmadi', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16.sp)),
+                    Center(child: TextSmall(text: 'Ma‘lumot topilmadi', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16.sp)),
                     const Spacer(),
                   ]
               )
