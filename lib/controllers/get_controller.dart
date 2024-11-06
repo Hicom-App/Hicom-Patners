@@ -166,7 +166,7 @@ class GetController extends GetxController {
 
   get token => GetStorage().read('token');
 
-  get getSelectedCardIndex => selectedCard.value = GetStorage().read('selectedCardIndex');
+  get getSelectedCardIndex => selectedCard.value = GetStorage().read('selectedCardIndex') ?? 0;
 
   var selectedCard = 0.obs;
 

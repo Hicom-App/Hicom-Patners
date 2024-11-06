@@ -472,7 +472,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> getReviews(int id) async {
-    _getController.clearReviewsModel();
+    //_getController.clearReviewsModel();
     final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
