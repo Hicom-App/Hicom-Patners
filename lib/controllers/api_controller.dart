@@ -498,7 +498,7 @@ class ApiController extends GetxController {
     request.fields.addAll({'qrcode': _getController.codeController.text});
     var response = await request.send();
     var responseBody = await response.stream.bytesToString();
-    //debugPrint(responseBody.toString());
+    debugPrint(responseBody.toString());
     //status code
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 200) {
