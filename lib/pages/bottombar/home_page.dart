@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
+    FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(

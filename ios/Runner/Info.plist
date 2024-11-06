@@ -8,6 +8,48 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hicom Patners</string>
+	<key>CFBundleIcons</key>
+    	<dict>
+    		<key>CFBundleAlternateIcons</key>
+    		<dict>
+    			<key>chills</key>
+    			<dict>
+    				<key>CFBundleIconFiles</key>
+    				<array>
+    					<string>chills</string>
+    				</array>
+    				<key>UIPrerenderedIcon</key>
+    				<false/>
+    			</dict>
+    			<key>photos</key>
+    			<dict>
+    				<key>CFBundleIconFiles</key>
+    				<array>
+    					<string>photos</string>
+    				</array>
+    				<key>UIPrerenderedIcon</key>
+    				<false/>
+    			</dict>
+    			<key>teamfortress</key>
+    			<dict>
+    				<key>CFBundleIconFiles</key>
+    				<array>
+    					<string>teamfortress</string>
+    				</array>
+    				<key>UIPrerenderedIcon</key>
+    				<false/>
+    			</dict>
+    		</dict>
+    		<key>CFBundlePrimaryIcon</key>
+    		<dict>
+    			<key>CFBundleIconFiles</key>
+    			<array>
+    				<string>chills</string>
+    			</array>
+    			<key>UIPrerenderedIcon</key>
+    			<false/>
+    		</dict>
+    	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>We need to access your photo library to pick images.</string>
 	<key>NSCameraUsageDescription</key>
