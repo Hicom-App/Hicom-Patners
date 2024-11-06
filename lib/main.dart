@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:hicom_patners/resource/srting.dart';
 
+import 'controllers/dependency.dart';
 import 'controllers/get_controller.dart';
 
 main() async {
@@ -22,6 +23,7 @@ main() async {
     )
   );
   runApp(MyApp());
+  DependencyInjection.init();
 }
 
 

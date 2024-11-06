@@ -63,169 +63,159 @@ class ApiController extends GetxController {
   }*/
 
   Future<void> sendCodeRegister() async {
-    //http://185.196.213.76:8080/api/users/register
     String url = '$baseUrl/users/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
-    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    debugPrint(_getController.code.value + _getController.phoneController.text);
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
-        _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
+    try {
+      final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      debugPrint(_getController.code.value + _getController.phoneController.text);
+      debugPrint(response.body.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
+          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+          print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
+          _getController.startTimer();
+          Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
+        } else {
+          _getController.shakeKey[8].currentState?.shake();
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        _getController.shakeKey[8].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> sendCode() async {
     String url = '$baseUrl/users/login';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
-    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    debugPrint(_getController.code.value + _getController.phoneController.text);
-    debugPrint(response.body.toString());
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
-        _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
-      } else if (data['status'] == 3){
-        sendCodeRegister();
+    try {
+      final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      debugPrint(_getController.code.value + _getController.phoneController.text);
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+          print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
+          _getController.startTimer();
+          Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
+        } else if (data['status'] == 3){
+          sendCodeRegister();
+        }
+        else {
+          _getController.shakeKey[8].currentState?.shake();
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-      else {
-        _getController.shakeKey[8].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
-
-  /*Future<void> verifyPhone() async {
-    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text, 'code': _getController.verifyCodeControllers.text};
-    final response = await http.post(Uri.parse('$baseUrl/auth/verify'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.deletePassCode();
-        _getController.saveBiometrics(false);
-        _getController.saveToken(data['result']['token']);
-        _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
-        _getController.errorFieldOk.value = true;
-        _getController.errorField.value = true;
-        _getController.tapTimes((){
-          _getController.errorFieldOk.value = false;
-          _getController.errorField.value = false;
-          _getController.verifyCodeControllers.clear();
-          login();
-        }, 1);
-        debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
-      } else {
-        _getController.shakeKey[7].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-        _getController.changeErrorInput(0, true);
-        _getController.errorField.value = true;
-        debugPrint('Xatolik: xaaa0');
-        _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
-    }
-  }*/
 
   Future<void> verifyPhone(bool isRegister) async {
     Map<String, dynamic> body = {'confirmation_id': _getController.sendCodeModel.value.result?.confirmationId.toString(), 'code': _getController.verifyCodeControllers.text};
-    final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.deletePassCode();
-        _getController.saveBiometrics(false);
-        _getController.saveToken(data['result']['token']);
-        _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
-        _getController.errorFieldOk.value = true;
-        _getController.errorField.value = true;
-        _getController.tapTimes((){
-          _getController.errorFieldOk.value = false;
-          _getController.errorField.value = false;
-          _getController.verifyCodeControllers.clear();
-          //login();
-          if (isRegister) {
-            //RegisterPage();
-            Get.to(() => const RegisterPage());
-          } else {
-            getProfile();
-          }
-        }, 1);
-        debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+    try {
+      final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.deletePassCode();
+          _getController.saveBiometrics(false);
+          _getController.saveToken(data['result']['token']);
+          _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
+          _getController.errorFieldOk.value = true;
+          _getController.errorField.value = true;
+          _getController.tapTimes((){
+            _getController.errorFieldOk.value = false;
+            _getController.errorField.value = false;
+            _getController.verifyCodeControllers.clear();
+            //login();
+            if (isRegister) {
+              //RegisterPage();
+              Get.to(() => const RegisterPage());
+            } else {
+              getProfile();
+            }
+          }, 1);
+          debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
+        } else {
+          _getController.shakeKey[7].currentState?.shake();
+          debugPrint('Xatolik: ${data['message']}');
+          _getController.changeErrorInput(0, true);
+          _getController.errorField.value = true;
+          debugPrint('Xatolik: xaaa0');
+          _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
+        }
       } else {
-        _getController.shakeKey[7].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-        _getController.changeErrorInput(0, true);
-        _getController.errorField.value = true;
-        debugPrint('Xatolik: xaaa0');
-        _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
-  Future<void> getCountries({int? offset, int? limit}) async {
-    String url = '$baseUrl/place/countries';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.changeCountriesModel(CountriesModel.fromJson(data));
-        debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
+  Future<void> getCountries() async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/place/countries'));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.changeCountriesModel(CountriesModel.fromJson(data));
+          debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> getRegions(int countryId) async {
-    final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.changeRegionsModel(CountriesModel.fromJson(data));
-        debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
+      debugPrint(response.body.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.changeRegionsModel(CountriesModel.fromJson(data));
+          debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
-  Future<void> getCities(int regionId, {int? offset, int? limit}) async {
-    final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
-        _getController.changeCitiesModel(CountriesModel.fromJson(data));
+  Future<void> getCities(int regionId) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
+          _getController.changeCitiesModel(CountriesModel.fromJson(data));
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -318,113 +308,132 @@ class ApiController extends GetxController {
       'user_type': _getController.dropDownItems[0],
       'country_id': _getController.countriesModel.value.countries![_getController.dropDownItems[1]].id,
       'region_id': _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id,
-      'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id,
+      'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id
     };
-    final response = await http.post(
-      Uri.parse('$baseUrl/users/profile'),
-      headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',},
-      body: jsonEncode(body),
-    );
-    debugPrint(response.body.toString());
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        getProfile(isWorker: false);
-      } else if (data['status'] == 1) {
-        Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+    try {
+      final response = await http.post(Uri.parse('$baseUrl/users/profile'), headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',}, body: jsonEncode(body));
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          getProfile(isWorker: false);
+        } else if (data['status'] == 1) {
+          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+        }
+        else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-      else {
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> deleteProfile() async {
-    debugPrint('Profil o‘chirish');
-    final response = await http.delete(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
-    debugPrint(response.body.toString());
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.logout();
-        Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+    try {
+      debugPrint('Profil o‘chirish');
+      final response = await http.delete(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.logout();
+          Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> logout() async {
-    final response = await http.get(Uri.parse('$baseUrl/users/logout'), headers: headersBearer());
-    debugPrint(response.body.toString());
-    debugPrint(response.statusCode.toString());
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/users/logout'), headers: headersBearer());
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
 
   Future<void> getCategories({int? offset, int? limit}) async {
-    final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
-        debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
-        getProducts(0);
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
+          debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
+          getProducts(0);
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   // Mahsulotlar ro'yxatini olish
   Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false}) async {
-    final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId'), headers: {'Authorization': 'Bearer ${_getController.token}'});
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        if (isCategory == true) {
-          _getController.changeProductsModel(CategoriesModel.fromJson(data));
+    try {
+      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId'), headers: {'Authorization': 'Bearer ${_getController.token}'});
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          if (isCategory == true) {
+            _getController.changeProductsModel(CategoriesModel.fromJson(data));
+          } else {
+            _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
+          }
         } else {
-          _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
+          debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> getProduct(int categoryId, {bool isCategory = true, int? offset, int? limit}) async {
-    print('$baseUrl/catalog/products?id=$categoryId');
-    print(headersBearer().toString());
-    final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print(data.toString());
-      if (data['status'] == 0 && data['result'] != null) {
-        if (isCategory == true) {
-          _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        print(data.toString());
+        if (data['status'] == 0 && data['result'] != null) {
+          if (isCategory == true) {
+            _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+          } else {
+            _getController.clearProductsModelDetail();
+            _getController.changeProductsModelDetail(CategoriesModel.fromJson(data));
+            getReviews(categoryId);
+          }
         } else {
-          _getController.clearProductsModelDetail();
-          _getController.changeProductsModelDetail(CategoriesModel.fromJson(data));
-          getReviews(categoryId);
+          debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -435,56 +444,68 @@ class ApiController extends GetxController {
   }
 
   Future<void> addFavorites(int id, {bool isProduct = true}) async {
-    final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: {'Authorization': 'Bearer ${_getController.token}'});
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        //getCategories();
-        print(data.toString());
-      } else {
-        debugPrint('Xatolik: ${data['message']}');
+    try {
+      final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: {'Authorization': 'Bearer ${_getController.token}'});
+      debugPrint(response.body.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          //getCategories();
+          print(data.toString());
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> addReview(int id) async {
-    var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
-    request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': '${_getController.surNameController.text}.', 'user_id': '0'});
-    var response = await request.send();
-    var responseBody = await response.stream.bytesToString();
-    debugPrint(responseBody.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(responseBody);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        print(data.toString());
-        _getController.surNameController.text = '';
-        InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
-        getProduct(id, isCategory: false);
-        Get.back();
-      } else {
-        debugPrint('Xatolik: ${data['message']}');
+    try {
+      var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
+      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+      request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': '${_getController.surNameController.text}.', 'user_id': '0'});
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(responseBody);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          print(data.toString());
+          _getController.surNameController.text = '';
+          InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
+          getProduct(id, isCategory: false);
+          Get.back();
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> getReviews(int id) async {
     //_getController.clearReviewsModel();
-    final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        _getController.changeReviewsModel(ReviewsModel.fromJson(data));
-        _getController.initializeExpandedCommentList(data['result'].length);
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.changeReviewsModel(ReviewsModel.fromJson(data));
+          _getController.initializeExpandedCommentList(data['result'].length);
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -493,57 +514,69 @@ class ApiController extends GetxController {
 //Kafolatli mahsulotlar
 
   Future<void> addWarrantyProduct(String code, context) async {
-    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
-    request.fields.addAll({'qrcode': _getController.codeController.text});
-    var response = await request.send();
-    var responseBody = await response.stream.bytesToString();
-    debugPrint(responseBody.toString());
-    //status code
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      _getController.searchController.clear();
-      var data = jsonDecode(responseBody);
-      Get.back();
-      if (data['status'] == 0) {
-        getWarrantyProducts();
-        InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
-      } else if (data['status'] == 9) {
-        InstrumentComponents().addWarrantyDialog(context);
-      } else {
-        debugPrint('Xatolik: ${data['message']}');
-        InstrumentComponents().showToast('Xatolik: ${data['message']}', color: AppColors.red);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
+      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+      request.fields.addAll({'qrcode': _getController.codeController.text});
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      //status code
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        _getController.searchController.clear();
+        var data = jsonDecode(responseBody);
+        Get.back();
+        if (data['status'] == 0) {
+          getWarrantyProducts();
+          InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
+        } else if (data['status'] == 9) {
+          InstrumentComponents().addWarrantyDialog(context);
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+          InstrumentComponents().showToast('Xatolik: ${data['message']}', color: AppColors.red);
+        }
       }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> getWarrantyProducts() async {
-    final response = await http.get(Uri.parse('$baseUrl/warranty/products'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/warranty/products'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   Future<void> deleteWarrantyProduct(int id) async {
-    final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        getWarrantyProducts();
+    try {
+      final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          getWarrantyProducts();
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -552,21 +585,25 @@ class ApiController extends GetxController {
 //To'lovlar
 
   Future<void> getCards() async {
-    _getController.clearCardsModel();
-    final response = await http.get(Uri.parse('$baseUrl/payment/cards'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        _getController.changeCardsModel(CardsModel.fromJson(data));
-        if (_getController.cardsModel.value.result!.length == 1) {
-          _getController.saveSelectedCardIndex(0);
+    try {
+      _getController.clearCardsModel();
+      final response = await http.get(Uri.parse('$baseUrl/payment/cards'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.changeCardsModel(CardsModel.fromJson(data));
+          if (_getController.cardsModel.value.result!.length == 1) {
+            _getController.saveSelectedCardIndex(0);
+          }
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -685,20 +722,24 @@ class ApiController extends GetxController {
   }
 
   Future<void> getTransactions() async {
-    final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      debugPrint(data.toString());
-      if (data['status'] == 0) {
-        //_getController.changeTransactionsModel(TransactionsModel.fromJson(data));
-        _getController.changeSortedTransactionsModel(SortedPayTransactions.fromJson(data));
-        debugPrint('====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================');
-        debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          //_getController.changeTransactionsModel(TransactionsModel.fromJson(data));
+          _getController.changeSortedTransactionsModel(SortedPayTransactions.fromJson(data));
+          debugPrint('====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================');
+          debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
       } else {
-        debugPrint('Xatolik: ${data['message']}');
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 

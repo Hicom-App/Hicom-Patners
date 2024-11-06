@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ import '../models/sample/sorted_pay_transactions.dart';
 import '../models/sample/warranty_model.dart';
 import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
+import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
@@ -145,8 +147,46 @@ class GetController extends GetxController {
   void onClose() {
     controller?.dispose();
     nameController.dispose();
-
     super.onClose();
+  }
+
+
+  var connectionStatus = 'Unknown'.obs;
+  late Connectivity _connectivity;
+  late Stream<List<ConnectivityResult>> connectivityStream;
+
+
+  @override
+  void onInit() {
+
+    print('onInit');
+    _connectivity = Connectivity();
+    connectivityStream = _connectivity.onConnectivityChanged;
+
+    connectivityStream.listen((List<ConnectivityResult> result) {
+      connectionStatus.value = _getStatusMessage(result[0]);
+      for (int i = 0; i < result.length; i++) {
+        print('============================================================================================================');
+        print(result[i].toString());
+      }
+      if (result[0] == ConnectivityResult.none) {
+        Get.to(const NotConnection());
+      }
+    });
+    super.onInit();
+  }
+
+  String _getStatusMessage(ConnectivityResult result) {
+    switch (result) {
+      case ConnectivityResult.mobile:
+        return "Mobil ma'lumot orqali ulangan";
+      case ConnectivityResult.wifi:
+        return "Wi-Fi orqali ulangan";
+      case ConnectivityResult.none:
+        return "Aloqa yo'q";
+      default:
+        return "Aloqa holati noma'lum";
+    }
   }
 
   var mackFormater = MaskTextInputFormatter(mask: '#### #### #### ####', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);

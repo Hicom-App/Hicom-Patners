@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
-
-import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 
 class NotConnection extends StatelessWidget{
-  NotConnection({super.key});
+  const NotConnection({super.key});
 
-  final GetController _getController = Get.put(GetController());
   @override
   Widget build(BuildContext context) =>
       Scaffold(
@@ -26,7 +23,7 @@ class NotConnection extends StatelessWidget{
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r))),
                     onPressed: () {
                       Get.offAll(() => SplashScreen());
-                      _getController.logout();
+                      //_getController.logout();
                     },
                     child: Text('Qayta urinish'.tr, style: TextStyle(fontSize: 16.sp, color: AppColors.white))
                 )

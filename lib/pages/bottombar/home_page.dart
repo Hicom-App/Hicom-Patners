@@ -72,9 +72,9 @@ class HomePage extends StatelessWidget {
                                         children: [
                                           Row(
                                               children: [
-                                                TextLarge(text: _getController.profileInfoModel.value.result!.first.firstName.toString(), color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
+                                                TextLarge(text: _getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : '', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                                 SizedBox(width: 5.w),
-                                                TextLarge(text: _getController.profileInfoModel.value.result!.first.lastName.toString(), color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                                TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : '', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                               ]
                                           ),
                                           TextSmall(text: 'ID: ${_getController.profileInfoModel.value.result!.first.id}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
