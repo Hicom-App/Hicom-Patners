@@ -3,6 +3,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 
 import '../../controllers/get_controller.dart';
@@ -39,14 +40,19 @@ class SamplePage extends StatelessWidget {
           items: [
             const TabItem(icon:EneftyIcons.home_bold),
             const TabItem(icon: EneftyIcons.profile_bold),
-            TabItem(icon: Container(
-              decoration: const BoxDecoration(color: AppColors.white, shape: BoxShape.circle),
-              child: Container(
-                  margin: EdgeInsets.all(5.r),
-                  decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-                  child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
-              )
-            )),
+            TabItem(
+                icon: Container(
+                    decoration: const BoxDecoration(color: AppColors.white, shape: BoxShape.circle),
+                    child: Container(
+                        margin: EdgeInsets.all(5.r),
+                        decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
+                        child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp),
+                            onPressed: () => Get.to(QRViewExample())
+                            //onPressed: () => InstrumentComponents().addWarrantyDialog(context)
+                        )
+                    )
+                )
+            ),
             const TabItem(icon: EneftyIcons.box_3_bold),
             const TabItem(icon: EneftyIcons.chart_2_bold),
           ],

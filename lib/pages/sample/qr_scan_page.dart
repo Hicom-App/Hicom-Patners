@@ -31,7 +31,8 @@ class QRViewExample extends StatelessWidget {
           overlay: QrScannerOverlayShape(borderColor: AppColors.blue, borderRadius: 10, borderLength: 30, borderWidth: 10, cutOutSize: MediaQuery.of(context).size.width * 0.8),
           key: _getController.qrKey,
           cameraFacing: _getController.cameraFacing.value,
-          onQRViewCreated: _getController.onQRViewCreated)
+          onQRViewCreated: (controller) => _getController.onQRViewCreated(controller, context)
+        )
       )
     );
   }

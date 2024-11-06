@@ -492,23 +492,27 @@ class ApiController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Kafolatli mahsulotlar
 
-  Future<void> addWarrantyProduct(String code) async {
+  Future<void> addWarrantyProduct(String code, context) async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
     request.fields.addAll({'qrcode': _getController.codeController.text});
     var response = await request.send();
     var responseBody = await response.stream.bytesToString();
-    debugPrint(responseBody.toString());
+    //debugPrint(responseBody.toString());
+    //status code
+    debugPrint(response.statusCode.toString());
     if (response.statusCode == 200) {
-      _getController.tabController.index = 2;
-      _getController.changeIndex(2);
-      _getController.changeWidgetOptions();
       _getController.searchController.clear();
       var data = jsonDecode(responseBody);
+      Get.back();
       if (data['status'] == 0) {
-        debugPrint(data.toString());
+        getWarrantyProducts();
+        InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
+      } else if (data['status'] == 9) {
+        InstrumentComponents().addWarrantyDialog(context);
       } else {
         debugPrint('Xatolik: ${data['message']}');
+        InstrumentComponents().showToast('Xatolik: ${data['message']}', color: AppColors.red);
       }
     }
   }

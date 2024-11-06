@@ -76,16 +76,16 @@ class GetController extends GetxController {
     update();
   }
 
-  void onQRViewCreated(QRViewController qrController) {
+  void onQRViewCreated(QRViewController qrController, context) {
     controller = qrController;
     controller?.scannedDataStream.listen((scanData) {
       result.value = scanData;
       if (scanData.code != null) {
         codeController.text = scanData.code.toString();
-        ApiController().addWarrantyProduct(scanData.code.toString());
+        ApiController().addWarrantyProduct(scanData.code.toString(), context);
         controller?.pauseCamera();
         controller?.dispose();
-        Get.back();
+
       }
     });
   }

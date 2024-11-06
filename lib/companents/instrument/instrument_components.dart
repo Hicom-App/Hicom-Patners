@@ -424,6 +424,28 @@ class InstrumentComponents {
       )
   );
 
+  void addWarrantyDialog(BuildContext context) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 5.h, left: 15.w, right: 15.w),
+      title: 'Diqqat!'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
+      content: TextSmall(text: 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.'.tr, color: AppColors.black, maxLines: 100),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(
+              onPressed: () async {
+                Get.back();
+              },
+              child: TextSmall(text: 'ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
+
   void deleteCard(BuildContext context, int index) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
