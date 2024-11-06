@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,8 @@ class HomePage extends StatelessWidget {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
     FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
+    //FlutterAppIconBadge.isAppBadgeSupported();
+    //print(FlutterAppIconBadge.isAppBadgeSupported());
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -83,7 +86,25 @@ class HomePage extends StatelessWidget {
                                         ]
                                     ),
                                     actions: [
+                                      //badge
                                       IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
+                                      //badge
+                                      /*Container(
+                                        child: Badge(
+                                          isLabelVisible: true,
+                                          alignment: Alignment.topRight,
+                                          smallSize: 8.sp,
+                                          backgroundColor: AppColors.blue,
+                                          label: Text('${1000}', style: TextStyle(fontSize: 10.sp, color: Theme.of(context).colorScheme.onError, fontWeight: FontWeight.w500)),
+                                          child: IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
+                                        )
+                                      )*/
+
+                                      /*Badge(
+                                        label: Text('5', style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),),
+                                        backgroundColor: AppColors.blue,
+                                        child: IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
+                                      )*/
                                     ]
                                 ),
                                 Column(
