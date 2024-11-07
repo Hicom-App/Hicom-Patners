@@ -27,7 +27,7 @@ class SortedPayTransactions {
     return data;
   }
 
-  // Helper function to group by date
+  // Helper function to group and sort by date
   List<Result> _groupResultsByDate(List<Results> results) {
     Map<String, List<Results>> groupedData = {};
 
@@ -40,10 +40,9 @@ class SortedPayTransactions {
       }
       groupedData[formattedDate]!.add(result);
     }
+    var sortedEntries = groupedData.entries.toList()..sort((a, b) => DateTime.parse(b.key).compareTo(DateTime.parse(a.key)));
 
-    return groupedData.entries.map((entry) {
-      return Result(date: entry.key, results: entry.value);
-    }).toList();
+    return sortedEntries.map((entry) {entry.value.sort((a, b) => DateTime.parse(b.dateCreated!).compareTo(DateTime.parse(a.dateCreated!)));return Result(date: entry.key, results: entry.value);}).toList();
   }
 }
 
