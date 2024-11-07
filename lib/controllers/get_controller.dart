@@ -368,11 +368,15 @@ class GetController extends GetxController {
   var cardBackIndex = 0.obs;
   RxString cardNameText = ''.obs;
   RxString cardNumberText = ''.obs;
-  var selectedMonth = 0.obs;
 
   void changeCardBackIndex(int value) => cardBackIndex.value = value;
 
-  void changeSelectedMonth(int value) => selectedMonth.value = value;
+  void changeSelectedMonth(int value) {
+    for (var i = 0; i < listMonth.length; i++) {
+      listMonth[i]['selected'] = i == value ? true : false;
+    }
+    listMonth.refresh();
+  }
 
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
@@ -386,89 +390,8 @@ class GetController extends GetxController {
 
   final List locale = [{'name':'O‘zbekcha','locale': const Locale('uz','UZ')},{'name':'Ўзбекча','locale': const Locale('oz','OZ')}, {'name':'Русский','locale': const Locale('ru','RU')}, {'name':'English','locale': const Locale('en','US')}].obs;
 
-  var listMonth = [
-    'Yanvar',
-    'Fevral',
-    'Mart',
-    'Aprel',
-    'May',
-    'Iyun',
-    'Iyul',
-    'Avgust',
-    'Sentyabr',
-    'Oktyabr',
-    'Noyabr',
-    'Dekabr'
-  ].obs;
-  var listNames = [
-    'Jasurbek Shodiyev',
-    'APIGATE MERCHANT',
-    'Haydarov Dilshodjon',
-    'UPAY Humo',
-    'Davr Upay',
-    'beeli PEREV OPLATA',
-    'Yandex Go Taxi',
-    'Nasriddinov Jamshid',
-    'OZBEKTELEKOM AK',
-    'alifmobiuz u2h',
-    'ATTO TRANSPORT TOLOV',
-    'Haydarov Dilshodjon',
-    'ATTO TRANSPORT TOLOV',
-    'Nasriddinov Jamshid',
-    'beeli PEREV OPLATA',
-    'ATTO TRANSPORT TOLOV',
-    'Jasurbek Shodiyev',
-    'ATTO TRANSPORT TOLOV',
-    'Haydarov Dilshodjon',
-    'ATTO TRANSPORT TOLOV',
-  ].obs;
-  var listNamesPay = [
-    '10 000',
-    '-12 301',
-    '11 039',
-    '10 312',
-    '300 000',
-    '13 000',
-    '220 000',
-    '134 000',
-    '12 021',
-    '100 210',
-    '231 000',
-    '5 000',
-    '100 001',
-    '300 212',
-    '231 000',
-    '10 200',
-    '30 021',
-    '12 000',
-    '201 000',
-    '212 000',
-    '323 000'
-  ].obs;
-  var listNamesDay = [
-    '12:01',
-    '11:11',
-    '22:01',
-    '09:31',
-    '09:01',
-    '12:30',
-    '05:21',
-    '02:10',
-    '10:15',
-    '13:41',
-    '18:09',
-    '20:20',
-    '12:03',
-    '19:30',
-    '18:20',
-    '19:20',
-    '18:20',
-    '02:10',
-    '18:09',
-    '12:30',
-    '22:01',
-    '12:01',
-  ].obs;
+  var listMonth = [{'name':'Hammasi', 'selected': true}, {'name':'Yanvar', 'selected': false}, {'name':'Fevral', 'selected': false}, {'name':'Mart', 'selected': false}, {'name':'Aprel', 'selected': false}, {'name':'May', 'selected': false}, {'name':'Iyun', 'selected': false}, {'name':'Iyul', 'selected': false}, {'name':'Avgust', 'selected': false}, {'name':'Sentabr', 'selected': false}, {'name':'Oktabr', 'selected': false}, {'name':'Noyabr', 'selected': false}, {'name':'Dekabr', 'selected': false}].obs;
+
   var listTitle = ['Jarayonda', 'To‘langan', 'Rad etilgan',].obs;
   var listPrice = [
     '01.02.2025',
@@ -477,20 +400,6 @@ class GetController extends GetxController {
     '22.12.2025',
     '11.05.2025',
     '03.10.2025',
-    '13.11.2025',
-    '19.02.2025',
-    '23.01.2025',
-    '12.03.2025',
-    '02.04.2025',
-    '11.01.2025',
-  ].obs;
-  var listProductPrice = [
-    '200 123',
-    '828',
-    '224 614',
-    '223 786',
-    '100 000',
-    '300',
     '13.11.2025',
     '19.02.2025',
     '23.01.2025',
@@ -529,23 +438,6 @@ class GetController extends GetxController {
     'Hi-PDU9',
     'HDD',
     'camera'
-  ].obs;
-  var listCardBackImage = [
-    'https://i.pinimg.com/564x/9c/68/86/9c6886dd642a4869f3fa4578f9fe34ef.jpg',
-    'https://i.pinimg.com/474x/f2/32/41/f2324123ed322610368ebc8c8c871b6e.jpg',
-    'https://i.pinimg.com/474x/1e/b0/f9/1eb0f9367962763daf1ce6e2ea247415.jpg',
-    'https://i.pinimg.com/474x/6e/c6/7b/6ec67b86b6929236abbde2f62ee2d290.jpg',
-    'https://i.pinimg.com/474x/3a/24/5d/3a245d83eef7a69961c7f19540e972c1.jpg',
-    'https://i.pinimg.com/474x/36/c8/a2/36c8a2535c5345a9916b9975c6e75eb5.jpg',
-    'https://i.pinimg.com/564x/dc/59/68/dc5968de1b8ab34f7ef3932e7b200f9e.jpg',
-    'https://i.pinimg.com/564x/08/af/15/08af153b75aa01f66e73895ef1fbd662.jpg',
-    'https://i.pinimg.com/474x/4f/de/c6/4fdec686fea38584ca336dc61e9b4bd1.jpg',
-    'https://i.pinimg.com/474x/61/70/4f/61704f7cae76c05c98d3fa2939c4832e.jpg',
-    'https://i.pinimg.com/474x/25/fb/a5/25fba5e5fee645836650cc4eca58ef73.jpg',
-    'https://i.pinimg.com/474x/5c/e8/92/5ce8924c34c23647180900a931d1c10a.jpg',
-    'https://i.pinimg.com/474x/8b/4d/f5/8b4df5f8e623d935e73a9c8a2ae287c2.jpg',
-    'https://i.pinimg.com/474x/4b/6d/69/4b6d69245009abb4d0682291610f46f5.jpg',
-    'https://i.pinimg.com/474x/d8/a0/df/d8a0dfc5b6356039df4a6d00cbdf56f1.jpg'
   ].obs;
   var listPriceAnd = [
     '02.02.2022',

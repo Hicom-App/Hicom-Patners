@@ -26,6 +26,20 @@ class ReportPage extends StatelessWidget {
                       child: Column(
                           children: [
                             AppBar(backgroundColor: Colors.transparent, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
+
+                            //var listMonth = [
+                            //     {'name':'Yanvar', 'selected': true},
+                            //     {'name':'Fevral', 'selected': false},
+                            //     {'name':'Mart', 'selected': false},
+                            //     {'name':'Aprel', 'selected': false},
+                            //     {'name':'May', 'selected': false},
+                            //     {'name':'Iyun', 'selected': false},
+                            //     {'name':'Iyul', 'selected': false},
+                            //     {'name':'Avgust', 'selected': false},
+                            //     {'name':'Sentabr', 'selected': false},
+                            //     {'name':'Oktabr', 'selected': false},
+                            //     {'name':'Noyabr', 'selected': false},
+                            //     {'name':'Dekabr', 'selected': false}].obs;
                             SizedBox(
                                 width: Get.width,
                                 height: Get.height * 0.025,
@@ -33,14 +47,16 @@ class ReportPage extends StatelessWidget {
                                     scrollDirection: Axis.horizontal,
                                     itemCount: _getController.listMonth.length,
                                     padding: EdgeInsets.only(left: 20.w),
-                                    itemBuilder:(context, index) => GestureDetector(
+                                    itemBuilder:(context, index) => InkWell(
                                         onTap: () => _getController.changeSelectedMonth(index),
                                         child: Container(
                                             alignment: Alignment.center,
                                             margin: EdgeInsets.only(left: 14.w),
                                             padding: EdgeInsets.only(left: 19.w, right: 19.w),
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), border: Border.all(width: 1.5.w, color: AppColors.white), color: _getController.selectedMonth.value == index ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.grey.withOpacity(0.2)),
-                                            child: TextSmall(text: _getController.listMonth[index], color: _getController.selectedMonth.value == index ? AppColors.red : AppColors.white, fontWeight: FontWeight.w500, maxLines: 1,fontSize: 12.sp)
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), border: Border.all(width: 1.5.w, color: AppColors.white), color: _getController.listMonth[index]['selected'] == true ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.grey.withOpacity(0.2)),
+                                            child: TextSmall(
+                                                text: _getController.listMonth[index]['name'].toString(),
+                                                color: _getController.listMonth[index]['selected'] == true ? AppColors.red : AppColors.white, fontWeight: FontWeight.w500, maxLines: 1,fontSize: 12.sp)
                                         )
                                     )
                                 )
@@ -217,14 +233,6 @@ class ReportPage extends StatelessWidget {
                           var resultsList = transactionGroup.results;
                           return Column(
                             children: [
-                              /*Container(
-                                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                                child: TextSmall(
-                                    //text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date',
-                                    //text: if current date 'Bugun' else yesterday 'Kecha' else DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!))
-
-                                    color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400)
-                              ),*/
                               Container(
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
                                 child: TextSmall(
