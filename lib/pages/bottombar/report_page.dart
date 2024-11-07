@@ -205,9 +205,13 @@ class ReportPage extends StatelessWidget {
                     width: Get.width,
                     height: Get.height * 0.54,
                     child: RefreshComponent(
-                      scrollController: _getController.scrollReportController,
-                      refreshController: _getController.refreshReportController,
-                      child: ListView.builder(
+                        scrollController: _getController.scrollReportController,
+                        refreshController: _getController.refreshReportController,
+                        onRefresh: () async {
+                          _getController.clearSortedTransactionsModel();
+                          ApiController().getTransactions();
+                        },
+                        child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(), // Disable scrolling
                         shrinkWrap: true,
                         itemCount: _getController.sortedTransactionsModel.value.result?.length ?? 0,
@@ -235,12 +239,11 @@ class ReportPage extends StatelessWidget {
                               )
                               else
                                 if (index == 0)
-                                SizedBox(
+                                Container(
                                   height: Get.height * 0.4,
                                   width: Get.width,
-                                  child: Center(
-                                    child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)
-                                  )
+                                  alignment: Alignment.center,
+                                  child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)
                                 ),
                               for (var transaction in resultsList ?? [])
                                 GestureDetector(

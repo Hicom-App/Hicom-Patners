@@ -666,20 +666,6 @@ class GetController extends GetxController {
   }
 
 
-  //funktions
-
-  // String getSortedTransactionsResultIndex(value){
-  //   //value == 0 get all transactions else all result in get result item count
-  //   var list = [];
-  //   if (value == 0) {
-  //     list = sortedTransactionsModel.value.result!;
-  //   } else {
-  //     list = sortedTransactionsModel.value.result!;
-  //   }
-  //
-  //   return list.length.toString();
-  // }
-
   String getSortedTransactionsResultIndex(int? value) {
     var result = sortedTransactionsModel.value.result;
     List<int> indices = [];
@@ -745,6 +731,8 @@ class GetController extends GetxController {
   void clearReviewsModel () => reviewsModel.value = ReviewsModel();
 
   void clearCardsModel () => cardsModel.value = CardsModel();
+
+  void clearSortedTransactionsModel () => sortedTransactionsModel.value = SortedPayTransactions();
 
 }
 
