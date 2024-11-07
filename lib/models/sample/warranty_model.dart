@@ -167,10 +167,8 @@ SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
 
   for (var res in warrantyModel.result!) {
     String dateKey = "";
-    //if (res.warrantyStart!.contains("2024-11-9")) {
     if (res.warrantyStart!.contains(DateFormat('yyyy-MM-dd').format(DateTime.now()))) {
       dateKey = "bugun";
-    //} else if (res.warrantyStart!.contains("2024-10-28")) {
     } else if (res.warrantyStart!.contains(DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 1))))) {
       dateKey = "kecha";
     } else {
@@ -190,53 +188,54 @@ SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
   return sortedModel;
 }
 
-void main() {
-  String jsonString = '''{
-    "status": 0,
-    "message": "OK",
-    "result": [
-      {
-        "id": 3001,
-        "product_id": 17,
-        "serial_code": "3001>wnuGikAPCvrIwJi56SXhMQ==",
-        "cashback": null,
-        "warranty_start": "2024-10-28T12:13:05.000Z",
-        "warranty_expire": "2025-10-28T12:13:05.000Z",
-        "date_created": "2024-10-22T05:28:12.000Z",
-        "name": "Test uchun Mahsulot",
-        "category_id": 1,
-        "brand": "",
-        "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
-        "description": "Qanaqadir switch"
-      },
-      {
-        "id": 3002,
-        "product_id": 17,
-        "serial_code": "3002>a0+q/nMmVq3B0R5I3nkrnQ==",
-        "cashback": null,
-        "warranty_start": "2024-10-29T06:03:25.000Z",
-        "warranty_expire": "2025-10-29T06:03:25.000Z",
-        "date_created": "2024-10-22T05:28:12.000Z",
-        "name": "Test uchun Mahsulot",
-        "category_id": 1,
-        "brand": "",
-        "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
-        "description": "Qanaqadir switch"
-      }
-    ]
-  }''';
-
-  // Parse JSON
-  WarrantyModel warrantyModel = WarrantyModel.fromJson(json.decode(jsonString));
-
-  // Convert to SortedWarrantyModel
-  SortedWarrantyModel sortedWarrantyModel = convertToSortedWarrantyModel(warrantyModel);
-
-  // Print result
-  print(json.encode(sortedWarrantyModel.toJson()));
-
-  //print all date
-  for (var res in sortedWarrantyModel.result!) {
-    print(res.date);
-  }
-}
+//
+// void main() {
+//   String jsonString = '''{
+//     "status": 0,
+//     "message": "OK",
+//     "result": [
+//       {
+//         "id": 3001,
+//         "product_id": 17,
+//         "serial_code": "3001>wnuGikAPCvrIwJi56SXhMQ==",
+//         "cashback": null,
+//         "warranty_start": "2024-10-28T12:13:05.000Z",
+//         "warranty_expire": "2025-10-28T12:13:05.000Z",
+//         "date_created": "2024-10-22T05:28:12.000Z",
+//         "name": "Test uchun Mahsulot",
+//         "category_id": 1,
+//         "brand": "",
+//         "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
+//         "description": "Qanaqadir switch"
+//       },
+//       {
+//         "id": 3002,
+//         "product_id": 17,
+//         "serial_code": "3002>a0+q/nMmVq3B0R5I3nkrnQ==",
+//         "cashback": null,
+//         "warranty_start": "2024-10-29T06:03:25.000Z",
+//         "warranty_expire": "2025-10-29T06:03:25.000Z",
+//         "date_created": "2024-10-22T05:28:12.000Z",
+//         "name": "Test uchun Mahsulot",
+//         "category_id": 1,
+//         "brand": "",
+//         "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
+//         "description": "Qanaqadir switch"
+//       }
+//     ]
+//   }''';
+//
+//   // Parse JSON
+//   WarrantyModel warrantyModel = WarrantyModel.fromJson(json.decode(jsonString));
+//
+//   // Convert to SortedWarrantyModel
+//   SortedWarrantyModel sortedWarrantyModel = convertToSortedWarrantyModel(warrantyModel);
+//
+//   // Print result
+//   print(json.encode(sortedWarrantyModel.toJson()));
+//
+//   //print all date
+//   for (var res in sortedWarrantyModel.result!) {
+//     print(res.date);
+//   }
+// }

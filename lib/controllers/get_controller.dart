@@ -368,6 +368,7 @@ class GetController extends GetxController {
   var cardBackIndex = 0.obs;
   RxString cardNameText = ''.obs;
   RxString cardNumberText = ''.obs;
+  RxInt selectMonth = 0.obs;
 
   void changeCardBackIndex(int value) => cardBackIndex.value = value;
 
@@ -375,6 +376,7 @@ class GetController extends GetxController {
     for (var i = 0; i < listMonth.length; i++) {
       listMonth[i]['selected'] = i == value ? true : false;
     }
+    selectMonth.value = value;
     listMonth.refresh();
   }
 
@@ -663,6 +665,39 @@ class GetController extends GetxController {
     }
   }
 
+
+  //funktions
+
+  // String getSortedTransactionsResultIndex(value){
+  //   //value == 0 get all transactions else all result in get result item count
+  //   var list = [];
+  //   if (value == 0) {
+  //     list = sortedTransactionsModel.value.result!;
+  //   } else {
+  //     list = sortedTransactionsModel.value.result!;
+  //   }
+  //
+  //   return list.length.toString();
+  // }
+
+  String getSortedTransactionsResultIndex(int? value) {
+    var result = sortedTransactionsModel.value.result;
+    List<int> indices = [];
+
+    for (var i = 0; i < result!.length; i++) {
+      for (var j = 0; j < result[i].results!.length; j++) {
+        final operation = result[i].results![j].operation;
+
+        // If value is null, count all items. Otherwise, filter by operation.
+        if (value == null || operation == value) {
+          indices.add(j);
+        }
+      }
+    }
+
+    // Return total count of indices or '0' if no matching items found.
+    return indices.isEmpty ? '0' : indices.length.toString();
+  }
 
 
   //clear models
