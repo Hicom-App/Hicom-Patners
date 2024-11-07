@@ -264,7 +264,7 @@ class ReportPage extends StatelessWidget {
                                               Container(
                                                 margin: EdgeInsets.only(top: 3.h, right: 5.w),
                                                 padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.red : AppColors.primaryColor),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.green : AppColors.red),
                                                 child: TextSmall(text:transaction.operation == 0 ? 'Qabul qilindi': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
                                               )
                                             ]
