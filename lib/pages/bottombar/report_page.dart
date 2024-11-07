@@ -220,11 +220,7 @@ class ReportPage extends StatelessWidget {
                               // Header for the date
                               Container(
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                                child: TextSmall(
-                                  text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date',
-                                  color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6),
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                child: TextSmall(text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date', color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6), fontWeight: FontWeight.w400)
                               ),
                               // Iterate through each Results object within the current Result
                               for (var transaction in resultsList ?? [])
@@ -234,82 +230,40 @@ class ReportPage extends StatelessWidget {
                                     alignment: Alignment.center,
                                     margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
                                     padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: AppColors.white,
-                                      boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))],
-                                    ),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
                                     child: Column(
                                       children: [
                                         Container(
                                           width: Get.width,
                                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                          child: TextSmall(
-                                            text: transaction.operation == 0 ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr,
-                                            color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp,
-                                          ),
+                                          child: TextSmall(text: transaction.operation == 0 ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp)
                                         ),
                                         Container(
                                           width: Get.width,
                                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                                           child: Row(
                                             children: [
-                                              TextSmall(
-                                                text: transaction.operation == 0 ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr,
-                                                color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14.sp,
-                                              ),
+                                              TextSmall(text: '${transaction.firstName} ${transaction.lastName}', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                               const Spacer(),
-                                              TextSmall(
-                                                text: transaction.amount?.toString() ?? '0', // Display amount
-                                                color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14.sp,
-                                              ),
-                                              TextSmall(
-                                                text: '.00'.tr,
-                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12.sp,
-                                              ),
+                                              TextSmall(text: transaction.amount?.toString() ?? '0', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                              TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                               SizedBox(width: 5.w),
-                                              TextSmall(
-                                                text: 'so‘m'.tr,
-                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12.sp,
-                                              )
-                                            ],
-                                          ),
+                                              TextSmall(text: 'so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp)
+                                            ]
+                                          )
                                         ),
                                         Container(
                                           width: Get.width,
                                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                                           child: Row(
                                             children: [
-                                              TextSmall(
-                                                text : transaction.dateCreated != null ? DateFormat.Hm().format(DateTime.parse(transaction.dateCreated!)) : 'No Date Created',
-                                                color: AppColors.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 10.sp,
-                                              ),
+                                              TextSmall(text : transaction.dateCreated != null ? DateFormat.Hm().format(DateTime.parse(transaction.dateCreated!)) : '', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 10.sp),
                                               const Spacer(),
                                               Container(
                                                 margin: EdgeInsets.only(top: 3.h, right: 5.w),
                                                 padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(50.r),
-                                                  color: transaction.operation == 1 ? AppColors.green : transaction.operation == 2 ? AppColors.red : AppColors.primaryColor,
-                                                ),
-                                                child: TextSmall(
-                                                  text: transaction.operation == 1 ? 'To`landi'.tr : transaction.operation == 2 ? 'Rad etildi'.tr : 'Jarayonda'.tr,
-                                                  color: AppColors.white,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 10.sp,
-                                                )
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.red : AppColors.primaryColor),
+                                                child: TextSmall(text:transaction.operation == 0 ? 'Qabul qilindi': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
                                               )
                                             ]
                                           )

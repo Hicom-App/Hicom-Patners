@@ -8,9 +8,7 @@ class SortedPayTransactions {
   SortedPayTransactions.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-
     if (json['result'] != null) {
-      // Parse and group results by date
       var results = <Results>[];
       json['result'].forEach((v) {
         results.add(Results.fromJson(v));
@@ -80,19 +78,23 @@ class Results {
   int? operation;
   String? dateCreated;
   int? userId;
+  String? firstName;
+  String? lastName;
   int? amount;
   int? cardId;
   int? codeId;
   String? dateEdited;
   String? description;
 
-  Results({this.id, this.operation, this.dateCreated, this.userId, this.amount, this.cardId, this.codeId, this.dateEdited, this.description});
+  Results({this.id, this.operation, this.dateCreated, this.userId, this.firstName, this.lastName, this.amount, this.cardId, this.codeId, this.dateEdited, this.description});
 
   Results.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     operation = json['operation'];
     dateCreated = json['date_created'];
     userId = json['user_id'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
     amount = json['amount'];
     cardId = json['card_id'];
     codeId = json['code_id'];
@@ -106,6 +108,8 @@ class Results {
     data['operation'] = operation;
     data['date_created'] = dateCreated;
     data['user_id'] = userId;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
     data['amount'] = amount;
     data['card_id'] = cardId;
     data['code_id'] = codeId;
