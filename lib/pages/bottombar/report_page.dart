@@ -217,12 +217,22 @@ class ReportPage extends StatelessWidget {
                           var resultsList = transactionGroup.results;
                           return Column(
                             children: [
-                              // Header for the date
+                              /*Container(
+                                padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
+                                child: TextSmall(
+                                    //text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date',
+                                    //text: if current date 'Bugun' else yesterday 'Kecha' else DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!))
+
+                                    color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400)
+                              ),*/
                               Container(
                                 padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                                child: TextSmall(text: transactionGroup.date != null ? DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : 'No Date', color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6), fontWeight: FontWeight.w400)
+                                child: TextSmall(
+                                  text: transactionGroup.date != null ? (DateTime.parse(transactionGroup.date!).day == DateTime.now().day ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!))) : '',
+                                  color: AppColors.black.withOpacity(0.4),
+                                  fontWeight: FontWeight.w400
+                                )
                               ),
-                              // Iterate through each Results object within the current Result
                               for (var transaction in resultsList ?? [])
                                 GestureDetector(
                                   onTap: () => Get.to(() => const ChecksDetail(), arguments: transaction),
