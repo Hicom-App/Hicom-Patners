@@ -547,6 +547,21 @@ class GetController extends GetxController {
 
   String getCategoryName(int id) => categoriesModel.value.result!.firstWhere((element) => element.id == id).name!;
 
+  String getMaskedName(String name) {
+    if (name.isEmpty || name.length < 3) {
+      return '*' * name.length;
+    }
+    if (name.length <= 6) {
+      return name[0] + '*' * (name.length - 2) + name[name.length - 1];
+    }
+    String visibleStart = name.substring(0, 3); // Boshlanishdagi 3 harf
+    String visibleEnd = name.substring(name.length - 3); // Oxiridagi 3 harf
+    String maskedMiddle = name.substring(3, name.length - 3).split('').map((char) {
+      return char == ' ' ? ' ' : '*'; // Bo'sh joyni saqlab, boshqa belgilarni yulduzcha bilan almashtirish
+    }).join('');
+    return visibleStart + maskedMiddle + visibleEnd;
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -685,6 +700,7 @@ class GetController extends GetxController {
     return indices.isEmpty ? '0' : indices.length.toString();
   }
 
+  String getCardNumber(int? id) => cardsModel.value.result != null ? cardsModel.value.result!.firstWhere((element) => element.id == id).cardNo ?? 'Unknown'.tr : 'Unknown'.tr;
 
   //clear models
 

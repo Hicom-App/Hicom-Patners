@@ -242,7 +242,16 @@ class ChecksPage extends StatelessWidget {
                                   ),
                                   for (var transaction in resultsList ?? [])
                                     GestureDetector(
-                                        onTap: () => Get.to(() => const ChecksDetail(), arguments: transaction),
+                                        onTap: () => Get.to(() => ChecksDetail(
+                                          id: transaction.id,
+                                          cardId: transaction.cardId,
+                                          operation: int.parse(transaction.operation.toString()),
+                                          dateCreated: transaction.dateCreated,
+                                          name: transaction.lastName,
+                                          firstName: transaction.firstName,
+                                          amount: transaction.amount,
+                                          description: transaction.description,
+                                        ), arguments: transaction),
                                         child: Container(
                                             alignment: Alignment.center,
                                             margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),

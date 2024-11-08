@@ -232,25 +232,28 @@ class ReportPage extends StatelessWidget {
                             children: [
                               if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
                                 Container(
-                            padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                            child: TextSmall(
-                              text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '',
-                              color: AppColors.black.withOpacity(0.4),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )
+                                  padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
+                                  child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400)
+                                )
                               else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                 if (index == 0)
-                                  Container(
-                                      height: Get.height * 0.4,
-                                      width: Get.width,
-                                      alignment: Alignment.center,
-                                      child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)
+                                  Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)
                                   ),
                               if (resultsList != null && resultsList.isNotEmpty)
                                 for (var transaction in resultsList ?? [])
                                   GestureDetector(
-                                  onTap: () => Get.to(() => const ChecksDetail(), arguments: transaction),
+                                  onTap: () => Get.to(() =>
+                                      ChecksDetail(
+                                        operation: int.parse(transaction.operation.toString()),
+                                        dateCreated: transaction.dateCreated,
+                                        name: transaction.lastName,
+                                        firstName: transaction.firstName,
+                                        amount: transaction.amount,
+                                        description: transaction.description,
+                                        cardId: transaction.cardId ?? 0,
+                                          id: transaction.id
+                                      ),
+                                      arguments: transaction),
                                   child: Container(
                                     alignment: Alignment.center,
                                     margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
