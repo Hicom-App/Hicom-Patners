@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "938461696447",
+    "project_id": "hicom-67d37",
+    "storage_bucket": "hicom-67d37.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938461696447:android:a83d39492661e7129bd10a",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2akP04SymYqUkwFbIsOvK4QDvBh7urYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938461696447:android:67dd0677ddbcd3239bd10a",
+        "android_client_info": {
+          "package_name": "hicom.uz.hicom_patners"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2akP04SymYqUkwFbIsOvK4QDvBh7urYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
