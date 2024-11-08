@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -222,23 +221,16 @@ class ReportPage extends StatelessWidget {
                           var resultsList = transactionGroup.results;
 
                           if (_getController.selectMonth.value != 0) {
-                            resultsList = resultsList?.where((transaction) {
-                              final transactionDate = DateTime.parse(transaction.dateCreated!);
-                              return transactionDate.month == _getController.selectMonth.value;
-                            }).toList();
+                            resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
                           }
 
                           return Column(
                             children: [
                               if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                Container(
-                                  padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                                  child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400)
-                                )
+                                Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
                               else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                 if (index == 0)
-                                  Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)
-                                  ),
+                                  Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),
                               if (resultsList != null && resultsList.isNotEmpty)
                                 for (var transaction in resultsList ?? [])
                                   GestureDetector(
@@ -260,9 +252,7 @@ class ReportPage extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                                           child: Row(
                                             children: [
-                                              TextSmall(
-                                                  text: '${transaction.operation == 0 || transaction.operation == 0 ? 'Balansni to‘ldirish'.tr : transaction.firstName + ' ' + transaction.lastName}',
-                                                  color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                              TextSmall(text: '${transaction.operation == 0 || transaction.operation == 0 ? 'Balansni to‘ldirish'.tr : transaction.firstName + ' ' + transaction.lastName}', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                               const Spacer(),
                                               TextSmall(text: transaction.amount?.toString() ?? '0', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                               TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),

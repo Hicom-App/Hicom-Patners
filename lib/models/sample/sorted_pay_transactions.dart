@@ -26,11 +26,9 @@ class SortedPayTransactions {
     }
     return data;
   }
-
   // Helper function to group and sort by date
   List<Result> _groupResultsByDate(List<Results> results) {
     Map<String, List<Results>> groupedData = {};
-
     for (var result in results) {
       // DateTime.parse bilan UTC vaqtini o'zgartirmay olish
       final date = DateTime.parse(result.dateCreated!);
@@ -41,16 +39,13 @@ class SortedPayTransactions {
       }
       groupedData[formattedDate]!.add(result);
     }
-
     // Guruhlangan natijalarni sanaga qarab sortlash
     var sortedEntries = groupedData.entries.toList()..sort((a, b) => DateTime.parse(b.key).compareTo(DateTime.parse(a.key)));
-
     return sortedEntries.map((entry) {
       entry.value.sort((a, b) => DateTime.parse(b.dateCreated!).compareTo(DateTime.parse(a.dateCreated!)));
       return Result(date: entry.key, results: entry.value);
     }).toList();
   }
-
 }
 
 class Result {
