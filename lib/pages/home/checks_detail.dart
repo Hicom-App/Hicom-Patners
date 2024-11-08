@@ -120,7 +120,8 @@ class ChecksDetail extends StatelessWidget{
               )
             ),
             SizedBox(height: 20.h),
-            Container(
+            if (description.isNotEmpty && description != 'null')
+              Container(
                 width: Get.width,
                 padding: EdgeInsets.all(15.w),
                 decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(20.r)),
