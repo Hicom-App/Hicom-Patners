@@ -32,7 +32,8 @@ class SortedPayTransactions {
     Map<String, List<Results>> groupedData = {};
 
     for (var result in results) {
-      final date = DateTime.parse(result.dateCreated!).toLocal();
+      // DateTime.parse bilan UTC vaqtini o'zgartirmay olish
+      final date = DateTime.parse(result.dateCreated!);
       final formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
 
       if (!groupedData.containsKey(formattedDate)) {
@@ -40,10 +41,16 @@ class SortedPayTransactions {
       }
       groupedData[formattedDate]!.add(result);
     }
+
+    // Guruhlangan natijalarni sanaga qarab sortlash
     var sortedEntries = groupedData.entries.toList()..sort((a, b) => DateTime.parse(b.key).compareTo(DateTime.parse(a.key)));
 
-    return sortedEntries.map((entry) {entry.value.sort((a, b) => DateTime.parse(b.dateCreated!).compareTo(DateTime.parse(a.dateCreated!)));return Result(date: entry.key, results: entry.value);}).toList();
+    return sortedEntries.map((entry) {
+      entry.value.sort((a, b) => DateTime.parse(b.dateCreated!).compareTo(DateTime.parse(a.dateCreated!)));
+      return Result(date: entry.key, results: entry.value);
+    }).toList();
   }
+
 }
 
 class Result {
