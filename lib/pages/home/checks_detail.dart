@@ -33,10 +33,7 @@ class ChecksDetail extends StatelessWidget{
         elevation: 0,
         leading: IconButton(icon: Icon(Icons.close, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white), onPressed: () {Get.back();}),
         actions: [
-          IconButton(
-            icon: Icon(Icons.download, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
-            onPressed: () {}
-          )
+          IconButton(icon: Icon(Icons.download, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white), onPressed: () {})
         ]
       ),
       body: Padding(
