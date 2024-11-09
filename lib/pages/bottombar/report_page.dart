@@ -234,7 +234,7 @@ class ReportPage extends StatelessWidget {
                               if (resultsList != null && resultsList.isNotEmpty)
                                 for (var transaction in resultsList ?? [])
                                   GestureDetector(
-                                  onTap: () => Get.to(() => ChecksDetail(operation: int.parse(transaction.operation.toString()), dateCreated: transaction.dateCreated, name: transaction.lastName, firstName: transaction.firstName, amount: transaction.amount, description: transaction.description, cardId: transaction.cardId ?? 0, id: transaction.id), arguments: transaction),
+                                  onTap: () => Get.to(() => ChecksDetail(operation: int.parse(transaction.operation.toString()), dateCreated: transaction.dateCreated, name: transaction.lastName, firstName: transaction.firstName, amount: transaction.amount, description: transaction.description ?? '', cardId: transaction.cardId ?? 0, id: transaction.id), arguments: transaction),
                                   child: Container(
                                     alignment: Alignment.center,
                                     margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
