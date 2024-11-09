@@ -84,10 +84,12 @@ class Results {
   int? amount;
   int? cardId;
   int? codeId;
+  String? cardNo;
+  String? cardHolder;
   String? dateEdited;
   String? description;
 
-  Results({this.id, this.operation, this.dateCreated, this.userId, this.firstName, this.lastName, this.amount, this.cardId, this.codeId, this.dateEdited, this.description});
+  Results({this.id, this.operation, this.dateCreated, this.userId, this.firstName, this.lastName, this.amount, this.cardId, this.codeId, this.cardNo, this.cardHolder, this.dateEdited, this.description});
 
   Results.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -99,6 +101,8 @@ class Results {
     amount = json['amount'];
     cardId = json['card_id'];
     codeId = json['code_id'];
+    cardNo = json['card_no'];
+    cardHolder = json['card_holder'];
     dateEdited = json['date_edited'];
     description = json['description'];
   }
@@ -114,6 +118,8 @@ class Results {
     data['amount'] = amount;
     data['card_id'] = cardId;
     data['code_id'] = codeId;
+    data['card_no'] = cardNo;
+    data['card_holder'] = cardHolder;
     data['date_edited'] = dateEdited;
     data['description'] = description;
     return data;

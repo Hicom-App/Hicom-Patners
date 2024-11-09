@@ -251,6 +251,8 @@ class ChecksPage extends StatelessWidget {
                                           firstName: transaction.firstName,
                                           amount: transaction.amount,
                                           description: transaction.description,
+                                          cardNo: transaction.cardNo,
+                                          cardHolder: transaction.cardHolder
                                         ), arguments: transaction),
                                         child: Container(
                                             alignment: Alignment.center,

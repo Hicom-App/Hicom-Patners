@@ -616,15 +616,26 @@ class ApiController extends GetxController {
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
-        _getController.cardNumberController.clear();
-        _getController.nameController.clear();
+        if (jsonDecode(responseBody)['status'] == 17) {
+          InstrumentComponents().showToast('Kardtalar chegaralangan miqdordan ko`p!'.tr, color: AppColors.red);
+          return;
+        }
+        if (jsonDecode(responseBody)['status'] == 18) {
+          InstrumentComponents().showToast('Ushbu karta avval qo`shilgan!'.tr, color: AppColors.red);
+        }
+        if (jsonDecode(responseBody)['status'] == 0) {
+          _getController.cardNumberController.clear();
+          _getController.nameController.clear();
+          Get.back();
+          _getController.changeErrorInput(0, true);
+          _getController.changeErrorInput(1, true);
+          _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
+          _getController.shakeKey[0].currentState?.shake();
+          _getController.shakeKey[1].currentState?.shake();
+          getCards();
+          return;
+        }
         Get.back();
-        _getController.changeErrorInput(0, true);
-        _getController.changeErrorInput(1, true);
-        _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
-        _getController.shakeKey[0].currentState?.shake();
-        _getController.shakeKey[1].currentState?.shake();
-        getCards();
       } else {
         debugPrint('Failed to add card: ${response.statusCode}');
       }
@@ -684,6 +695,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> paymentWithdraw() async {
+    print(_getController.cardsModel.value.result![_getController.selectedCard.value].id.toString() + 'shuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu');
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/withdraw'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
     request.fields.addAll({'amount': _getController.paymentController.text});

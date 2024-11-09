@@ -680,7 +680,6 @@ class GetController extends GetxController {
     }
   }
 
-
   String getSortedTransactionsResultIndex(int? value) {
     var result = sortedTransactionsModel.value.result;
     List<int> indices = [];
@@ -700,8 +699,6 @@ class GetController extends GetxController {
     return indices.isEmpty ? '0' : indices.length.toString();
   }
 
-  //String getCardNumber(int? id) => cardsModel.value.result != null ? cardsModel.value.result!.firstWhere((element) => element.id == id).cardNo ?? 'Unknown'.tr : '-'.tr;
-  String getCardNumber(int? id) => cardsModel.value.result != null ? cardsModel.value.result!.firstWhere((element) => element.id == id).cardNo! : '-';
 
   //clear models
 

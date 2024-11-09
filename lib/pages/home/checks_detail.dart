@@ -16,8 +16,10 @@ class ChecksDetail extends StatelessWidget{
   final int? cardId;
   final int amount;
   final String description;
+  final String? cardNo;
+  final String? cardHolder;
 
-  ChecksDetail({super.key, required this.operation, required this.dateCreated, required this.name, required this.firstName, required this.amount, required this.description, this.cardId, required this.id});
+  ChecksDetail({super.key, required this.operation, required this.dateCreated, required this.name, required this.firstName, required this.amount, required this.description, this.cardId, required this.id, this.cardNo, this.cardHolder});
 
   final GetController _getController = Get.put(GetController());
 
@@ -77,7 +79,8 @@ class ChecksDetail extends StatelessWidget{
                         children: [
                           Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
                           SizedBox(width: 5.h),
-                          TextSmall(text: _getController.getCardNumber(cardId),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                          TextSmall(
+                              text: cardNo.toString(), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                         ]
                       ),
                     ]
@@ -87,7 +90,7 @@ class ChecksDetail extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextSmall(text: 'Qabul qiluvchi',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                        TextSmall(text: _getController.getMaskedName('$firstName $name'),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                        TextSmall(text: _getController.getMaskedName(cardHolder.toString()),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                       ]
                   ),
                   Divider(thickness: 1, color: Colors.grey[300]),

@@ -72,6 +72,7 @@ class TransferToWallet extends StatelessWidget {
                     itemBuilder: (context, index) => Obx(() => InkWell(
                         onTap: () => _getController.saveSelectedCardIndex(index),
                         onLongPress: () {
+                          print('index: $index ${_getController.cardsModel.value.result![index].id}');
                           InstrumentComponents().bottomSheetCardOption(context, index);
                         },
                         overlayColor: const WidgetStatePropertyAll(AppColors.blackTransparent),

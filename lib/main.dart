@@ -33,9 +33,9 @@ main() async {
     print('Error getting FCM token: $e');
   }
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Oldingi holatda xabar qabul qilindi: ${message.notification?.title}, ${message.notification?.body}');
-  });
+  });*/
   runApp(MyApp());
   DependencyInjection.init();
 }
