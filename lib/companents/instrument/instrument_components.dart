@@ -16,7 +16,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 class InstrumentComponents {
   final GetController _getController = Get.put(GetController());
 
-
   updateLanguage(Locale locale){Get.updateLocale(locale);_getController.saveLanguage(locale);}
 
   bottomBuildLanguageDialog(BuildContext context,title,cat) => Get.bottomSheet(
@@ -343,7 +342,7 @@ class InstrumentComponents {
                   )
               );
             })
-    );
+  );
 
   void addRate(BuildContext context) => Get.defaultDialog(
       backgroundColor: AppColors.white,
