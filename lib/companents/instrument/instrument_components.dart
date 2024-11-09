@@ -279,10 +279,12 @@ class InstrumentComponents {
       );
 
   void languageDialog(BuildContext context) => Get.bottomSheet(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
-        enableDrag: true,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        StatefulBuilder(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
+      enableDrag: true,
+      elevation: 15,
+      isScrollControlled: true, // Allows full control over height
+      backgroundColor: AppColors.white,
+      StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return SizedBox(
                   height: Get.height * 0.6,
@@ -302,8 +304,8 @@ class InstrumentComponents {
                                 itemCount: _getController.locale.length,
                                 itemBuilder: (context, index){
                                   return Container(
-                                      height: Get.height * 0.06,
-                                      width: double.infinity,
+                                      height: 60.h,
+                                      width: Get.width,
                                       padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                       child: Column(
                                         children: [
@@ -313,15 +315,15 @@ class InstrumentComponents {
                                                 children: [
                                                   Row(
                                                       children: [
-                                                        TextSmall(text: _getController.locale[index]['name'], color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                        TextSmall(text: _getController.locale[index]['name'], color: AppColors.black),
                                                         const Spacer(),
                                                         if (_getController.locale[index]['locale'].toString() == _getController.language.toString())
-                                                          Icon(TablerIcons.circle_check, color: Theme.of(context).colorScheme.onSurface),
+                                                          const Icon(TablerIcons.circle_check, color: AppColors.blue),
                                                         if (_getController.locale[index]['locale'].toString() != _getController.language.toString())
-                                                          Icon(TablerIcons.circle, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
+                                                          const Icon(TablerIcons.circle, color: AppColors.grey)
                                                       ]
                                                   ),
-                                                  SizedBox(height: Get.height * 0.01)
+                                                  SizedBox(height: 10.h)
                                                 ]
                                               ),
                                               onTap: (){
