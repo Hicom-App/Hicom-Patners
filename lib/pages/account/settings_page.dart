@@ -3,6 +3,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/account/safety_page.dart';
@@ -25,7 +26,8 @@ class SettingsPage extends StatelessWidget {
       body: Column(
           children: [
             _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
-            _buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Mavzu'.tr, onTap: (){}, status: 1),
+            //_buildListTile(context: context, icon: EneftyIcons.moon_bold, title: 'Face ID orqali kirish'.tr, onTap: (){}, status: 1),
+            _buildListTile(context: context, icon: EneftyIcons.finger_cricle_bold, title: 'Face ID orqali kirish'.tr, onTap: (){}, status: 1),
             _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr,
                 lang: _getController.languageName(Get.locale.toString()),
                 onTap: (){
@@ -52,9 +54,11 @@ class SettingsPage extends StatelessWidget {
                 ? Icon(Icons.chevron_right, color: color)
                 : status == 1
                 ? CupertinoSwitch(
-              value: Theme.of(context).brightness == Brightness.dark,
+              value: _getController.getBiometrics(),
               onChanged: (value) {
-                AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
+                //AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
+                //_getController.saveBiometrics(true);
+                _getController.saveBiometrics(value);
               },
               activeColor: AppColors.blue,
               trackColor: AppColors.grey.withOpacity(0.5),

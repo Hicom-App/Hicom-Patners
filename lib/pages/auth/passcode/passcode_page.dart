@@ -28,6 +28,7 @@ class PasscodePage extends StatelessWidget {
   }
 
   Future<void> _authenticate(BuildContext context) async {
+    if (!_getController.getBiometrics()) return;
     try {
       bool authenticated = await auth.authenticate(
         localizedReason: 'Unlock with your fingerprint or face',
