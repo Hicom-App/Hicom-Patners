@@ -13,9 +13,7 @@ class PasscodePage extends StatelessWidget {
   final LocalAuthentication auth = LocalAuthentication();
   final GetController _getController = Get.put(GetController());
 
-  PasscodePage({super.key}) {
-    _checkBiometricAvailability();
-  }
+  PasscodePage({super.key}) {_checkBiometricAvailability();}
 
   Future<void> _checkBiometricAvailability() async {
     try {

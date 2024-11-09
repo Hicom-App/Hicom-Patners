@@ -211,91 +211,82 @@ class ReportPage extends StatelessWidget {
                           _getController.clearSortedTransactionsModel();
                           ApiController().getTransactions();
                         },
-                        child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(), // Disable scrolling
-                        shrinkWrap: true,
-                        itemCount: _getController.sortedTransactionsModel.value.result?.length ?? 0,
-                        padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 13.h, bottom: 100.h),
-                        itemBuilder: (context, index) {
-                          var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
-                          var resultsList = transactionGroup.results;
-
-                          if (_getController.selectMonth.value != 0) {
-                            resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
-                          }
-
-                          return Column(
-                            children: [
-                              if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
-                              else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
-                                if (index == 0)
-                                  Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),
-                              if (resultsList != null && resultsList.isNotEmpty)
-                                for (var transaction in resultsList ?? [])
-                                  GestureDetector(
-                                      onTap: () => Get.to(() => ChecksDetail(
-                                          id: transaction.id ?? 0,
-                                          cardId: transaction.cardId ?? 0,
-                                          operation: int.parse(transaction.operation.toString()),
-                                          dateCreated: transaction.dateCreated ?? '',
-                                          name: transaction.lastName ?? '-',
-                                          firstName: transaction.firstName ?? '-',
-                                          amount: transaction.amount ?? 0,
-                                          description: transaction.description ?? '-',
-                                          cardNo: transaction.cardNo ?? '-',
-                                          cardHolder: transaction.cardHolder ?? '-',
-                                      ), arguments: transaction),
-                                      child: Container(
-                                    alignment: Alignment.center,
-                                    margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
-                                    padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: Get.width,
-                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                          child: TextSmall(text: transaction.operation == 0  ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp)
-                                        ),
-                                        Container(
-                                          width: Get.width,
-                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                          child: Row(
-                                            children: [
-                                              TextSmall(text: '${transaction.operation == 0 || transaction.operation == 0 ? 'Balansni to‘ldirish'.tr : transaction.firstName + ' ' + transaction.lastName}', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                              const Spacer(),
-                                              TextSmall(text: transaction.amount?.toString() ?? '0', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                              TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
-                                              SizedBox(width: 5.w),
-                                              TextSmall(text: 'so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp)
-                                            ]
-                                          )
-                                        ),
-                                        Container(
-                                          width: Get.width,
-                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                          child: Row(
-                                            children: [
-                                              TextSmall(text : transaction.dateCreated != null ? DateFormat.Hm().format(DateTime.parse(transaction.dateCreated!)) : '', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 10.sp),
-                                              const Spacer(),
-                                              Container(
-                                                margin: EdgeInsets.only(top: 3.h, right: 5.w),
-                                                padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.green : AppColors.red),
-                                                child: TextSmall(text:transaction.operation == 0 ? 'Qabul qilindi': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
-                                              )
-                                            ]
-                                          )
+                        child: _getController.sortedTransactionsModel.value.result != null && _getController.sortedTransactionsModel.value.result!.isNotEmpty
+                            ? ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(), // Disable scrolling
+                            shrinkWrap: true,
+                            itemCount: _getController.sortedTransactionsModel.value.result?.length ?? 0,
+                            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 13.h, bottom: 100.h),
+                            itemBuilder: (context, index) {
+                              var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
+                              var resultsList = transactionGroup.results;
+                              if (_getController.selectMonth.value != 0) resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
+                              return Column(
+                                  children: [
+                                    if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
+                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                    else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
+                                      if (index == 0)
+                                        Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),
+                                    if (resultsList != null && resultsList.isNotEmpty)
+                                      for (var transaction in resultsList ?? [])
+                                        GestureDetector(
+                                            onTap: () => Get.to(() => ChecksDetail(id: transaction.id ?? 0, cardId: transaction.cardId ?? 0, operation: int.parse(transaction.operation.toString()), dateCreated: transaction.dateCreated ?? '', name: transaction.lastName ?? '-', firstName: transaction.firstName ?? '-', amount: transaction.amount ?? 0, description: transaction.description ?? '-', cardNo: transaction.cardNo ?? '-', cardHolder: transaction.cardHolder ?? '-'), arguments: transaction),
+                                            child: Container(
+                                                alignment: Alignment.center,
+                                                margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
+                                                padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
+                                                child: Column(
+                                                    children: [
+                                                      Container(
+                                                          width: Get.width,
+                                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                                          child: TextSmall(text: transaction.operation == 0  ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 13.sp)
+                                                      ),
+                                                      Container(
+                                                          width: Get.width,
+                                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                                          child: Row(
+                                                              children: [
+                                                                TextSmall(text: '${transaction.operation == 0 || transaction.operation == 0 ? 'Balansni to‘ldirish'.tr : transaction.firstName + ' ' + transaction.lastName}', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                                const Spacer(),
+                                                                TextSmall(text: transaction.amount?.toString() ?? '0', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                                TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                                                                SizedBox(width: 5.w),
+                                                                TextSmall(text: 'so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp)
+                                                              ]
+                                                          )
+                                                      ),
+                                                      Container(
+                                                          width: Get.width,
+                                                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                                                          child: Row(
+                                                              children: [
+                                                                TextSmall(text : transaction.dateCreated != null ? DateFormat.Hm().format(DateTime.parse(transaction.dateCreated!)) : '', color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 10.sp),
+                                                                const Spacer(),
+                                                                Container(
+                                                                    margin: EdgeInsets.only(top: 3.h, right: 5.w),
+                                                                    padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.green : AppColors.red),
+                                                                    child: TextSmall(text:transaction.operation == 0 ? 'Qabul qilindi': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
+                                                                )
+                                                              ]
+                                                          )
+                                                      )
+                                                    ]
+                                                )
+                                            )
                                         )
-                                      ]
-                                    )
-                                  )
-                                )
-                            ]
-                          );
-                        }
-                      )
+                                  ]
+                              );
+                            })
+                            :  Container(
+                                width: Get.width,
+                                height: Get.height * 0.4,
+                                alignment: Alignment.center,
+                                child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 16.sp)
+                        )
                     )
                   )
                 ]

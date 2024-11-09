@@ -10,6 +10,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -158,7 +159,6 @@ class GetController extends GetxController {
 
   @override
   void onInit() {
-
     print('onInit');
     _connectivity = Connectivity();
     connectivityStream = _connectivity.onConnectivityChanged;
