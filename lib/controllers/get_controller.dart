@@ -548,6 +548,7 @@ class GetController extends GetxController {
   String getCategoryName(int id) => categoriesModel.value.result!.firstWhere((element) => element.id == id).name!;
 
   String getMaskedName(String name) {
+    if (name == '-') return '-';
     if (name.isEmpty || name.length < 3) {
       return '*' * name.length;
     }

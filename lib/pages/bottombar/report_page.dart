@@ -236,15 +236,15 @@ class ReportPage extends StatelessWidget {
                                   GestureDetector(
                                       onTap: () => Get.to(() => ChecksDetail(
                                           id: transaction.id ?? 0,
-                                          cardId: transaction.cardId ?? '',
+                                          cardId: transaction.cardId ?? 0,
                                           operation: int.parse(transaction.operation.toString()),
                                           dateCreated: transaction.dateCreated ?? '',
-                                          name: transaction.lastName ?? '',
-                                          firstName: transaction.firstName ?? '',
+                                          name: transaction.lastName ?? '-',
+                                          firstName: transaction.firstName ?? '-',
                                           amount: transaction.amount ?? 0,
-                                          description: transaction.description ?? '',
-                                          cardNo: transaction.cardNo ?? '',
-                                          cardHolder: transaction.cardHolder ?? '',
+                                          description: transaction.description ?? '-',
+                                          cardNo: transaction.cardNo ?? '-',
+                                          cardHolder: transaction.cardHolder ?? '-',
                                       ), arguments: transaction),
                                       child: Container(
                                     alignment: Alignment.center,

@@ -77,10 +77,10 @@ class ChecksDetail extends StatelessWidget{
                       TextSmall(text: 'Karta raqami',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                       Row(
                         children: [
+                          if (cardNo != null && cardNo!.isNotEmpty && cardNo != '-')
                           Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
                           SizedBox(width: 5.h),
-                          TextSmall(
-                              text: cardNo.toString(), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                          TextSmall(text: cardNo.toString(), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                         ]
                       ),
                     ]
