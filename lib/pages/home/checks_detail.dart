@@ -31,12 +31,7 @@ class ChecksDetail extends StatelessWidget{
       appBar: AppBar(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
-          onPressed: () {
-            Get.back();
-          }
-        ),
+        leading: IconButton(icon: Icon(Icons.close, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white), onPressed: () {Get.back();}),
         actions: [
           IconButton(
             icon: Icon(Icons.download, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white),
@@ -78,11 +73,11 @@ class ChecksDetail extends StatelessWidget{
                       Row(
                         children: [
                           if (cardNo != null && cardNo!.isNotEmpty && cardNo != '-')
-                          Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
+                            Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
                           SizedBox(width: 5.h),
                           TextSmall(text: cardNo.toString(), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                         ]
-                      ),
+                      )
                     ]
                   ),
                   SizedBox(height: 5.h),
