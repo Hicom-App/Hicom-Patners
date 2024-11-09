@@ -313,9 +313,17 @@ class GetController extends GetxController {
 
   void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
 
-  void saveBiometrics(bool value) => GetStorage().write('biometrics', value);
+  void saveBiometrics(bool value) {
+    GetStorage().write('biometrics', value);
+    getBiometrics();
+  }
 
-  bool getBiometrics() => GetStorage().read('biometrics') ?? false;
+  var getBiometricsValue = false.obs;
+
+  bool getBiometrics(){
+    getBiometricsValue.value = GetStorage().read('biometrics') ?? false;
+    return getBiometricsValue.value;
+  }
 
   String getPassCode() => GetStorage().read('passCode') ?? '';
 

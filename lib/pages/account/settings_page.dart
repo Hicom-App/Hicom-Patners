@@ -53,8 +53,8 @@ class SettingsPage extends StatelessWidget {
             trailing: status == 0
                 ? Icon(Icons.chevron_right, color: color)
                 : status == 1
-                ? CupertinoSwitch(
-              value: _getController.getBiometrics(),
+                ? Obx(() => CupertinoSwitch(
+              value: _getController.getBiometricsValue.value,
               onChanged: (value) {
                 //AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
                 //_getController.saveBiometrics(true);
@@ -65,7 +65,7 @@ class SettingsPage extends StatelessWidget {
               focusColor: AppColors.blue,
               thumbColor: AppColors.white,
               applyTheme: true,
-            )
+            ))
                 : TextSmall(text: lang, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14.sp)
         )
     );

@@ -18,7 +18,7 @@ main() async {
   await GetStorage.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  /*await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
@@ -31,7 +31,7 @@ main() async {
     }
   } catch (e) {
     print('Error getting FCM token: $e');
-  }
+  }*/
 
   /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Oldingi holatda xabar qabul qilindi: ${message.notification?.title}, ${message.notification?.body}');
