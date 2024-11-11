@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return _getController.productsModel.value.result != null
-        ? Container(
+        ? _getController.productsModel.value.result!.isNotEmpty ? Container(
         height: 225.h,
         width: 165.w,
         margin: EdgeInsets.only(right: 15.w),
@@ -67,7 +67,7 @@ class ProductItem extends StatelessWidget{
               )
             ]
         )
-    )
+    ) : const SizedBox()
         : Skeletonizer(
         child:Container(
             height: 225.h,

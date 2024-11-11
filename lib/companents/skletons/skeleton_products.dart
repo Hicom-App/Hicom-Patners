@@ -17,7 +17,6 @@ class SkeletonProducts extends StatelessWidget {
             children: [
               Positioned(
                   child: Container(
-
                       margin: EdgeInsets.only(left: 25.w, top: 10.h),
                       child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,

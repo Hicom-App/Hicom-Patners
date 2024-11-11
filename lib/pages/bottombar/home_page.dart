@@ -234,8 +234,9 @@ class HomePage extends StatelessWidget {
                                 )
                                 else
                                   const SkeletonCategory(),
-                                if (_getController.productsModel.value.result != null)
-                                  Stack(
+                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                  if (_getController.productsModel.value.result!.isNotEmpty)
+                                    Stack(
                                   children: [
                                     Positioned(
                                       child: Container(
@@ -269,8 +270,9 @@ class HomePage extends StatelessWidget {
                                   ]
                                 )
                                 else const SkeletonProducts(),
-                                if (_getController.productsModel.value.result != null)
-                                  Stack(
+                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                  if (_getController.productsModel.value.result!.isNotEmpty)
+                                    Stack(
                                     children: [
                                       Positioned(
                                           child: Container(
@@ -344,6 +346,13 @@ class HomePage extends StatelessWidget {
                                             ]
                                           )
                                     ]
+                                  ),
+                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
+                                  Container(
+                                    height: Get.height * 0.3,
+                                    width: Get.width,
+                                    alignment: Alignment.center,
+                                    child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
