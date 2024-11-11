@@ -106,25 +106,14 @@ class GuaranteePage extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(bottom: 20.h),
                                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015),
-                                child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(Duration(days: 1))) ? 'Kecha' : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400)
+                                child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(const Duration(days: 1))) ? 'Kecha' : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400)
                               ),
                               ...warrantiesForDate.map((warranty) {
                                 return Container(
                                   padding: EdgeInsets.only(left: 15.w, top: 8.h, bottom: 9.h),
                                   margin: EdgeInsets.only(bottom: 15.h),
                                   width: Get.width,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.15),
-                                        blurRadius: 20.r,
-                                        spreadRadius: 18.r,
-                                        offset: const Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(18.r),
-                                  ),
+                                  decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))], borderRadius: BorderRadius.circular(18.r)),
                                   child: Column(
                                     children: [
                                       Row(
@@ -135,17 +124,8 @@ class GuaranteePage extends StatelessWidget {
                                               height: Get.height * 0.13,
                                               child: Stack(
                                                   children: [
-                                                    Positioned(
-                                                      width: 2,
-                                                      height: Get.height * 0.11,
-                                                      child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(10.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))]))),
-                                                    ),
-                                                    Positioned(
-                                                      right: 0,
-                                                      width: 2,
-                                                      height: Get.height * 0.11,
-                                                      child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(20.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))]),)),
-                                                    ),
+                                                    Positioned(width: 2, height: Get.height * 0.11, child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(10.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))])))),
+                                                    Positioned(right: 0, width: 2, height: Get.height * 0.11, child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(20.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))])))),
                                                     Positioned.fill(
                                                         child: Container(
                                                           decoration: const BoxDecoration(color: AppColors.white),
@@ -154,17 +134,10 @@ class GuaranteePage extends StatelessWidget {
                                                             child: FadeInImage(
                                                               image: NetworkImage(warranty.photoUrl ?? 'https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'),
                                                               placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                              imageErrorBuilder: (context, error, stackTrace) {
-                                                                return Container(
-                                                                    decoration: BoxDecoration(
-                                                                      image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover),
-                                                                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)),
-                                                                    )
-                                                                );
-                                                              },
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
+                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                              fit: BoxFit.cover
+                                                            )
+                                                          )
                                                         )
                                                     )
                                                   ]
@@ -200,10 +173,7 @@ class GuaranteePage extends StatelessWidget {
                                                 Row(
                                                     children: [
                                                       SizedBox(width: 75.w, child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
-                                                      SizedBox(
-                                                          width: Get.width * 0.225,
-                                                          child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp)
-                                                      )
+                                                      SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
                                                 SizedBox(height: 6.h),
@@ -216,7 +186,7 @@ class GuaranteePage extends StatelessWidget {
                                                           child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas' : 'Faol', color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                       ),
                                                       const Spacer(),
-                                                      Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp),
+                                                      InkWell(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt(), isArchived: true), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                       SizedBox(width: 11.w)
                                                     ]
                                                 )

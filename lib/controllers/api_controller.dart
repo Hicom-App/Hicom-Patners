@@ -561,9 +561,10 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> deleteWarrantyProduct(int id) async {
+  Future<void> deleteWarrantyProduct(int id, {bool isArchived = false}) async {
     try {
-      final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
+      //final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id&archived=1'), headers: headersBearer());
+      final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id${isArchived ? '&archived=1' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
@@ -695,7 +696,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> paymentWithdraw() async {
-    print(_getController.cardsModel.value.result![_getController.selectedCard.value].id.toString() + 'shuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu');
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/withdraw'));
     request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
     request.fields.addAll({'amount': _getController.paymentController.text});
