@@ -367,7 +367,7 @@ class ApiController extends GetxController {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
 
-  Future<void> getCategories({int? offset, int? limit}) async {
+  Future<void> getCategories() async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
       if (response.statusCode == 200) {
@@ -389,9 +389,13 @@ class ApiController extends GetxController {
   }
 
   // Mahsulotlar ro'yxatini olish
-  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false}) async {
+  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter}) async {
     try {
-      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId'), headers: {'Authorization': 'Bearer ${_getController.token}'});
+      String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
+      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'),
+          headers: {'Authorization': 'Bearer ${_getController.token}'});
+
+      print(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
@@ -412,9 +416,9 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getProduct(int categoryId, {bool isCategory = true, int? offset, int? limit}) async {
+  Future<void> getProduct(int categoryId, {bool isCategory = true, filter}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         print(data.toString());
@@ -437,9 +441,9 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getAllCatProducts() async {
+  Future<void> getAllCatProducts({filter}) async {
     for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
-      await getProduct(_getController.categoriesModel.value.result![i].id ?? 0);
+      await getProduct(_getController.categoriesModel.value.result![i].id ?? 0, filter: filter);
     }
   }
 

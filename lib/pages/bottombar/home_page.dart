@@ -171,7 +171,28 @@ class HomePage extends StatelessWidget {
                               children: [
                                 SizedBox(height: 25.h),
                                 if (_getController.categoriesModel.value.result != null)
-                                  SearchTextField(color: AppColors.grey.withOpacity(0.2))
+                                  SearchTextField(
+                                      color: AppColors.grey.withOpacity(0.2),
+                                      onChanged: (value) {
+                                        if (value.isEmpty || value == '') {
+                                          ApiController().getProducts(0, isFavorite: false, isCategory: true);
+                                          _getController.clearCategoriesProductsModel();
+                                          ApiController().getAllCatProducts();
+                                        }
+                                        if (_getController.searchController.value.text.length> 3 ) {
+                                          ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value"');
+                                          _getController.clearCategoriesProductsModel();
+                                          ApiController().getAllCatProducts(filter: 'name CONTAINS "$value"');
+                                        }
+                                      },
+                                    onSubmitted: (value) {
+                                      if (_getController.searchController.value.text.length> 3 ) {
+                                        ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value"');
+                                        _getController.clearCategoriesProductsModel();
+                                        ApiController().getAllCatProducts(filter: 'name CONTAINS "$value"');
+                                      }
+                                    }
+                                  )
                                 else
                                   Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
                                 SizedBox(height: 15.h),
