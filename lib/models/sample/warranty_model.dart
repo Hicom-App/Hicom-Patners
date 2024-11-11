@@ -35,18 +35,19 @@ class WarrantyModel {
 class Result {
   int? id;
   int? productId;
-  String? serialCode;
-  int? cashback;
-  String? warrantyStart;
-  String? warrantyExpire;
-  String? dateCreated;
   String? name;
   int? categoryId;
   String? brand;
+  int? cashback;
+  String? serialCode;
+  String? warrantyStart;
+  String? warrantyExpire;
+  String? dateCreated;
   String? photoUrl;
+  int? active;
   String? description;
 
-  Result({this.id, this.productId, this.serialCode, this.cashback, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.name, this.categoryId, this.brand, this.photoUrl, this.description});
+  Result({this.id, this.productId, this.name, this.categoryId, this.brand, this.cashback, this.serialCode, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.photoUrl, this.active, this.description,});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,6 +61,7 @@ class Result {
     categoryId = json['category_id'];
     brand = json['brand'];
     photoUrl = json['photo_url'];
+    active = json['active'];
     description = json['description'];
   }
 
@@ -76,6 +78,7 @@ class Result {
     data['category_id'] = categoryId;
     data['brand'] = brand;
     data['photo_url'] = photoUrl;
+    data['active'] = active;
     data['description'] = description;
     return data;
   }
@@ -187,55 +190,3 @@ SortedWarrantyModel convertToSortedWarrantyModel(WarrantyModel warrantyModel) {
 
   return sortedModel;
 }
-
-//
-// void main() {
-//   String jsonString = '''{
-//     "status": 0,
-//     "message": "OK",
-//     "result": [
-//       {
-//         "id": 3001,
-//         "product_id": 17,
-//         "serial_code": "3001>wnuGikAPCvrIwJi56SXhMQ==",
-//         "cashback": null,
-//         "warranty_start": "2024-10-28T12:13:05.000Z",
-//         "warranty_expire": "2025-10-28T12:13:05.000Z",
-//         "date_created": "2024-10-22T05:28:12.000Z",
-//         "name": "Test uchun Mahsulot",
-//         "category_id": 1,
-//         "brand": "",
-//         "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
-//         "description": "Qanaqadir switch"
-//       },
-//       {
-//         "id": 3002,
-//         "product_id": 17,
-//         "serial_code": "3002>a0+q/nMmVq3B0R5I3nkrnQ==",
-//         "cashback": null,
-//         "warranty_start": "2024-10-29T06:03:25.000Z",
-//         "warranty_expire": "2025-10-29T06:03:25.000Z",
-//         "date_created": "2024-10-22T05:28:12.000Z",
-//         "name": "Test uchun Mahsulot",
-//         "category_id": 1,
-//         "brand": "",
-//         "photo_url": "http://185.196.213.76:8080/api/images/products?id=17",
-//         "description": "Qanaqadir switch"
-//       }
-//     ]
-//   }''';
-//
-//   // Parse JSON
-//   WarrantyModel warrantyModel = WarrantyModel.fromJson(json.decode(jsonString));
-//
-//   // Convert to SortedWarrantyModel
-//   SortedWarrantyModel sortedWarrantyModel = convertToSortedWarrantyModel(warrantyModel);
-//
-//   // Print result
-//   print(json.encode(sortedWarrantyModel.toJson()));
-//
-//   //print all date
-//   for (var res in sortedWarrantyModel.result!) {
-//     print(res.date);
-//   }
-// }

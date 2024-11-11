@@ -19,7 +19,7 @@ class GuaranteePage extends StatelessWidget {
   void getData() {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
-    ApiController().getWarrantyProducts();
+    ApiController().getWarrantyProducts(filter: 'c.active=1');
     _getController.refreshGuaranteeController.refreshCompleted();
     _getController.refreshGuaranteeController.loadComplete();
   }
@@ -59,7 +59,7 @@ class GuaranteePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
-    ApiController().getWarrantyProducts();
+    ApiController().getWarrantyProducts(filter: 'c.active=1');
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
       appBar: AppBar(
@@ -101,6 +101,14 @@ class GuaranteePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           String dateKey = groupedWarranty.keys.elementAt(index);
                           List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
+
+                          List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 1).toList();
+
+                          // Only display the date heading if there are active warranties
+                          if (activeWarrantiesForDate.isEmpty) {
+                            return SizedBox.shrink();
+                          }
+
                           return Column(
                             children: [
                               Container(
