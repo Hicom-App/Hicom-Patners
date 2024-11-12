@@ -343,7 +343,7 @@ class HomePage extends StatelessWidget {
                                     height: Get.height * 0.3,
                                     width: Get.width,
                                     alignment: Alignment.center,
-                                    child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                    child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface)
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
@@ -392,8 +392,8 @@ class HomePage extends StatelessWidget {
                               else
                                 const SkeletonCategory(),
                               for (int i = 0; i < 3; i++)
-                                const SkeletonProducts(),
-                            ],
+                                const SkeletonProducts()
+                            ]
                           )
                       )
                     ])
