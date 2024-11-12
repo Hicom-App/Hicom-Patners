@@ -164,7 +164,8 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: Column(
+                          child: _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty
+                              ? Column(
                               children: [
                                 SizedBox(height: 25.h),
                                 if (_getController.categoriesModel.value.result != null)
@@ -231,7 +232,6 @@ class HomePage extends StatelessWidget {
                                 )
                                 else
                                   const SkeletonCategory(),
-                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                     Stack(
                                         children: [
                                           Positioned(
@@ -264,9 +264,7 @@ class HomePage extends StatelessWidget {
                                         )
                                     )
                                         ]
-                                    )
-                                else if (_getController.categoriesModel.value.result == null) const SkeletonProducts(),
-                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                    ),
                                     Stack(
                                     children: [
                                       Positioned(
@@ -299,9 +297,7 @@ class HomePage extends StatelessWidget {
                                           )
                                       )
                                     ]
-                                )
-                                else if (_getController.categoriesModel.value.result == null)
-                                  const SkeletonProducts(),
+                                ),
                                 if (_getController.categoriesProductsModel.value.all != null)
                                   Column(
                                     children: [
@@ -351,6 +347,53 @@ class HomePage extends StatelessWidget {
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
+                          )
+                              : Column(
+                            children: [
+                              SizedBox(height: 25.h),
+                              Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                              SizedBox(height: 15.h),
+                              if (_getController.categoriesModel.value.result != null)
+                                SizedBox(
+                                    width: Get.width,
+                                    height: 82.h,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        padding: EdgeInsets.only(left: 10.w, right: 30.w),
+                                        itemBuilder: (context, index) => InkWell(
+                                            onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                            child:  Container(
+                                                margin: EdgeInsets.only(left: 15.w),
+                                                padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                                                decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
+                                                child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      SizedBox(
+                                                          width: 40.w,
+                                                          height: 38.w,
+                                                          child: FadeInImage(
+                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
+                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                              fit: BoxFit.contain
+                                                          )
+                                                      ),
+                                                      Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
+                                                    ]
+                                                )
+                                            )
+                                        ),
+                                        itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
+                                        shrinkWrap: true
+                                    )
+                                )
+                              else
+                                const SkeletonCategory(),
+                              for (int i = 0; i < 3; i++)
+                                const SkeletonProducts(),
+                            ],
                           )
                       )
                     ])
