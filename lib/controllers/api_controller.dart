@@ -29,10 +29,12 @@ class ApiController extends GetxController {
 
   //return header function
   Map<String, String> headersBearer() {
+    print(_getController.token);
+    print(_getController.headerLanguage);
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_getController.token}',
-      'Content-Language': 'uz',
+      'Content-Language': _getController.headerLanguage,
     };
   }
 

@@ -160,6 +160,8 @@ class GetController extends GetxController {
   @override
   void onInit() {
     print('onInit');
+    getNotification();
+    getBiometrics();
     _connectivity = Connectivity();
     connectivityStream = _connectivity.onConnectivityChanged;
 
@@ -319,10 +321,21 @@ class GetController extends GetxController {
   }
 
   var getBiometricsValue = false.obs;
+  var getNotificationValue = true.obs;
 
   bool getBiometrics(){
     getBiometricsValue.value = GetStorage().read('biometrics') ?? false;
     return getBiometricsValue.value;
+  }
+
+  bool getNotification(){
+    getNotificationValue.value = GetStorage().read('notification') ?? false;
+    return getNotificationValue.value;
+  }
+
+  void saveNotification(bool value) {
+    GetStorage().write('notification', value);
+    getNotification();
   }
 
   String getPassCode() => GetStorage().read('passCode') ?? '';
@@ -332,6 +345,9 @@ class GetController extends GetxController {
   void deletePassCode() => GetStorage().remove('passCode');
 
   Locale get language => Locale(GetStorage().read('language') ?? 'uz_UZ');
+
+  //get uz, ru, or oz
+  String get headerLanguage => language.languageCode == 'uz_UZ' ? 'uz' : language.languageCode == 'oz_OZ' ? 'oz' : language.languageCode == 'ru_RU' ? 'ru' : 'en';
 
   int get languageIndex => language.languageCode == 'uz_UZ' ? 0 : language.languageCode == 'oz_OZ' ? 1 : language.languageCode == 'ru_RU' ? 2 : 3;
 

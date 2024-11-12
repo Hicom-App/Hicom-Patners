@@ -26,14 +26,15 @@ class SettingsPage extends StatelessWidget {
       body: Column(
           children: [
             _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () => Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
-            _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: () => Get.to(() => const NotificationSettingsPage(), transition: Transition.downToUp), status: 0),
-            _buildListTile(context: context, icon: EneftyIcons.finger_cricle_bold, title: 'Biometriya orqali kirish'.tr, onTap: (){}, status: 1),
+            //_buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: () => Get.to(() => const NotificationSettingsPage(), transition: Transition.downToUp), status: 0),
+            _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: (){}, status: 1),
+            _buildListTile(context: context, icon: EneftyIcons.finger_cricle_bold, title: 'Biometriya orqali kirish'.tr, onTap: (){}, status: 1, notify: true),
             _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, lang: _getController.languageName(Get.locale.toString()), onTap: (){InstrumentComponents().languageDialog(context);}, status: 3)
           ]
       )
     );
   }
-  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color, required int status, lang}) {
+  Container _buildListTile({required BuildContext context,required IconData icon, required String title, required VoidCallback onTap, color, required int status, lang, notify = false}) {
     lang ??= 'English';
     color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
@@ -49,7 +50,23 @@ class SettingsPage extends StatelessWidget {
             trailing: status == 0
                 ? Icon(Icons.chevron_right, color: color)
                 : status == 1
-                ? Obx(() => CupertinoSwitch(value: _getController.getBiometricsValue.value, onChanged: (value) {_getController.saveBiometrics(value);}, activeColor: AppColors.blue, trackColor: AppColors.grey.withOpacity(0.5), focusColor: AppColors.blue, thumbColor: AppColors.white, applyTheme: true,))
+                ? Obx(() =>
+                CupertinoSwitch(
+                    value: notify ? _getController.getBiometricsValue.value : _getController.getNotificationValue.value,
+                    onChanged: (value) {
+                      if (notify) {
+                        _getController.saveBiometrics(value);
+                      } else {
+                        _getController.saveNotification(value);
+                      }
+                      },
+                    activeColor: AppColors.blue,
+                    trackColor: AppColors.grey.withOpacity(0.5),
+                    focusColor: AppColors.blue,
+                    thumbColor: AppColors.white,
+                    applyTheme: true
+                )
+            )
                 : TextSmall(text: lang, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14.sp)
         )
     );
