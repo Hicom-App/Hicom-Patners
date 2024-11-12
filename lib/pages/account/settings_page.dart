@@ -8,6 +8,8 @@ import 'package:hicom_patners/pages/account/safety_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+import '../home/notification_page.dart';
+import 'notification_settings_page.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});
@@ -23,7 +25,8 @@ class SettingsPage extends StatelessWidget {
           title: TextSmall(text: 'Sozlamalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
       body: Column(
           children: [
-            _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () =>Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
+            _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () => Get.to(() => const SafetyPage(), transition: Transition.downToUp), status: 0),
+            _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: () => Get.to(() => const NotificationSettingsPage(), transition: Transition.fadeIn), status: 0),
             _buildListTile(context: context, icon: EneftyIcons.finger_cricle_bold, title: 'Biometriya orqali kirish'.tr, onTap: (){}, status: 1),
             _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, lang: _getController.languageName(Get.locale.toString()), onTap: (){InstrumentComponents().languageDialog(context);}, status: 3)
           ]

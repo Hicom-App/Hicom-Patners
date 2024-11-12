@@ -8,7 +8,6 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
-import '../account/notification_page.dart';
 import '../account/settings_page.dart';
 import '../home/category_page.dart';
 import '../home/transfer_to_wallet.dart';
@@ -162,12 +161,6 @@ class _AccountPageState extends State<AccountPage> {
                 icon: Icons.settings,
                 title: 'Sozlamalar',
                 onTap: () => Get.to(() => SettingsPage(), transition: Transition.fadeIn),
-              ),
-              _buildListTile(
-                context: context,
-                icon: Icons.notifications,
-                title: 'Bildirishnomalar',
-                onTap: () => Get.to(() => const NotificationPage(), transition: Transition.fadeIn),
               ),
               _buildListTile(
                 context: context,
