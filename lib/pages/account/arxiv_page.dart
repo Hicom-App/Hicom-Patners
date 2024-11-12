@@ -19,7 +19,8 @@ class ArxivPage extends StatelessWidget {
   void getData() {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
-    ApiController().getWarrantyProducts(filter: 'c.active=0');
+    //ApiController().getWarrantyProducts(filter: 'c.is_archived=1');
+    ApiController().getWarrantyProduct();
     _getController.refreshGuaranteeController.refreshCompleted();
     _getController.refreshGuaranteeController.loadComplete();
   }
@@ -59,13 +60,14 @@ class ArxivPage extends StatelessWidget {
   Widget build(BuildContext context) {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
-    ApiController().getWarrantyProducts(filter: 'c.active=0');
+    //ApiController().getWarrantyProducts(filter: 'c.is_archived=1');
+    ApiController().getWarrantyProduct(filter: 'c.active=1');
     return Scaffold(
         backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         appBar: AppBar(
             surfaceTintColor: Colors.transparent,
             shadowColor: Colors.transparent,
-            foregroundColor: Colors.transparent,
+            foregroundColor: Colors.black,
             backgroundColor: Colors.transparent,
             centerTitle: false,
             title: TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1)
@@ -101,21 +103,15 @@ class ArxivPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 String dateKey = groupedWarranty.keys.elementAt(index);
                                 List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
-                                List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 0).toList();
-                                if (activeWarrantiesForDate.isEmpty) {
-                                  return const SizedBox.shrink();
-                                }
                                 return Column(
                                     children: [
-                                      //if (index == 0)
                                         Container(
                                             margin: EdgeInsets.only(bottom: 20.h),
                                             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015),
                                             child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(const Duration(days: 1))) ? 'Kecha' : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400)
                                         ),
                                       ...warrantiesForDate.map((warranty) {
-                                        if (warranty.active == 0) {
-                                          return Container(
+                                        return Container(
                                               padding: EdgeInsets.only(left: 15.w, top: 8.h, bottom: 9.h),
                                               margin: EdgeInsets.only(bottom: 15.h),
                                               width: Get.width,
@@ -203,10 +199,7 @@ class ArxivPage extends StatelessWidget {
                                                     )
                                                   ]
                                               )
-                                          );}
-                                        else {
-                                          return Container();
-                                        }
+                                          );
                                       })
                                     ]
                                 );

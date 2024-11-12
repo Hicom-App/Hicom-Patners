@@ -425,14 +425,15 @@ class InstrumentComponents {
       )
   );
 
-  void addWarrantyDialog(BuildContext context) => Get.defaultDialog(
+  void addWarrantyDialog(BuildContext context, String content) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       contentPadding: EdgeInsets.only(top: 5.h, left: 15.w, right: 15.w),
       title: 'Diqqat!'.tr,
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
-      content: TextSmall(text: 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.'.tr, color: AppColors.black, maxLines: 100),
+      content: TextSmall(text: content, color: AppColors.black, maxLines: 100),
+      //content: TextSmall(text: 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.'.tr, color: AppColors.black, maxLines: 100),
       confirm: Container(
           width: 120.w,
           height: 42.h,

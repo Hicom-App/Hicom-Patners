@@ -601,18 +601,22 @@ class ApiController extends GetxController {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
-      //status code
       debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         _getController.searchController.clear();
         var data = jsonDecode(responseBody);
         Get.back();
         if (data['status'] == 0) {
-          getWarrantyProducts();
+          getWarrantyProducts(filter: 'c.active=1');
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
         } else if (data['status'] == 9) {
-          InstrumentComponents().addWarrantyDialog(context);
-        } else {
+          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
+        } else if (data['status'] == 8) {
+          InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
+        } else if (data['status'] == 20) {
+          InstrumentComponents().addWarrantyDialog(context,'Ushbu mahsulotning Arxivda mavjud emas!');
+        }
+        else {
           debugPrint('Xatolik: ${data['message']}');
           InstrumentComponents().showToast('Xatolik: ${data['message']}', color: AppColors.red);
         }
@@ -644,13 +648,58 @@ class ApiController extends GetxController {
   Future<void> deleteWarrantyProduct(int id, {bool isArchived = false}) async {
     try {
       //final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id&archived=1'), headers: headersBearer());
-      final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id${isArchived ? '&archived=1' : ''}'), headers: headersBearer());
+      final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
       print('$baseUrl/warranty/products?id=$id${isArchived ? '&archived=1' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
         if (data['status'] == 0) {
           getWarrantyProducts();
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+    }
+  }
+
+  Future<void> archiveWarrantyProduct(int id) async {
+    try {
+      final response = await http.post(Uri.parse('$baseUrl/warranty/archive'), headers: headerBearer(),body: {
+        'id': id.toString(),
+        'is_archived': '1',
+      });
+      print('$baseUrl/warranty/archive/products?id=$id');
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          //getWarrantyProducts();
+          getWarrantyProducts();
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+    }
+  }
+
+  Future<void> getWarrantyProduct({filter = ''}) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/warranty/archive${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
