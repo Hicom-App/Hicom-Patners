@@ -31,6 +31,13 @@ class ApiController extends GetxController {
   Map<String, String> headersBearer() {
     return {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_getController.token}',
+      'Content-Language': 'uz',
+    };
+  }
+
+  Map<String, String> headerBearer() {
+    return {
       'Authorization': 'Bearer ${_getController.token}'
     };
   }
@@ -392,9 +399,7 @@ class ApiController extends GetxController {
   Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter}) async {
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'),
-          headers: {'Authorization': 'Bearer ${_getController.token}'});
-
+      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
       print(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
@@ -402,6 +407,7 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           if (isCategory == true) {
             _getController.changeProductsModel(CategoriesModel.fromJson(data));
+            isFavorite ? _getController.changeCatProductsModel(CategoriesModel.fromJson(data)) : null;
           } else {
             _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
           }
@@ -447,9 +453,9 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> addFavorites(int id, {bool isProduct = true}) async {
+  Future<void> addFavorites(int id, {bool isProduct = true, isFavorite = false}) async {
     try {
-      final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: {'Authorization': 'Bearer ${_getController.token}'});
+      final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: headerBearer());
       debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
@@ -457,6 +463,7 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           //getCategories();
           print(data.toString());
+          getProducts(0, isFavorite: isFavorite);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }

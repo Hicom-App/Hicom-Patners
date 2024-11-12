@@ -553,7 +553,7 @@ class GetController extends GetxController {
   int textCount = 0;
   final int limitTextLength = 20;
 
-  String getCategoryName(int id) => categoriesModel.value.result!.firstWhere((element) => element.id == id).name!;
+  String getCategoryName(int id) => categoriesModel.value.result != null ? categoriesModel.value.result!.firstWhere((element) => element.id == id).name ?? '' : '';
 
   String getMaskedName(String name) {
     if (name == '-') return '-';

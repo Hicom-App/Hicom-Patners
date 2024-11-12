@@ -39,7 +39,7 @@ class CatProductItem extends StatelessWidget{
                         right: 12.w,
                         top: 10.h,
                         child: InkWell(
-                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString())).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
+                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString()), isProduct: _getController.categoryProductsModel.value.result![index].favorite == 0 ? true : false, isFavorite: true).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
                             child: Icon(_getController.categoryProductsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoryProductsModel.value.result![index].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)
                         )
                     )
