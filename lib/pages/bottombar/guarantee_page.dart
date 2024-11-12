@@ -103,12 +103,9 @@ class GuaranteePage extends StatelessWidget {
                           List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
 
                           List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 1).toList();
-
-                          // Only display the date heading if there are active warranties
                           if (activeWarrantiesForDate.isEmpty) {
-                            return SizedBox.shrink();
+                            return const SizedBox.shrink();
                           }
-
                           return Column(
                             children: [
                               Container(

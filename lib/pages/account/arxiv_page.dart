@@ -102,8 +102,6 @@ class ArxivPage extends StatelessWidget {
                                 String dateKey = groupedWarranty.keys.elementAt(index);
                                 List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
                                 List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 0).toList();
-
-                                // Only display the date heading if there are active warranties
                                 if (activeWarrantiesForDate.isEmpty) {
                                   return const SizedBox.shrink();
                                 }

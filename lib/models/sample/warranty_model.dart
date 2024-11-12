@@ -1,6 +1,3 @@
-
-import 'dart:convert';
-
 import 'package:intl/intl.dart';
 
 class WarrantyModel {
@@ -45,9 +42,10 @@ class Result {
   String? dateCreated;
   String? photoUrl;
   int? active;
+  int? isArchived;
   String? description;
 
-  Result({this.id, this.productId, this.name, this.categoryId, this.brand, this.cashback, this.serialCode, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.photoUrl, this.active, this.description,});
+  Result({this.id, this.productId, this.name, this.categoryId, this.brand, this.cashback, this.serialCode, this.warrantyStart, this.warrantyExpire, this.dateCreated, this.photoUrl, this.active,this.isArchived, this.description,});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,6 +60,7 @@ class Result {
     brand = json['brand'];
     photoUrl = json['photo_url'];
     active = json['active'];
+    isArchived = json['is_archived'];
     description = json['description'];
   }
 
@@ -79,6 +78,7 @@ class Result {
     data['brand'] = brand;
     data['photo_url'] = photoUrl;
     data['active'] = active;
+    data['is_archived'] = isArchived;
     data['description'] = description;
     return data;
   }
