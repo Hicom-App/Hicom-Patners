@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +38,7 @@ class SamplePage extends StatelessWidget {
           elevation: 7.sp,
           activeColor: AppColors.red,
           initialActiveIndex: 0,
-          height: 50.sp,
+          height: Platform.isAndroid ? 70.sp : 50.sp,
           items: [
             const TabItem(icon:EneftyIcons.home_bold),
             const TabItem(icon: EneftyIcons.profile_bold),

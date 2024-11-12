@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,6 +12,7 @@ import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:hicom_patners/resource/srting.dart';
 
 import 'controllers/dependency.dart';
+import 'controllers/firebase_api.dart';
 import 'controllers/get_controller.dart';
 import 'firebase_options.dart';
 
@@ -36,6 +39,31 @@ main() async {
   /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Oldingi holatda xabar qabul qilindi: ${message.notification?.title}, ${message.notification?.body}');
   });*/
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await FireBaseApi().initNotificationTopic();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  Future<void> requestNotificationPermissions() async {
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('Foydalanuvchi ruxsat berdi');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('Foydalanuvchi vaqtinchalik ruxsat berdi');
+    } else {
+      print('Foydalanuvchi ruxsat bermadi');
+    }
+  }
+
+  requestNotificationPermissions();
+  if (Platform.isAndroid){
+    await InitNotification.initialize();
+  }
+
   runApp(MyApp());
   DependencyInjection.init();
 }

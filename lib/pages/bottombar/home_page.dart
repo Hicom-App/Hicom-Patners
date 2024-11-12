@@ -1,6 +1,5 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,8 +31,6 @@ class HomePage extends StatelessWidget {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
     FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
-    //FlutterAppIconBadge.isAppBadgeSupported();
-    //print(FlutterAppIconBadge.isAppBadgeSupported());
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -235,10 +232,9 @@ class HomePage extends StatelessWidget {
                                 else
                                   const SkeletonCategory(),
                                 if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
-                                  if (_getController.productsModel.value.result!.isNotEmpty)
                                     Stack(
-                                  children: [
-                                    Positioned(
+                                        children: [
+                                          Positioned(
                                       child: Container(
                                           margin: EdgeInsets.only(left: 25.w, top: 10.h),
                                           child: Row(
@@ -252,7 +248,7 @@ class HomePage extends StatelessWidget {
                                           )
                                       )
                                     ),
-                                    SizedBox(
+                                          SizedBox(
                                         height: 345.h,
                                         width: Get.width,
                                         child: SingleChildScrollView(
@@ -267,11 +263,10 @@ class HomePage extends StatelessWidget {
                                             )
                                         )
                                     )
-                                  ]
-                                )
-                                else const SkeletonProducts(),
+                                        ]
+                                    )
+                                else if (_getController.categoriesModel.value.result == null) const SkeletonProducts(),
                                 if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
-                                  if (_getController.productsModel.value.result!.isNotEmpty)
                                     Stack(
                                     children: [
                                       Positioned(
@@ -305,7 +300,7 @@ class HomePage extends StatelessWidget {
                                       )
                                     ]
                                 )
-                                else
+                                else if (_getController.categoriesModel.value.result == null)
                                   const SkeletonProducts(),
                                 if (_getController.categoriesProductsModel.value.all != null)
                                   Column(
