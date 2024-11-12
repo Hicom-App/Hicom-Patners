@@ -247,7 +247,7 @@ class DetailPage extends StatelessWidget {
                                         ]
                                     )
                                 ),
-                            if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false)
+                            if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false && _getController.reviewsModel.value.result!.length > 3)
                               ElevatedButton(
                                   onPressed: (){
                                     _getController.allComments.value = !_getController.allComments.value;
