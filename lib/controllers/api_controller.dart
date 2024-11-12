@@ -29,18 +29,30 @@ class ApiController extends GetxController {
 
   //return header function
   Map<String, String> headersBearer() {
-    print(_getController.token);
-    print(_getController.headerLanguage);
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_getController.token}',
-      'Content-Language': _getController.headerLanguage,
+      'Content-Language': _getController.headerLanguage
     };
   }
 
   Map<String, String> headerBearer() {
     return {
       'Authorization': 'Bearer ${_getController.token}'
+    };
+  }
+  Map<String, String> header() {
+    return {
+      'Content': 'application/json'
+    };
+  }
+
+  //{'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'}
+  Map<String, String> multipartHeaderBearer() {
+    return {
+      'Authorization': 'Bearer ${_getController.token}',
+      'Content-Type': 'multipart/form-data',
+      'Content-Language': _getController.headerLanguage
     };
   }
 
@@ -75,7 +87,7 @@ class ApiController extends GetxController {
     String url = '$baseUrl/users/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     try {
-      final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      final response = await http.post(Uri.parse(url), headers: header(), body: jsonEncode(body));
       debugPrint(_getController.code.value + _getController.phoneController.text);
       debugPrint(response.body.toString());
       if (response.statusCode == 200) {
@@ -102,7 +114,7 @@ class ApiController extends GetxController {
     String url = '$baseUrl/users/login';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     try {
-      final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      final response = await http.post(Uri.parse(url), headers: header(), body: jsonEncode(body));
       debugPrint(_getController.code.value + _getController.phoneController.text);
       debugPrint(response.body.toString());
       debugPrint(response.statusCode.toString());
@@ -131,7 +143,7 @@ class ApiController extends GetxController {
   Future<void> verifyPhone(bool isRegister) async {
     Map<String, dynamic> body = {'confirmation_id': _getController.sendCodeModel.value.result?.confirmationId.toString(), 'code': _getController.verifyCodeControllers.text};
     try {
-      final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: header(), body: jsonEncode(body));
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['status'] == 0) {
@@ -271,7 +283,7 @@ class ApiController extends GetxController {
     print(_getController.dropDownItems[3].toString());
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'),);
-      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+      request.headers.addAll(multipartHeaderBearer());
       request.fields['first_name'] = _getController.nameController.text;
       request.fields['last_name'] = _getController.surNameController.text;
       request.fields['birthday'] = DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value);
@@ -320,7 +332,7 @@ class ApiController extends GetxController {
       'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id
     };
     try {
-      final response = await http.post(Uri.parse('$baseUrl/users/profile'), headers: {'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'application/json',}, body: jsonEncode(body));
+      final response = await http.post(Uri.parse('$baseUrl/users/profile'), headers: multipartHeaderBearer(), body: jsonEncode(body));
       debugPrint(response.body.toString());
       debugPrint(response.statusCode.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -378,7 +390,7 @@ class ApiController extends GetxController {
 
   Future<void> getCategories() async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: {'Authorization': 'Bearer ${_getController.token}'});
+      final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
@@ -478,7 +490,7 @@ class ApiController extends GetxController {
   Future<void> addReview(int id) async {
     try {
       var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
-      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+      request.headers.addAll(multipartHeaderBearer());
       request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': '${_getController.surNameController.text}.', 'user_id': '0'});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
@@ -529,7 +541,7 @@ class ApiController extends GetxController {
   Future<void> addWarrantyProduct(String code, context) async {
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
-      request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data',});
+      request.headers.addAll(multipartHeaderBearer());
       request.fields.addAll({'qrcode': _getController.codeController.text});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
@@ -624,7 +636,7 @@ class ApiController extends GetxController {
 
   Future<void> addCard() async {
     var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/payment/cards'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
+    request.headers.addAll(multipartHeaderBearer());
     request.fields.addAll({'card_no': _getController.cardNumberController.text, 'card_holder': _getController.nameController.text, 'expiration_date': DateFormat('MM/yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 3, 1))});
     try {
       var response = await request.send();
@@ -661,7 +673,7 @@ class ApiController extends GetxController {
 
   Future<void> editCard(int id) async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/cards'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
+    request.headers.addAll(multipartHeaderBearer());
     request.fields.addAll({'id': id.toString(), 'card_no': _getController.cardNumberController.text, 'card_holder': _getController.nameController.text, 'expiration_date': DateFormat('MM/yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 3, 1))});
     try {
       var response = await request.send();
@@ -692,7 +704,7 @@ class ApiController extends GetxController {
 
   Future<void> deleteCard(int id) async {
     var request = http.Request('DELETE', Uri.parse('$baseUrl/payment/cards?id=$id'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}'});
+    request.headers.addAll(headerBearer());
     try {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
@@ -711,7 +723,7 @@ class ApiController extends GetxController {
 
   Future<void> paymentWithdraw() async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/payment/withdraw'));
-    request.headers.addAll({'Authorization': 'Bearer ${_getController.token}', 'Content-Type': 'multipart/form-data'});
+    request.headers.addAll(multipartHeaderBearer());
     request.fields.addAll({'amount': _getController.paymentController.text});
     request.fields.addAll({'card_id': _getController.cardsModel.value.result![_getController.selectedCard.value].id.toString()});
     try {
