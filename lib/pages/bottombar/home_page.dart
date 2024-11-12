@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
                           )
                       ),
                       Container(
-                          decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: Theme.of(context).brightness == Brightness.dark ? AppColors.black.withOpacity(0.3) : AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
+                          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
                           child: _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty
                               ? Column(
                               children: [
@@ -232,40 +232,7 @@ class HomePage extends StatelessWidget {
                                 )
                                 else
                                   const SkeletonCategory(),
-                                    Stack(
-                                        children: [
-                                          Positioned(
-                                      child: Container(
-                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                          child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                                const Spacer(),
-                                                TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                              ]
-                                          )
-                                      )
-                                    ),
-                                          SizedBox(
-                                        height: 345.h,
-                                        width: Get.width,
-                                        child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(width: 35.w),
-                                                if (_getController.productsModel.value.result != null)
-                                                  for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                    InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
-                                              ]
-                                            )
-                                        )
-                                    )
-                                        ]
-                                    ),
-                                    Stack(
+                                Stack(
                                     children: [
                                       Positioned(
                                           child: Container(
@@ -300,10 +267,10 @@ class HomePage extends StatelessWidget {
                                 ),
                                 if (_getController.categoriesProductsModel.value.all != null)
                                   Column(
-                                    children: [
-                                      for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
-                                        if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
-                                          Stack(
+                                      children: [
+                                        for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
+                                          if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
+                                            Stack(
                                             children: [
                                               SizedBox(
                                                 height: 345.h,
@@ -336,25 +303,25 @@ class HomePage extends StatelessWidget {
                                               )
                                             ]
                                           )
-                                    ]
+                                      ]
                                   ),
                                 if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
                                   Container(
-                                    height: Get.height * 0.3,
-                                    width: Get.width,
-                                    alignment: Alignment.center,
-                                    child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface)
+                                      height: Get.height * 0.3,
+                                      width: Get.width,
+                                      alignment: Alignment.center,
+                                      child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface)
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]
                           )
                               : Column(
-                            children: [
-                              SizedBox(height: 25.h),
-                              Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
-                              SizedBox(height: 15.h),
-                              if (_getController.categoriesModel.value.result != null)
-                                SizedBox(
+                              children: [
+                                SizedBox(height: 25.h),
+                                Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                                SizedBox(height: 15.h),
+                                if (_getController.categoriesModel.value.result != null)
+                                  SizedBox(
                                     width: Get.width,
                                     height: 82.h,
                                     child: ListView.builder(
@@ -389,11 +356,11 @@ class HomePage extends StatelessWidget {
                                         shrinkWrap: true
                                     )
                                 )
-                              else
-                                const SkeletonCategory(),
-                              for (int i = 0; i < 3; i++)
-                                const SkeletonProducts()
-                            ]
+                                else
+                                  const SkeletonCategory(),
+                                for (int i = 0; i < 3; i++)
+                                  const SkeletonProducts()
+                              ]
                           )
                       )
                     ])
