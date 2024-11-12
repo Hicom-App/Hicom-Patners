@@ -80,7 +80,7 @@ class ApiController extends GetxController {
     }
   }*/
 
-  Future<void> sendCodeRegister() async {
+  /*Future<void> sendCodeRegister() async {
     String url = '$baseUrl/users/register';
     Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
     try {
@@ -105,36 +105,32 @@ class ApiController extends GetxController {
     } catch (e) {
       debugPrint('Xatolik: $e');
     }
-  }
-
-  /*Future<void> sendCode() async {
-    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text, 'restore':'0'};
-    try {
-      final response = await http.post(Uri.parse('$baseUrl/users/login'), headers: header(), body: jsonEncode(body));
-      debugPrint(_getController.code.value + _getController.phoneController.text);
-      debugPrint(response.body.toString());
-      debugPrint(response.statusCode.toString());
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-          print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
-          _getController.startTimer();
-          Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
-        } else if (data['status'] == 3){
-          sendCodeRegister();
-        }
-        else {
-          _getController.shakeKey[8].currentState?.shake();
-          debugPrint('Xatolik: ${data['message']}');
-        }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
-      }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
-    }
   }*/
+
+  Future<void> sendCodeRegister() async {
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/register'));
+    request.fields['phone'] = _getController.code.value + _getController.phoneController.text;
+    request.headers.addAll(header());
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      var data = jsonDecode(await response.stream.bytesToString());
+      if (data['status'] == 0) {
+        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
+        _getController.startTimer();
+        Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
+      } else if (data['status'] == 5) {
+        _getController.shakeKey[8].currentState?.shake();
+        InstrumentComponents().showToast('Ushbu telefon ro‘yhatdan o‘qilgan', color: AppColors.red, textColor: AppColors.white);
+      }
+      else {
+        _getController.shakeKey[8].currentState?.shake();
+        debugPrint('Xatolik: ${data['message']}');
+      }
+    } else {
+      debugPrint('Xatolik: Serverga ulanishda muammo');
+    }
+  }
 
   Future<void> sendCode() async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/login'));
@@ -204,13 +200,6 @@ class ApiController extends GetxController {
     }
   }*/
 
-  //curl -X 'POST' \
-  //   'http://185.196.213.76:8080/api/users/code/confirm' \
-  //   -H 'accept: application/json' \
-  //   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJUeXBlIjowLCJkYXRlU2Vzc2lvbiI6MTczMDk1ODk2MTQ2NiwiaWF0IjoxNzMwOTU4OTYxLCJleHAiOjE3Mzk1OTg5NjF9.JcrcrAVsfW3a_0UnyVSGLAjQnUD1PZT0DCy1dyZxPho' \
-  //   -H 'Content-Type: multipart/form-data' \
-  //   -F 'confirmation_id=874f0799-9131-11ef-955e-566f672050b2' \
-  //   -F 'code=12345'
   Future<void> verifyPhone(bool isRegister) async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/code/confirm'));
     request.headers.addAll(header());
@@ -230,7 +219,6 @@ class ApiController extends GetxController {
           _getController.errorFieldOk.value = false;
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
-          //login();
           if (isRegister) {
             Get.to(() => const RegisterPage());
           } else {
