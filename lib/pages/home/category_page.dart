@@ -42,7 +42,23 @@ class CategoryPage extends StatelessWidget {
         },
         child: Obx(() => Column(
             children: [
-              SearchTextField(color: AppColors.grey.withOpacity(0.2)),
+              SearchTextField(
+                  color: AppColors.grey.withOpacity(0.2),
+                  onChanged: (value) {
+                    if (open == 0) {
+                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
+                    } else if (open == 1) {
+                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
+                    }
+                  },
+                  onSubmitted: (value) {
+                    if (open == 0) {
+                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
+                    } else if (open == 1) {
+                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
+                    }
+                }
+              ),
               SizedBox(height: Get.height * 0.02),
               if (_getController.categoryProductsModel.value.result != null)
                 if (_getController.categoryProductsModel.value.result!.isNotEmpty)
