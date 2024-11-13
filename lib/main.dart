@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:hicom_patners/resource/srting.dart';
-
 import 'controllers/dependency.dart';
 import 'controllers/firebase_api.dart';
 import 'controllers/get_controller.dart';
@@ -21,34 +19,10 @@ main() async {
   await GetStorage.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  /*await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  try {
-    String? token = await messaging.getToken();
-    if (token != null) {
-      print('FCM Token: $token');
-    } else {
-      print('Failed to get FCM token.');
-    }
-  } catch (e) {
-    print('Error getting FCM token: $e');
-  }*/
-
-  /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Oldingi holatda xabar qabul qilindi: ${message.notification?.title}, ${message.notification?.body}');
-  });*/
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //await FireBaseApi().initNotificationTopic();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   Future<void> requestNotificationPermissions() async {
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    NotificationSettings settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('Foydalanuvchi ruxsat berdi');
