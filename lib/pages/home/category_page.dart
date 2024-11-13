@@ -27,16 +27,18 @@ class CategoryPage extends StatelessWidget {
     }
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white,
-          title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : 'Sevimli mahsulotlar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+      appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : open == 0 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
         onRefresh: () {
+          _getController.searchController.clear();
           if (open == 0) {
             ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (open == 1) {
             ApiController().getProducts(0,isCategory: false, isFavorite: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
+          } else {
+            ApiController().getProducts(0, isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           }
         },
         child: Obx(() => Column(
@@ -44,10 +46,22 @@ class CategoryPage extends StatelessWidget {
               SearchTextField(
                   color: AppColors.grey.withOpacity(0.2),
                   onChanged: (value) {
-                    if (open == 0) {
+                    if (value.isEmpty) {
+                      if (open == 0) {
+                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
+                      } else if (open == 1) {
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
+                      } else {
+                        ApiController().getProducts(0, isCategory: false, filter: 'name CONTAINS "$value"').then((_) => _getController.refreshCategoryController.refreshCompleted());
+                      }
+                    }
+                    print(value);
+                    if (value.length > 3 && open == 0) {
                       ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
-                    } else if (open == 1) {
+                    } else if (value.length > 3 && open == 1) {
                       ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
+                    } else {
+                      ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "$value"').then((_) => _getController.refreshCategoryController.refreshCompleted());
                     }
                   },
                   onSubmitted: (value) {

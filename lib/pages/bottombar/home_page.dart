@@ -47,6 +47,7 @@ class HomePage extends StatelessWidget {
                   _getController.refreshController.loadComplete();
                 },
                 onRefresh: () async {
+                  _getController.searchController.clear();
                   _getController.refreshController.refreshCompleted();
                   _getController.clearCategoriesProductsModel();
                   _getController.clearProductsModel();
@@ -234,20 +235,6 @@ class HomePage extends StatelessWidget {
                                   const SkeletonCategory(),
                                 Stack(
                                     children: [
-                                      Positioned(
-                                          child: Container(
-                                              margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                              child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                                    const Spacer(),
-                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                                  ]
-                                              )
-                                          )
-                                      ),
                                       SizedBox(
                                           height: 345.h,
                                           width: Get.width,
@@ -262,6 +249,20 @@ class HomePage extends StatelessWidget {
                                                   ]
                                               )
                                           )
+                                      ),
+                                      Positioned(
+                                          child: Container(
+                                              margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                              child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                    const Spacer(),
+                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 2)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                  ]
+                                              )
+                                          )
                                       )
                                     ]
                                 ),
@@ -271,38 +272,38 @@ class HomePage extends StatelessWidget {
                                         for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
                                           if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
                                             Stack(
-                                            children: [
-                                              SizedBox(
-                                                height: 345.h,
-                                                width: Get.width,
-                                                child: SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
-                                                  child: Row(
-                                                    children: [
-                                                      SizedBox(width: 35.w),
-                                                      if (_getController.productsModel.value.result != null)
-                                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id)), child: ProductItems(index: i , i: index))
-                                                    ]
-                                                  )
-                                                )
-                                              ),
-                                              Positioned(
-                                                  child: Container(
-                                                      margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                                      child: Row(
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                          children: [
-                                                            TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
-                                                            const Spacer(),
-                                                            TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                                          ]
+                                                children: [
+                                                  SizedBox(
+                                                      height: 345.h,
+                                                      width: Get.width,
+                                                      child: SingleChildScrollView(
+                                                          scrollDirection: Axis.horizontal,
+                                                          child: Row(
+                                                              children: [
+                                                                SizedBox(width: 35.w),
+                                                                if (_getController.productsModel.value.result != null)
+                                                                  for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                                    InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id)), child: ProductItems(index: i , i: index))
+                                                              ]
+                                                          )
+                                                      )
+                                                  ),
+                                                  Positioned(
+                                                      child: Container(
+                                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                          child: Row(
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                              children: [
+                                                                TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                                const Spacer(),
+                                                                TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                              ]
+                                                          )
                                                       )
                                                   )
-                                              )
-                                            ]
-                                          )
+                                                ]
+                                            )
                                       ]
                                   ),
                                 if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
