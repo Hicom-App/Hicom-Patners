@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hicom_patners/controllers/get_controller.dart';
 
 import '../firebase_options.dart';
 
@@ -19,6 +20,7 @@ class InitNotification {
     );
     final fcmToken = await FirebaseMessaging.instance.getToken();
     print('fcmTokenssss: $fcmToken');
+    GetController().saveFcmToken(fcmToken.toString() ?? '');
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {

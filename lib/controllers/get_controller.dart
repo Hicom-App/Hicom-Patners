@@ -195,6 +195,8 @@ class GetController extends GetxController {
 
   void saveToken(String token) => GetStorage().write('token', token);
 
+  void saveFcmToken(String token) => GetStorage().write('fcmToken', token);
+
   void savePhoneNumber(String phoneNumber) => GetStorage().write('phoneNumber', phoneNumber);
 
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
@@ -207,6 +209,8 @@ class GetController extends GetxController {
   get phoneNumber => GetStorage().read('phoneNumber');
 
   get token => GetStorage().read('token');
+
+  String get fcmToken => GetStorage().read('fcmToken');
 
   get getSelectedCardIndex => selectedCard.value = GetStorage().read('selectedCardIndex') ?? 0;
 

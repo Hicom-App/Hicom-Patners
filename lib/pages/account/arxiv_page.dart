@@ -20,7 +20,7 @@ class ArxivPage extends StatelessWidget {
     _getController.clearWarrantyModel();
     _getController.clearSortedWarrantyModel();
     //ApiController().getWarrantyProducts(filter: 'c.is_archived=1');
-    ApiController().getWarrantyProduct();
+    ApiController().getWarrantyProduct(filter: 'c.active=1');
     _getController.refreshGuaranteeController.refreshCompleted();
     _getController.refreshGuaranteeController.loadComplete();
   }
@@ -188,7 +188,7 @@ class ArxivPage extends StatelessWidget {
                                                                               child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas' : 'Faol', color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                                           ),
                                                                           const Spacer(),
-                                                                          InkWell(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt(), isArchived: true), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
+                                                                          InkWell(onTap: () => ApiController().archiveWarrantyProduct(warranty.id!.toInt(), isArchived: false), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                                           SizedBox(width: 11.w)
                                                                         ]
                                                                     )

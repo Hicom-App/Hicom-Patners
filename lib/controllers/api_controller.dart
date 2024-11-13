@@ -351,6 +351,19 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> postFcmToken() async {
+    try {
+      print('========================================================================================================================================================================');
+      print(_getController.fcmToken);
+      final response = await http.post(Uri.parse('$baseUrl/users/firebase-token'), headers: headerBearer(), body: {'fcm_token': _getController.fcmToken});
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+    }
+  }
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
 
@@ -565,7 +578,7 @@ class ApiController extends GetxController {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
         if (data['status'] == 0) {
-          getWarrantyProducts();
+          getWarrantyProducts(filter: 'c.active=1');
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -577,24 +590,42 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> archiveWarrantyProduct(int id) async {
+  Future<void> archiveWarrantyProduct(int id, {bool isArchived = true}) async {
     try {
-      final response = await http.post(Uri.parse('$baseUrl/warranty/archive'), headers: headerBearer(),body: {
-        'id': id.toString(),
-        'is_archived': '1',
-      });
-      print('$baseUrl/warranty/archive/products?id=$id');
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        debugPrint(data.toString());
-        if (data['status'] == 0) {
-          //getWarrantyProducts();
-          getWarrantyProducts();
-        } else {
-          debugPrint('Xatolik: ${data['message']}');
+      if (isArchived) {
+        final response = await http.post(Uri.parse('$baseUrl/warranty/archive'), headers: headerBearer(),body: {
+          'id': id.toString(),
+          'is_archived': '1'
+        });
+        print('$baseUrl/warranty/archive/products?id=$id');
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          debugPrint(data.toString());
+          if (data['status'] == 0) {
+            getWarrantyProducts(filter: 'c.active=1');
+          } else {
+            debugPrint('Xatolik: ${data['message']}');
+          }
         }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        else {
+          debugPrint('Xatolik: Serverga ulanishda muammo');
+        }
+      }
+      else {
+        final response = await http.delete(Uri.parse('$baseUrl/warranty/archive?id=$id'), headers: headerBearer());
+        print('$baseUrl/warranty/archive/products?id=$id');
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          debugPrint(data.toString());
+          if (data['status'] == 0) {
+            getWarrantyProduct(filter: 'c.active=1');
+          } else {
+            debugPrint('Xatolik: ${data['message']}');
+          }
+        }
+        else {
+          debugPrint('Xatolik: Serverga ulanishda muammo');
+        }
       }
     } catch (e) {
       debugPrint('Xatolik: $e');

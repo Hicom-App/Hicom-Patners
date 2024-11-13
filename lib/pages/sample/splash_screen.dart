@@ -32,6 +32,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiController().postFcmToken();
     _getController.tapTimes(open,1);
     return Scaffold(
       body: Container(
