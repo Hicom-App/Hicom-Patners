@@ -177,7 +177,7 @@ class DetailPage extends StatelessWidget {
                                     },
                                   child: Row(children: [
                                     TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp),
-                                    Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                    Icon(_getController.fullText.value ?  Icons.keyboard_arrow_down : Icons.keyboard_arrow_up, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
                                   ]))
                             ])
                         ),
