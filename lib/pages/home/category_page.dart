@@ -25,7 +25,6 @@ class CategoryPage extends StatelessWidget {
     } else if (open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true);
     }
-    var model = _getController.categoryProductsModel.value;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white,

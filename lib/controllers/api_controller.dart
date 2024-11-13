@@ -35,16 +35,19 @@ class ApiController extends GetxController {
       'Content-Language': _getController.headerLanguage
     };
   }
+
   Map<String, String> headerBearer() {
     return {
       'Authorization': 'Bearer ${_getController.token}'
     };
   }
+
   Map<String, String> header() {
     return {
       'Content': 'application/json'
     };
   }
+
   Map<String, String> multipartHeaderBearer() {
     return {
       'Authorization': 'Bearer ${_getController.token}',
@@ -56,56 +59,6 @@ class ApiController extends GetxController {
   //Auth
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Registratsiya
-
-  /*Future<void> sendCode() async {
-    String url = '$baseUrl/auth/register';
-    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
-    final response = await http.post(Uri.parse(url), headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-    debugPrint(_getController.code.value + _getController.phoneController.text);
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
-        _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(), transition: Transition.fadeIn);
-      } else {
-        _getController.shakeKey[8].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
-    }
-  }*/
-
-  /*Future<void> sendCodeRegister() async {
-    String url = '$baseUrl/users/register';
-    Map<String, dynamic> body = {'phone': _getController.code.value + _getController.phoneController.text};
-    try {
-      final response = await http.post(Uri.parse(url), headers: header(), body: jsonEncode(body));
-      debugPrint(_getController.code.value + _getController.phoneController.text);
-      debugPrint(response.body.toString());
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          //_getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
-          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-          print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
-          _getController.startTimer();
-          Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
-        } else {
-          _getController.shakeKey[8].currentState?.shake();
-          debugPrint('Xatolik: ${data['message']}');
-        }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
-      }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
-    }
-  }*/
 
   Future<void> sendCodeRegister() async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/register'));
@@ -157,48 +110,6 @@ class ApiController extends GetxController {
       debugPrint('Xatolik: Serverga ulanishda muammo');
     }
   }
-
-  /*Future<void> verifyPhone(bool isRegister) async {
-    Map<String, dynamic> body = {'confirmation_id': _getController.sendCodeModel.value.result?.confirmationId.toString(), 'code': _getController.verifyCodeControllers.text};
-    try {
-      final response = await http.post(Uri.parse('$baseUrl/users/code/confirm'), headers: header(), body: jsonEncode(body));
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          _getController.deletePassCode();
-          _getController.saveBiometrics(false);
-          _getController.saveToken(data['result']['token']);
-          _getController.savePhoneNumber(_getController.code.value + _getController.phoneController.text);
-          _getController.errorFieldOk.value = true;
-          _getController.errorField.value = true;
-          _getController.tapTimes((){
-            _getController.errorFieldOk.value = false;
-            _getController.errorField.value = false;
-            _getController.verifyCodeControllers.clear();
-            //login();
-            if (isRegister) {
-              //RegisterPage();
-              Get.to(() => const RegisterPage());
-            } else {
-              getProfile();
-            }
-          }, 1);
-          debugPrint('Telefon tasdiqlandi va token olindi: ${data['result']['token']}');
-        } else {
-          _getController.shakeKey[7].currentState?.shake();
-          debugPrint('Xatolik: ${data['message']}');
-          _getController.changeErrorInput(0, true);
-          _getController.errorField.value = true;
-          debugPrint('Xatolik: xaaa0');
-          _getController.tapTimes((){debugPrint('Xatolik: xaaa1');_getController.errorField.value = false;_getController.verifyCodeControllers.clear();_getController.changeErrorInput(0, false);}, 1);
-        }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
-      }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
-    }
-  }*/
 
   Future<void> verifyPhone(bool isRegister) async {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/code/confirm'));

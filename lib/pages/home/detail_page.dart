@@ -14,7 +14,6 @@ import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
-
 import 'category_page.dart';
 
 class DetailPage extends StatelessWidget {
@@ -34,11 +33,16 @@ class DetailPage extends StatelessWidget {
         body: RefreshComponent(
             refreshController: _getController.refreshGuaranteeController,
             scrollController: _getController.scrollGuaranteeController,
-            child: Obx(() => Column(children: [
+            enablePullUp: false,
+            onLoading: null,
+            onRefresh: (){ApiController().getProduct(id!, isCategory: false).then((_) => _getController.refreshGuaranteeController.refreshCompleted());},
+            child: Obx(() => Column(
+                children: [
                   SizedBox(
-                      height: Get.height * 0.37,
-                      width: Get.width,
-                      child: Column(children: [
+                  height: Get.height * 0.37,
+                  width: Get.width,
+                  child: Column(
+                      children: [
                         SizedBox(
                             width: Get.width,
                             child: AppBar(
@@ -62,37 +66,39 @@ class DetailPage extends StatelessWidget {
                                     placeholder: const AssetImage('assets/images/logo_back.png'),
                                     imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));}, fit: BoxFit.cover)
                             )
-                        )]
-                      )
-                  ),
-              Container(
+                        )
+                      ]
+                  )
+              ),
+                  Container(
                   width: Get.width,
-                  padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h, top: 20.h),
-                      decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)], color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black, borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        _getController.productsModelDetail.value.result != null
-                                            ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)
-                                            : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
-                                        _getController.productsModelDetail.value.result != null
-                                            ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
-                                            : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
-                                      ]
-                                  ),
-                                  _getController.productsModelDetail.value.result != null
-                                      ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false)),
-                                      child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
-                                      : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
-                                ]),
-                            SizedBox(height: Get.height * 0.02),
-                            Container(
+                  padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 20.h),
+                  decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)], color: AppColors.white , borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _getController.productsModelDetail.value.result != null
+                                        ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)
+                                        : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
+                                    _getController.productsModelDetail.value.result != null
+                                        ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
+                                        : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
+                                  ]
+                              ),
+                              _getController.productsModelDetail.value.result != null
+                                  ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false)),
+                                  child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
+                                  : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
+                            ]
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+                        Container(
                                 width: Get.width,
                                 height: 55.h,
                                 decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(10.r)),
@@ -143,174 +149,120 @@ class DetailPage extends StatelessWidget {
                                     ]
                                 )
                             ),
-                            SizedBox(height: Get.height * 0.02),
-                            if (_getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.first.description != null)
-                              const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        SizedBox(height: Get.height * 0.02),
+                        if (_getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.first.description != null)
+                          const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        Container(
+                            width: Get.width,
+                            padding: EdgeInsets.only(top: Get.height * 0.01),
+                            child: Column(children: [
+                              _getController.productsModelDetail.value.result != null
+                                  ? AnimatedSize(
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                  child: SizedBox(
+                                      height: _getController.fullText.value ? null : 105.h,
+                                      child: FadingEdgeScrollView.fromScrollView(
+                                          gradientFractionOnEnd: 0.5,
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              controller: _getController.scrollControllerOk,
+                                              itemBuilder: (context, index) => TextSmall(text: _getController.productsModelDetail.value.result!.first.description ?? '-', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: _getController.productsModelDetail.value.result!.first.description!.length, fontSize: 10), itemCount: 1))))
+                                  : Skeletonizer(child: SizedBox(height: 105.h, child: ListView.builder(shrinkWrap: true, padding: EdgeInsets.zero, physics: const NeverScrollableScrollPhysics(), controller: _getController.scrollControllerOk, itemBuilder: (context, index) => const TextSmall(text: 'text: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10), itemCount: 10))),
+                              InkWell(
+                                  onTap: () {
+                                    _getController.fullText.value = !_getController.fullText.value;
+                                    },
+                                  child: Row(children: [
+                                    TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp),
+                                    Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                  ]))
+                            ])
+                        ),
+                        const Divider(color: Colors.grey, thickness: 1),
+                        SizedBox(height: Get.height * 0.01),
+                        const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        SizedBox(height: Get.height * 0.01),
+                        RatingBar.builder(
+                            initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
+                            minRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 20.sp,
+                            itemPadding:
+                            EdgeInsets.symmetric(horizontal: 5.sp),
+                            unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                            itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
+                            onRatingUpdate: (rating) {
+                              _getController.ratings = rating;
+                              InstrumentComponents().addRate(context);
+                            }),
+                        SizedBox(height: Get.height * 0.01),
+                        const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        if (_getController.reviewsModel.value.result != null)
+                          for (int index = 0; index < (_getController.allComments.value == true || _getController.reviewsModel.value.result!.length < 3 ? _getController.reviewsModel.value.result!.length : 3); index++)
                             Container(
                                 width: Get.width,
-                                padding: EdgeInsets.only(top: Get.height * 0.01),
-                                child: Column(children: [
-                                  _getController.productsModelDetail.value.result != null
-                                      ? AnimatedSize(
+                                margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h, bottom: 20.h),
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(children: [
+                                        Container(
+                                            height: 25.w,
+                                            width: 25.w,
+                                            margin: EdgeInsets.only(right: 6.w),
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);}, fit: BoxFit.cover))
+                                        ),
+                                        TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
+                                        const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),
+                                        Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))]),
+                                      SizedBox(height: Get.height * 0.01),
+                                      RatingBar.builder(
+                                        initialRating: _getController.reviewsModel.value.result![index].rating!.toDouble(),
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 12.sp,
+                                        itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
+                                        unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                                        itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
+                                        onRatingUpdate: (double value) {},
+                                      ),
+                                      SizedBox(height: Get.height * 0.01),
+                                      AnimatedSize(
                                           duration: const Duration(milliseconds: 300),
                                           curve: Curves.easeInOut,
-                                          child: SizedBox(
-                                              height: _getController.fullText.value ? null : 105.h,
-                                              child: FadingEdgeScrollView.fromScrollView(
-                                                  gradientFractionOnEnd: 0.5,
-                                                  child: ListView.builder(
-                                                      shrinkWrap: true,
-                                                      padding: EdgeInsets.zero,
-                                                      physics: const NeverScrollableScrollPhysics(),
-                                                      controller: _getController.scrollControllerOk,
-                                                      itemBuilder: (context, index) => TextSmall(text: _getController.productsModelDetail.value.result!.first.description ?? '-', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: _getController.productsModelDetail.value.result!.first.description!.length, fontSize: 10), itemCount: 1))))
-                                      : Skeletonizer(child: SizedBox(height: 105.h, child: ListView.builder(shrinkWrap: true, padding: EdgeInsets.zero, physics: const NeverScrollableScrollPhysics(), controller: _getController.scrollControllerOk, itemBuilder: (context, index) => const TextSmall(text: 'text: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10), itemCount: 10))),
-                                  InkWell(
-                                      onTap: () {
-                                        _getController.fullText.value = !_getController.fullText.value;
-                                      },
-                                      child: Row(children: [
-                                        TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp),
-                                        Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
-                                      ]))
-                                ])
+                                          child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp, maxLines: _getController.isExpandedList[index] ? 2 : _getController.reviewsModel.value.result![index].review!.length, overflow: TextOverflow.ellipsis)),
+                                      InkWell(
+                                          onTap: () {
+                                            _getController.isExpandedList[index] = !_getController.isExpandedList[index];
+                                            _getController.update();
+                                            },
+                                          child: Row(
+                                              children: [
+                                                TextSmall(text: _getController.isExpandedList[index] ? 'Ko`proq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                                Icon(!_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                              ]
+                                          )
+                                      )
+                                    ]
+                                )
                             ),
-                            const Divider(color: Colors.grey, thickness: 1),
-                            SizedBox(height: Get.height * 0.01),
-                            const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
-                            SizedBox(height: Get.height * 0.01),
-                            RatingBar.builder(
-                                initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
-                                minRating: 0,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemSize: 20.sp,
-                                itemPadding:
-                                EdgeInsets.symmetric(horizontal: 5.sp),
-                                unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                                itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
-                                onRatingUpdate: (rating) {
-                                  _getController.ratings = rating;
-                                  InstrumentComponents().addRate(context);
-                                }),
-                            SizedBox(height: Get.height * 0.01),
-                            const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
-                            if (_getController.reviewsModel.value.result != null)
-                              for (int index = 0; index < (_getController.allComments.value == true || _getController.reviewsModel.value.result!.length < 3 ? _getController.reviewsModel.value.result!.length : 3); index++)
-                                Container(
-                                    width: Get.width,
-                                    margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 20.h, bottom: 20.h),
-                                    child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(children: [
-                                            Container(
-                                              height: 25.w,
-                                              width: 25.w,
-                                              margin: EdgeInsets.only(right: 6.w),
-                                              decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);}, fit: BoxFit.cover))
-                                            ),
-                                            TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
-                                            const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),
-                                            Expanded(child: TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(_getController.reviewsModel.value.result![index].dateCreated!)), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp))]),
-                                          SizedBox(height: Get.height * 0.01),
-                                          RatingBar.builder(
-                                            initialRating: _getController.reviewsModel.value.result![index].rating!.toDouble(),
-                                            minRating: 0,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemSize: 12.sp,
-                                            itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
-                                            unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                                            itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
-                                            onRatingUpdate: (double value) {},
-                                          ),
-                                          SizedBox(height: Get.height * 0.01),
-                                          AnimatedSize(
-                                              duration: const Duration(milliseconds: 300),
-                                              curve: Curves.easeInOut,
-                                              child: TextSmall(text: _getController.reviewsModel.value.result![index].review ?? '', color: AppColors.black70, fontSize: 12.sp, maxLines: _getController.isExpandedList[index] ? 2 : _getController.reviewsModel.value.result![index].review!.length, overflow: TextOverflow.ellipsis)),
-                                          InkWell(
-                                              onTap: () {
-                                                _getController.isExpandedList[index] = !_getController.isExpandedList[index];
-                                                _getController.update();
-                                              },
-                                              child: Row(
-                                                  children: [
-                                                    TextSmall(text: _getController.isExpandedList[index] ? 'Ko`proq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
-                                                    Icon(!_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
-                                                  ]
-                                              )
-                                          )
-                                        ]
-                                    )
-                                ),
-                            if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false && _getController.reviewsModel.value.result!.length > 3)
-                              ElevatedButton(
-                                  onPressed: (){
-                                    _getController.allComments.value = !_getController.allComments.value;
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      elevation: 5,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-                                      fixedSize: Size(Get.width, 40.h),
-                                      surfaceTintColor: Colors.white,
-                                      shadowColor: Colors.white,
-                                      foregroundColor: Colors.white
-                                  ),
-                                  child: TextSmall(text: 'Barchasini ko`rish'.tr, color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp)
-                              )
-                          ]
-                      )
-              ),
-              Container(
-                  color: AppColors.white,
-                  child: Stack(
-                      children: [
-                        Positioned(
-                            child: Container(
-                                margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      TextSmall(text: 'Tavsiya etiladi'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                      const Spacer(),
-                                      TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                    ]
-                                )
-                            )
-                        ),
-                        SizedBox(
-                            height: 345.h,
-                            width: Get.width,
-                            child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                    children: [
-                                      SizedBox(width: 35.w),
-                                      if (_getController.productsModel.value.result != null)
-                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                          InkWell(
-                                              onTap: () {final productId = _getController.productsModel.value.result![index].id;
-                                                if (productId != null) {
-                                                  Get.to(() => DetailPage(id: productId));
-                                                }},
-                                              child: ProductItem(index: index)
-                                          )
-                                    ]
-                                )
-                            )
-                        )
+                        if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false && _getController.reviewsModel.value.result!.length > 3)
+                          ElevatedButton(onPressed: (){_getController.allComments.value = !_getController.allComments.value;}, style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 5, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)), fixedSize: Size(Get.width, 40.h), surfaceTintColor: Colors.white, shadowColor: Colors.white, foregroundColor: Colors.white), child: TextSmall(text: 'Barchasini ko`rish'.tr, color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp)),
+                        SizedBox(height: Get.height * 0.1)
                       ]
                   )
-              ),
-              SizedBox(height: Get.height * 0.1)
-            ]))
-        )
+              )
+                ]
+            ))
+        ),
+        //bottomNavigationBar: BottomAppBar(height: 0, color: AppColors.white, elevation: 0, child: Container(height: 50.h))
     );
   }
 }
