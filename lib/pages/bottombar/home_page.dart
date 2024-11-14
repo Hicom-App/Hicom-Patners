@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
+    ApiController().getAllCatProducts();
     FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
     return Scaffold(
         backgroundColor: AppColors.white,
