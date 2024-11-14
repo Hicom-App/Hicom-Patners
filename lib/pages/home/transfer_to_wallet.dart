@@ -86,7 +86,7 @@ class TransferToWallet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(color: _getController.selectedCard.value == index? AppColors.blue : Colors.transparent, width: 2.w),
                               boxShadow: [BoxShadow(color: AppColors.black70.withOpacity(0.1), blurRadius: 25.r, spreadRadius: 25.r, offset: const Offset(0, 1))],
-                              image: DecorationImage(image: AssetImage(index == 0 ? 'assets/images/card_fon.png' : 'assets/images/card_fon_1.png'), fit: BoxFit.cover),
+                              image: DecorationImage(image: AssetImage(index == 0 ? 'assets/images/card_fon.png' : 'assets/images/card_fon_1.png'), fit: BoxFit.cover)
                             ),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +109,7 @@ class TransferToWallet extends StatelessWidget {
                     shakeOffset: 5,
                     shakeCount: 15,
                     shakeDuration: const Duration(milliseconds: 500),
-                    shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
+                    shakeDirection: Axis.horizontal,
                     child: Column(
                       children: [
                         Container(
@@ -127,7 +127,6 @@ class TransferToWallet extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)), minimumSize: Size(Get.width, 50.h)),
                           onPressed: (){
-                            //if cards not selected
                             if (_getController.cardsModel.value.result!.isEmpty) {
                               InstrumentComponents().showToast('Iltimos, O’tkazmalar uchun karta qo’shing', color: AppColors.red);
                               _getController.shakeKey[2].currentState?.shake();

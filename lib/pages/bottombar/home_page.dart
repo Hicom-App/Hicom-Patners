@@ -259,7 +259,12 @@ class HomePage extends StatelessWidget {
                                                   children: [
                                                     TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                     const Spacer(),
-                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: 0, open: 2)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                    TextButton(
+                                                        onPressed: (){
+                                                          _getController.searchController.clear();
+                                                          Get.to(CategoryPage(index: 0, open: 2));
+                                                        },
+                                                        child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                   ]
                                               )
                                           )
@@ -283,7 +288,12 @@ class HomePage extends StatelessWidget {
                                                                 SizedBox(width: 35.w),
                                                                 if (_getController.productsModel.value.result != null)
                                                                   for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                                    InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id)), child: ProductItems(index: i , i: index))
+                                                                    InkWell(
+                                                                        onTap: () {
+                                                                          _getController.searchController.clear();
+                                                                          Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
+                                                                        },
+                                                                        child: ProductItems(index: i , i: index))
                                                               ]
                                                           )
                                                       )
