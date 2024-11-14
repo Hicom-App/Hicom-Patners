@@ -490,7 +490,7 @@ class ApiController extends GetxController {
     try {
       var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/reviews'));
       request.headers.addAll(multipartHeaderBearer());
-      request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': '${_getController.surNameController.text}.', 'user_id': '0'});
+      request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
       debugPrint(responseBody.toString());
@@ -513,7 +513,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> getReviews(int id) async {
-    //_getController.clearReviewsModel();
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
       if (response.statusCode == 200) {

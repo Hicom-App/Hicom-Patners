@@ -376,7 +376,7 @@ class InstrumentComponents {
               }
           ),
           SizedBox(height: Get.height * 0.01),
-          TextSmall(text: 'Izoh qoldiring', color: Theme.of(context).colorScheme.onSurface),
+          const TextSmall(text: 'Izoh qoldiring', color: AppColors.black),
           SizedBox(height: Get.height * 0.01),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
