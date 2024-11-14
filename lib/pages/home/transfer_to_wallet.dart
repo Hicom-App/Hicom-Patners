@@ -130,7 +130,16 @@ class TransferToWallet extends StatelessWidget {
                             //if cards not selected
                             if (_getController.cardsModel.value.result!.isEmpty) {
                               InstrumentComponents().showToast('Iltimos, O’tkazmalar uchun karta qo’shing', color: AppColors.red);
+                              _getController.shakeKey[2].currentState?.shake();
+                              _getController.changeErrorInput(2, true);
+                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                              _getController.tapTimes(() {
+                                Get.to(() => AddCardPage(), transition: Transition.fadeIn);
+                              }, 2);
                               return;
+                            }
+                            if (_getController.profileInfoModel.value.result!.first.cashbackRemain.toString().isEmpty) {
+                              InstrumentComponents().showToast('Tasdiqlash keshbekingizda yetarli summa mavjud emas', color: AppColors.red);
                             }
                             if (_getController.paymentController.text.isEmpty) {
                               _getController.changeErrorInput(2, true);

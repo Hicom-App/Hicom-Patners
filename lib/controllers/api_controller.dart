@@ -36,17 +36,10 @@ class ApiController extends GetxController {
     };
   }
 
-  Map<String, String> headerBearer() {
-    return {
-      'Authorization': 'Bearer ${_getController.token}'
-    };
-  }
+  Map<String, String> headerBearer() => {'Authorization': 'Bearer ${_getController.token}'};
 
-  Map<String, String> header() {
-    return {
-      'Content': 'application/json'
-    };
-  }
+  Map<String, String> header() => {'Content': 'application/json'};
+
 
   Map<String, String> multipartHeaderBearer() {
     return {
@@ -131,6 +124,7 @@ class ApiController extends GetxController {
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
           if (isRegister) {
+            getCountries();
             Get.to(() => const RegisterPage());
           } else {
             getProfile();
@@ -288,16 +282,7 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfile() async {
-    Map<String, dynamic> body = {
-      'first_name': _getController.nameController.text,
-      'last_name': _getController.surNameController.text,
-      'birthday': DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value),
-      'user_type': _getController.dropDownItems[0],
-      'country_id': _getController.countriesModel.value.countries![_getController.dropDownItems[1]].id,
-      'region_id': _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id,
-      'city_id': _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id
-    };
-    try {
+    /*try {
       final response = await http.post(Uri.parse('$baseUrl/users/profile'), headers: multipartHeaderBearer(), body: jsonEncode(body));
       debugPrint(response.body.toString());
       debugPrint(response.statusCode.toString());
@@ -316,6 +301,41 @@ class ApiController extends GetxController {
       }
     } catch (e) {
       debugPrint('Xatolik: $e');
+    }*/
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'));
+      request.headers.addAll(multipartHeaderBearer());
+      request.fields['first_name'] = _getController.nameController.text;
+      request.fields['last_name'] = _getController.surNameController.text;
+      request.fields['birthday'] = DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value);
+      request.fields['user_type'] = _getController.dropDownItems[0].toString();
+      request.fields['country_id'] = _getController.countriesModel.value.countries![_getController.dropDownItems[1]].id.toString();
+      request.fields['region_id'] = _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id.toString();
+      request.fields['city_id'] = _getController.citiesModel.value.cities![_getController.dropDownItems[3]].id.toString();
+
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      debugPrint(responseBody.toString());
+      debugPrint(response.statusCode.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(responseBody);
+        if (data['status'] == 0) {
+          getCountries();
+          getProfile(isWorker: true);
+          Get.back();
+        } else if (data['status'] == 1) {
+          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
+
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+      return;
     }
   }
 

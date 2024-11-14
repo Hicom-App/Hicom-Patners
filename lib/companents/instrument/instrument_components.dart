@@ -256,7 +256,7 @@ class InstrumentComponents {
       }
     );
   }
-  
+
   void logOutDialog(BuildContext context) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
