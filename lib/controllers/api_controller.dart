@@ -32,7 +32,7 @@ class ApiController extends GetxController {
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_getController.token}',
-      'Content-Language': _getController.headerLanguage
+      'Lang': _getController.headerLanguage
     };
   }
 
@@ -52,7 +52,7 @@ class ApiController extends GetxController {
     return {
       'Authorization': 'Bearer ${_getController.token}',
       'Content-Type': 'multipart/form-data',
-      'Content-Language': _getController.headerLanguage
+      'Lang': _getController.headerLanguage
     };
   }
 

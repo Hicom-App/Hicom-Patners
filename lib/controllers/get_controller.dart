@@ -10,7 +10,6 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -29,7 +28,6 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  var id = 1209098100.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -322,6 +320,30 @@ class GetController extends GetxController {
   void saveBiometrics(bool value) {
     GetStorage().write('biometrics', value);
     getBiometrics();
+  }
+
+  //save notification message
+
+  void saveNotificationMessage(String title, String body) {
+    if (title.isEmpty || body.isEmpty) {
+      debugPrint("Notification message is empty");
+      return;
+    }
+    List messages = [];
+    String? messagesJson = GetStorage().read('notificationMessages');
+    if (messagesJson != null) {
+      messages = json.decode(messagesJson);
+    }
+    messages.add({"title": title, "body": body});
+    GetStorage().write('notificationMessages', json.encode(messages));
+  }
+
+  loadNotificationMessages() {
+    String? messagesJson = GetStorage().read('notificationMessages');
+    if (messagesJson != null) {
+      return messagesJson;
+    }
+    return [];
   }
 
   var getBiometricsValue = false.obs;

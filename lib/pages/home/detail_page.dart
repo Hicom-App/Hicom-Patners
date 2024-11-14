@@ -55,9 +55,13 @@ class DetailPage extends StatelessWidget {
                                 title: _getController.productsModelDetail.value.result != null
                                     ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString().toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)
                                     : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)),
-                                actions: [
+                                /*actions: [
                                   IconButton(icon: Icon(Icons.share, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),
-                                  IconButton(icon: Icon(Icons.more_vert, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())])),
+                                  IconButton(icon: Icon(Icons.more_vert, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
+                                ]*/
+                            )
+                        ),
+
                         Expanded(
                             child: SizedBox(
                                 width: Get.width,
@@ -80,20 +84,20 @@ class DetailPage extends StatelessWidget {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
+                              Expanded(child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _getController.productsModelDetail.value.result != null
-                                        ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)
-                                        : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 2, fontSize: 30.sp)),
+                                        ? TextLarge(text: _getController.productsModelDetail.value.result!.first.name.toString(), color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 30.sp)
+                                        : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.blue, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 30.sp)),
                                     _getController.productsModelDetail.value.result != null
-                                        ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp)
-                                        : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 2, fontSize: 16.sp))
+                                        ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 1, fontSize: 16.sp)
+                                        : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 1, fontSize: 16.sp))
                                   ]
-                              ),
+                              )),
                               _getController.productsModelDetail.value.result != null
                                   ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false)),
-                                  child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color: AppColors.white, size: 19.sp)))
+                                  child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color:_getController.productsModelDetail.value.result!.first.favorite == 0 ? AppColors.black : AppColors.red, size: 19.sp)))
                                   : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
                             ]
                         ),

@@ -256,26 +256,33 @@ class InstrumentComponents {
       }
     );
   }
-
-  void logOutDialog(BuildContext context) =>
-      Get.dialog(
-          AlertDialog(
-              title: TextLarge(text: 'Tasdiqlash', color: Theme.of(context).colorScheme.error),
-              content: TextSmall(text: 'Hisobdan chiqishni xohlaysizmi?', color: Theme.of(context).colorScheme.onSurface,maxLines: 3),
-              actions: [
-                TextButton(onPressed: () => Get.back(), child: TextSmall(text: 'Bekor qilish', color: Theme.of(context).colorScheme.primary)),
-                TextButton(
-                    onPressed: () => {
-                      Get.back(),
-                      ApiController().logout(),
-                      _getController.logout(),
-                      Get.offAll(() => const LoginPage(), transition: Transition.fadeIn)
-                    },
-                    child: TextSmall(text: 'Ha', color: Theme.of(context).colorScheme.primary)
-                )
-              ]
+  
+  void logOutDialog(BuildContext context) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
+      title: 'Tasdiqlash'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
+      content: TextSmall(text: 'Hisobdan chiqishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(onPressed: () {Get.back();ApiController().logout();_getController.logout();Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);}, child: TextSmall(text: 'Chiqish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+      ),
+      cancel: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+            onPressed: () => Get.back(),
+            child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
-      );
+      )
+  );
 
   void languageDialog(BuildContext context) => Get.bottomSheet(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
@@ -439,12 +446,7 @@ class InstrumentComponents {
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
-          child: TextButton(
-              onPressed: () async {
-                Get.back();
-              },
-              child: TextSmall(text: 'ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
-          )
+          child: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       )
   );
 
@@ -482,16 +484,5 @@ class InstrumentComponents {
       )
   );
 
-  //toast message
-  void showToast(String message, {color = AppColors.blue, textColor = AppColors.white, duration = 2}) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: duration,
-        backgroundColor: color,
-        textColor: textColor,
-        fontSize: 16.sp
-    );
-  }
+  void showToast(String message, {color = AppColors.blue, textColor = AppColors.white, duration = 2}) {Fluttertoast.showToast(msg: message, fontAsset: 'Schyler', toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: duration, backgroundColor: color, textColor: textColor, fontSize: 16.sp);}
 }
