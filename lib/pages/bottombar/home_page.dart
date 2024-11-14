@@ -165,7 +165,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty
+                          child: _getController.productsModel.value.result != null
                               ? Column(
                               children: [
                                 SizedBox(height: 25.h),
@@ -175,22 +175,15 @@ class HomePage extends StatelessWidget {
                                       onChanged: (value) {
                                         if (value.isEmpty || value == '') {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true);
-                                          _getController.clearCategoriesProductsModel();
+                                          //_getController.clearCategoriesProductsModel();
                                           ApiController().getAllCatProducts();
                                         }
                                         if (_getController.searchController.value.text.length> 3 ) {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value"');
-                                          _getController.clearCategoriesProductsModel();
+                                          //_getController.clearCategoriesProductsModel();
                                           ApiController().getAllCatProducts(filter: 'name CONTAINS "$value"');
                                         }
-                                      },
-                                    onSubmitted: (value) {
-                                      if (_getController.searchController.value.text.length> 3 ) {
-                                        ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value"');
-                                        _getController.clearCategoriesProductsModel();
-                                        ApiController().getAllCatProducts(filter: 'name CONTAINS "$value"');
                                       }
-                                    }
                                   )
                                 else
                                   Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
@@ -233,7 +226,8 @@ class HomePage extends StatelessWidget {
                                 )
                                 else
                                   const SkeletonCategory(),
-                                Stack(
+                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                  Stack(
                                     children: [
                                       SizedBox(
                                           height: 345.h,
@@ -271,7 +265,7 @@ class HomePage extends StatelessWidget {
                                       )
                                     ]
                                 ),
-                                if (_getController.categoriesProductsModel.value.all != null)
+                                if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                   Column(
                                       children: [
                                         for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)

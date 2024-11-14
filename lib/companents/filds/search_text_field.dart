@@ -33,7 +33,7 @@ class SearchTextField extends StatelessWidget{
                 hintStyle: TextStyle(fontFamily: 'Schyler', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 18.sp),
                 prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
                 suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {
-                  onSubmitted!('');
+                  onChanged!('');
                   _getController.searchController.clear();
                 },
                   icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 20.sp),) : const SizedBox(height: 0, width: 0)
