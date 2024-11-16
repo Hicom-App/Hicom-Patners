@@ -70,7 +70,8 @@ class ReportPage extends StatelessWidget {
                                                     SizedBox(height: 4.h),
                                                     Row(
                                                         children: [
-                                                          TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          TextSmall(text: _getController.twoList.value.result!.first.calculated.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                           TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                         ]
                                                     ),
@@ -103,7 +104,8 @@ class ReportPage extends StatelessWidget {
                                                     SizedBox(height: 4.h),
                                                     Row(
                                                         children: [
-                                                          TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                          TextSmall(text: _getController.twoList.value.result!.first.rejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                           TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                         ]
                                                     ),
@@ -146,7 +148,8 @@ class ReportPage extends StatelessWidget {
                                                   SizedBox(height: 4.h),
                                                   Row(
                                                       children: [
-                                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWaiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWaiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        TextSmall(text: _getController.twoList.value.result!.first.waiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                       ]
                                                   ),
@@ -179,7 +182,8 @@ class ReportPage extends StatelessWidget {
                                                   SizedBox(height: 4.h),
                                                   Row(
                                                       children: [
-                                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                        TextSmall(text: _getController.twoList.value.result!.first.withdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                       ]
                                                   ),

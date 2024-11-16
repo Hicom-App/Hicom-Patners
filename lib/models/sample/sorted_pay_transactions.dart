@@ -125,3 +125,64 @@ class Results {
     return data;
   }
 }
+
+
+
+
+class TwoList {
+  int? status;
+  String? message;
+  List<ResultTwo>? result;
+
+  TwoList({this.status, this.message, this.result});
+
+  TwoList.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    if (json['result'] != null) {
+      result = <ResultTwo>[];
+      json['result'].forEach((v) {
+        result!.add(ResultTwo.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ResultTwo {
+  int? userId;
+  int? calculated;
+  int? waiting;
+  int? withdrawn;
+  int? rejected;
+
+  ResultTwo({this.userId, this.calculated, this.waiting, this.withdrawn, this.rejected});
+
+  ResultTwo.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    calculated = json['calculated'];
+    waiting = json['waiting'];
+    withdrawn = json['withdrawn'];
+    rejected = json['rejected'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['calculated'] = calculated;
+    data['waiting'] = waiting;
+    data['withdrawn'] = withdrawn;
+    data['rejected'] = rejected;
+    return data;
+  }
+}
+

@@ -23,7 +23,6 @@ main() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   Future<void> requestNotificationPermissions() async {
     NotificationSettings settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
-
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('Foydalanuvchi ruxsat berdi');
     } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
@@ -34,14 +33,13 @@ main() async {
   }
 
   requestNotificationPermissions();
-  if (Platform.isAndroid){
+  if (Platform.isAndroid) {
     await InitNotification.initialize();
   }
 
   runApp(MyApp());
   DependencyInjection.init();
 }
-
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});

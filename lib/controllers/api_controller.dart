@@ -828,15 +828,15 @@ class ApiController extends GetxController {
     try {
       final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        debugPrint(data.toString());
-        if (data['status'] == 0) {
-          //_getController.changeTransactionsModel(TransactionsModel.fromJson(data));
-          _getController.changeSortedTransactionsModel(SortedPayTransactions.fromJson(data));
-          debugPrint('====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================');
+        if (jsonDecode(response.body)['status'] == 0) {
+          _getController.changeSortedTransactionsModel(
+            SortedPayTransactions.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][0])}),
+            TwoList.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][1])}),
+          );
+          debugPrint('Data processed successfully');
           debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Error: ${jsonDecode(response.body)['message']}');
         }
       } else {
         debugPrint('Xatolik: Serverga ulanishda muammo');

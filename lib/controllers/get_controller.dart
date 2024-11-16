@@ -334,7 +334,7 @@ class GetController extends GetxController {
     if (messagesJson != null) {
       messages = json.decode(messagesJson);
     }
-    messages.add({"title": title, "body": body});
+    messages.add({"title": title, "body": body, "date": DateTime.now().toString()});
     GetStorage().write('notificationMessages', json.encode(messages));
   }
 
@@ -343,7 +343,7 @@ class GetController extends GetxController {
     if (messagesJson != null) {
       return messagesJson;
     }
-    return [];
+    return '[]';
   }
 
   var getBiometricsValue = false.obs;
@@ -631,6 +631,7 @@ class GetController extends GetxController {
   var reviewsModel = ReviewsModel().obs;
   var cardsModel = CardsModel().obs;
   var sortedTransactionsModel = SortedPayTransactions().obs;
+  var twoList = TwoList().obs;
 
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -708,7 +709,10 @@ class GetController extends GetxController {
   void changeCardsModel(CardsModel cardsModels) => cardsModel.value = cardsModels;
 
 
-  void changeSortedTransactionsModel(SortedPayTransactions sortedTransactionsModels) => sortedTransactionsModel.value = sortedTransactionsModels;
+  void changeSortedTransactionsModel(SortedPayTransactions sortedTransactionsModels, TwoList twoLists){
+    sortedTransactionsModel.value = sortedTransactionsModels;
+    twoList.value = twoLists;
+  }
 
   void updateCategoriesProductsModel(int item, int index, int value) {
     if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {

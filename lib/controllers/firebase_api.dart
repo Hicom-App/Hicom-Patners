@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hicom_patners/controllers/get_controller.dart';
-
 import '../firebase_options.dart';
 
 class InitNotification {
@@ -51,7 +50,6 @@ class InitNotification {
     print("Message data: ${message.notification?.body}");
     print("Message data: ${message.notification?.title}");
     print('======================================================================================================================================================');
-
   }
 
   static Future<void> _handleForegroundMessage(RemoteMessage message) async {
