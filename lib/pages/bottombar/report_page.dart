@@ -224,7 +224,7 @@ class ReportPage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
                               var resultsList = transactionGroup.results;
-                              if (_getController.selectMonth.value != 0) resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
+                              //if (_getController.selectMonth.value != 0) resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
                               return Column(
                                   children: [
                                     if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)

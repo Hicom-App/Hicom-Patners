@@ -824,9 +824,12 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getTransactions() async {
+  Future<void> getTransactions({String? filter}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
+      //http://185.196.213.76:8080/api/payment/transactions?filter=t.date_created%20%3E%3D%20%222024-11-01%22%20AND%20t.date_created%20%3C%3D%20%222024-11-30%22
+      //final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
+      print('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
       if (response.statusCode == 200) {
         if (jsonDecode(response.body)['status'] == 0) {
           _getController.changeSortedTransactionsModel(
@@ -834,7 +837,7 @@ class ApiController extends GetxController {
             TwoList.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][1])}),
           );
           debugPrint('Data processed successfully');
-          debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
+          //debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
         } else {
           debugPrint('Error: ${jsonDecode(response.body)['message']}');
         }

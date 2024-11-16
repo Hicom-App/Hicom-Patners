@@ -422,13 +422,48 @@ class GetController extends GetxController {
 
   void changeCardBackIndex(int value) => cardBackIndex.value = value;
 
-  void changeSelectedMonth(int value) {
+  void changeSelectedMonths(int value) {
+    clearSortedTransactionsModel();
+    ApiController().getTransactions(
+        filter: 't.date_created%20%3E%3D%20%222024-11-01%22%20AND%20t.date_created%20%3C%3D%20%222024-11-30%22'
+    );
     for (var i = 0; i < listMonth.length; i++) {
       listMonth[i]['selected'] = i == value ? true : false;
     }
     selectMonth.value = value;
     listMonth.refresh();
   }
+
+  void changeSelectedMonth(int value) {
+    for (var i = 0; i < listMonth.length; i++) {
+      listMonth[i]['selected'] = i == value ? true : false;
+    }
+
+    selectMonth.value = value;
+    if (value == 0) {
+      ApiController().getTransactions();
+    } else {
+      DateTime today = DateTime.now();
+      DateTime firstDayOfMonth = DateTime(today.year, DateTime(today.year, selectMonth.value , 1).month, 1);
+      if (firstDayOfMonth.month > 12) {
+        firstDayOfMonth = DateTime(today.year + (firstDayOfMonth.month ~/ 12), firstDayOfMonth.month % 12, 1);
+      }
+      DateTime lastDayOfMonth = DateTime(firstDayOfMonth.year, firstDayOfMonth.month + 1, 0);
+      if (firstDayOfMonth.month == 2) {
+        if ((firstDayOfMonth.year % 4 == 0 && firstDayOfMonth.year % 100 != 0) || (firstDayOfMonth.year % 400 == 0)) {
+          lastDayOfMonth = DateTime(firstDayOfMonth.year, firstDayOfMonth.month, 29); // Leap year
+        } else {
+          lastDayOfMonth = DateTime(firstDayOfMonth.year, firstDayOfMonth.month, 28); // Non-leap year
+        }
+      }
+      String filter = 't.date_created >= "${DateFormat('yyyy-MM-dd').format(firstDayOfMonth)}" '
+          'AND t.date_created <= "${DateFormat('yyyy-MM-dd').format(lastDayOfMonth)}"';
+      ApiController().getTransactions(filter: filter);
+    }
+    listMonth.refresh();
+  }
+
+
 
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
