@@ -5,7 +5,6 @@ import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:intl/intl.dart';
 import '../../companents/refresh_component.dart';
 import '../../companents/skletons/report_page_skleton.dart';
-import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import 'checks_detail.dart';
