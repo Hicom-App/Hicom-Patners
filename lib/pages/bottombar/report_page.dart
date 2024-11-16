@@ -213,7 +213,8 @@ class ReportPage extends StatelessWidget {
                         refreshController: _getController.refreshReportController,
                         onRefresh: () async {
                           _getController.clearSortedTransactionsModel();
-                          ApiController().getTransactions();
+                          _getController.changeSelectedMonth(0);
+                          //ApiController().getTransactions();
                         },
                         child: _getController.sortedTransactionsModel.value.result != null && _getController.sortedTransactionsModel.value.result!.isNotEmpty
                             ? ListView.builder(
