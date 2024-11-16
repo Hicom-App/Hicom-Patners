@@ -9,7 +9,8 @@ import 'filds/text_small.dart';
 
 class CatProductItem extends StatelessWidget{
   final int index;
-  CatProductItem({super.key, required this.index});
+  final bool isFavorite;
+  CatProductItem({super.key, required this.index, required this.isFavorite});
 
   final GetController _getController = Get.put(GetController());
 
@@ -39,7 +40,7 @@ class CatProductItem extends StatelessWidget{
                         right: 12.w,
                         top: 10.h,
                         child: InkWell(
-                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString()), isProduct: _getController.categoryProductsModel.value.result![index].favorite == 0 ? true : false, isFavorite: true).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
+                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString()), isProduct: _getController.categoryProductsModel.value.result![index].favorite == 0 ? true : false, isFavorite: isFavorite).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
                             child: Icon(_getController.categoryProductsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoryProductsModel.value.result![index].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)
                         )
                     )
@@ -58,7 +59,7 @@ class CatProductItem extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              TextSmall(text: '${_getController.categoryProductsModel.value.result![index].rating == null ? '0': _getController.categoryProductsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                              TextSmall(text: '${_getController.categoryProductsModel.value.result![index].rating == null ? '0': _getController.categoryProductsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result != null &&_getController.productsModel.value.result!.isNotEmpty && _getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]

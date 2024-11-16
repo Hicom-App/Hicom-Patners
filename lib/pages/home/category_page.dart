@@ -24,7 +24,7 @@ class CategoryPage extends StatelessWidget {
       ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
     } else if (open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true);
-    } else {
+    } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2) {
       ApiController().getProducts(0, isCategory: false, isFavorite: false);
     }
     return Scaffold(
@@ -48,31 +48,22 @@ class CategoryPage extends StatelessWidget {
               SearchTextField(
                   color: AppColors.grey.withOpacity(0.2),
                   onChanged: (value) {
-                    if (value.isEmpty) {
+                    if (_getController.searchController.text.isEmpty) {
                       if (open == 0) {
-                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
+                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
                       } else if (open == 1) {
-                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
-                      } else {
-                        ApiController().getProducts(0, isCategory: false, filter: 'name CONTAINS "$value"').then((_) => _getController.refreshCategoryController.refreshCompleted());
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                      } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2)  {
+                        ApiController().getProducts(0, isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
                       }
                     }
                     print(value);
-                    if (value.length > 3 && open == 0) {
-                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
-                    } else if (value.length > 3 && open == 1) {
-                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
-                    } else {
-                      ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "$value"').then((_) => _getController.refreshCategoryController.refreshCompleted());
-                    }
-                  },
-                  onSubmitted: (value) {
-                    if (open == 0) {
-                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "$value"');
-                    } else if (open == 1) {
-                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "$value"');
-                    } else{
-                      ApiController().getProducts(0, isCategory: false, isFavorite: false, filter: 'name CONTAINS "$value"');
+                    if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 0) {
+                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                    } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 1) {
+                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                    } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2) {
+                      ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
                     }
                 }
               ),
@@ -85,7 +76,7 @@ class CategoryPage extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
                           padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                          itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index)),
+                          itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: open == 1 ? true : false)),
                           itemCount: _getController.categoryProductsModel.value.result!.length
                       )
                   )
