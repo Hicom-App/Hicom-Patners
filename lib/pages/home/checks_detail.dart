@@ -89,7 +89,7 @@ class ChecksDetail extends StatelessWidget{
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'To‘langan vaqti', fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: 'Tranzaksiya vaqti', fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                       TextSmall(
                           text: DateFormat('HH:mm').format(DateTime.parse(dateCreated)),
                           fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)

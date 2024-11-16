@@ -291,8 +291,7 @@ class ChecksPage extends StatelessWidget {
               )
             ]
         )
-            : const ReportPageSkleton()
-        )
+            : const ReportPageSkleton())
     );
   }
 }

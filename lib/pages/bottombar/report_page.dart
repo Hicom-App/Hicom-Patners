@@ -295,8 +295,7 @@ class ReportPage extends StatelessWidget {
                   )
                 ]
             )
-            : const ReportPageSkleton()
-        )
+            : const ReportPageSkleton())
     );
   }
 }
