@@ -55,6 +55,19 @@ class LocaleString extends Translations{
       //notification page
       'Bildirishnomalar':'Bildirishnomalar',
       'Bildirishnomalar mavjud emas':'Bildirishnomalar mavjud emas',
+
+      //home page
+      'Jarayonda':'Jarayonda',
+      'To‘langan':'To‘langan',
+      'Rad etilgan':'Rad etilgan',
+      'Jami hisoblangan':'Jami hisoblangan',
+      'ID':'ID',
+      'so‘m':'so‘m',
+      'Qidirish':'Qidirish',
+      'Ma’lumotlar yo‘q':'Ma’lumotlar yo‘q',
+      'Barcha tovarlar':'Barcha tovarlar',
+      'Ko‘proq':'Ko‘proq',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -108,6 +121,18 @@ class LocaleString extends Translations{
       //notification page
       'Bildirishnomalar':'Notifications',
       'Bildirishnomalar mavjud emas':'Notifications are not available',
+
+      //home page
+      'Jarayonda':'In progress',
+      'To‘langan':'Completed',
+      'Rad etilgan':'Cancelled',
+      'Jami hisoblangan':'Total amount',
+      'ID':'ID',
+      'so‘m':'so‘m',
+      'Qidirish':'Search',
+      'Ma’lumotlar yo‘q':'No data',
+      'Barcha tovarlar':'All products',
+      'Ko‘proq':'Load more',
 
     },
     'ru_RU': {
@@ -163,6 +188,18 @@ class LocaleString extends Translations{
       'Bildirishnomalar':'Уведомления',
       'Bildirishnomalar mavjud emas':'Уведомлений нет',
 
+      //home page
+      'Jarayonda':'В процессе',
+      'To‘langan':'Выполнено',
+      'Rad etilgan':'Отменено',
+      'Jami hisoblangan':'Общая сумма',
+      'ID':'ИД',
+      'so‘m':'сум',
+      'Qidirish':'Поиск',
+      'Ma’lumotlar yo‘q':'Нет данных',
+      'Barcha tovarlar':'Все товары',
+      'Ko‘proq':'еще',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -216,6 +253,19 @@ class LocaleString extends Translations{
       //notification page
       'Bildirishnomalar':'Билдиришномалар',
       'Bildirishnomalar mavjud emas':'Билдиришномалар мавжуд эмас',
+
+      //home page
+      'Jarayonda':'Жараёнда',
+      'To‘langan':'Тўланган',
+      'Rad etilgan':'Рад этилган',
+      'Jami hisoblangan':'Жами ҳисобланган',
+      'ID':'ИД',
+      'so‘m':'сўм',
+      'Qidirish':'Қидириш',
+      'Ma’lumotlar yo‘q':'Маълумотлар йўқ',
+      'Barcha tovarlar':'Барча товарлар',
+      'Ko‘proq':'Кўпроқ',
+
     }
   };
 }

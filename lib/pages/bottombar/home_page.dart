@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                                                 TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : '', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                               ]
                                           ),
-                                          TextSmall(text: 'ID: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                          TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                         ]
                                     ),
                                     actions: [
@@ -151,7 +151,7 @@ class HomePage extends StatelessWidget {
                                                                         : _getController.profileInfoModel.value.result!.first.cashbackRejected.toString()
                                                                         : '0',
                                                                     color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
-                                                                TextSmall(text: ' so‘m', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
+                                                                TextSmall(text: ' ${'so‘m'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
                                                               ]
                                                           )
                                                         ]
@@ -259,7 +259,7 @@ class HomePage extends StatelessWidget {
                                                           _getController.searchController.clear();
                                                           Get.to(CategoryPage(index: 0, open: 2));
                                                         },
-                                                        child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                        child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                   ]
                                               )
                                           )
@@ -302,7 +302,7 @@ class HomePage extends StatelessWidget {
                                                               children: [
                                                                 TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
                                                                 const Spacer(),
-                                                                TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko`proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                               ]
                                                           )
                                                       )
@@ -316,7 +316,7 @@ class HomePage extends StatelessWidget {
                                       height: Get.height * 0.3,
                                       width: Get.width,
                                       alignment: Alignment.center,
-                                      child: TextSmall(text: 'Ma’lumotlar yo’q'.tr, color: Theme.of(context).colorScheme.onSurface)
+                                      child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: Theme.of(context).colorScheme.onSurface)
                                   ),
                                 SizedBox(height: Get.height * 0.1)
                               ]

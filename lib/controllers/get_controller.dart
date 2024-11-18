@@ -481,67 +481,7 @@ class GetController extends GetxController {
 
   var listMonth = [{'name':'Hammasi', 'selected': true}, {'name':'Yanvar', 'selected': false}, {'name':'Fevral', 'selected': false}, {'name':'Mart', 'selected': false}, {'name':'Aprel', 'selected': false}, {'name':'May', 'selected': false}, {'name':'Iyun', 'selected': false}, {'name':'Iyul', 'selected': false}, {'name':'Avgust', 'selected': false}, {'name':'Sentabr', 'selected': false}, {'name':'Oktabr', 'selected': false}, {'name':'Noyabr', 'selected': false}, {'name':'Dekabr', 'selected': false}].obs;
 
-  var listTitle = ['Jarayonda', 'To‘langan', 'Rad etilgan',].obs;
-  var listPrice = [
-    '01.02.2025',
-    '09.01.2025',
-    '10.05.2025',
-    '22.12.2025',
-    '11.05.2025',
-    '03.10.2025',
-    '13.11.2025',
-    '19.02.2025',
-    '23.01.2025',
-    '12.03.2025',
-    '02.04.2025',
-    '11.01.2025',
-  ].obs;
-  var listImage = [
-    'https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png',
-    'https://hicom.uz/wp-content/uploads/2024/01/8842-600x600.png',
-    'https://hicom.uz/wp-content/uploads/2024/01/PDU9.png',
-    'https://images.uzum.uz/ckf8u13k9fq8lb3a7vbg/original.jpg',
-    'https://hicom.uz/wp-content/uploads/2024/01/PDU9.png',
-    'https://www.prom.uz/_ipx/f_webp/https://devel.prom.uz/upload/product_gallery/aa/3d/aa3d9c672761627e46c43211aa19d720.jpg'
-  ].obs;
-  var listImageName = [
-    'PoE Switch',
-    'Network cabinet',
-    'PDU',
-    'PoE Switch',
-    'PoE Switch',
-    'PoE Switch',
-    'Network cabinet',
-    'PDU',
-    'HDD',
-    'camera',
-  ].obs;
-  var listImagePrice = [
-    'Hi-M82CM',
-    'HIFS-8842',
-    'Hi-PDU9',
-    'Hi-M42E',
-    'Hi-M82E',
-    'Hi-M82CM',
-    'HIFS-8842',
-    'Hi-PDU9',
-    'HDD',
-    'camera'
-  ].obs;
-  var listPriceAnd = [
-    '02.02.2022',
-    '01.03.2022',
-    '09.01.2022',
-    '10.04.2022',
-    '03.05.2022',
-    '06.03.2022',
-    '11.07.2022',
-    '12.07.2022',
-    '12.08.2022',
-    '12.04.2022',
-    '12.02.2022',
-    '12.02.2022',
-  ];
+  var listTitle = ['Jarayonda'.tr, 'To‘langan'.tr, 'Rad etilgan'.tr].obs;
 
   int getCrossAxisCount() {
     double screenWidth = Get.width;
