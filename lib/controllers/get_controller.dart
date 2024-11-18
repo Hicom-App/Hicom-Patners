@@ -28,6 +28,7 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
+  RxString version = '1.0.0'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;

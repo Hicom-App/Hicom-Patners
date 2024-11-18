@@ -28,7 +28,7 @@ class TransferToWallet extends StatelessWidget {
     ApiController().getCards();
     return Scaffold(
         backgroundColor: AppColors.greys,
-        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o’tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o‘tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
         body: Obx(() => _getController.cardsModel.value.result != null ? RefreshComponent(
             refreshController: _getController.refreshTransferWalletController,
             scrollController: _getController.scrollTransferWalletController,
@@ -54,7 +54,7 @@ class TransferToWallet extends StatelessWidget {
                                   Row(
                                       children: [
                                         TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
-                                        TextSmall(text: ' so’m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                                        TextSmall(text: ' ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                       ]
                                   )
                                 ]
@@ -115,9 +115,9 @@ class TransferToWallet extends StatelessWidget {
                         Container(
                             width: Get.width,
                             margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
-                            child: TextSmall(text: 'To’lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
+                            child: TextSmall(text: 'To‘lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                         ),
-                        TextFieldCustom(fillColor: AppColors.white, hint: _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString() + ' so’m'.tr, controller: _getController.paymentController,  errorInput: _getController.errorInput[2], isNext: true, inputType: TextInputType.number)
+                        TextFieldCustom(fillColor: AppColors.white, hint: '${_getController.profileInfoModel.value.result!.first.cashbackCalculated} ${'so‘m'.tr}', controller: _getController.paymentController,  errorInput: _getController.errorInput[2], isNext: true, inputType: TextInputType.number)
                       ]
                     )
                   ),

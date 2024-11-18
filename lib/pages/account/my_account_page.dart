@@ -229,14 +229,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       )
                                   )
                               ),
-                              _buildListTile(title: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0');}),
+                              _buildListTile(title: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0');}),
                               ShakeWidget(
                                   key: _getController.shakeKey[4],
                                   shakeOffset: 5,
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);})
+                                  child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat'.tr, onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[5],
@@ -244,7 +244,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Farg`ona viloyati', onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1);})
+                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[6],
@@ -252,7 +252,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon sh.', onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2);})
+                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2);})
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
@@ -282,16 +282,16 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                           },
                                           hoverColor: Colors.transparent,
                                           focusColor: Colors.transparent,
-                                          title: const TextSmall(text: 'Tug`ilgan sana', color: AppColors.black),
+                                          title: TextSmall(text: 'Tug‘ilgan sana'.tr, color: AppColors.black),
                                           trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
                                           )
                                       )
                                   )
                               ),
-                              _buildListTileDelete(color: AppColors.red, title: 'Hisobni o`chirish', onTap: (){
+                              /*_buildListTileDelete(color: AppColors.red, title: 'Hisobni o`chirish', onTap: (){
                                 _getController.deleteTimer();
                                 InstrumentComponents().bottomSheetAccountsDelete(context);
-                              }),
+                              }),*/
                               SizedBox(height: 300.h)
                             ]
                         ))

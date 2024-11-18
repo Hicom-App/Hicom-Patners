@@ -36,7 +36,7 @@ class AddCardPage extends StatelessWidget {
           child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.h), child: TextSmall(text: 'Karta ma`lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp)),
+                Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.h), child: TextSmall(text: 'Karta ma’lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp)),
                 Obx(() => Container(
                         width: Get.width,
                         height: 150.h,
@@ -52,14 +52,14 @@ class AddCardPage extends StatelessWidget {
                                     height: 50.h,
                                     width: 50.w,
                                     margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h),
-                                    child: SvgPicture.asset('assets/svg_assets/humo.svg', color: AppColors.white, fit: BoxFit.contain)
+                                    child: SvgPicture.asset('assets/svg_assets/humo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)
                                 )
                               else if (_getController.cardNumberText.value.toString().contains('8600') || _getController.cardNumberText.value.toString().contains('5614') || _getController.cardNumberText.value.toString().contains('4578'))
                                 Container(
                                     height: 50.h,
                                     width: 50.w,
                                     margin: EdgeInsets.only(right: 10.w, top: 15.h, bottom: 10.h),
-                                    child: SvgPicture.asset('assets/svg_assets/uz_card.svg', color: AppColors.white, fit: BoxFit.contain)
+                                    child: SvgPicture.asset('assets/svg_assets/uz_card.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),fit: BoxFit.contain)
                                 ),
                               //TextSmall(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 18.sp),
                               TextSmall(text: _getController.cardNumberText.value, color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 20.sp, letterSpacing: 2.3.sp),
@@ -75,7 +75,7 @@ class AddCardPage extends StatelessWidget {
                   shakeCount: 15,
                   shakeDuration: const Duration(milliseconds: 500),
                   shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami', mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true, inputType: TextInputType.number),
+                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami'.tr, mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true, inputType: TextInputType.number),
                 )),
 
                 Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp)),
@@ -122,10 +122,8 @@ class AddCardPage extends StatelessWidget {
                             return;
                           }
                           if (isEdit == true && index != null) {
-                            print('edit card');
                             ApiController().editCard(_getController.cardsModel.value.result![index!].id ?? 0);
                           } else {
-                            print('add card');
                             ApiController().addCard();
                           }
                         },

@@ -66,7 +66,7 @@ class _AccountPageState extends State<AccountPage> {
                                     child: FadeInImage(
                                         image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                         placeholder: const AssetImage('assets/images/logo_back.png'),
-                                        imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                        imageErrorBuilder: (context, error, stackTrace) => Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)))),
                                         fit: BoxFit.cover
                                     )
                                 )
@@ -108,7 +108,7 @@ class _AccountPageState extends State<AccountPage> {
                                                 child: FadeInImage(
                                                     image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                                     placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
+                                                    imageErrorBuilder: (context, error, stackTrace) => Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)))),
                                                     fit: BoxFit.cover
                                                 )
                                             )
@@ -132,7 +132,7 @@ class _AccountPageState extends State<AccountPage> {
               _buildListTile(
                   context: context,
                   icon: Icons.person,
-                  title: 'Profilim',
+                  title: 'Hisobim'.tr,
                   onTap: () {
                     ApiController().getCountries();
                     Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);
@@ -141,54 +141,54 @@ class _AccountPageState extends State<AccountPage> {
               _buildListTile(
                 context: context,
                 icon: Icons.wallet,
-                title: 'Hamyon',
+                title: 'Hamyon'.tr,
                 onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.fade),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.bookmark,
-                title: 'Saqlanganlar',
+                title: 'Arxiv'.tr,
                 onTap: () => Get.to(() => ArxivPage(), transition: Transition.fadeIn),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.favorite,
-                title: 'Sevimlilar',
+                title: 'Sevimlilar'.tr,
                 onTap: () => Get.to(() => CategoryPage(index: 0, open: 1), transition: Transition.fadeIn),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.settings,
-                title: 'Sozlamalar',
+                title: 'Sozlamalar'.tr,
                 onTap: () => Get.to(() => SettingsPage(), transition: Transition.fadeIn),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.help,
-                title: 'Yordam',
+                title: 'Yordam'.tr,
                 onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info,
-                title: 'Batafsil',
+                title: 'Batafsil'.tr,
                 onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info_outline,
-                title: 'Ilova haqida',
+                title: 'Ilova haqida'.tr,
                 onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.logout,
                 color: Colors.red,
-                title: 'Chiqish',
+                title: 'Chiqish'.tr,
                 onTap: () => InstrumentComponents().logOutDialog(context),
               ),
               SizedBox(height: 20.h),
-              TextSmall(text: 'Ilova versiyasi: 1.0.0', color: Colors.black, fontSize: 12.sp),
+              TextSmall(text: '${'Ilova versiyasi'.tr} ${_getController.version.value}', color: Colors.black, fontSize: 12.sp),
               SizedBox(height: Get.height * 0.2)
             ]
         ))

@@ -6,8 +6,11 @@ class LocaleString extends Translations{
     'uz_UZ': {
       'name':'Dilshodjon',
       'surname':'Haydarov',
+      'Familiya':'Familiya',
       'Ha':'Ha',
       'yo‘q':'yo‘q',
+      'Bekor qilish':'Bekor qilish',
+      'Tayyor':'Tayyor',
       //laugage page
 
       'Tilni tanlang': 'Tilni tanlang',
@@ -68,12 +71,47 @@ class LocaleString extends Translations{
       'Barcha tovarlar':'Barcha tovarlar',
       'Ko‘proq':'Ko‘proq',
 
+      //account page
+      'Hisobim':'Hisobim',
+      'Hamyon':'Hamyon',
+      'Arxiv':'Arxiv',
+      'Sevimlilar':'Sevimlilar',
+      'Sozlamalar':'Sozlamalar',
+      'Yordam':'Yordam',
+      'Batafsil':'Batafsil',
+      'Ilova haqida':'Ilova haqida',
+      'Chiqish':'Chiqish',
+      'Ilova versiyasi':'Ilova versiyasi',
+      'Yangi rasm joylash':'Yangi rasm joylash',
+      'Tug‘ilgan sana':'Tug‘ilgan sana',
+
+      //transfer page
+      'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
+      'To‘lovga tasdiqlangan':'To‘lovga tasdiqlangan',
+      'Tasdiqlangan keshbek':'Tasdiqlangan keshbek',
+      'Mening kartalarim':'Mening kartalarim',
+      'To‘lov summasi':'To‘lov summasi',
+      'Jo‘natish':'Jo‘natish',
+
+      //add card page
+      'Kartani tahrirlash': 'Kartani tahrirlash',
+      'Karta qo‘shish':'Karta qo‘shish',
+      'Karta raqami': 'Karta raqami',
+      'Karta egasining ishmi familiyasi': 'Karta egasining ishmi familiyasi',
+      'F.I.O': 'F.I.O',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.',
+      'Saqlash': 'Saqlash',
+      'Qo‘shish': 'Qo‘shish',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
       'surname':'Haydarov',
+      'Familiya':'Surname',
       'Ha':'Yes',
       'yo‘q':'No',
+      'Bekor qilish':'Cancel',
+      'Tayyor':'Ready',
       //laugage page
 
       'Tilni tanlang': 'Select language',
@@ -134,12 +172,48 @@ class LocaleString extends Translations{
       'Barcha tovarlar':'All products',
       'Ko‘proq':'Load more',
 
+      //account page
+      'Hisobim':'My account',
+      'Hamyon':'Wallet',
+      'Arxiv':'Archive',
+      'Sevimlilar':'Favorites',
+      'Sozlamalar':'Settings',
+      'Yordam':'Help',
+      'Batafsil':'Details',
+      'Ilova haqida':'About app',
+      'Chiqish':'Log out',
+      'Ilova versiyasi':'App version',
+      'Yangi rasm joylash':'Upload new image',
+      'Tug‘ilgan sana':'Date of birth',
+
+      //transfer page
+      'Kartaga o‘tkazmalar': 'Transfers to card',
+      'To‘lovga tasdiqlangan': 'Approved for payment',
+      'Tasdiqlangan keshbek': 'Approved cashback',
+      'Mening kartalarim': 'My cards',
+      'To‘lov summasi': 'Payment amount',
+      'Jo‘natish': 'Send',
+
+      //add card page
+      'Kartani tahrirlash': 'Edit card',
+      'Karta qo‘shish': 'Add card',
+      'Karta raqami': 'Card number',
+      'Karta egasining ishmi familiyasi': 'Cardholder\'s first and last name',
+      'F.I.O': 'Full name',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
+      'Please enter the card number and the cardholder\'s full name completely. If the card number or the cardholder\'s name is incorrect, it may cause the transfer to this card to be rejected.',
+      'Saqlash': 'Save',
+      'Qo‘shish': 'Add',
+
     },
     'ru_RU': {
       'name':'Дилшоджон',
       'surname':'Хайдаров',
+      'Familiya':'Фамилия',
       'Ha':'Да',
       'yo‘q':'Нет',
+      'Bekor qilish':'Отменить',
+      'Tayyor':'Готово',
 
       //laugage page
       'Tilni tanlang': 'Выберите язык',
@@ -200,12 +274,49 @@ class LocaleString extends Translations{
       'Barcha tovarlar':'Все товары',
       'Ko‘proq':'еще',
 
+      //account page
+      'Hisobim':'профиль',
+      'Hamyon':'кошелек',
+      'Arxiv':'Архив',
+      'Sevimlilar':'Избранное',
+      'Sozlamalar':'Настройки',
+      'Yordam':'Помощь',
+      'Batafsil':'Подробнее',
+      'Ilova haqida':'О приложении',
+      'Chiqish':'Выход',
+      'Ilova versiyasi':'Версия приложения',
+      'Yangi rasm joylash':'Добавить картинку',
+      'Tug‘ilgan sana':'Дата рождения',
+
+      //transfer page
+      'Kartaga o‘tkazmalar': 'Переводы на карту',
+      'To‘lovga tasdiqlangan': 'Подтверждено к оплате',
+      'Tasdiqlangan keshbek': 'Подтвержденный кэшбэк',
+      'Mening kartalarim': 'Мои карты',
+      'To‘lov summasi': 'Сумма оплаты',
+      'Jo‘natish': 'Отправить',
+
+      //add card page
+      'Kartani tahrirlash': 'Редактировать карту',
+      'Karta qo‘shish': 'Добавить карту',
+      'Karta raqami': 'Номер карты',
+      'Karta egasining ishmi familiyasi': 'Имя и фамилия владельца карты',
+      'F.I.O': 'Ф.И.О.',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
+      'Пожалуйста, введите номер карты и полное имя владельца карты. Если номер карты или имя владельца карты указаны неправильно, это может стать причиной отклонения перевода на эту карту.',
+      'Saqlash': 'Сохранить',
+      'Qo‘shish': 'Добавить',
+
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
       'surname':'Хайдаров',
+      'Familiya':'Фамилия',
       'Ha':'Да',
       'yo‘q':'Нет',
+      'Bekor qilish':'Бекор қилиш',
+      'Tayyor':'Тайёр',
 
       //laugage page
       'Tilni tanlang': 'Тилни танланг',
@@ -266,6 +377,38 @@ class LocaleString extends Translations{
       'Barcha tovarlar':'Барча товарлар',
       'Ko‘proq':'Кўпроқ',
 
+      //profile page
+      'Hisobim':'Ҳисобим',
+      'Hamyon':'Ҳамён',
+      'Arxiv':'Архив',
+      'Sevimlilar':'Севимлилар',
+      'Sozlamalar':'Созламалар',
+      'Yordam':'Ёрдам',
+      'Batafsil':'Батафсил',
+      'Ilova haqida':'Илова ҳақида',
+      'Chiqish':'Чиқиш',
+      'Ilova versiyasi':'Илова версияси',
+      'Yangi rasm joylash':'Янги расм жойлаш',
+      'Tug‘ilgan sana':'Туғилган сана',
+
+      //transfer page
+      'Kartaga o‘tkazmalar': 'Картага ўтказмалар',
+      'To‘lovga tasdiqlangan': 'Тўловга тасдиқланган',
+      'Tasdiqlangan keshbek': 'Тасдиқланган кешбек',
+      'Mening kartalarim': 'Менинг карталарим',
+      'To‘lov summasi': 'Тўлов суммаси',
+      'Jo‘natish': 'Жўнатиш',
+
+      //add card page
+      'Kartani tahrirlash': 'Картани таҳрирлаш',
+      'Karta qo‘shish': 'Карта қўшиш',
+      'Karta raqami': 'Карта рақами',
+      'Karta egasining ishmi familiyasi': 'Карта эгасининг исми фамилияси',
+      'F.I.O': 'Ф.И.О',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
+      'Илтимос, карта рақами ва карта эгасининг исми фамилияси тўлиқ киритинг. Агар карта рақами ёки карта эгасининг исми фамилияси нотўғри бўлса бу картга ўтказмани рад этишга сабаб бўлиши мумкин.',
+      'Saqlash': 'Сақлаш',
+      'Qo‘shish': 'Қўшиш',
     }
   };
 }
