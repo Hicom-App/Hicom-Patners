@@ -68,7 +68,6 @@ class LocaleString extends Translations{
       'so‘m':'so‘m',
       'Qidirish':'Qidirish',
       'Ma’lumotlar yo‘q':'Ma’lumotlar yo‘q',
-      'Barcha tovarlar':'Barcha tovarlar',
       'Ko‘proq':'Ko‘proq',
 
       //account page
@@ -102,6 +101,26 @@ class LocaleString extends Translations{
       'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.',
       'Saqlash': 'Saqlash',
       'Qo‘shish': 'Qo‘shish',
+
+      //archive page
+      'Arxivlangan tovarlar':'Arxivlangan tovarlar',
+      'Bugun':'Bugun',
+      'Kecha':'Kecha',
+      'Kategoriya':'Kategoriya',
+      'Qo‘shilgan':'Qo‘shilgan',
+      'Kafolat':'Kafolat',
+      'Faol emas':'Faol emas',
+      'Faol':'Faol',
+
+      //category page
+      'Sevimli mahsulotlar': 'Sevimli mahsulotlar',
+      'Barcha mahsulotlar': 'Barcha mahsulotlar',
+
+      //settings page
+      'Kirish va xavfsizlik': 'Kirish va xavfsizlik',
+      'Biometriya orqali kirish': 'Biometriya orqali kirish',
+      'Afzal til': 'Afzal til',
+      'Hisobni o‘chirish':'Hisobni o‘chirish',
 
     },
     'en_EN': {
@@ -168,9 +187,7 @@ class LocaleString extends Translations{
       'ID':'ID',
       'so‘m':'so‘m',
       'Qidirish':'Search',
-      'Ma’lumotlar yo‘q':'No data',
-      'Barcha tovarlar':'All products',
-      'Ko‘proq':'Load more',
+      'Ma’lumotlar yo‘q':'No data','Ko‘proq':'Load more',
 
       //account page
       'Hisobim':'My account',
@@ -204,6 +221,26 @@ class LocaleString extends Translations{
       'Please enter the card number and the cardholder\'s full name completely. If the card number or the cardholder\'s name is incorrect, it may cause the transfer to this card to be rejected.',
       'Saqlash': 'Save',
       'Qo‘shish': 'Add',
+
+      //archive page
+      'Arxivlangan tovarlar': 'Archived products',
+      'Bugun': 'Today',
+      'Kecha': 'Yesterday',
+      'Kategoriya': 'Category',
+      'Qo‘shilgan': 'Added',
+      'Kafolat': 'Warranty',
+      'Faol emas': 'Inactive',
+      'Faol': 'Active',
+
+      //category page
+      'Sevimli mahsulotlar': 'Favorite products',
+      'Barcha mahsulotlar': 'All products',
+
+      //settings page
+      'Kirish va xavfsizlik': 'Login and security',
+      'Biometriya orqali kirish': 'Login with biometrics',
+      'Afzal til': 'Preferred language',
+      'Hisobni o‘chirish':'Delete account',
 
     },
     'ru_RU': {
@@ -270,9 +307,7 @@ class LocaleString extends Translations{
       'ID':'ИД',
       'so‘m':'сум',
       'Qidirish':'Поиск',
-      'Ma’lumotlar yo‘q':'Нет данных',
-      'Barcha tovarlar':'Все товары',
-      'Ko‘proq':'еще',
+      'Ma’lumotlar yo‘q':'Нет данных','Ko‘proq':'еще',
 
       //account page
       'Hisobim':'профиль',
@@ -307,6 +342,25 @@ class LocaleString extends Translations{
       'Saqlash': 'Сохранить',
       'Qo‘shish': 'Добавить',
 
+      //archive page
+      'Arxivlangan tovarlar': 'Архивированные товары',
+      'Bugun': 'Сегодня',
+      'Kecha': 'Вчера',
+      'Kategoriya': 'Категория',
+      'Qo‘shilgan': 'Добавлено',
+      'Kafolat': 'Гарантия',
+      'Faol emas': 'Неактивно',
+      'Faol': 'Активно',
+
+      //category page
+      'Sevimli mahsulotlar': 'Избранные товары',
+      'Barcha mahsulotlar': 'Все товары',
+
+      //settings page
+      'Kirish va xavfsizlik': 'Вход и безопасность',
+      'Biometriya orqali kirish': 'Вход с помощью биометрии',
+      'Afzal til': 'Предпочтительный язык',
+      'Hisobni o‘chirish':'Удалить аккаунт',
 
     },
     'oz_OZ': {
@@ -374,7 +428,6 @@ class LocaleString extends Translations{
       'so‘m':'сўм',
       'Qidirish':'Қидириш',
       'Ma’lumotlar yo‘q':'Маълумотлар йўқ',
-      'Barcha tovarlar':'Барча товарлар',
       'Ko‘proq':'Кўпроқ',
 
       //profile page
@@ -409,6 +462,27 @@ class LocaleString extends Translations{
       'Илтимос, карта рақами ва карта эгасининг исми фамилияси тўлиқ киритинг. Агар карта рақами ёки карта эгасининг исми фамилияси нотўғри бўлса бу картга ўтказмани рад этишга сабаб бўлиши мумкин.',
       'Saqlash': 'Сақлаш',
       'Qo‘shish': 'Қўшиш',
+
+      //archive page
+      'Arxivlangan tovarlar': 'Архивланган товарлар',
+      'Bugun': 'Бугун',
+      'Kecha': 'Кеча',
+      'Kategoriya': 'Категория',
+      'Qo‘shilgan': 'Қўшилган',
+      'Kafolat': 'Кафолат',
+      'Faol emas': 'Фаол эмас',
+      'Faol': 'Фаол',
+
+      //category page
+      'Sevimli mahsulotlar': 'Севимли маҳсулотлар',
+      'Barcha mahsulotlar': 'Барча маҳсулотлар',
+
+      //settings page
+      'Kirish va xavfsizlik': 'Кириш ва хавфсизлик',
+      'Biometriya orqali kirish': 'Биометрия орқали кириш',
+      'Afzal til': 'Афзал тил',
+      'Hisobni o‘chirish':'Ҳисобни ўчириш',
+
     }
   };
 }

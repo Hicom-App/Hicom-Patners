@@ -252,7 +252,7 @@ class HomePage extends StatelessWidget {
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                   children: [
-                                                    TextSmall(text: 'Barcha tovarlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                    TextSmall(text: 'Barcha mahsulotlar'.tr, color: Theme.of(context).colorScheme.onSurface),
                                                     const Spacer(),
                                                     TextButton(
                                                         onPressed: (){

@@ -25,12 +25,12 @@ class CategoryPage extends StatelessWidget {
       ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
     } else if (open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true);
-    } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2) {
+    } else if (open == 2) {
       ApiController().getProducts(0, isCategory: false, isFavorite: false);
     }
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : open == 0 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
+      appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
       body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
@@ -40,7 +40,7 @@ class CategoryPage extends StatelessWidget {
             ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (open == 1) {
             ApiController().getProducts(0,isCategory: false, isFavorite: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
-          } else {
+          } else if (open == 2) {
             ApiController().getProducts(0, isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           }
         },

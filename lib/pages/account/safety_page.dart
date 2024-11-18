@@ -21,7 +21,7 @@ class SafetyPage extends StatelessWidget {
           _buildListTile(
             context: context,
             icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
-            title: 'Hisobni o`chirish',
+            title: 'Hisobni o‘chirish'.tr,
             onTap: (){},
           ),
         ],
