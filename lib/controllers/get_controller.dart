@@ -233,13 +233,13 @@ class GetController extends GetxController {
       const oneSec = Duration(seconds: 1);
       _timer = Timer.periodic(
           oneSec, (timer) {
-        if (countdownDuration.value.inSeconds == 0) {
-          timer.cancel();
-        } else {
-          countdownDuration.value = countdownDuration.value - oneSec;
-        }
-      }
-      );
+            print(countdownDuration.value.inSeconds);
+            if (countdownDuration.value.inSeconds == 0) {
+              timer.cancel();
+            } else {
+              countdownDuration.value = countdownDuration.value - oneSec;
+            }
+          });
     }
   }
 

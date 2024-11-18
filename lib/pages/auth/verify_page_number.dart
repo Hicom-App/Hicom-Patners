@@ -50,13 +50,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
       width: Theme.of(context).textTheme.headlineLarge!.fontSize! * 1.4,
       height: Theme.of(context).textTheme.headlineLarge!.fontSize! * 1.6,
       textStyle: Theme.of(context).textTheme.headlineSmall,
-      decoration: BoxDecoration(
-          border: Theme.of(context).colorScheme.onSurface.withOpacity(0.1).value == 0
-              ? Border.all(color: AppColors.grey.withOpacity(0.1), width: 1)
-              : Border.all(color: AppColors.grey.withOpacity(0.1)),
-          color: AppColors.grey.withOpacity(0.1),
-          borderRadius:BorderRadius.circular(10.r)
-      ),
+      decoration: BoxDecoration(border: Theme.of(context).colorScheme.onSurface.withOpacity(0.1).value == 0 ? Border.all(color: AppColors.grey.withOpacity(0.1), width: 1) : Border.all(color: AppColors.grey.withOpacity(0.1)), color: AppColors.grey.withOpacity(0.1), borderRadius:BorderRadius.circular(10.r))
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(border: Border.all(color: AppColors.blue), color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(10.r));
@@ -96,7 +90,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                   decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 7, offset: Offset(0, 3))])
                               )
                           ),
-                          Positioned(top: Get.height * 0.05, left: 0, child: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 45.sp))),
+                          Positioned(top: Get.height * 0.05, left: 0, child: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: AppColors.white, size: 35.sp))),
                           Positioned(
                               top: Get.height * 0.28,
                               width: Get.width,
@@ -154,8 +148,8 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                                               ApiController().sendCode();
                                                               _getController.resetTimer();
                                                             },
-                                                            child: TextSmall(text: 'Kodni qayta yuborish', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
-                                                        : TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500)))
+                                                            child: TextSmall(text: 'Kodni qayta yuborish'.tr, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500))
+                                                        : TextButton(style: ButtonStyle(overlayColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.onSurface.withOpacity(0.1))), onPressed: () {}, child: TextSmall(text: '${'Kodni qayta yuborish'.tr}: ${_getController.countdownDuration.value.inMinutes.toString().padLeft(2, '0')}:${(_getController.countdownDuration.value.inSeconds % 60).toString().padLeft(2, '0')}', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w500)))
                                                 )
                                               ])
                                       )
