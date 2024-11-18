@@ -52,6 +52,9 @@ class LocaleString extends Translations{
       'Internet mavjud emas':'Internet mavjud emas',
       'Qayta urinish':'Qayta urinish',
 
+      //notification page
+      'Bildirishnomalar':'Bildirishnomalar',
+      'Bildirishnomalar mavjud emas':'Bildirishnomalar mavjud emas',
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -101,6 +104,10 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'No internet connection',
       'Qayta urinish':'Retry',
+
+      //notification page
+      'Bildirishnomalar':'Notifications',
+      'Bildirishnomalar mavjud emas':'Notifications are not available',
 
     },
     'ru_RU': {
@@ -152,6 +159,10 @@ class LocaleString extends Translations{
       'Internet mavjud emas':'Нет подключения к интернету',
       'Qayta urinish':'Повторить',
 
+      //notification page
+      'Bildirishnomalar':'Уведомления',
+      'Bildirishnomalar mavjud emas':'Уведомлений нет',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -201,6 +212,10 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'Интернет мавжуд эмас',
       'Qayta urinish':'Қайта уриниш',
+
+      //notification page
+      'Bildirishnomalar':'Билдиришномалар',
+      'Bildirishnomalar mavjud emas':'Билдиришномалар мавжуд эмас',
     }
   };
 }

@@ -31,6 +31,13 @@ class NotificationPage extends StatelessWidget {
           refreshController: _getController.refreshNotificationController,
           child: Column(
             children: [
+              if (notificationList.isEmpty)
+                Container(
+                  width: Get.width,
+                  height: Get.height * 0.8,
+                  alignment: Alignment.center,
+                  child: TextSmall(text: 'Bildirishnomalar mavjud emas'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp),
+                ),
               for (var notification in notificationList)
                 Container(
                     width: Get.width,
