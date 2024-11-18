@@ -48,6 +48,10 @@ class LocaleString extends Translations{
       'Parolni kiriting':'Parolni kiriting',
       'Parolni unutdingizmi?':'Parolni unutdingizmi?',
 
+      //no connection page
+      'Internet mavjud emas':'Internet mavjud emas',
+      'Qayta urinish':'Qayta urinish',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -93,6 +97,10 @@ class LocaleString extends Translations{
 
       'Parolni kiriting':'Enter password',
       'Parolni unutdingizmi?':'Forgot passcode?',
+
+      //no connection page
+      'Internet mavjud emas':'No internet connection',
+      'Qayta urinish':'Retry',
 
     },
     'ru_RU': {
@@ -140,6 +148,10 @@ class LocaleString extends Translations{
       'Parolni kiriting':'Введите пароль',
       'Parolni unutdingizmi?':'Забыли пароль?',
 
+      //no connection page
+      'Internet mavjud emas':'Нет подключения к интернету',
+      'Qayta urinish':'Повторить',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -185,6 +197,10 @@ class LocaleString extends Translations{
 
       'Parolni kiriting':'Паролни киритинг',
       'Parolni unutdingizmi?':'Паролни унутдингизми?',
+
+      //no connection page
+      'Internet mavjud emas':'Интернет мавжуд эмас',
+      'Qayta urinish':'Қайта уриниш',
     }
   };
 }
