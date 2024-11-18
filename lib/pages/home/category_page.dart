@@ -20,6 +20,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _getController.searchController.clear();
     if (open == 0) {
       ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
     } else if (open == 1) {

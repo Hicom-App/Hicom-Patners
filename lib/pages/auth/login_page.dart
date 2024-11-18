@@ -88,8 +88,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                     curve: Curves.easeInOut,
                                     child: Column(
                                         children: [
-                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
-                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz tasdiqlash kodini yuboramiz!', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
+                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25.w), child: TextLarge(text: 'Telefon raqamingizni kiriting'.tr, color: AppColors.black, fontWeight: FontWeight.w500, maxLines: 2)),
+                                          Container(width: Get.width, margin: EdgeInsets.only(left: 25.w, right: 25, bottom: Get.height * 0.04), child: TextSmall(text: 'Biz tasdiqlash kodini yuboramiz!'.tr, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontWeight: FontWeight.w500, maxLines: 3)),
                                           AnimatedOpacity(
                                               opacity: 1.0,
                                               duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish

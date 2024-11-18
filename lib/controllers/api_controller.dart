@@ -410,6 +410,7 @@ class ApiController extends GetxController {
 
   // Mahsulotlar ro'yxatini olish
   Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter}) async {
+    filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
       final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());

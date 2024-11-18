@@ -40,9 +40,10 @@ class LanguagePage extends StatelessWidget {
                                  children: [
                                    const Spacer(),
                                    SizedBox(height: Get.height * 0.4),
-                                   const TextLarge(text: 'Tilni tanlang', color: AppColors.black, fontWeight: FontWeight.bold),
+                                   TextLarge(text: 'Tilni tanlang'.tr, color: AppColors.black, fontWeight: FontWeight.bold),
                                    for (var i = 0; i < _getController.locale.length; i++)
                                      LanguageSelectItem(index: i, selectedIndex: _getController.languageIndex, text: _getController.locale[i]['name'], onTap: () {
+
                                        _getController.saveLanguage(_getController.locale[i]['locale']);
                                      }),
                                    const Spacer(),

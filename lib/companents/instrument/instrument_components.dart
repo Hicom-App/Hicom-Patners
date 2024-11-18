@@ -390,19 +390,19 @@ class InstrumentComponents {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
-                  ),
-                ),
-              ),
-            ),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
+                  )
+                )
+              )
+            )
           )
         ]
       ),
