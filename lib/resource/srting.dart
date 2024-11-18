@@ -123,6 +123,9 @@ class LocaleString extends Translations{
       'Afzal til': 'Afzal til',
       'Hisobni o‘chirish':'Hisobni o‘chirish',
 
+      //guarantee page
+      'Kafolat Muddatlari':'Kafolat Muddatlari',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -243,6 +246,9 @@ class LocaleString extends Translations{
       'Biometriya orqali kirish': 'Login with biometrics',
       'Afzal til': 'Preferred language',
       'Hisobni o‘chirish':'Delete account',
+
+      //guarantee page
+      'Kafolat Muddatlari': 'Warranty periods',
 
     },
     'ru_RU': {
@@ -365,6 +371,9 @@ class LocaleString extends Translations{
       'Afzal til': 'Предпочтительный язык',
       'Hisobni o‘chirish':'Удалить аккаунт',
 
+      //guarantee page
+      'Kafolat Muddatlari': 'Сроки гарантии',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -486,6 +495,9 @@ class LocaleString extends Translations{
       'Biometriya orqali kirish': 'Биометрия орқали кириш',
       'Afzal til': 'Афзал тил',
       'Hisobni o‘chirish':'Ҳисобни ўчириш',
+
+      //guarantee page
+      'Kafolat Muddatlari': 'Кафолат Муддатлари',
 
     }
   };

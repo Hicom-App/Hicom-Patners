@@ -68,7 +68,7 @@ class GuaranteePage extends StatelessWidget {
           foregroundColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           centerTitle: false,
-          title: TextLarge(text: '  Kafolat Muddatlari', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1)
+          title: TextLarge(text: '  ${'Kafolat Muddatlari'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 1)
       ),
       body: RefreshComponent(
         refreshController: _getController.refreshGuaranteeController,
@@ -165,19 +165,19 @@ class GuaranteePage extends StatelessWidget {
                                                 SizedBox(height: 12.h),
                                                 Row(
                                                     children: [
-                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Kategoriya:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
+                                                      SizedBox(width: 75.w, child: TextSmall(text: '${'Kategoriya'.tr}:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
                                                       SizedBox(width: Get.width * 0.225, child: TextSmall(text: _getController.getCategoryName(warranty.categoryId!.toInt()), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
                                                 Row(
                                                     children: [
-                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Qo`shilgan:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
+                                                      SizedBox(width: 75.w, child: TextSmall(text: '${'Qo‘shilgan'.tr}:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
                                                       SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.dateCreated.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
                                                 Row(
                                                     children: [
-                                                      SizedBox(width: 75.w, child: TextSmall(text: 'Kafolat:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
+                                                      SizedBox(width: 75.w, child: TextSmall(text: '${'Kafolat'.tr}:', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp)),
                                                       SizedBox(width: Get.width * 0.225, child: TextSmall(text: DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyExpire.toString())), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 11.sp))
                                                     ]
                                                 ),
@@ -188,7 +188,7 @@ class GuaranteePage extends StatelessWidget {
                                                           width: 80.w,
                                                           padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
                                                           decoration: BoxDecoration(color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.red : AppColors.green, borderRadius: BorderRadius.circular(11.r)),
-                                                          child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas' : 'Faol', color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
+                                                          child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas'.tr : 'Faol'.tr, color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                       ),
                                                       const Spacer(),
                                                       InkWell(onTap: () => ApiController().archiveWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
