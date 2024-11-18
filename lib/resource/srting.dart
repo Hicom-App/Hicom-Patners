@@ -11,9 +11,10 @@ class LocaleString extends Translations{
       'yo‘q':'yo‘q',
       'Bekor qilish':'Bekor qilish',
       'Tayyor':'Tayyor',
-      //laugage page
 
+      //laugage page
       'Tilni tanlang': 'Tilni tanlang',
+      'QR Kodni Skaynerlash': 'QR Kodni Skaynerlash',
 
       //login page
       'Telefon raqam': 'Telefon raqam',
@@ -131,9 +132,10 @@ class LocaleString extends Translations{
       'yo‘q':'No',
       'Bekor qilish':'Cancel',
       'Tayyor':'Ready',
-      //laugage page
 
+      //laugage page
       'Tilni tanlang': 'Select language',
+      'QR Kodni Skaynerlash': 'Scan QR code',
 
       //login page
       'Telefon raqam': 'Phone number',
@@ -254,6 +256,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Выберите язык',
+      'QR Kodni Skaynerlash': 'Сканировать QR-код',
 
       //login page
       'Telefon raqam': 'Номер телефона',
@@ -374,6 +377,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Тилни танланг',
+      'QR Kodni Skaynerlash': 'QR Кодни Сканерлаш',
 
       //login page
       'Telefon raqam': 'Телефон рақам',
