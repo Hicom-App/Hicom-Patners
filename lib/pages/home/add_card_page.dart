@@ -75,7 +75,7 @@ class AddCardPage extends StatelessWidget {
                   shakeCount: 15,
                   shakeDuration: const Duration(milliseconds: 500),
                   shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami'.tr, mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true, inputType: TextInputType.number),
+                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami'.tr, mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true, inputType: TextInputType.number)
                 )),
 
                 Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp)),
@@ -85,7 +85,7 @@ class AddCardPage extends StatelessWidget {
                   shakeCount: 15,
                   shakeDuration: const Duration(milliseconds: 500),
                   shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
-                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'F.I.O', controller: _getController.nameController, errorInput: _getController.errorInput[1], isNext: true),
+                  child: TextFieldCustom(fillColor: AppColors.white, hint: 'F.I.O', controller: _getController.nameController, errorInput: _getController.errorInput[1], isNext: true)
                 )),
                 SizedBox(height: 50.h),
                 Container(
@@ -127,9 +127,7 @@ class AddCardPage extends StatelessWidget {
                             ApiController().addCard();
                           }
                         },
-                        child: TextSmall(
-                            text: isEdit == true ? 'Saqlash'.tr : 'Qo‘shish'.tr,
-                            color: AppColors.white)
+                        child: TextSmall(text: isEdit == true ? 'Saqlash'.tr : 'Qo‘shish'.tr, color: AppColors.white)
                     )
                 )
               ]
