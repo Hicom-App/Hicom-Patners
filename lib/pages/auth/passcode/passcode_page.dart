@@ -92,8 +92,8 @@ class PasscodePage extends StatelessWidget {
             child: Stack(
                 children: [
                   Positioned.fill(child: Image.asset('assets/images/fon.png', fit: BoxFit.fitWidth)),
-                  Positioned(top: 0, child: AnimatedContainer(width: Get.width, height: Get.height * 0.2, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut, decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 16, offset: Offset(0, 3))]),)),
-                  Positioned(width: Get.width, top: Get.height * 0.11, child: Center(child: TextLarge(text: 'Enter Passcode'.tr, color: AppColors.white, fontWeight: FontWeight.bold),)),
+                  Positioned(top: 0, child: AnimatedContainer(width: Get.width, height: Get.height * 0.2, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut, decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 16, offset: Offset(0, 3))]))),
+                  Positioned(width: Get.width, top: Get.height * 0.11, child: Center(child: TextLarge(text: 'Parolni kiriting'.tr, color: AppColors.white, fontWeight: FontWeight.bold),)),
                   Positioned.fill(
                       top: Get.height * 0.3,
                       child: Column(
@@ -152,7 +152,7 @@ class PasscodePage extends StatelessWidget {
                             ),
                             TextButton(onPressed: () {
                               _getController.deletePassCode();
-                            }, child: TextSmall(text: 'Forgot Passcode'.tr, color: AppColors.black)),
+                            }, child: TextSmall(text: 'Parolni unutdingizmi?'.tr, color: AppColors.black)),
                             SizedBox(height: 30.h)
                           ]
                       )

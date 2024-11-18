@@ -80,9 +80,9 @@ class CreatePasscodePage extends StatelessWidget {
       backgroundColor: AppColors.white,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
-      title: 'Biometrik autentifikatsiyadan foydalanasizmi?',
+      title: 'Biometrik autentifikatsiyadan foydalanasizmi?'.tr,
       titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      middleText: 'Barmoq izi skaneri yoki yuz identifikatoridan foydalanmoqchimisiz?',
+      middleText: 'Barmoq izi skaneri yoki yuz identifikatoridan foydalanmoqchimisiz?'.tr,
       confirm: Container(
           height: 42.h,
           padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -106,7 +106,7 @@ class CreatePasscodePage extends StatelessWidget {
             _getController.saveBiometrics(false);
             Get.offAll(() => SamplePage());
           },
-          child: TextSmall(text: 'Yo`q'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
+          child: TextSmall(text: 'yo‘q'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
         )
       )
     );
@@ -129,8 +129,8 @@ class CreatePasscodePage extends StatelessWidget {
             child: Stack(
                 children: [
                   Positioned.fill(child: Image.asset('assets/images/fon.png', fit: BoxFit.fitWidth)),
-                  Positioned(top: 0, child: AnimatedContainer(width: Get.width, height: Get.height * 0.2, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut, decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 16, offset: Offset(0, 3))]),)),
-                  Positioned(width: Get.width, top: Get.height * 0.11, child: Center(child: TextLarge(text: 'Create Passcode'.tr, color: AppColors.white, fontWeight: FontWeight.bold),)),
+                  Positioned(top: 0, child: AnimatedContainer(width: Get.width, height: Get.height * 0.2, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut, decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r), bottomRight: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: const [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 16, offset: Offset(0, 3))]))),
+                  Positioned(width: Get.width, top: Get.height * 0.11, child: Center(child: TextLarge(text: 'Parol yaratish'.tr, color: AppColors.white, fontWeight: FontWeight.bold))),
                   Positioned.fill(
                       top: Get.height * 0.3,
                       child: Column(
@@ -155,7 +155,7 @@ class CreatePasscodePage extends StatelessWidget {
                                 )
                             ),
                             SizedBox(height: 15.h),
-                            TextSmall(text: _getController.firstPasscode.value.isEmpty ? 'Enter new passcode'.tr : 'Re-enter new passcode'.tr, color: AppColors.black),
+                            TextSmall(text: _getController.firstPasscode.value.isEmpty ? 'Yangi parolni kiriting'.tr : 'Parolni qayta kiriting'.tr, color: AppColors.black),
                             SizedBox(height: 25.h),
                             Expanded(
                                 child: GridView.builder(

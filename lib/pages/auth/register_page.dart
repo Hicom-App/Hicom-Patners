@@ -38,6 +38,7 @@ class _LoginPageState extends State<RegisterPage> {
       _getController.startDelayedAnimation();
     }
 
+    _getController.selectedDate.value = DateTime.now();
 
 
     return GestureDetector(
@@ -70,7 +71,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                 padding: EdgeInsets.only(left: 25.w, right: 25.w),
                                                 child: Column(
                                                     children: [
-                                                      SizedBox(width: Get.width, child: TextLarge(text: '${'Ro‘yhatdan o‘tish'.tr}:', color: AppColors.black, fontWeight: FontWeight.bold)),
+                                                      SizedBox(width: Get.width, child: TextLarge(text: '${'Ro‘yxatdan o‘tish'.tr}:', color: AppColors.black, fontWeight: FontWeight.bold)),
                                                       ShakeWidget(
                                                           key: _getController.shakeKey[0],
                                                           shakeOffset: 5,
@@ -79,12 +80,12 @@ class _LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.02), child: TextSmall(text: 'Ism', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.02), child: TextSmall(text: 'Ism'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 SizedBox(height: Get.height * 0.01),
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                                     duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
-                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Dilshodjon', controller: _getController.nameController, errorIndex: _getController.errorInput[0])
+                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'name'.tr, controller: _getController.nameController, errorIndex: _getController.errorInput[0])
                                                                 )
                                                               ]
                                                           )
@@ -97,12 +98,12 @@ class _LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.013), child: TextSmall(text: 'Familya', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.013), child: TextSmall(text: 'surname'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 SizedBox(height: Get.height * 0.01),
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                                     duration: const Duration(milliseconds: 1500),
-                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Haydarov', controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
+                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'surname'.tr, controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
                                                                 )
                                                               ]
                                                           )
@@ -121,7 +122,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                       children: [
-                                                                        TextSmall(text: 'kun / oy / yil', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
+                                                                        TextSmall(text: '${'kun'.tr} / ${'oy'.tr} / ${'yil'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
                                                                         InkWell(
                                                                             onTap: () => _getController.showCupertinoDatePicker(context),
                                                                             child: Container(
@@ -151,12 +152,12 @@ class _LoginPageState extends State<RegisterPage> {
                                                                     shakeDuration: const Duration(milliseconds: 500),
                                                                     shakeDirection: Axis.horizontal,
                                                                     child: InkWell(
-                                                                        onTap: () => InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi','0'),
+                                                                        onTap: () => InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0'),
                                                                         child: Column(
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                                             children: [
-                                                                              TextSmall(text: 'Foydalanuvchi', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
+                                                                              TextSmall(text: 'Foydalanuvchi'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
                                                                               Container(
                                                                                   height: 40.h,
                                                                                   margin: EdgeInsets.only(top: Get.height * 0.01),
@@ -193,10 +194,10 @@ class _LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Mamlakat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Mamlakat'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 InkWell(
                                                                     onTap: () {
-                                                                      _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat',0);
+                                                                      _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);
                                                                     },
                                                                     child: Container(
                                                                         width: Get.width,
@@ -208,7 +209,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat', color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
+                                                                              TextSmall(text: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat'.tr, color: _getController.dropDownItemsCountries.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )
@@ -226,9 +227,9 @@ class _LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Viloyat', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Viloyat'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 InkWell(
-                                                                    onTap: () => _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat',1),
+                                                                    onTap: () => _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1),
                                                                     child: Container(
                                                                         width: Get.width,
                                                                         height: 40.h,
@@ -241,7 +242,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              TextSmall(text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang', color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
+                                                                              TextSmall(text: _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, color: _getController.dropDownItemsRegions.isNotEmpty ?AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )
@@ -259,9 +260,9 @@ class _LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Shaxar', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 14.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Shahar'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 14.sp)),
                                                                 InkWell(
-                                                                    onTap: () => _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shaxar',2),
+                                                                    onTap: () => _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2),
                                                                     child: Container(
                                                                         width: Get.width,
                                                                         height: 40.h,
@@ -272,7 +273,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             children: [
-                                                                              TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Qo‘qon', color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
+                                                                              TextSmall(text: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, color:_getController.dropDownItemsCities.isNotEmpty ? AppColors.black : AppColors.black70, fontWeight: FontWeight.w500, maxLines: 3, fontSize: 13.sp),
                                                                               const Icon(Icons.keyboard_arrow_down, color: AppColors.black)
                                                                             ]
                                                                         )
