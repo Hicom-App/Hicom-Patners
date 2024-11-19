@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/resource/colors.dart';
 import '../../controllers/get_controller.dart';
 
 class SearchTextField extends StatelessWidget{
@@ -24,6 +25,7 @@ class SearchTextField extends StatelessWidget{
             textInputAction: TextInputAction.search,
             onChanged: onChanged,
             onSubmitted: onSubmitted,
+            style: const TextStyle(fontFamily: 'Schyler'),
             decoration: InputDecoration(
                 filled: true,
                 isDense: true,
@@ -31,12 +33,11 @@ class SearchTextField extends StatelessWidget{
                 fillColor: color,
                 hintText: 'Qidirish'.tr,
                 hintStyle: TextStyle(fontFamily: 'Schyler', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 18.sp),
-                prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(EneftyIcons.search_normal_2_outline, color: Theme.of(context).colorScheme.onSurface)),
-                suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {
-                  onChanged!('');
-                  _getController.searchController.clear();
-                },
-                  icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 20.sp),) : const SizedBox(height: 0, width: 0)
+                prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color:AppColors.black)),
+                suffixIcon: _getController.searchController.text.isNotEmpty
+                    ? IconButton(onPressed: () {onChanged!('');_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: AppColors.black.withOpacity(0.6), size: 20.sp),)
+                    : const SizedBox(height: 0, width: 0
+                )
             )
         )
     );

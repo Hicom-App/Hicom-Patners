@@ -59,9 +59,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
 
   Future<void> _pickImage() async {
-    print('Pick image');
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: pickedFile.path,
@@ -207,8 +205,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[0] ? AppColors.red : AppColors.white, width: 1), borderRadius: BorderRadius.circular(15.r), color: Colors.grey.withOpacity(0.2)),
                                       child: TextField(
                                           controller: _getController.nameController,
-                                          textInputAction: TextInputAction.search,
-                                          decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                          textInputAction: TextInputAction.next,
+                                          style: const TextStyle(fontFamily: 'Schyler'),
+                                          decoration: InputDecoration(hintText: 'Ism'.tr, hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 16.sp, fontFamily: 'Schyler'), border: InputBorder.none)
                                       )
                                   )
                               ),
@@ -224,19 +223,25 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[1] ? AppColors.red : AppColors.white, width: 1), color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
                                       child: TextField(
                                           controller: _getController.surNameController,
-                                          textInputAction: TextInputAction.search,
-                                          decoration: InputDecoration(hintText: 'Familiya'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 16.sp), border: InputBorder.none)
+                                          textInputAction: TextInputAction.done,
+                                          style: const TextStyle(fontFamily: 'Schyler'),
+                                          decoration: InputDecoration(hintText: 'Familiya'.tr, hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 16.sp, fontFamily: 'Schyler'), border: InputBorder.none)
                                       )
                                   )
                               ),
-                              _buildListTile(title: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), onTap: () {InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0');}),
+                              _buildListTile(title: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), onTap: () {
+                                if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0');
+                              }),
                               ShakeWidget(
                                   key: _getController.shakeKey[4],
                                   shakeOffset: 5,
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat'.tr, onTap: () {_getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);})
+                                  child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat'.tr, onTap: () {
+                                    if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                    _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[5],
@@ -244,7 +249,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, onTap: () {_getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1);})
+                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, onTap: () {
+                                    if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                    _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[6],
@@ -252,7 +259,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, onTap: () {_getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2);})
+                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, onTap: () {
+                                    if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                    _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2);})
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
@@ -260,7 +269,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
                                   child: TextField(
                                       controller: _getController.streetController,
-                                      textInputAction: TextInputAction.search,
+                                      textInputAction: TextInputAction.done,
+                                      style: const TextStyle(fontFamily: 'Schyler'),
                                       decoration: InputDecoration(hintText: '123 dom. 18-uy'.tr, hintStyle: TextStyle(color: AppColors.grey, fontSize: 16.sp), border: InputBorder.none)
                                   )
                               ),
@@ -273,25 +283,19 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDirection: Axis.horizontal,
                                   child: Container(
                                       margin: EdgeInsets.only(top: 5.h),
-                                      decoration: BoxDecoration(
-                                          border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null,
-                                          borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
+                                      decoration: BoxDecoration(border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
-                                          onTap: (){
+                                          onTap: () {
+                                            if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                             _getController.showCupertinoDatePicker(context);
                                           },
                                           hoverColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           title: TextSmall(text: 'Tug‘ilgan sana'.tr, color: AppColors.black),
-                                          trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70
-                                          )
+                                          trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70)
                                       )
                                   )
                               ),
-                              /*_buildListTileDelete(color: AppColors.red, title: 'Hisobni o`chirish', onTap: (){
-                                _getController.deleteTimer();
-                                InstrumentComponents().bottomSheetAccountsDelete(context);
-                              }),*/
                               SizedBox(height: 300.h)
                             ]
                         ))
@@ -302,17 +306,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
         )
     );
   }
-  Container _buildListTileDelete({ required String title, required VoidCallback onTap, color}) {
-    color ?? (color = Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white);
-    return Container(
-        margin: EdgeInsets.only(top: 10.h),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(onTap: onTap, hoverColor: Colors.transparent, focusColor: Colors.transparent, title: TextSmall(text: title, color: color))
-    );
-  }
 
   Container _buildListTile({required String title, required VoidCallback onTap, color}) {
-    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
+    color ??= AppColors.black;
     return Container(
         margin: EdgeInsets.only(top: 10.h),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r), color: Colors.grey.withOpacity(0.2)),

@@ -225,14 +225,14 @@ class ApiController extends GetxController {
         _getController.logout();
         Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
       } else if (response.statusCode == 404) {
-        Get.offAll(() => NotConnection(), transition: Transition.fadeIn);
+        Get.offAll(() => const NotConnection(), transition: Transition.fadeIn);
       }
       else {
         debugPrint('Xatolik1: Serverga ulanishda muammo');
       }
     } catch(e) {
       debugPrint('bilmasam endi: $e');
-      Get.offAll(NotConnection(), transition: Transition.fadeIn);
+      Get.offAll(const NotConnection(), transition: Transition.fadeIn);
     }
   }
 

@@ -16,12 +16,11 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<RegisterPage> {
+class LoginPageState extends State<RegisterPage> {
   final GetController _getController = Get.put(GetController());
-
 
   @override
   void initState() {
@@ -29,17 +28,11 @@ class _LoginPageState extends State<RegisterPage> {
     _getController.startDelayedAnimation();
   }
 
-
   @override
   Widget build(BuildContext context) {
     _getController.isKeyboardVisible.value = MediaQuery.of(context).viewInsets.bottom != 0;
-
-    if (!_getController.isKeyboardVisible.value) {
-      _getController.startDelayedAnimation();
-    }
-
+    if (!_getController.isKeyboardVisible.value) _getController.startDelayedAnimation();
     _getController.selectedDate.value = DateTime.now();
-
 
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -124,7 +117,10 @@ class _LoginPageState extends State<RegisterPage> {
                                                                       children: [
                                                                         TextSmall(text: '${'kun'.tr} / ${'oy'.tr} / ${'yil'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
                                                                         InkWell(
-                                                                            onTap: () => _getController.showCupertinoDatePicker(context),
+                                                                            onTap: () {
+                                                                              if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                                                              _getController.showCupertinoDatePicker(context);
+                                                                            },
                                                                             child: Container(
                                                                                 height: 40.h,
                                                                                 margin: EdgeInsets.only(top: Get.height * 0.01),
@@ -152,7 +148,10 @@ class _LoginPageState extends State<RegisterPage> {
                                                                     shakeDuration: const Duration(milliseconds: 500),
                                                                     shakeDirection: Axis.horizontal,
                                                                     child: InkWell(
-                                                                        onTap: () => InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0'),
+                                                                        onTap: () {
+                                                                          if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
+                                                                          InstrumentComponents().bottomBuildLanguageDialog(context,'Foydalanuvchi turi'.tr,'0');
+                                                                        },
                                                                         child: Column(
                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -197,6 +196,7 @@ class _LoginPageState extends State<RegisterPage> {
                                                                 Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.01), child: TextSmall(text: 'Mamlakat'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 InkWell(
                                                                     onTap: () {
+                                                                      if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                                                       _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);
                                                                     },
                                                                     child: Container(
