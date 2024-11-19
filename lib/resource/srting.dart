@@ -174,6 +174,32 @@ class LocaleString extends Translations{
       'Ko‘proq ko‘rish':'Ko‘proq ko‘rish',
       'To‘liq izoh': 'To‘liq izoh',
 
+      //insturment conpanents
+      'Yuklanmoqda':'Yuklanmoqda',
+      'delete log':'Hisobingiz xavfsizlik qoidalariga ko‘ra avtomatik tarzda 1 oydan keyin o‘chiriladi.',
+      'O‘chirishni tasdiqlang':'O‘chirishni tasdiqlang',
+      'Kartani o‘chirish':'Kartani o‘chirish',
+      'Tasdiqlash':'Tasdiqlash',
+      'Hisobingizdan chiqishni xohlaysizmi?':'Hisobingizdan chiqishni xohlaysizmi?',
+      'Mahsulotni baxolang':'Mahsulotni baxolang',
+      'Izoh qoldiring':'Izoh qoldiring',
+      'Diqqat!':'Diqqat!',
+      'Kardani o‘chirish':'Kardani o‘chirish',
+      'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi':'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi',
+      'O‘chirish':'O‘chirish',
+
+      //Api Controller
+      'Ushbu telefon raqam ro‘yxatdan o‘tgan':'Ushbu telefon raqam ro‘yxatdan o‘tgan',
+      'Kafolatli mahsulot muvaffaqiyatli qo‘shildi':'Kafolatli mahsulot muvaffaqiyatli qo‘shildi',
+      'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.':'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.',
+      'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling':'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling',
+      'Ushbu mahsulotning Arxivda mavjud!':'Ushbu mahsulotning Arxivda mavjud!',
+      'Kartalar chegaralangan miqdordan ko‘p!':'Kartalar chegaralangan miqdordan ko‘p!',
+      'Ushbu karta avval qo‘shilgan!':'Ushbu karta avval qo‘shilgan!',
+      'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring':'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring',
+      'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi':'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi',
+      'Tasdiqlangan keshbekingizda mablag‘ yetarli emas':'Tasdiqlangan keshbekingizda mablag‘ yetarli emas',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -345,6 +371,32 @@ class LocaleString extends Translations{
       'Anonim': 'Anonymous',
       'Ko‘proq ko‘rish': 'See more',
       'To‘liq izoh': 'Full comment',
+
+      //insturment conpanents
+      'Yuklanmoqda': 'Loading',
+      'delete log': 'Your account will be automatically deleted after 1 month for security reasons.',
+      'O‘chirishni tasdiqlang': 'Confirm deletion',
+      'Kartani o‘chirish': 'Delete card',
+      'Tasdiqlash': 'Confirm',
+      'Hisobingizdan chiqishni xohlaysizmi?': 'Do you want to log out of your account?',
+      'Mahsulotni baxolang': 'Rate the product',
+      'Izoh qoldiring': 'Leave a comment',
+      'Diqqat!': 'Attention!',
+      'Kardani o‘chirish': 'Delete card',
+      'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Deleting this card will not remove the list of all transactions made with it.',
+      'O‘chirish': 'Delete',
+
+      //Api Controller
+      'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'This phone number is already registered',
+      'Kafolatli mahsulot muvaffaqiyatli qo‘shildi': 'The guaranteed product has been successfully added',
+      'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.': 'The serial number of this product is already registered! If there is an error, please contact us.',
+      'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling': 'Such a serial number does not exist! If there is an error, please contact us.',
+      'Ushbu mahsulotning Arxivda mavjud!': 'This product is already in the archive!',
+      'Kartalar chegaralangan miqdordan ko‘p!': 'The number of cards exceeds the allowed limit!',
+      'Ushbu karta avval qo‘shilgan!': 'This card has already been added!',
+      'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Problem connecting to the server, please try again later',
+      'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Your request has been submitted for review',
+      'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'You do not have enough funds in your confirmed cashback',
 
     },
     'ru_RU': {
@@ -518,6 +570,32 @@ class LocaleString extends Translations{
       'Ko‘proq ko‘rish': 'Посмотреть больше',
       'To‘liq izoh': 'Полный комментарий',
 
+      //insturment conpanents
+      'Yuklanmoqda': 'Загрузка',
+      'delete log': 'Ваш аккаунт будет автоматически удалён через 1 месяц по соображениям безопасности.',
+      'O‘chirishni tasdiqlang': 'Подтвердите удаление',
+      'Kartani o‘chirish': 'Удалить карту',
+      'Tasdiqlash': 'Подтвердить',
+      'Hisobingizdan chiqishni xohlaysizmi?': 'Вы хотите выйти из своего аккаунта?',
+      'Mahsulotni baxolang': 'Оцените продукт',
+      'Izoh qoldiring': 'Оставьте комментарий',
+      'Diqqat!': 'Внимание!',
+      'Kardani o‘chirish': 'Удалить карту',
+      'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Удаление этой карты не удалит список всех транзакций, совершённых с её помощью.',
+      'O‘chirish': 'Удалить',
+
+      //Api Controller
+      'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Этот номер телефона уже зарегистрирован',
+      'Kafolatli mahsulot muvaffaqiyatli qo‘shildi': 'Гарантированный продукт успешно добавлен',
+      'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.': 'Серийный номер этого продукта уже зарегистрирован! Если есть ошибка, свяжитесь с нами.',
+      'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling': 'Такого серийного номера не существует! Если есть ошибка, свяжитесь с нами.',
+      'Ushbu mahsulotning Arxivda mavjud!': 'Этот продукт уже в архиве!',
+      'Kartalar chegaralangan miqdordan ko‘p!': 'Количество карт превышает допустимый лимит!',
+      'Ushbu karta avval qo‘shilgan!': 'Эта карта уже была добавлена!',
+      'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Проблема с подключением к серверу, попробуйте позже',
+      'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Ваш запрос отправлен на рассмотрение',
+      'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'На вашем подтвержденном кэшбэке недостаточно средств',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -690,6 +768,31 @@ class LocaleString extends Translations{
       'Ko‘proq ko‘rish': 'Кўпроқ кўриш',
       'To‘liq izoh': 'Тўлиқ изоҳ',
 
+      //insturment conpanents
+      'Yuklanmoqda': 'Юкланмоқда',
+      'delete log': 'Ҳисобингиз хавфсизлик қоидаларига кўра автоматик тарзда 1 ойдан кейин ўчирилади.',
+      'O‘chirishni tasdiqlang': 'Ўчиришни тасдиқланг',
+      'Kartani o‘chirish': 'Картани ўчириш',
+      'Tasdiqlash': 'Тасдиқлаш',
+      'Hisobingizdan chiqishni xohlaysizmi?': 'Ҳисобингиздан чиқишни хоҳлайсизми?',
+      'Mahsulotni baxolang': 'Маҳсулотни баҳоланг',
+      'Izoh qoldiring': 'Изоҳ қолдиринг',
+      'Diqqat!': 'Диққат!',
+      'Kardani o‘chirish': 'Картани ўчириш',
+      'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Ушбу картани ўчирганингиздан сўнг ушбу картанинг барча трансляцияларнинг рўйхати ўчирмайди.',
+      'O‘chirish': 'Ўчириш',
+
+      //Api Controller
+      'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Ушбу телефон рақам рўйхатдан ўтган',
+      'Kafolatli mahsulot muvaffaqiyatli qo‘shildi': 'Кафолатли маҳсулот муваффақиятли қўшилди',
+      'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.': 'Ушбу маҳсулотнинг серия рақами рўйхатдан ўтган! Агарда хатолик бўлса, бизга мурожаат қилинг.',
+      'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling': 'Бундай серия рақами мавжуд эмас! Агарда хатолик бўлса, бизга мурожаат қилинг.',
+      'Ushbu mahsulotning Arxivda mavjud!': 'Ушбу маҳсулот архивда мавжуд!',
+      'Kartalar chegaralangan miqdordan ko‘p!': 'Карталар чекланган миқдордан кўп!',
+      'Ushbu karta avval qo‘shilgan!': 'Ушбу карта аввал қўшилган!',
+      'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Серверга уланишда муаммо, кейинроқ қайта уриниб кўринг',
+      'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Сизнинг сўровингиз кўриб чиқиш учун юборилди',
+      'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'Тасдиқланган кэшбэкингизда маблағ етарли эмас',
     }
   };
 }

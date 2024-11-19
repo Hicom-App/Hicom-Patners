@@ -38,12 +38,7 @@ class InstrumentComponents {
                                   itemCount: _getController.dropDownItem.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            Get.back();
-                                            _getController.changeDropDownItems(0, index);
-                                          });
-                                        },
+                                        onTap: () {setState(() {Get.back();_getController.changeDropDownItems(0, index);});},
                                         child: Padding(
                                             padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03),
                                             child: Column(
@@ -97,7 +92,7 @@ class InstrumentComponents {
                         TextLarge(text: title.toString(), color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize),
                         SizedBox(height: Get.height * 0.02),
                         if (cat == 0 && _getController.countriesModel.value.countries == null || cat == 1 && _getController.regionsModel.value.regions == null || cat == 2 && _getController.citiesModel.value.cities == null)
-                          Expanded(child: TextSmall(text: 'Yuklanmoqda...', color: Theme.of(context).colorScheme.onSurface, maxLines: 3),)
+                          Expanded(child: TextSmall(text: '${'Yuklanmoqda'.tr}...', color: Theme.of(context).colorScheme.onSurface, maxLines: 3),)
                         else
                         Expanded(
                               child: ListView.builder(
@@ -167,7 +162,6 @@ class InstrumentComponents {
       StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              //height: Get.height * 0.3,
                 decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0))),
                 width: Get.width,
                 child: Column(
@@ -175,7 +169,7 @@ class InstrumentComponents {
                     children: [
                       AppBar(
                           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
-                          title: TextLarge(text: 'Hisobni o‘chirish', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w400),
+                          title: TextLarge(text: 'Hisobni o‘chirish'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
                           centerTitle: false,
                           backgroundColor: Theme.of(context).colorScheme.surface,
                           elevation: 0,
@@ -232,8 +226,8 @@ class InstrumentComponents {
                 hoverColor: Colors.blue.withOpacity(0.3),
                 splashColor: Colors.blue.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-                leading: Icon(Icons.edit, color: AppColors.blue, size: 20.sp),
-                title: Text('Kartani Tahrirlash'.tr),
+                leading: Icon(EneftyIcons.edit_2_bold, color: AppColors.blue, size: 20.sp),
+                title: Text('Kartani tahrirlash'.tr),
                 onTap: () {
                   Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn);
                 }
@@ -243,8 +237,8 @@ class InstrumentComponents {
                 hoverColor: Colors.red.withOpacity(0.3),
                 splashColor: Colors.red.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-                leading: Icon(Icons.delete, color: Colors.red, size: 20.sp),
-                title: Text('Kartani O‘chirish'.tr),
+                leading: Icon(EneftyIcons.card_remove_bold, color: Colors.red, size: 20.sp),
+                title: Text('Kartani o‘chirish'.tr),
                 onTap: () {
                   Get.back();
                   deleteCard(context, index);
@@ -264,7 +258,7 @@ class InstrumentComponents {
       contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
       title: 'Tasdiqlash'.tr,
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
-      content: TextSmall(text: 'Hisobdan chiqishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
+      content: TextSmall(text: 'Hisobingizdan chiqishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
       confirm: Container(
           width: 120.w,
           height: 42.h,
@@ -355,8 +349,8 @@ class InstrumentComponents {
       backgroundColor: AppColors.white,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
-      title: 'Mahsulotni baxolang',
-      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      title: 'Mahsulotni baxolang'.tr,
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: 'Schyler'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -386,8 +380,10 @@ class InstrumentComponents {
                 controller: _getController.surNameController,
                 keyboardType: TextInputType.multiline,
                 maxLength: 501,
-                maxLines: null, // TextField avtomatik kattalashadi, lekin 200.h dan oshmaydi
+                maxLines: null,
+                style: const TextStyle(fontFamily: 'Schyler'),
                 decoration: InputDecoration(
+                  hintStyle: const TextStyle(fontFamily: 'Schyler'),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
@@ -440,13 +436,12 @@ class InstrumentComponents {
       title: 'Diqqat!'.tr,
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
       content: TextSmall(text: content, color: AppColors.black, maxLines: 100),
-      //content: TextSmall(text: 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.'.tr, color: AppColors.black, maxLines: 100),
       confirm: Container(
           width: 120.w,
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
-          child: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+          child: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       )
   );
 
@@ -458,7 +453,7 @@ class InstrumentComponents {
       titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       content: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha transaktsiyalarni ro‘yhati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),
+          child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),
       ),
       confirm: Container(
           width: 120.w,
@@ -468,7 +463,7 @@ class InstrumentComponents {
               onPressed: () async {
                 ApiController().deleteCard(_getController.cardsModel.value.result![index].id!.toInt());
               },
-              child: TextSmall(text: 'o‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+              child: TextSmall(text: 'O‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
       ),
       cancel: Container(

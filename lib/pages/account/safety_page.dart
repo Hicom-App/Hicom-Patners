@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../companents/filds/text_small.dart';
+import '../../companents/instrument/instrument_components.dart';
+import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
 class SafetyPage extends StatelessWidget {
-  const SafetyPage({super.key});
+  SafetyPage({super.key});
+
+  final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +26,12 @@ class SafetyPage extends StatelessWidget {
             context: context,
             icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
             title: 'Hisobni o‘chirish'.tr,
-            onTap: (){},
-          ),
-        ],
+            onTap: (){
+              _getController.deleteTimer();
+              InstrumentComponents().bottomSheetAccountsDelete(context);
+            }
+          )
+        ]
       )
     );
   }

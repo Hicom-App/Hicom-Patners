@@ -40,7 +40,6 @@ class ApiController extends GetxController {
 
   Map<String, String> header() => {'Content': 'application/json'};
 
-
   Map<String, String> multipartHeaderBearer() {
     return {
       'Authorization': 'Bearer ${_getController.token}',
@@ -67,7 +66,7 @@ class ApiController extends GetxController {
         Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
       } else if (data['status'] == 5) {
         _getController.shakeKey[8].currentState?.shake();
-        InstrumentComponents().showToast('Ushbu telefon ro‘yhatdan o‘qilgan', color: AppColors.red, textColor: AppColors.white);
+        InstrumentComponents().showToast('Ushbu telefon raqam ro‘yxatdan o‘tgan', color: AppColors.red, textColor: AppColors.white);
       }
       else {
         _getController.shakeKey[8].currentState?.shake();
@@ -282,26 +281,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfile() async {
-    /*try {
-      final response = await http.post(Uri.parse('$baseUrl/users/profile'), headers: multipartHeaderBearer(), body: jsonEncode(body));
-      debugPrint(response.body.toString());
-      debugPrint(response.statusCode.toString());
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          getProfile(isWorker: false);
-        } else if (data['status'] == 1) {
-          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
-        }
-        else {
-          debugPrint('Xatolik: ${data['message']}');
-        }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
-      }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
-    }*/
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'));
       request.headers.addAll(multipartHeaderBearer());
@@ -554,11 +533,11 @@ class ApiController extends GetxController {
           getWarrantyProducts(filter: 'c.active=1');
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
         } else if (data['status'] == 9) {
-          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
+          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling');
         } else if (data['status'] == 8) {
-          InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
+          InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling');
         } else if (data['status'] == 20) {
-          InstrumentComponents().addWarrantyDialog(context,'Ushbu mahsulotning Arxivda mavjud emas!');
+          InstrumentComponents().addWarrantyDialog(context,'Ushbu mahsulotning Arxivda mavjud!');
         }
         else {
           debugPrint('Xatolik: ${data['message']}');
@@ -710,11 +689,11 @@ class ApiController extends GetxController {
       debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
         if (jsonDecode(responseBody)['status'] == 17) {
-          InstrumentComponents().showToast('Kardtalar chegaralangan miqdordan ko`p!'.tr, color: AppColors.red);
+          InstrumentComponents().showToast('Kartalar chegaralangan miqdordan ko‘p!'.tr, color: AppColors.red);
           return;
         }
         if (jsonDecode(responseBody)['status'] == 18) {
-          InstrumentComponents().showToast('Ushbu karta avval qo`shilgan!'.tr, color: AppColors.red);
+          InstrumentComponents().showToast('Ushbu karta avval qo‘shilgan!'.tr, color: AppColors.red);
         }
         if (jsonDecode(responseBody)['status'] == 0) {
           _getController.cardNumberController.clear();
@@ -756,7 +735,7 @@ class ApiController extends GetxController {
         _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
         _getController.shakeKey[0].currentState?.shake();
         _getController.shakeKey[1].currentState?.shake();
-        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring', color: AppColors.red);
       }
     } catch (e) {
       _getController.changeErrorInput(0, true);
@@ -779,10 +758,10 @@ class ApiController extends GetxController {
         Get.back();
         getCards();
       } else {
-        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring', color: AppColors.red);
       }
     } catch (e) {
-      InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
+      InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring', color: AppColors.red);
       debugPrint('Error occurred: $e');
     }
   }
@@ -802,11 +781,11 @@ class ApiController extends GetxController {
           Get.back();
           getProfile(isWorker: false);
           getCards();
-          InstrumentComponents().showToast('Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi.', color: AppColors.green);
+          InstrumentComponents().showToast('Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi', color: AppColors.green);
         } else if (jsonDecode(responseBody)['status'] == 1) {
           _getController.changeErrorInput(2, true);
           _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
-          InstrumentComponents().showToast('Tasiqlangan keshbekingizda mablag‘ yetarli emas', color: AppColors.red);
+          InstrumentComponents().showToast('Tasdiqlangan keshbekingizda mablag‘ yetarli emas', color: AppColors.red);
         } else {
           _getController.changeErrorInput(2, true);
           _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
@@ -815,7 +794,7 @@ class ApiController extends GetxController {
       } else {
         _getController.changeErrorInput(2, true);
         _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
-        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urunib ko‘ring', color: AppColors.red);
+        InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring', color: AppColors.red);
       }
     } catch (e) {
       _getController.changeErrorInput(2, true);
@@ -827,18 +806,13 @@ class ApiController extends GetxController {
 
   Future<void> getTransactions({String? filter}) async {
     try {
-      //http://185.196.213.76:8080/api/payment/transactions?filter=t.date_created%20%3E%3D%20%222024-11-01%22%20AND%20t.date_created%20%3C%3D%20%222024-11-30%22
-      //final response = await http.get(Uri.parse('$baseUrl/payment/transactions'), headers: headersBearer());
       final response = await http.get(Uri.parse('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
-      print('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
       if (response.statusCode == 200) {
         if (jsonDecode(response.body)['status'] == 0) {
           _getController.changeSortedTransactionsModel(
             SortedPayTransactions.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][0])}),
             TwoList.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][1])}),
           );
-          debugPrint('Data processed successfully');
-          //debugPrint(jsonEncode(_getController.sortedTransactionsModel.value.toJson()).toString());
         } else {
           debugPrint('Error: ${jsonDecode(response.body)['message']}');
         }
