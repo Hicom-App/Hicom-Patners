@@ -155,6 +155,11 @@ class GetController extends GetxController {
     }
   }
 
+  String getMoneyFormat(int? value) {
+    if (value == null) return '';
+    return value.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]} ');
+  }
+
   String getMonth(String month) {
     if (month.isEmpty) return '';
     return month.tr;

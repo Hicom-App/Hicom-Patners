@@ -69,8 +69,7 @@ class ChecksPage extends StatelessWidget {
                                                 SizedBox(height: 4.h),
                                                 Row(
                                                     children: [
-                                                      //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text:_getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.calculated.toString() : '0', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      TextSmall(text:_getController.twoList.value.result!.isNotEmpty ? _getController.getMoneyFormat(_getController.twoList.value.result!.first.calculated!) : '0', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                       TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color:AppColors.black, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                     ]
                                                 ),
@@ -103,8 +102,7 @@ class ChecksPage extends StatelessWidget {
                                                 SizedBox(height: 4.h),
                                                 Row(
                                                     children: [
-                                                      //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.rejected.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.getMoneyFormat(_getController.twoList.value.result!.first.rejected!) : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                       TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                     ]
                                                 ),
@@ -147,8 +145,7 @@ class ChecksPage extends StatelessWidget {
                                               SizedBox(height: 4.h),
                                               Row(
                                                   children: [
-                                                    //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWaiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.waiting.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.getMoneyFormat(_getController.twoList.value.result!.first.waiting!) : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                     TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                   ]
                                               ),
@@ -181,7 +178,7 @@ class ChecksPage extends StatelessWidget {
                                               SizedBox(height: 4.h),
                                               Row(
                                                   children: [
-                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.withdrawn.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.getMoneyFormat(_getController.twoList.value.result!.first.withdrawn!) : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                     TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                   ]
                                               ),
@@ -253,10 +250,10 @@ class ChecksPage extends StatelessWidget {
                                                             children: [
                                                               TextSmall(text: '${transaction.operation == 0 || transaction.operation == 0 ? 'Balansni to‘ldirish'.tr : transaction.firstName + ' ' + transaction.lastName}', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                               const Spacer(),
-                                                              TextSmall(text: transaction.amount?.toString() ?? '0', color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                              TextSmall(text: '.00'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                                                              TextSmall(text: _getController.getMoneyFormat(transaction.amount ?? 0), color: transaction.amount != null && transaction.amount! < 0 ? AppColors.red : AppColors.black, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                              TextSmall(text: '.00'.tr, color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                                               SizedBox(width: 5.w),
-                                                              TextSmall(text: 'so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 12.sp)
+                                                              TextSmall(text: 'so‘m'.tr, color:AppColors.black, fontWeight: FontWeight.w400, fontSize: 12.sp)
                                                             ]
                                                         )
                                                     ),
