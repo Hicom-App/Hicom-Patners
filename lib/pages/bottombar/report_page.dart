@@ -72,7 +72,7 @@ class ReportPage extends StatelessWidget {
                                                         children: [
                                                           //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                           TextSmall(text: _getController.twoList.value.result!.first.calculated.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                          TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                          TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                         ]
                                                     ),
                                                     SizedBox(height: 4.h),
@@ -106,7 +106,7 @@ class ReportPage extends StatelessWidget {
                                                         children: [
                                                           //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                           TextSmall(text: _getController.twoList.value.result!.first.rejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                          TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                          TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                         ]
                                                     ),
                                                     SizedBox(height: 4.h),
@@ -150,7 +150,7 @@ class ReportPage extends StatelessWidget {
                                                       children: [
                                                         //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWaiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         TextSmall(text: _getController.twoList.value.result!.first.waiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                        TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                        TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                       ]
                                                   ),
                                                   SizedBox(height: 4.h),
@@ -178,13 +178,12 @@ class ReportPage extends StatelessWidget {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  TextSmall(text: 'To`langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
+                                                  TextSmall(text: 'To‘langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
                                                   SizedBox(height: 4.h),
                                                   Row(
                                                       children: [
-                                                        //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
                                                         TextSmall(text: _getController.twoList.value.result!.first.withdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                        TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                        TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                       ]
                                                   ),
                                                   SizedBox(height: 4.h),
@@ -229,7 +228,9 @@ class ReportPage extends StatelessWidget {
                               return Column(
                                   children: [
                                     if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr
+                                          //: DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                          : '${DateFormat.d().format(DateTime.parse(transactionGroup.date!))} ${DateFormat.MMM().format(DateTime.parse(transactionGroup.date!))} ${DateFormat.y().format(DateTime.parse(transactionGroup.date!))}' : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
                                     else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                       if (index == 0)
                                         Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),

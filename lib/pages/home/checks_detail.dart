@@ -44,7 +44,7 @@ class ChecksDetail extends StatelessWidget{
             SizedBox(height: 20.h),
             Icon(operation == 0 ? TablerIcons.circle_plus_filled : operation == 1 ? TablerIcons.clock_filled : operation == 2 ? TablerIcons.circle_check_filled : TablerIcons.xbox_x_filled, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : operation == 2 ? AppColors.green : AppColors.blue, size: 80.sp),
             SizedBox(height: 10.h),
-            TextSmall(text: operation == 0 ? 'Balansni to‘ldirish' : operation == 1 ? 'Jarayonda' : operation == 2 ? 'Muvaffaqiyatli o‘tkazildi' : 'Rad etildi', fontSize: 18.sp, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : AppColors.black, fontWeight: FontWeight.w500),
+            TextSmall(text: operation == 0 ? 'Balansni to‘ldirish'.tr : operation == 1 ? 'Jarayonda'.tr : operation == 2 ? 'Muvaffaqiyatli o‘tkazildi'.tr : 'Rad etildi'.tr, fontSize: 18.sp, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : AppColors.black, fontWeight: FontWeight.w500),
             SizedBox(height: 5.h),
             if (dateCreated.isNotEmpty)
               TextSmall(text: DateFormat('dd MMMM yyyy').format(DateTime.parse(dateCreated)), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
@@ -61,12 +61,12 @@ class ChecksDetail extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSmall(text: 'Tranzaksiya tafsilotlari',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                  TextSmall(text: 'Tranzaksiya tafsilotlari'.tr,fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
                   SizedBox(height: 15.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Karta raqami',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: 'Karta raqami'.tr,fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                       Row(
                         children: [
                           if (cardNo != null && cardNo!.isNotEmpty && cardNo != '-')
@@ -81,7 +81,7 @@ class ChecksDetail extends StatelessWidget{
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextSmall(text: 'Qabul qiluvchi',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                        TextSmall(text: 'Qabul qiluvchi'.tr,fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
                         TextSmall(text: _getController.getMaskedName(cardHolder.toString()),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
                       ]
                   ),
@@ -123,7 +123,7 @@ class ChecksDetail extends StatelessWidget{
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextSmall(text: 'Qo`shimcha',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 300),
+                      TextSmall(text: 'Qo‘shimcha',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 300),
                       SizedBox(height: 10.h),
                       TextSmall(text: description, fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, maxLines: 10)
                     ]

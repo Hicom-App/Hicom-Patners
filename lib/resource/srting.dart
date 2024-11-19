@@ -126,6 +126,42 @@ class LocaleString extends Translations{
       //guarantee page
       'Kafolat Muddatlari':'Kafolat Muddatlari',
 
+      //report page
+      'Hisobotlar': 'Hisobotlar',
+      'Hisoblangan': 'Hisoblangan',
+      'ta': 'ta',
+      'Keshbek': 'Keshbek',
+      'Bank kartalari': 'Bank kartalari',
+      'Hisobga olish': 'Hisobga olish',
+      'Balansni to‘ldirish': 'Balansni to‘ldirish',
+      'Qabul qilindi': 'Qabul qilindi',
+      'To‘landi': 'To‘landi',
+      'Rad etildi': 'Rad etildi',
+
+      'Hammasi': 'Hammasi',
+      'Yanvar': 'Yanvar',
+      'Fevral': 'Fevral',
+      'Mart': 'Mart',
+      'Aprel': 'Aprel',
+      'May': 'May',
+      'Iyun': 'Iyun',
+      'Iyul': 'Iyul',
+      'Avgust': 'Avgust',
+      'Sentabr': 'Sentabr',
+      'Oktabr': 'Oktabr',
+      'Noyabr': 'Noyabr',
+      'Dekabr': 'Dekabr',
+
+      //check page
+      'Muvaffaqiyatli o‘tkazildi':'Muvaffaqiyatli o‘tkazildi',
+      'Tranzaksiya tafsilotlari':'Tranzaksiya tafsilotlari',
+      'Qabul qiluvchi': 'Qabul qiluvchi',
+      'Tranzaksiya vaqti': 'Tranzaksiya vaqti',
+      'Tranzaksiya raqami': 'Tranzaksiya raqami',
+      'Jami': 'Jami',
+      'Orqaga': 'Orqaga',
+      'Qo‘shimcha':'Qo‘shimcha',
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -250,6 +286,42 @@ class LocaleString extends Translations{
       //guarantee page
       'Kafolat Muddatlari': 'Warranty periods',
 
+      //report page
+      'Hisobotlar': 'Reports',
+      'Hisoblangan': 'Calculated',
+      'ta': 'pcs',
+      'Keshbek': 'Cashback',
+      'Bank kartalari': 'Bank cards',
+      'Hisobga olish': 'Accounting',
+      'Balansni to‘ldirish': 'Balance replenishment',
+      'Qabul qilindi': 'Accepted',
+      'To‘landi': 'Paid',
+      'Rad etildi': 'Rejected',
+
+      'Hammasi': 'All',
+      'Yanvar': 'January',
+      'Fevral': 'February',
+      'Mart': 'March',
+      'Aprel': 'April',
+      'May': 'May',
+      'Iyun': 'June',
+      'Iyul': 'July',
+      'Avgust': 'August',
+      'Sentabr': 'September',
+      'Oktabr': 'October',
+      'Noyabr': 'November',
+      'Dekabr': 'December',
+
+      //check page
+      'Muvaffaqiyatli o‘tkazildi': 'Successfully transferred',
+      'Tranzaksiya tafsilotlari': 'Transaction details',
+      'Qabul qiluvchi': 'Recipient',
+      'Tranzaksiya vaqti': 'Transaction time',
+      'Tranzaksiya raqami': 'Transaction number',
+      'Jami': 'Total',
+      'Orqaga': 'Back',
+      'Qo‘shimcha': 'Additional',
+
     },
     'ru_RU': {
       'name':'Дилшоджон',
@@ -373,6 +445,42 @@ class LocaleString extends Translations{
 
       //guarantee page
       'Kafolat Muddatlari': 'Сроки гарантии',
+
+      //report page
+      'Hisobotlar': 'Отчёты',
+      'Hisoblangan': 'Рассчитано',
+      'ta': 'шт',
+      'Keshbek': 'Кэшбэк',
+      'Bank kartalari': 'Банковские карты',
+      'Hisobga olish': 'Учёт',
+      'Balansni to‘ldirish': 'Пополнение баланса',
+      'Qabul qilindi': 'Принято',
+      'To‘landi': 'Оплачено',
+      'Rad etildi': 'Отклонено',
+
+      'Hammasi': 'Все',
+      'Yanvar': 'Январь',
+      'Fevral': 'Февраль',
+      'Mart': 'Март',
+      'Aprel': 'Апрель',
+      'May': 'Май',
+      'Iyun': 'Июнь',
+      'Iyul': 'Июль',
+      'Avgust': 'Август',
+      'Sentabr': 'Сентябрь',
+      'Oktabr': 'Октябрь',
+      'Noyabr': 'Ноябрь',
+      'Dekabr': 'Декабрь',
+
+      //check page
+      'Muvaffaqiyatli o‘tkazildi': 'Успешно переведено',
+      'Tranzaksiya tafsilotlari': 'Детали транзакции',
+      'Qabul qiluvchi': 'Получатель',
+      'Tranzaksiya vaqti': 'Время транзакции',
+      'Tranzaksiya raqami': 'Номер транзакции',
+      'Jami': 'Итого',
+      'Orqaga': 'Назад',
+      'Qo‘shimcha': 'Дополнительно',
 
     },
     'oz_OZ': {
@@ -499,6 +607,40 @@ class LocaleString extends Translations{
       //guarantee page
       'Kafolat Muddatlari': 'Кафолат Муддатлари',
 
+      //report page
+      'Hisobotlar': 'Ҳисоботлар',
+      'Hisoblangan': 'Ҳисобланган',
+      'ta': 'та',
+      'Keshbek': 'Кешбек',
+      'Bank kartalari': 'Банк карталари',
+      'Hisobga olish': 'Ҳисобга олиш',
+      'Balansni to‘ldirish': 'Балансни тўлдириш',
+      'Qabul qilindi': 'Қабул қилинди',
+      'To‘landi': 'Тўланди',
+      'Rad etildi': 'Рад этилди',
+
+      'Hammasi': 'Ҳаммаси',
+      'Yanvar': 'Январ',
+      'Fevral': 'Феврал',
+      'Mart': 'Март',
+      'Aprel': 'Апрел',
+      'May': 'Май',
+      'Iyun': 'Июн',
+      'Iyul': 'Июл',
+      'Avgust': 'Август',
+      'Sentabr': 'Сентабр',
+      'Oktabr': 'Октабр',
+      'Noyabr': 'Ноябр',
+      'Dekabr': 'Декабр',
+
+      'Muvaffaqiyatli o‘tkazildi': 'Муваффақиятли ўтказилди',
+      'Tranzaksiya tafsilotlari': 'Транзакция тафсилотлари',
+      'Qabul qiluvchi': 'Қабул қилувчи',
+      'Tranzaksiya vaqti': 'Транзакция вақти',
+      'Tranzaksiya raqami': 'Транзакция рақами',
+      'Jami': 'Жами',
+      'Orqaga': 'Орқага',
+      'Qo‘shimcha': 'Қўшимча',
     }
   };
 }

@@ -111,7 +111,7 @@ class GuaranteePage extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(bottom: 20.h),
                                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015),
-                                child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun' : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(const Duration(days: 1))) ? 'Kecha' : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), fontWeight: FontWeight.w400)
+                                child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun'.tr : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(const Duration(days: 1))) ? 'Kecha'.tr : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400)
                               ),
                               ...warrantiesForDate.map((warranty) {
                                 return Container(

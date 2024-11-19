@@ -480,7 +480,7 @@ class GetController extends GetxController {
 
   final List locale = [{'name':'O‘zbekcha','locale': const Locale('uz','UZ')},{'name':'Ўзбекча','locale': const Locale('oz','OZ')}, {'name':'Русский','locale': const Locale('ru','RU')}, {'name':'English','locale': const Locale('en','US')}].obs;
 
-  var listMonth = [{'name':'Hammasi', 'selected': true}, {'name':'Yanvar', 'selected': false}, {'name':'Fevral', 'selected': false}, {'name':'Mart', 'selected': false}, {'name':'Aprel', 'selected': false}, {'name':'May', 'selected': false}, {'name':'Iyun', 'selected': false}, {'name':'Iyul', 'selected': false}, {'name':'Avgust', 'selected': false}, {'name':'Sentabr', 'selected': false}, {'name':'Oktabr', 'selected': false}, {'name':'Noyabr', 'selected': false}, {'name':'Dekabr', 'selected': false}].obs;
+  var listMonth = [{'name':'Hammasi'.tr, 'selected': true}, {'name':'Yanvar'.tr, 'selected': false}, {'name':'Fevral'.tr, 'selected': false}, {'name':'Mart'.tr, 'selected': false}, {'name':'Aprel'.tr, 'selected': false}, {'name':'May'.tr, 'selected': false}, {'name':'Iyun'.tr, 'selected': false}, {'name':'Iyul'.tr, 'selected': false}, {'name':'Avgust'.tr, 'selected': false}, {'name':'Sentabr'.tr, 'selected': false}, {'name':'Oktabr'.tr, 'selected': false}, {'name':'Noyabr'.tr, 'selected': false}, {'name':'Dekabr'.tr, 'selected': false}].obs;
 
   var listTitle = ['Jarayonda'.tr, 'To‘langan'.tr, 'Rad etilgan'.tr].obs;
 
