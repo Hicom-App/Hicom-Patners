@@ -6,6 +6,7 @@ import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
+import 'package:hicom_patners/resource/colors.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/settings_page.dart';
@@ -188,7 +189,7 @@ class _AccountPageState extends State<AccountPage> {
                 onTap: () => InstrumentComponents().logOutDialog(context),
               ),
               SizedBox(height: 20.h),
-              TextSmall(text: '${'Ilova versiyasi'.tr} ${_getController.version.value}', color: Colors.black, fontSize: 12.sp),
+              TextSmall(text: '${'Ilova versiyasi'.tr} ${_getController.version.value}', color: AppColors.black, fontSize: 12.sp),
               SizedBox(height: Get.height * 0.2)
             ]
         ))
