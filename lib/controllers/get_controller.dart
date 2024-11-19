@@ -144,7 +144,6 @@ class GetController extends GetxController {
   }
 
   String getDateFormat(String timeStamp) {
-    print(timeStamp);
     if (timeStamp.isEmpty) return '';
     var date = DateTime.parse(timeStamp);
     if (date.day == DateTime.now().day && date.year == DateTime.now().year) {

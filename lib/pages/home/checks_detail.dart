@@ -27,13 +27,13 @@ class ChecksDetail extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+      backgroundColor:  AppColors.white,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        backgroundColor:  AppColors.white,
         elevation: 0,
-        leading: IconButton(icon: Icon(Icons.close, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white), onPressed: () {Get.back();}),
+        leading: IconButton(icon: const Icon(Icons.close, color:  AppColors.black), onPressed: () {Get.back();}),
         actions: [
-          IconButton(icon: Icon(Icons.download, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white), onPressed: () {})
+          IconButton(icon: const Icon(Icons.download, color:  AppColors.black), onPressed: () {})
         ]
       ),
       body: Padding(
@@ -47,32 +47,30 @@ class ChecksDetail extends StatelessWidget{
             TextSmall(text: operation == 0 ? 'Balansni to‘ldirish'.tr : operation == 1 ? 'Jarayonda'.tr : operation == 2 ? 'Muvaffaqiyatli o‘tkazildi'.tr : 'Rad etildi'.tr, fontSize: 18.sp, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : AppColors.black, fontWeight: FontWeight.w500),
             SizedBox(height: 5.h),
             if (dateCreated.isNotEmpty)
-              TextSmall(text: DateFormat('dd MMMM yyyy').format(DateTime.parse(dateCreated)), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+              TextSmall(text: _getController.getDateFormat(dateCreated), fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),
             SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(15.w),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                color:  AppColors.white,
                 borderRadius: BorderRadius.circular(20.r),
-                boxShadow: [
-                  BoxShadow(color: Theme.of(context).brightness == Brightness.light ? AppColors.greys : AppColors.grey.withOpacity(0.2), spreadRadius: 2, blurRadius: 5)
-                ]
+                boxShadow: const [BoxShadow(color:  AppColors.greys, spreadRadius: 2, blurRadius: 5)]
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSmall(text: 'Tranzaksiya tafsilotlari'.tr,fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                  TextSmall(text: 'Tranzaksiya tafsilotlari'.tr,fontSize: 16.sp, color: AppColors.black, fontWeight: FontWeight.bold),
                   SizedBox(height: 15.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Karta raqami'.tr,fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: 'Karta raqami'.tr,fontSize: 14.sp, color: AppColors.black, fontWeight: FontWeight.w400),
                       Row(
                         children: [
                           if (cardNo != null && cardNo!.isNotEmpty && cardNo != '-')
-                            Icon(Icons.credit_card, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white),
+                            const Icon(Icons.credit_card, color: AppColors.black70),
                           SizedBox(width: 5.h),
-                          TextSmall(text: cardNo.toString(), fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                          TextSmall(text: cardNo.toString(), fontSize: 14.sp, color: AppColors.black, fontWeight: FontWeight.w400)
                         ]
                       )
                     ]
@@ -81,34 +79,34 @@ class ChecksDetail extends StatelessWidget{
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextSmall(text: 'Qabul qiluvchi'.tr,fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                        TextSmall(text: _getController.getMaskedName(cardHolder.toString()),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                        TextSmall(text: 'Qabul qiluvchi'.tr,fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),
+                        TextSmall(text: _getController.getMaskedName(cardHolder.toString()),fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400)
                       ]
                   ),
                   Divider(thickness: 1, color: Colors.grey[300]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Tranzaksiya vaqti', fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
+                      TextSmall(text: 'Tranzaksiya vaqti', fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),
                       TextSmall(
                           text: DateFormat('HH:mm').format(DateTime.parse(dateCreated)),
-                          fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                          fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400)
                     ]
                   ),
                   SizedBox(height: 5.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Tranzaksiya raqami',fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400),
-                      TextSmall(text: id.toString(),fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400)
+                      TextSmall(text: 'Tranzaksiya raqami',fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),
+                      TextSmall(text: id.toString(),fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400)
                     ]
                   ),
                   Divider(thickness: 1, color: Colors.grey[300]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSmall(text: 'Jami',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
-                      TextSmall(text: '$amount.00',fontSize: 18.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)
+                      TextSmall(text: 'Jami',fontSize: 18.sp, color:  AppColors.black, fontWeight: FontWeight.bold),
+                      TextSmall(text: '$amount.00',fontSize: 18.sp, color:  AppColors.black, fontWeight: FontWeight.bold)
                     ]
                   )
                 ]
@@ -123,9 +121,9 @@ class ChecksDetail extends StatelessWidget{
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextSmall(text: 'Qo‘shimcha',fontSize: 16.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, maxLines: 300),
+                      TextSmall(text: 'Qo‘shimcha',fontSize: 16.sp, color:  AppColors.black, fontWeight: FontWeight.bold, maxLines: 300),
                       SizedBox(height: 10.h),
-                      TextSmall(text: description, fontSize: 14.sp, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, maxLines: 10)
+                      TextSmall(text: description, fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400, maxLines: 10)
                     ]
                 )
             ),
