@@ -8,13 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
-import '../../companents/product_item.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
-import 'category_page.dart';
 
 class DetailPage extends StatelessWidget {
   final int? id;
@@ -61,16 +59,7 @@ class DetailPage extends StatelessWidget {
                                 ]*/
                             )
                         ),
-
-                        Expanded(
-                            child: SizedBox(
-                                width: Get.width,
-                                child: FadeInImage(
-                                    image: _getController.productsModelDetail.value.result != null ? NetworkImage(_getController.productsModelDetail.value.result!.first.photoUrl.toString()) : const AssetImage('assets/images/logo_back.png'),
-                                    placeholder: const AssetImage('assets/images/logo_back.png'),
-                                    imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));}, fit: BoxFit.cover)
-                            )
-                        )
+                        Expanded(child: SizedBox(width: Get.width, child: FadeInImage(image: _getController.productsModelDetail.value.result != null ? NetworkImage(_getController.productsModelDetail.value.result!.first.photoUrl.toString()) : const AssetImage('assets/images/logo_back.png'), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) => Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover))), fit: BoxFit.cover)))
                       ]
                   )
               ),
@@ -114,7 +103,7 @@ class DetailPage extends StatelessWidget {
                                           child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                TextSmall(text: 'Baxo', color: AppColors.black70, fontSize: 10.sp),
+                                                TextSmall(text: 'Baho', color: AppColors.black70, fontSize: 10.sp),
                                                 _getController.productsModelDetail.value.result != null
                                                 ? Row(
                                                     children: [
@@ -187,7 +176,7 @@ class DetailPage extends StatelessWidget {
                         ),
                         const Divider(color: Colors.grey, thickness: 1),
                         SizedBox(height: Get.height * 0.01),
-                        const TextSmall(text: 'Baxolash', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        const TextSmall(text: 'Baholash', color: AppColors.blue, fontWeight: FontWeight.bold),
                         SizedBox(height: Get.height * 0.01),
                         RatingBar.builder(
                             initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
@@ -205,7 +194,7 @@ class DetailPage extends StatelessWidget {
                               InstrumentComponents().addRate(context);
                             }),
                         SizedBox(height: Get.height * 0.01),
-                        const TextSmall(text: 'Sharxlar', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        const TextSmall(text: 'Sharhlar', color: AppColors.blue, fontWeight: FontWeight.bold),
                         if (_getController.reviewsModel.value.result != null)
                           for (int index = 0; index < (_getController.allComments.value == true || _getController.reviewsModel.value.result!.length < 3 ? _getController.reviewsModel.value.result!.length : 3); index++)
                             Container(
@@ -219,7 +208,7 @@ class DetailPage extends StatelessWidget {
                                             height: 25.w,
                                             width: 25.w,
                                             margin: EdgeInsets.only(right: 6.w),
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover)),);}, fit: BoxFit.cover))
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) => Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover))), fit: BoxFit.cover))
                                         ),
                                         TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
                                         const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),
@@ -249,7 +238,7 @@ class DetailPage extends StatelessWidget {
                                             },
                                           child: Row(
                                               children: [
-                                                TextSmall(text: _getController.isExpandedList[index] ? 'Ko`proq ko`rish' : 'To`liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
+                                                TextSmall(text: _getController.isExpandedList[index] ? 'Ko‘proq ko‘rish' : 'To‘liq izoh', color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp),
                                                 Icon(!_getController.isExpandedList[index] ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
                                               ]
                                           )
@@ -258,7 +247,7 @@ class DetailPage extends StatelessWidget {
                                 )
                             ),
                         if (_getController.reviewsModel.value.result != null && _getController.allComments.value == false && _getController.reviewsModel.value.result!.length > 3)
-                          ElevatedButton(onPressed: (){_getController.allComments.value = !_getController.allComments.value;}, style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 5, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)), fixedSize: Size(Get.width, 40.h), surfaceTintColor: Colors.white, shadowColor: Colors.white, foregroundColor: Colors.white), child: TextSmall(text: 'Barchasini ko`rish'.tr, color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp)),
+                          ElevatedButton(onPressed: (){_getController.allComments.value = !_getController.allComments.value;}, style: ElevatedButton.styleFrom(backgroundColor: Colors.white, elevation: 5, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)), fixedSize: Size(Get.width, 40.h), surfaceTintColor: Colors.white, shadowColor: Colors.white, foregroundColor: Colors.white), child: TextSmall(text: 'Barchasini ko‘rish'.tr, color: AppColors.blue, fontWeight: FontWeight.w400, fontSize: 12.sp)),
                         SizedBox(height: Get.height * 0.1)
                       ]
                   )

@@ -36,7 +36,7 @@ class TransferToWallet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To’lovga tasdiqlangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To‘lovga tasdiqlangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
                   Container(
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 11.h),

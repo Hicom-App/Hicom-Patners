@@ -102,6 +102,7 @@ class LocaleString extends Translations{
       'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.',
       'Saqlash': 'Saqlash',
       'Qo‘shish': 'Qo‘shish',
+      'Karta ma’lumotlari': 'Karta ma’lumotlari',
 
       //archive page
       'Arxivlangan tovarlar':'Arxivlangan tovarlar',
@@ -161,6 +162,17 @@ class LocaleString extends Translations{
       'Jami': 'Jami',
       'Orqaga': 'Orqaga',
       'Qo‘shimcha':'Qo‘shimcha',
+
+      //product details page
+      'Tavsif': 'Tavsif',
+      'Baholash': 'Baholash',
+      'Sharhlar':'Sharhlar',
+      'Barchasini ko‘rish':'Barchasini ko‘rish',
+      'Baho': 'Baho',
+      'Brend': 'Brend',
+      'Anonim': 'Anonim',
+      'Ko‘proq ko‘rish':'Ko‘proq ko‘rish',
+      'To‘liq izoh': 'To‘liq izoh',
 
     },
     'en_EN': {
@@ -262,6 +274,7 @@ class LocaleString extends Translations{
       'Please enter the card number and the cardholder\'s full name completely. If the card number or the cardholder\'s name is incorrect, it may cause the transfer to this card to be rejected.',
       'Saqlash': 'Save',
       'Qo‘shish': 'Add',
+      'Karta ma’lumotlari': 'Card details',
 
       //archive page
       'Arxivlangan tovarlar': 'Archived products',
@@ -321,6 +334,17 @@ class LocaleString extends Translations{
       'Jami': 'Total',
       'Orqaga': 'Back',
       'Qo‘shimcha': 'Additional',
+
+      //product details page
+      'Tavsif': 'Description',
+      'Baholash': 'Rating',
+      'Sharhlar': 'Reviews',
+      'Barchasini ko‘rish': 'View all',
+      'Baho': 'Score',
+      'Brend': 'Brand',
+      'Anonim': 'Anonymous',
+      'Ko‘proq ko‘rish': 'See more',
+      'To‘liq izoh': 'Full comment',
 
     },
     'ru_RU': {
@@ -422,6 +446,7 @@ class LocaleString extends Translations{
       'Пожалуйста, введите номер карты и полное имя владельца карты. Если номер карты или имя владельца карты указаны неправильно, это может стать причиной отклонения перевода на эту карту.',
       'Saqlash': 'Сохранить',
       'Qo‘shish': 'Добавить',
+      'Karta ma’lumotlari': 'Данные карты',
 
       //archive page
       'Arxivlangan tovarlar': 'Архивированные товары',
@@ -481,6 +506,17 @@ class LocaleString extends Translations{
       'Jami': 'Итого',
       'Orqaga': 'Назад',
       'Qo‘shimcha': 'Дополнительно',
+
+      //product details page
+      'Tavsif': 'Описание',
+      'Baholash': 'Оценка',
+      'Sharhlar': 'Отзывы',
+      'Barchasini ko‘rish': 'Посмотреть все',
+      'Baho': 'Оценка',
+      'Brend': 'Бренд',
+      'Anonim': 'Аноним',
+      'Ko‘proq ko‘rish': 'Посмотреть больше',
+      'To‘liq izoh': 'Полный комментарий',
 
     },
     'oz_OZ': {
@@ -583,6 +619,7 @@ class LocaleString extends Translations{
       'Илтимос, карта рақами ва карта эгасининг исми фамилияси тўлиқ киритинг. Агар карта рақами ёки карта эгасининг исми фамилияси нотўғри бўлса бу картга ўтказмани рад этишга сабаб бўлиши мумкин.',
       'Saqlash': 'Сақлаш',
       'Qo‘shish': 'Қўшиш',
+      'Karta ma’lumotlari': 'Карта маълумотлари',
 
       //archive page
       'Arxivlangan tovarlar': 'Архивланган товарлар',
@@ -641,6 +678,18 @@ class LocaleString extends Translations{
       'Jami': 'Жами',
       'Orqaga': 'Орқага',
       'Qo‘shimcha': 'Қўшимча',
+
+      //product details page
+      'Tavsif': 'Тавсиф',
+      'Baholash': 'Баҳолаш',
+      'Sharhlar': 'Шарҳлар',
+      'Barchasini ko‘rish': 'Барчасини кўриш',
+      'Baho': 'Баҳо',
+      'Brend': 'Бренд',
+      'Anonim': 'Аноним',
+      'Ko‘proq ko‘rish': 'Кўпроқ кўриш',
+      'To‘liq izoh': 'Тўлиқ изоҳ',
+
     }
   };
 }
