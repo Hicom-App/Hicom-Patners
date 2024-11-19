@@ -224,13 +224,10 @@ class ReportPage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
                               var resultsList = transactionGroup.results;
-                              //if (_getController.selectMonth.value != 0) resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
                               return Column(
                                   children: [
                                     if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr
-                                          //: DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
-                                          : '${DateFormat.d().format(DateTime.parse(transactionGroup.date!))} ${DateFormat.MMM().format(DateTime.parse(transactionGroup.date!))} ${DateFormat.y().format(DateTime.parse(transactionGroup.date!))}' : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: _getController.getDateFormat(transactionGroup.date ?? ''), color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
                                     else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                       if (index == 0)
                                         Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),

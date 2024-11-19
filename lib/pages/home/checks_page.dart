@@ -24,7 +24,7 @@ class ChecksPage extends StatelessWidget {
                   decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]),
                   child: Column(
                       children: [
-                        AppBar(backgroundColor: Colors.transparent, foregroundColor: Colors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
+                        AppBar(backgroundColor: Colors.transparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
                         SizedBox(
                             width: Get.width,
                             height: Get.height * 0.025,
@@ -70,8 +70,8 @@ class ChecksPage extends StatelessWidget {
                                                 Row(
                                                     children: [
                                                       //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text: _getController.twoList.value.result!.first.calculated.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                      TextSmall(text:_getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.calculated.toString() : '0', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color:AppColors.black, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                     ]
                                                 ),
                                                 SizedBox(height: 4.h),
@@ -104,8 +104,8 @@ class ChecksPage extends StatelessWidget {
                                                 Row(
                                                     children: [
                                                       //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text: _getController.twoList.value.result!.first.rejected.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                      TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                      TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.rejected.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                      TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                     ]
                                                 ),
                                                 SizedBox(height: 4.h),
@@ -148,8 +148,8 @@ class ChecksPage extends StatelessWidget {
                                               Row(
                                                   children: [
                                                     //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWaiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: _getController.twoList.value.result!.first.waiting.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.waiting.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                   ]
                                               ),
                                               SizedBox(height: 4.h),
@@ -177,13 +177,12 @@ class ChecksPage extends StatelessWidget {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              TextSmall(text: 'To`langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
+                                              TextSmall(text: 'To‘langan'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 11.sp),
                                               SizedBox(height: 4.h),
                                               Row(
                                                   children: [
-                                                    //TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackWithdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: _getController.twoList.value.result!.first.withdrawn.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
-                                                    TextSmall(text: '.00 so‘m'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
+                                                    TextSmall(text: _getController.twoList.value.result!.isNotEmpty ? _getController.twoList.value.result!.first.withdrawn.toString() : '0', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                                    TextSmall(text: '.00 ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w400, fontSize: 11.sp),
                                                   ]
                                               ),
                                               SizedBox(height: 4.h),
@@ -224,11 +223,10 @@ class ChecksPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             var transactionGroup = _getController.sortedTransactionsModel.value.result![index];
                             var resultsList = transactionGroup.results;
-                            //if (_getController.selectMonth.value != 0) resultsList = resultsList?.where((transaction) {final transactionDate = DateTime.parse(transaction.dateCreated!);return transactionDate.month == _getController.selectMonth.value;}).toList();
                             return Column(
                                 children: [
                                   if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                    Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: transactionGroup.date != null ? DateTime.parse(transactionGroup.date!).day == DateTime.now().day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Bugun'.tr : DateTime.parse(transactionGroup.date!).day == DateTime.now().subtract(const Duration(days: 1)).day && DateTime.parse(transactionGroup.date!).month == DateTime.now().month && DateTime.parse(transactionGroup.date!).year == DateTime.now().year ? 'Kecha'.tr : DateFormat.yMMMd().format(DateTime.parse(transactionGroup.date!)) : '', color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                    Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: _getController.getDateFormat(transactionGroup.date ?? ''), color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
                                   else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                     if (index == 0)
                                       Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),

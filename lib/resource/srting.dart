@@ -144,7 +144,7 @@ class LocaleString extends Translations{
       'Fevral': 'Fevral',
       'Mart': 'Mart',
       'Aprel': 'Aprel',
-      'May': 'May',
+      'Mays': 'May',
       'Iyun': 'Iyun',
       'Iyul': 'Iyul',
       'Avgust': 'Avgust',
@@ -199,6 +199,20 @@ class LocaleString extends Translations{
       'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring':'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring',
       'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi':'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi',
       'Tasdiqlangan keshbekingizda mablag‘ yetarli emas':'Tasdiqlangan keshbekingizda mablag‘ yetarli emas',
+
+      //month
+      'Jan':'Yan',
+      'Feb':'Fev',
+      'Mar':'Mar',
+      'Apr':'Apr',
+      'May':'May',
+      'Jun':'Iyun',
+      'Jul':'Iyul',
+      'Aug':'Avgu',
+      'Sep':'Sen',
+      'Oct':'Okt',
+      'Nov':'Noy',
+      'Dec':'Dek',
 
     },
     'en_EN': {
@@ -342,7 +356,7 @@ class LocaleString extends Translations{
       'Fevral': 'February',
       'Mart': 'March',
       'Aprel': 'April',
-      'May': 'May',
+      'Mays': 'May',
       'Iyun': 'June',
       'Iyul': 'July',
       'Avgust': 'August',
@@ -397,6 +411,20 @@ class LocaleString extends Translations{
       'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Problem connecting to the server, please try again later',
       'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Your request has been submitted for review',
       'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'You do not have enough funds in your confirmed cashback',
+
+      //month
+      'Jan': 'Jan',
+      'Feb': 'Feb',
+      'Mar': 'Mar',
+      'Apr': 'Apr',
+      'May': 'May',
+      'Jun': 'Jun',
+      'Jul': 'Jul',
+      'Aug': 'Aug',
+      'Sep': 'Sep',
+      'Oct': 'Oct',
+      'Nov': 'Nov',
+      'Dec': 'Dec',
 
     },
     'ru_RU': {
@@ -540,7 +568,7 @@ class LocaleString extends Translations{
       'Fevral': 'Февраль',
       'Mart': 'Март',
       'Aprel': 'Апрель',
-      'May': 'Май',
+      'Mays': 'Май',
       'Iyun': 'Июнь',
       'Iyul': 'Июль',
       'Avgust': 'Август',
@@ -595,6 +623,20 @@ class LocaleString extends Translations{
       'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Проблема с подключением к серверу, попробуйте позже',
       'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Ваш запрос отправлен на рассмотрение',
       'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'На вашем подтвержденном кэшбэке недостаточно средств',
+
+      //month
+      'Jan': 'Янв',
+      'Feb': 'Фев',
+      'Mar': 'Мар',
+      'Apr': 'Апр',
+      'May': 'Май',
+      'Jun': 'Июн',
+      'Jul': 'Июл',
+      'Aug': 'Авг',
+      'Sep': 'Сен',
+      'Oct': 'Окт',
+      'Nov': 'Ноя',
+      'Dec': 'Дек',
 
     },
     'oz_OZ': {
@@ -739,7 +781,7 @@ class LocaleString extends Translations{
       'Fevral': 'Феврал',
       'Mart': 'Март',
       'Aprel': 'Апрел',
-      'May': 'Май',
+      'Mays': 'Май',
       'Iyun': 'Июн',
       'Iyul': 'Июл',
       'Avgust': 'Август',
@@ -793,6 +835,21 @@ class LocaleString extends Translations{
       'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring': 'Серверга уланишда муаммо, кейинроқ қайта уриниб кўринг',
       'Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi': 'Сизнинг сўровингиз кўриб чиқиш учун юборилди',
       'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'Тасдиқланган кэшбэкингизда маблағ етарли эмас',
+
+      //month
+      'Jan': 'Yan',
+      'Feb': 'Fev',
+      'Mar': 'Mar',
+      'Apr': 'Apr',
+      'May': 'May',
+      'Jun': 'Iyun',
+      'Jul': 'Iyul',
+      'Aug': 'Avgu',
+      'Sep': 'Sen',
+      'Oct': 'Okt',
+      'Nov': 'Noy',
+      'Dec': 'Dek',
+
     }
   };
 }
