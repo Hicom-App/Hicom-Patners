@@ -407,6 +407,9 @@ class ApiController extends GetxController {
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
+        if (categoryId == 0){
+          getAllCatProducts();
+        }
       } else {
         debugPrint('Xatolik: Serverga ulanishda muammo');
       }

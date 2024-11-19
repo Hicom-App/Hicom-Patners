@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
-    ApiController().getAllCatProducts();
+
     FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
     return Scaffold(
         backgroundColor: AppColors.white,
@@ -42,11 +42,7 @@ class HomePage extends StatelessWidget {
                 color: AppColors.white,
                 scrollController: _getController.scrollController,
                 refreshController: _getController.refreshController,
-                onLoading: () async {
-                  ApiController().getAllCatProducts();
-                  _getController.refreshController.refreshCompleted();
-                  _getController.refreshController.loadComplete();
-                },
+                enablePullUp: false,
                 onRefresh: () async {
                   _getController.searchController.clear();
                   _getController.refreshController.refreshCompleted();
