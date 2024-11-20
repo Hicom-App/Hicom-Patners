@@ -87,7 +87,6 @@ class GetController extends GetxController {
         ApiController().addWarrantyProduct(scanData.code.toString(), context);
         controller?.pauseCamera();
         controller?.dispose();
-
       }
     });
   }
@@ -301,6 +300,7 @@ class GetController extends GetxController {
   }
 
   late TabController tabController;
+  late TabController controllerConvex;
 
   String maskString(String input) {
     if (input.length < 20) return input;

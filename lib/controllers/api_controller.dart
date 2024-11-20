@@ -535,6 +535,8 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
+          _getController.changeIndex(3);
+          _getController.controllerConvex.animateTo(3);
         } else if (data['status'] == 9) {
           InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling');
         } else if (data['status'] == 8) {

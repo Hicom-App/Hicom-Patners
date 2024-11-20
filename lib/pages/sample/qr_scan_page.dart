@@ -28,14 +28,7 @@ class QRViewExample extends StatelessWidget {
         ]
       ),
       body: Obx(() => QRView(
-          overlay: QrScannerOverlayShape(
-              borderColor: AppColors.blue,
-              borderRadius: 16,
-              borderLength: 40,
-              borderWidth: 10,
-              cutOutSize: Get.width * 0.8,
-            cutOutBottomOffset: Get.height * 0.05,
-          ),
+          overlay: QrScannerOverlayShape(borderColor: AppColors.blue, borderRadius: 16, borderLength: 40, borderWidth: 10, cutOutSize: Get.width * 0.8, cutOutBottomOffset: Get.height * 0.05),
           key: _getController.qrKey,
           cameraFacing: _getController.cameraFacing.value,
           onQRViewCreated: (controller) => _getController.onQRViewCreated(controller, context)

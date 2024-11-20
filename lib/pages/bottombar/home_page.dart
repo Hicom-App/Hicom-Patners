@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
@@ -32,7 +34,7 @@ class HomePage extends StatelessWidget {
     ApiController().getCategories();
 
     FlutterDynamicIcon.setApplicationIconBadgeNumber(0);
-    return Scaffold(
+    return  Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
             height: Get.height,
@@ -168,81 +170,81 @@ class HomePage extends StatelessWidget {
                                 SizedBox(height: 15.h),
                                 if (_getController.categoriesModel.value.result != null)
                                   SizedBox(
-                                    width: Get.width,
-                                    height: 82.h,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        padding: EdgeInsets.only(left: 10.w, right: 30.w),
-                                        itemBuilder: (context, index) => InkWell(
-                                            onTap: () => Get.to(CategoryPage(index: index, open: 0)),
-                                            child:  Container(
-                                                margin: EdgeInsets.only(left: 15.w),
-                                                padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
-                                                child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      SizedBox(
-                                                          width: 40.w,
-                                                          height: 38.w,
-                                                          child: FadeInImage(
-                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
-                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
-                                                              fit: BoxFit.contain
-                                                          )
-                                                      ),
-                                                      Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
-                                                    ]
-                                                )
-                                            )
-                                        ),
-                                        itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                        shrinkWrap: true
-                                    )
-                                )
+                                      width: Get.width,
+                                      height: 82.h,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          padding: EdgeInsets.only(left: 10.w, right: 30.w),
+                                          itemBuilder: (context, index) => InkWell(
+                                              onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                              child:  Container(
+                                                  margin: EdgeInsets.only(left: 15.w),
+                                                  padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                                                  decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
+                                                  child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        SizedBox(
+                                                            width: 40.w,
+                                                            height: 38.w,
+                                                            child: FadeInImage(
+                                                                image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
+                                                                placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                                imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                                fit: BoxFit.contain
+                                                            )
+                                                        ),
+                                                        Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
+                                                      ]
+                                                  )
+                                              )
+                                          ),
+                                          itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
+                                          shrinkWrap: true
+                                      )
+                                  )
                                 else
                                   const SkeletonCategory(),
                                 if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                   Stack(
-                                    children: [
-                                      SizedBox(
-                                          height: 345.h,
-                                          width: Get.width,
-                                          child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                  children: [
-                                                    SizedBox(width: 35.w),
-                                                    if (_getController.productsModel.value.result != null)
-                                                      for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                        InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
-                                                  ]
-                                              )
-                                          )
-                                      ),
-                                      Positioned(
-                                          child: Container(
-                                              margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                              child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    TextSmall(text: 'Barcha mahsulotlar'.tr, color: Theme.of(context).colorScheme.onSurface),
-                                                    const Spacer(),
-                                                    TextButton(
-                                                        onPressed: (){
-                                                          _getController.searchController.clear();
-                                                          Get.to(CategoryPage(index: 0, open: 2));
-                                                        },
-                                                        child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                                  ]
-                                              )
-                                          )
-                                      )
-                                    ]
-                                ),
+                                      children: [
+                                        SizedBox(
+                                            height: 345.h,
+                                            width: Get.width,
+                                            child: SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Row(
+                                                    children: [
+                                                      SizedBox(width: 35.w),
+                                                      if (_getController.productsModel.value.result != null)
+                                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
+                                                    ]
+                                                )
+                                            )
+                                        ),
+                                        Positioned(
+                                            child: Container(
+                                                margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      TextSmall(text: 'Barcha mahsulotlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                      const Spacer(),
+                                                      TextButton(
+                                                          onPressed: (){
+                                                            _getController.searchController.clear();
+                                                            Get.to(CategoryPage(index: 0, open: 2));
+                                                          },
+                                                          child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                    ]
+                                                )
+                                            )
+                                        )
+                                      ]
+                                  ),
                                 if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                   Column(
                                       children: [
@@ -305,40 +307,40 @@ class HomePage extends StatelessWidget {
                                 SizedBox(height: 15.h),
                                 if (_getController.categoriesModel.value.result != null)
                                   SizedBox(
-                                    width: Get.width,
-                                    height: 82.h,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        padding: EdgeInsets.only(left: 10.w, right: 30.w),
-                                        itemBuilder: (context, index) => InkWell(
-                                            onTap: () => Get.to(CategoryPage(index: index, open: 0)),
-                                            child:  Container(
-                                                margin: EdgeInsets.only(left: 15.w),
-                                                padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
-                                                child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      SizedBox(
-                                                          width: 40.w,
-                                                          height: 38.w,
-                                                          child: FadeInImage(
-                                                              image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
-                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
-                                                              fit: BoxFit.contain
-                                                          )
-                                                      ),
-                                                      Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
-                                                    ]
-                                                )
-                                            )
-                                        ),
-                                        itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                        shrinkWrap: true
-                                    )
-                                )
+                                      width: Get.width,
+                                      height: 82.h,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          padding: EdgeInsets.only(left: 10.w, right: 30.w),
+                                          itemBuilder: (context, index) => InkWell(
+                                              onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                              child:  Container(
+                                                  margin: EdgeInsets.only(left: 15.w),
+                                                  padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                                                  decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
+                                                  child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        SizedBox(
+                                                            width: 40.w,
+                                                            height: 38.w,
+                                                            child: FadeInImage(
+                                                                image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
+                                                                placeholder: const AssetImage('assets/images/logo_back.png'),
+                                                                imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                                fit: BoxFit.contain
+                                                            )
+                                                        ),
+                                                        Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
+                                                      ]
+                                                  )
+                                              )
+                                          ),
+                                          itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
+                                          shrinkWrap: true
+                                      )
+                                  )
                                 else
                                   const SkeletonCategory(),
                                 for (int i = 0; i < 3; i++)

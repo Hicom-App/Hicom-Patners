@@ -28,26 +28,10 @@ class PasscodePage extends StatelessWidget {
   Future<void> _authenticate(BuildContext context) async {
     if (!_getController.getBiometrics()) return;
     try {
-      bool authenticated = await auth.authenticate(
-        localizedReason: 'Unlock with your fingerprint or face',
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-          useErrorDialogs: true,
-        ),
-      );
-      if (authenticated) {
-        Get.offAll(() => SamplePage());
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Authentication failed!')),
-        );
-      }
+      bool authenticated = await auth.authenticate(localizedReason: 'Unlock with your fingerprint or face', options: const AuthenticationOptions(biometricOnly: true, stickyAuth: true, useErrorDialogs: true));
+      if (authenticated) Get.offAll(() => SamplePage());
     } catch (e) {
       print('Error authenticating: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
     }
   }
 
