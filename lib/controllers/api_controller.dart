@@ -392,7 +392,7 @@ class ApiController extends GetxController {
     filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites?filter=$encodedFilter' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
       print(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);

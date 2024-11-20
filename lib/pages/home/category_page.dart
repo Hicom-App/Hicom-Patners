@@ -51,20 +51,20 @@ class CategoryPage extends StatelessWidget {
                   onChanged: (value) {
                     if (_getController.searchController.text.isEmpty) {
                       if (open == 0) {
-                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                       } else if (open == 1) {
-                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                       } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2)  {
-                        ApiController().getProducts(0, isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
+                        ApiController().getProducts(0, isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
                       }
                     }
                     print(value);
                     if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 0) {
-                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                     } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 1) {
-                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                      ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                     } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3 && open == 2) {
-                      ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
+                      ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"').then((_) => _getController.refreshCategoryController.refreshCompleted());
                     }
                 }
               ),

@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true);
                                           ApiController().getAllCatProducts();
                                         }
-                                        if (_getController.searchController.value.text.length> 3 ) {
+                                        if (_getController.searchController.value.text.length > 3 ) {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
                                           ApiController().getAllCatProducts(filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
                                         }

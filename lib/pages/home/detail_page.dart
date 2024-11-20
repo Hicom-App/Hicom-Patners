@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -143,10 +144,11 @@ class DetailPage extends StatelessWidget {
                         if (_getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.first.description != null)
                           const TextSmall(text: 'Tavsif', color: AppColors.blue, fontWeight: FontWeight.bold),
                         Container(
-                            width: Get.width,
-                            padding: EdgeInsets.only(top: Get.height * 0.01),
-                            child: Column(children: [
-                              _getController.productsModelDetail.value.result != null
+                          width: Get.width,
+                          padding: EdgeInsets.only(top: Get.height * 0.01),
+                          child: Column(
+                            children: [
+                              Obx(() => _getController.productsModelDetail.value.result != null
                                   ? AnimatedSize(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut,
@@ -159,17 +161,49 @@ class DetailPage extends StatelessWidget {
                                               padding: EdgeInsets.zero,
                                               physics: const NeverScrollableScrollPhysics(),
                                               controller: _getController.scrollControllerOk,
-                                              itemBuilder: (context, index) => TextSmall(text: _getController.productsModelDetail.value.result!.first.description ?? '-', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: _getController.productsModelDetail.value.result!.first.description!.length, fontSize: 10), itemCount: 1))))
-                                  : Skeletonizer(child: SizedBox(height: 105.h, child: ListView.builder(shrinkWrap: true, padding: EdgeInsets.zero, physics: const NeverScrollableScrollPhysics(), controller: _getController.scrollControllerOk, itemBuilder: (context, index) => const TextSmall(text: 'text: _getController.productsModel.value.result![index].description!.toString(),', color: RiveAppTheme.shadow, fontWeight: FontWeight.w400, maxLines: 1000, fontSize: 10), itemCount: 10))),
+                                              itemCount: 1,
+                                              itemBuilder: (context, index) {
+                                                final description = _getController.productsModelDetail.value.result?.first.description;
+                                                return Html(
+                                                  data: description ?? '-',
+                                                );
+                                              })
+                                      )
+                                  )
+                              )
+                                  : Skeletonizer(
+                                  child: SizedBox(
+                                      height: 105.h,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          padding: EdgeInsets.zero,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          controller: _getController.scrollControllerOk,
+                                          itemCount: 10,
+                                          itemBuilder: (context, index) => const TextSmall(
+                                              text: 'Loading...',
+                                              color: RiveAppTheme.shadow,
+                                              fontWeight: FontWeight.w400,
+                                              maxLines: 10000,
+                                              fontSize: 10
+                                          )
+                                      )
+                                  )
+                              )),
                               InkWell(
-                                  onTap: () {
-                                    _getController.fullText.value = !_getController.fullText.value;
-                                    },
-                                  child: Row(children: [
+                                onTap: () {
+                                  _getController.fullText.value = !_getController.fullText.value;
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
                                     TextSmall(text: 'Batafsil', color: AppColors.blue, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp),
-                                    Icon(_getController.fullText.value ?  Icons.keyboard_arrow_down : Icons.keyboard_arrow_up, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
-                                  ]))
-                            ])
+                                    Icon(_getController.fullText.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, color: AppColors.blue, size: Theme.of(context).iconTheme.size)
+                                  ]
+                                )
+                              )
+                            ]
+                          )
                         ),
                         const Divider(color: Colors.grey, thickness: 1),
                         SizedBox(height: Get.height * 0.01),
