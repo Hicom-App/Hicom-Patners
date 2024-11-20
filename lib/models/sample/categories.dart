@@ -49,16 +49,16 @@ class CategoriesModel {
   }
 }
 
-class Result {
-  int? id;int? active;String? name;int? categoryId;int? cashback;int? warranty; String? brand; int? price; int? discount;int? reviews;var rating;String? description;String? photoUrl;int? favorite;
+class Result {int? id;int? active;String? name;int? categoryId;int? cashback; String? categoryName; int? warranty; String? brand; int? price; int? discount;int? reviews;var rating;String? description;String? photoUrl;int? favorite;
 
-  Result({this.id, this.active, this.name, this.categoryId, this.cashback, this.warranty, this.brand, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl, this.favorite});
+  Result({this.id, this.active, this.name, this.categoryId, this.categoryName, this.cashback, this.warranty, this.brand, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl, this.favorite});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     active = json['active'];
     name = json['name'];
     categoryId = json['category_id'];
+    categoryName = json['category_name'];
     cashback = json['cashback'];
     warranty = json['warranty'];
     brand = json['brand'];
@@ -77,6 +77,7 @@ class Result {
     data['active'] = active;
     data['name'] = name;
     data['category_id'] = categoryId;
+    data['category_name'] = categoryName;
     data['cashback'] = cashback;
     data['warranty'] = warranty;
     data['brand'] = brand;

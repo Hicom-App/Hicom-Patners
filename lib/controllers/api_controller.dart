@@ -392,11 +392,16 @@ class ApiController extends GetxController {
     filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites?filter=$encodedFilter' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
-      print(isFavorite ? '$baseUrl/catalog/favorites' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
+      final response = await http.get(Uri.parse(
+          isFavorite
+              ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
+              : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
+      print(isFavorite
+          ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
+          : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           if (isCategory == true) {
             _getController.changeProductsModel(CategoriesModel.fromJson(data));
@@ -407,7 +412,7 @@ class ApiController extends GetxController {
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
-        if (categoryId == 0){
+        if (categoryId == 0 && isFavorite == false) {
           getAllCatProducts();
         }
       } else {

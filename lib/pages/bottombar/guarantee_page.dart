@@ -89,7 +89,17 @@ class GuaranteePage extends StatelessWidget {
             return Column(
               children: [
                 SizedBox(height: Get.height * 0.01),
-                SearchTextField(color: Colors.grey.withOpacity(0.2)),
+                SearchTextField(
+                    color: Colors.grey.withOpacity(0.2),
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        getData();
+                        return;
+                      } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3) {
+                        ApiController().getWarrantyProducts(filter: 'c.active=1 OR name CONTAINS "${_getController.searchController.text}"');
+                      }
+                    }
+                ),
                 Container(
                     width: Get.width,
                     margin: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h, bottom: 15.h),
@@ -100,7 +110,6 @@ class GuaranteePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           String dateKey = groupedWarranty.keys.elementAt(index);
                           List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
-
                           List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 1).toList();
                           if (activeWarrantiesForDate.isEmpty) {
                             return const SizedBox.shrink();

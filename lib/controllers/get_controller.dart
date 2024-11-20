@@ -794,5 +794,7 @@ class GetController extends GetxController {
 
   void clearSortedTransactionsModel () => sortedTransactionsModel.value = SortedPayTransactions();
 
+  void clearCategoryProductsModel () => categoryProductsModel.value = CategoriesModel();
+
 }
 
