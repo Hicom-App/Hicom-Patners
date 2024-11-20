@@ -208,7 +208,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
                                   child: Container(
-                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 15.w),
                                       decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[0] ? AppColors.red : AppColors.white, width: 1), borderRadius: BorderRadius.circular(15.r), color: Colors.grey.withOpacity(0.2)),
                                       child: TextField(
                                           controller: _getController.nameController,
@@ -225,7 +225,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
                                   child: Container(
-                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 15.w),
                                       margin: EdgeInsets.only(top: 10.h),
                                       decoration: BoxDecoration(border: Border.all(color: _getController.errorInput[1] ? AppColors.red : AppColors.white, width: 1), color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
                                       child: TextField(
@@ -272,7 +272,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
-                                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 15.w),
                                   decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(15.r)),
                                   child: TextField(
                                       controller: _getController.streetController,
