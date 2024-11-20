@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,11 +65,22 @@ class _AccountPageState extends State<AccountPage> {
                                 margin: EdgeInsets.only(bottom: Get.height * 0.03),
                                 child: ImageFiltered(
                                     imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                                    child: FadeInImage(
+                                    /*child: FadeInImage(
                                         image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                         placeholder: const AssetImage('assets/images/logo_back.png'),
                                         imageErrorBuilder: (context, error, stackTrace) => Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)))),
                                         fit: BoxFit.cover
+                                    )*/
+                                    child: ClipRRect(
+                                      //borderRadius: BorderRadius.circular(500.r),
+                                      child: CachedNetworkImage(
+                                          filterQuality: FilterQuality.high,
+                                          width: Get.width,
+                                          fit: BoxFit.cover,
+                                          imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
+                                          placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                                          errorWidget: (context, url, error) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover)
+                                      )
                                     )
                                 )
                             )
@@ -106,11 +118,11 @@ class _AccountPageState extends State<AccountPage> {
                                             decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]),
                                             child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(500.r),
-                                                child: FadeInImage(
-                                                    image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
-                                                    placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                    imageErrorBuilder: (context, error, stackTrace) => Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)))),
-                                                    fit: BoxFit.cover
+                                                child: CachedNetworkImage(
+                                                    filterQuality: FilterQuality.high,
+                                                    imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
+                                                    placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                                                    errorWidget: (context, url, error) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover)
                                                 )
                                             )
                                         )

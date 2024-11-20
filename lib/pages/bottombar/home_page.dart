@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
 
-    FlutterDynamicIcon.setApplicationIconBadgeNumber(100);
+    FlutterDynamicIcon.setApplicationIconBadgeNumber(0);
     return Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -81,25 +81,7 @@ class HomePage extends StatelessWidget {
                                         ]
                                     ),
                                     actions: [
-                                      //badge
                                       IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
-                                      //badge
-                                      /*Container(
-                                        child: Badge(
-                                          isLabelVisible: true,
-                                          alignment: Alignment.topRight,
-                                          smallSize: 8.sp,
-                                          backgroundColor: AppColors.blue,
-                                          label: Text('${1000}', style: TextStyle(fontSize: 10.sp, color: Theme.of(context).colorScheme.onError, fontWeight: FontWeight.w500)),
-                                          child: IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
-                                        )
-                                      )*/
-
-                                      /*Badge(
-                                        label: Text('5', style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),),
-                                        backgroundColor: AppColors.blue,
-                                        child: IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage())),
-                                      )*/
                                     ]
                                 ),
                                 Column(
@@ -173,13 +155,11 @@ class HomePage extends StatelessWidget {
                                       onChanged: (value) {
                                         if (value.isEmpty || value == '') {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true);
-                                          //_getController.clearCategoriesProductsModel();
                                           ApiController().getAllCatProducts();
                                         }
                                         if (_getController.searchController.value.text.length> 3 ) {
-                                          ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value"');
-                                          //_getController.clearCategoriesProductsModel();
-                                          ApiController().getAllCatProducts(filter: 'name CONTAINS "$value"');
+                                          ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
+                                          ApiController().getAllCatProducts(filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
                                         }
                                       }
                                   )

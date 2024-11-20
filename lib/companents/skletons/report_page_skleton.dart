@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../resource/colors.dart';
 import '../filds/text_small.dart';
 
-class ReportPageSkleton extends StatelessWidget {
-  const ReportPageSkleton({super.key});
+class ReportPageSkeleton extends StatelessWidget {
+  const ReportPageSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,7 @@ class ReportPageSkleton extends StatelessWidget {
                   decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]),
                   child: Column(
                       children: [
-                        AppBar(backgroundColor: Colors.transparent, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
+                        AppBar(backgroundColor: Colors.transparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
                         Skeletonizer(child: SizedBox(
                             width: Get.width,
                             height: Get.height * 0.025,
@@ -204,9 +201,7 @@ class ReportPageSkleton extends StatelessWidget {
                           padding: EdgeInsets.only(left: 10.w, right: 10.w,top: 13.h, bottom: 100.h),
                           itemBuilder:(context, index) => Column(
                               children: [
-                                index == 0 || index == 2 || index == 3 || index == 6 || index == 13
-                                    ? Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : index == 3 ? '15 Sentabr' : index == 6 ? '10 Sentabr' : '5 Sentabr', color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6), fontWeight: FontWeight.w400),)
-                                    : Container(),
+                                index == 0 || index == 2 || index == 3 || index == 6 || index == 13 ? Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: index == 0 ? 'Bugun' : index == 2 ? 'Kecha' : index == 3 ? '15 Sentabr' : index == 6 ? '10 Sentabr' : '5 Sentabr', color: Theme.of(context).brightness == Brightness.light ? AppColors.black.withOpacity(0.4) : AppColors.white.withOpacity(0.6), fontWeight: FontWeight.w400),) : Container(),
                                 Container(
                                     alignment: Alignment.center,
                                     margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
@@ -231,9 +226,7 @@ class ReportPageSkleton extends StatelessWidget {
                                               padding: EdgeInsets.only(left: 10.w, right: 10.w),
                                               child: Row(
                                                   children: [
-                                                    index == 0 ? TextSmall(text: 'Balansni to`ldirish' , color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)
-                                                        : index == 2 ? TextSmall(text: 'Balansni to`ldirish', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)
-                                                        : TextSmall(text: 'Balansni to`ldirish', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
+                                                    index == 0 ? TextSmall(text: 'Balansni to`ldirish' , color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold) : index == 2 ? TextSmall(text: 'Balansni to`ldirish', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold) : TextSmall(text: 'Balansni to`ldirish', color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold),
                                                     const Spacer(),
                                                     Row(
                                                         children: [

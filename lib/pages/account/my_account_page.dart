@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -167,14 +168,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       height: 150.w, width: 150.w,
                                       decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
                                       child: ClipOval(
-                                          child: FadeInImage(
+                                          /*child: FadeInImage(
                                               image: _getController.image.value.path == ''
                                                   ? NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13')
                                                   : AssetImage(_getController.image.value.path),
                                               placeholder: const AssetImage('assets/images/logo_back.png'),
                                               imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
                                               fit: BoxFit.cover
-                                          )
+                                          )*/
+                                        child: CachedNetworkImage(
+                                            filterQuality: FilterQuality.high,
+                                            imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
+                                            placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                                            errorWidget: (context, url, error) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover)
+                                        )
                                       )
                                   ),
                                   SizedBox(height: 25.h),
