@@ -77,7 +77,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                 SizedBox(height: Get.height * 0.01),
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
-                                                                    duration: const Duration(milliseconds: 1500), // Kechikish bilan paydo bo'lish
+                                                                    duration: const Duration(milliseconds: 1500),
                                                                     child: TextFieldRegister(fillColor: AppColors.white, hint: 'name'.tr, controller: _getController.nameController, errorIndex: _getController.errorInput[0])
                                                                 )
                                                               ]
@@ -335,7 +335,7 @@ class LoginPageState extends State<RegisterPage> {
                                   child: AnimatedContainer(
                                       width: Get.width,
                                       height: _getController.isKeyboardVisible.value ? Get.height * 0.13 : Get.height * 0.13,
-                                      duration: const Duration(milliseconds: 500), // Biroz ko'proq vaqt
+                                      duration: const Duration(milliseconds: 500),
                                       curve: Curves.easeInOut,
                                       decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.r), bottomRight: Radius.circular(40.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.fitWidth), boxShadow: [BoxShadow(color: Colors.grey.shade400, spreadRadius: 15, blurRadius: 30, offset: const Offset(0, 2))])
                                   )

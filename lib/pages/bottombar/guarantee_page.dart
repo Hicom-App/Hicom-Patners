@@ -80,7 +80,6 @@ class GuaranteePage extends StatelessWidget {
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
             Map<String, List<dynamic>> groupedWarranty = {};
             for (var warranty in sortedWarrantyList) {
-              //String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
               String formattedDate = warranty.warrantyStart.toString();
               if (!groupedWarranty.containsKey(formattedDate)) {
                 groupedWarranty[formattedDate] = [];
@@ -108,13 +107,7 @@ class GuaranteePage extends StatelessWidget {
                           }
                           return Column(
                             children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 20.h),
-                                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015),
-                                //child: TextSmall(text: dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now()) ? 'Bugun'.tr : dateKey == DateFormat('dd.MM.yyyy').format(DateTime.now().subtract(const Duration(days: 1))) ? 'Kecha'.tr : "${DateFormat('dd').format(DateFormat('dd.MM.yyyy').parse(dateKey))} ${getMonth(DateFormat('MM').format(DateFormat('dd.MM.yyyy').parse(dateKey)))} ${DateFormat('yyyy').format(DateFormat('dd.MM.yyyy').parse(dateKey))}", color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400)
-                                  //dateKey to timeStamp
-                                child: TextSmall(text: _getController.getDateFormat(dateKey), color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400)
-                              ),
+                              Container(margin: EdgeInsets.only(bottom: 20.h), padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015), child: TextSmall(text: _getController.getDateFormat(dateKey), color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400)),
                               ...warrantiesForDate.map((warranty) {
                                 return Container(
                                   padding: EdgeInsets.only(left: 15.w, top: 8.h, bottom: 9.h),

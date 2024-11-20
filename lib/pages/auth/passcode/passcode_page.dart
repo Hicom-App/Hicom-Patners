@@ -93,11 +93,7 @@ class PasscodePage extends StatelessWidget {
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: List.generate(4, (index) {
-                                      return Obx(() => Icon(
-                                        index < _getController.enteredPasscode.value.length ? Icons.circle : Icons.circle_outlined,
-                                        size: 20,
-                                        color: _getController.errorInput[0] ? Colors.red : _getController.errorField.value ? Colors.green : Colors.black,
-                                      ));
+                                      return Obx(() => Icon(index < _getController.enteredPasscode.value.length ? Icons.circle : Icons.circle_outlined, size: 20, color: _getController.errorInput[0] ? Colors.red : _getController.errorField.value ? Colors.green : Colors.black));
                                     })
                                 )
                             ),
@@ -151,7 +147,7 @@ class PasscodePage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => _onNumberTap(number),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, overlayColor: Colors.transparent, foregroundColor: Colors.transparent, surfaceTintColor: Colors.transparent, shadowColor: Colors.transparent, elevation: 0),
-      child: Text(number, style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold, color: Colors.black))
+      child: TextSmall(text: number, color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 24.sp),
     );
   }
 }

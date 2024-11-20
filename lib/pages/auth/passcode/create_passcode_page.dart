@@ -11,8 +11,7 @@ import '../../../resource/colors.dart';
 import '../../sample/sample_page.dart';
 
 class CreatePasscodePage extends StatelessWidget {
-  CreatePasscodePage({super.key}) {_checkBiometricAvailability();
-  }
+  CreatePasscodePage({super.key}) {_checkBiometricAvailability();}
   final GetController _getController = Get.put(GetController());
   final LocalAuthentication auth = LocalAuthentication();
 
@@ -28,26 +27,10 @@ class CreatePasscodePage extends StatelessWidget {
 
   Future<void> _authenticate(BuildContext context) async {
     try {
-      bool authenticated = await auth.authenticate(
-        localizedReason: 'Unlock with your fingerprint or face',
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-          useErrorDialogs: true,
-        ),
-      );
-      if (authenticated) {
-        Get.offAll(() => SamplePage());
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Authentication failed!')),
-        );
-      }
+      bool authenticated = await auth.authenticate(localizedReason: 'Unlock with your fingerprint or face', options: const AuthenticationOptions(biometricOnly: true, stickyAuth: true, useErrorDialogs: true));
+      if (authenticated) {Get.offAll(() => const SamplePage());}
     } catch (e) {
-      print('Error authenticating: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      debugPrint('Error authenticating: $e');
     }
   }
 
@@ -81,20 +64,20 @@ class CreatePasscodePage extends StatelessWidget {
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       title: 'Biometrik autentifikatsiyadan foydalanasizmi?'.tr,
-      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Schyler'),
       middleText: 'Barmoq izi skaneri yoki yuz identifikatoridan foydalanmoqchimisiz?'.tr,
       confirm: Container(
           height: 42.h,
           padding: EdgeInsets.symmetric(horizontal: 10.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
-        child: TextButton(
-          onPressed: () async {
-            _getController.savePassCode(_getController.enteredPasscode.value);
-            _getController.saveBiometrics(true);
-            await _authenticate(Get.context!);
-          },
-          child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold)
-        )
+          child: TextButton(
+              onPressed: () async {
+                _getController.savePassCode(_getController.enteredPasscode.value);
+                _getController.saveBiometrics(true);
+                await _authenticate(Get.context!);
+                },
+              child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold)
+          )
       ),
       cancel: Container(
         height: 42.h,
@@ -106,7 +89,7 @@ class CreatePasscodePage extends StatelessWidget {
             _getController.saveBiometrics(false);
             Get.offAll(() => SamplePage());
           },
-          child: TextSmall(text: 'yo‘q'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
+          child: TextSmall(text: 'yo‘q'.tr, color: AppColors.white, fontWeight: FontWeight.bold)
         )
       )
     );
@@ -114,8 +97,7 @@ class CreatePasscodePage extends StatelessWidget {
 
   void _onDeleteTap() {
     if (_getController.enteredPasscode.value.isNotEmpty) {
-      _getController.enteredPasscode.value =
-          _getController.enteredPasscode.value.substring(0, _getController.enteredPasscode.value.length - 1);
+      _getController.enteredPasscode.value = _getController.enteredPasscode.value.substring(0, _getController.enteredPasscode.value.length - 1);
     }
   }
 
@@ -149,7 +131,7 @@ class CreatePasscodePage extends StatelessWidget {
                                       return Obx(() => Icon(
                                         index < _getController.enteredPasscode.value.length ? Icons.circle : Icons.circle_outlined,
                                         size: 20,
-                                        color: _getController.errorInput[0] ? Colors.red : _getController.errorField.value ? Colors.green : Colors.black,
+                                        color: _getController.errorInput[0] ? Colors.red : _getController.errorField.value ? Colors.green : Colors.black
                                       ));
                                     })
                                 )
@@ -196,5 +178,5 @@ class CreatePasscodePage extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberButton(String number) => ElevatedButton(onPressed: () => _onNumberTap(number), style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, overlayColor: Colors.transparent, foregroundColor: Colors.transparent, surfaceTintColor: Colors.transparent, shadowColor: Colors.transparent, elevation: 0), child: Text(number, style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold, color: Colors.black)));
+  Widget _buildNumberButton(String number) => ElevatedButton(onPressed: () => _onNumberTap(number), style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, overlayColor: Colors.transparent, foregroundColor: Colors.transparent, surfaceTintColor: Colors.transparent, shadowColor: Colors.transparent, elevation: 0), child: TextSmall(text: number, color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 24.sp));
 }

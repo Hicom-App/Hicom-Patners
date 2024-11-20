@@ -56,7 +56,7 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
-                  height: Get.height * _imageHeight, // Dynamically adjust height
+                  height: Get.height * _imageHeight,
                   width: Get.width,
                   child: Stack(
                       children: [
@@ -72,7 +72,6 @@ class _AccountPageState extends State<AccountPage> {
                                         fit: BoxFit.cover
                                     )*/
                                     child: ClipRRect(
-                                      //borderRadius: BorderRadius.circular(500.r),
                                       child: CachedNetworkImage(
                                           filterQuality: FilterQuality.high,
                                           width: Get.width,
@@ -214,7 +213,7 @@ class _AccountPageState extends State<AccountPage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
-      child: ListTile(onTap: onTap, leading: Icon(icon, color: color), title: Text(title, style: TextStyle(fontSize: 16.sp)), trailing: Icon(Icons.chevron_right, color: color))
+      child: ListTile(onTap: onTap, leading: Icon(icon, color: color), title: TextSmall(text: title, color: color, fontSize: 16.sp, fontWeight: FontWeight.w500), trailing: Icon(Icons.chevron_right, color: color))
     );
   }
 }

@@ -51,8 +51,8 @@ class NotificationPage extends StatelessWidget {
                         TextSmall(text: DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(notification['date'])), color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
                         SizedBox(height: 5.r),
                         TextSmall(text: notification['title'], color: AppColors.black, fontWeight: FontWeight.w500, maxLines: 3),
-                        TextSmall(text: notification['body'], color: AppColors.black70.withOpacity(0.7), fontWeight: FontWeight.w500,maxLines: 300),
-                      ],
+                        TextSmall(text: notification['body'], color: AppColors.black70.withOpacity(0.7), fontWeight: FontWeight.w500,maxLines: 300)
+                      ]
                     )
                 )
             ]

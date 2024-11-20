@@ -28,13 +28,8 @@ class LanguageSelectItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: index == selectedIndex ? [const BoxShadow(color: AppColors.grey, spreadRadius: 3, blurRadius: 10, offset: Offset(0, 3))] : null,
         ),
-        child: TextSmall(
-          text: text,
-          color: AppColors.black,
-          fontSize: index == selectedIndex ? 24.sp : 18.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+        child: TextSmall(text: text, color: AppColors.black, fontSize: index == selectedIndex ? 24.sp : 18.sp, fontWeight: FontWeight.bold)
+      )
     );
   }
 }

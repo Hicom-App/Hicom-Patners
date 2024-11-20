@@ -17,15 +17,12 @@ class ProductItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return _getController.productsModel.value.result != null
-        ? _getController.productsModel.value.result!.isNotEmpty ? Container(
+        ? _getController.productsModel.value.result!.isNotEmpty
+        ? Container(
         height: 225.h,
         width: 165.w,
         margin: EdgeInsets.only(right: 15.w),
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(20.r),
-            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]
-        ),
+        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,13 +34,11 @@ class ProductItem extends StatelessWidget{
                         child: FadeInImage(
                             image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
-                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
+                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
                         )
                     ),
-                    Positioned(right: 12.w, top: 10.h, child: InkWell(
-                        onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateProductsModel(index, _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)),
-                        child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))
+                    Positioned(right: 12.w, top: 10.h, child: InkWell(onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateProductsModel(index, _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)), child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))
                   ]
               ),
               Padding(
@@ -59,7 +54,7 @@ class ProductItem extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              TextSmall(text: '${_getController.productsModel.value.result![index].rating == null ? '0': _getController.productsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp),
+                              TextSmall(text: '${_getController.productsModel.value.result![index].rating == null ? '0': _getController.productsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews.toString()} ${'Baho'.tr}', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp),
                             ]
                         )
                       ]
@@ -67,7 +62,8 @@ class ProductItem extends StatelessWidget{
               )
             ]
         )
-    ) : const SizedBox()
+    )
+        : const SizedBox()
         : Skeletonizer(
         child:Container(
             height: 225.h,

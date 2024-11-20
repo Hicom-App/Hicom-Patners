@@ -13,10 +13,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
   final FocusNode _focusNode = FocusNode();
   bool isKeyboardVisible = false;
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                 shakeOffset: 5,
                                 shakeCount: 15,
                                 shakeDuration: const Duration(milliseconds: 500),
-                                shakeDirection: Axis.horizontal, // Can be Axis.vertical or both
+                                shakeDirection: Axis.horizontal,
                                 child: AnimatedSlide(
                                     offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
                                     duration: Duration(milliseconds: animateTextFields ? 550 : 400),
@@ -112,8 +112,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                                             _getController.phoneController.clear();
                                                           },
                                                           invalidNumberMessage: null,
-                                                          decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
-                                                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize),
+                                                          decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler'), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
+                                                          style: TextStyle(color: AppColors.black, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler'),
                                                           showCountryFlag: true,
                                                           showCursor: true,
                                                           showDropdownIcon: false,

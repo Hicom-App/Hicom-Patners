@@ -46,7 +46,9 @@ class SafetyPage extends StatelessWidget {
             hoverColor: Colors.transparent,
             focusColor: Colors.transparent,
             leading: Icon(icon, color: color),
-            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
+            titleTextStyle: const TextStyle(fontFamily: 'Schyler'),
+            leadingAndTrailingTextStyle: const TextStyle(fontFamily: 'Schyler'),
+            title: Text(title, style: TextStyle(fontSize: 14, color: color, fontFamily: 'Schyler')),
             trailing: Icon(Icons.chevron_right, color: color)
         )
     );

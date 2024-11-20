@@ -20,7 +20,6 @@ class TransferToWallet extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
-
   @override
   Widget build(BuildContext context) {
     _getController.clearCardsModel();

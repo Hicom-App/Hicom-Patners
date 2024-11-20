@@ -41,8 +41,7 @@ class NotificationSettingsPage extends StatelessWidget {
           focusColor: Colors.transparent,
           leading: Icon(icon, color: status == 1 ? color : color.withOpacity(0.4)),
           title: Text(title, style: TextStyle(fontSize: 14.sp, color: status == 1 ? color : color.withOpacity(0.4))),
-          trailing: status == 0 ? Icon(Icons.chevron_right, color: color)
-              : status == 1 ? CupertinoSwitch(
+          trailing: status == 0 ? Icon(Icons.chevron_right, color: color) : status == 1 ? CupertinoSwitch(
             value: false,
             onChanged: (value) {},
             activeColor: AppColors.blue,
@@ -59,8 +58,7 @@ class NotificationSettingsPage extends StatelessWidget {
             thumbColor: AppColors.greys,
             applyTheme: true,
           )
-      ),
+      )
     );
   }
-
 }

@@ -41,13 +41,14 @@ class TextFieldRegister extends StatelessWidget {
                 _getController.cardNameText.value = _getController.nameController.text;
               }
             },
+            style: const TextStyle(fontFamily: 'Schyler'),
             decoration: InputDecoration(
                 filled: true,
                 isDense: true,
                 border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
                 fillColor: fillColor,
                 hintText: hint.tr,
-                hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 13.sp),
+                hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: 13.sp, fontFamily: 'Schyler'),
                 prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 15.sp)) : const SizedBox(height: 0, width: 0)
             )
         )

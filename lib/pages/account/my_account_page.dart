@@ -319,7 +319,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     return Container(
         margin: EdgeInsets.only(top: 10.h),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(onTap: onTap, hoverColor: Colors.transparent, focusColor: Colors.transparent, title: TextSmall(text: title, color: color), trailing: Icon(EneftyIcons.arrow_down_outline, color: color))
+        child: ListTile(onTap: onTap, hoverColor: Colors.transparent, focusColor: Colors.transparent, titleTextStyle: const TextStyle(fontFamily: 'Schyler'), title: TextSmall(text: title, color: color), trailing: Icon(EneftyIcons.arrow_down_outline, color: color))
     );
   }
 }

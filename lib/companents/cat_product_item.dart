@@ -59,8 +59,6 @@ class CatProductItem extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              /*TextSmall(text: '${_getController.categoryProductsModel.value.result![index].rating == null ? '0': _getController.categoryProductsModel.value.result![index].rating.toStringAsFixed(1)} * ${_getController.productsModel.value.result != null &&_getController.productsModel.value.result!.isNotEmpty && _getController.productsModel.value.result![index].reviews == null ? '0': _getController.productsModel.value.result![index].reviews} baxo',
-                                  color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)*/
                               TextSmall(
                                 text: '${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].rating != null)
                                     ? _getController.categoryProductsModel.value.result![index].rating!.toStringAsFixed(1)
@@ -70,9 +68,8 @@ class CatProductItem extends StatelessWidget{
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w400,
                                 maxLines: 1,
-                                fontSize: 10.sp,
+                                fontSize: 10.sp
                               )
-
                             ]
                         )
                       ]

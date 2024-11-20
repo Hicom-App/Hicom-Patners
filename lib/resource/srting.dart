@@ -214,6 +214,11 @@ class LocaleString extends Translations{
       'Nov':'Noy',
       'Dec':'Dek',
 
+      //CustomRefreshHeader
+      'Ma’lumotlarni yangilash uchun tashlang':'Ma’lumotlarni yangilash uchun tashlang',
+      'Ehhh nimadir xato ketdi':'Ehhh nimadir xato ketdi',
+      'Ma’lumotlar yangilandi':'Ma’lumotlar yangilandi'
+
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -425,6 +430,11 @@ class LocaleString extends Translations{
       'Oct': 'Oct',
       'Nov': 'Nov',
       'Dec': 'Dec',
+
+      //CustomRefreshHeader
+      'Ma’lumotlarni yangilash uchun tashlang': 'Pull to refresh data',
+      'Ehhh nimadir xato ketdi': 'Oops, something went wrong',
+      'Ma’lumotlar yangilandi': 'Data updated',
 
     },
     'ru_RU': {
@@ -638,6 +648,11 @@ class LocaleString extends Translations{
       'Nov': 'Ноя',
       'Dec': 'Дек',
 
+      //CustomRefreshHeader
+      'Ma’lumotlarni yangilash uchun tashlang': 'Потяните, чтобы обновить данные',
+      'Ehhh nimadir xato ketdi': 'Ой, что-то пошло не так',
+      'Ma’lumotlar yangilandi': 'Данные обновлены',
+
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -849,6 +864,11 @@ class LocaleString extends Translations{
       'Oct': 'Okt',
       'Nov': 'Noy',
       'Dec': 'Dek',
+
+      //CustomRefreshHeader
+      'Ma’lumotlarni yangilash uchun tashlang': 'Маълумотларни янгилаш учун ташланг',
+      'Ehhh nimadir xato ketdi': 'Эҳҳ нимадир хато кетди',
+      'Ma’lumotlar yangilandi': 'Маълумотлар янгиланди',
 
     }
   };

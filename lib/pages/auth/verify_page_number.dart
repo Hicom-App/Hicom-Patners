@@ -10,17 +10,17 @@ import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 
-final GlobalKey<_VerifyPageNumberState> verifyPageKey = GlobalKey<_VerifyPageNumberState>();
+final GlobalKey<VerifyPageNumberState> verifyPageKey = GlobalKey<VerifyPageNumberState>();
 
 class VerifyPageNumber extends StatefulWidget {
   final bool isRegister;
   const VerifyPageNumber({super.key, required this.isRegister});
 
   @override
-  _VerifyPageNumberState createState() => _VerifyPageNumberState();
+  VerifyPageNumberState createState() => VerifyPageNumberState();
 }
 
-class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerProviderStateMixin {
+class VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
   bool isKeyboardVisible = false;
   bool animateTextFields = false;
@@ -135,7 +135,7 @@ class _VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPr
                                                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                                         controller: _getController.verifyCodeControllers,
                                                         keyboardType: TextInputType.number,
-                                                        errorTextStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+                                                        errorTextStyle: const TextStyle(color: AppColors.red, fontFamily: 'Schyler'),
                                                         onCompleted: (value) {
                                                           ApiController().verifyPhone(widget.isRegister);
                                                         })),

@@ -80,7 +80,7 @@ class InitNotification {
       importance: Importance.max,
       priority: Priority.high,
       showWhen: false,
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      //largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
     );
     return const NotificationDetails(android: androidDetails);
   }
