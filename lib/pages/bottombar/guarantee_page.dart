@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import 'package:intl/intl.dart';
@@ -162,7 +163,8 @@ class GuaranteePage extends StatelessWidget {
                                                     children: [
                                                       SizedBox(width: 110.w, child: TextSmall(text: warranty.name.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 18.sp)),
                                                       const Spacer(),
-                                                      InkWell(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 18.sp)),
+                                                      //(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 20.sp)),
+                                                      InkWell(onTap: () => InstrumentComponents().deleteWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 20.sp)),
                                                       SizedBox(width: 12.w),
                                                     ]
                                                 ),
@@ -195,7 +197,8 @@ class GuaranteePage extends StatelessWidget {
                                                           child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas'.tr : 'Faol'.tr, color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                       ),
                                                       const Spacer(),
-                                                      InkWell(onTap: () => ApiController().archiveWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
+                                                      //InkWell(onTap: () => ApiController().archiveWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
+                                                      InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                       SizedBox(width: 11.w)
                                                     ]
                                                 )

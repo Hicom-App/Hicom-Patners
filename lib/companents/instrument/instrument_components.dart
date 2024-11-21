@@ -227,7 +227,6 @@ class InstrumentComponents {
                 splashColor: Colors.blue.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
                 leading: Icon(EneftyIcons.edit_2_bold, color: AppColors.blue, size: 30.sp),
-                //title: Text('Kartani tahrirlash'.tr),
                 title: TextSmall(text: 'Kartani tahrirlash'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
                 onTap: () {
                   Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn);
@@ -239,7 +238,7 @@ class InstrumentComponents {
                 splashColor: Colors.red.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
                 leading: Icon(EneftyIcons.card_remove_bold, color: Colors.red, size: 30.sp),
-                title: Text('Kartani o‘chirish'.tr),
+                title: TextSmall(text: 'Kartani o‘chirish'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
                 onTap: () {
                   Get.back();
                   deleteCard(context, index);
@@ -258,7 +257,7 @@ class InstrumentComponents {
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
       title: 'Tasdiqlash'.tr,
-      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
       content: TextSmall(text: 'Hisobingizdan chiqishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
       confirm: Container(
           width: 120.w,
@@ -275,6 +274,66 @@ class InstrumentComponents {
           child: TextButton(
             onPressed: () => Get.back(),
             child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
+
+  void deleteWarrantyDialog(BuildContext context,id) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
+      title: 'Diqqat!'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
+      content: TextSmall(text: 'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
+      confirm: Container(
+          width: 130.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(onPressed: () {
+            Get.back();
+            ApiController().deleteWarrantyProduct(id);
+            }, child: TextSmall(text: 'O‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+      ),
+      cancel: Container(
+          width: 130.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+            onPressed: () => Get.back(),
+            child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
+
+  void archiveWarrantyDialog(BuildContext context,id) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
+      title: 'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.blue, fontFamily: 'Schyler'),
+      content: TextSmall(text: 'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.'.tr, color: AppColors.black, maxLines: 5),
+      confirm: Container(
+          width: 130.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(onPressed: () {
+            Get.back();
+            ApiController().archiveWarrantyProduct(id);
+            }, child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+      ),
+      cancel: Container(
+          width: 130.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+            onPressed: () => Get.back(),
+            child: TextSmall(text: 'yo‘q'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
       )
   );
@@ -351,7 +410,7 @@ class InstrumentComponents {
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       title: 'Mahsulotni baxolang'.tr,
-      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: 'Schyler'),
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Schyler'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -385,18 +444,9 @@ class InstrumentComponents {
                 style: const TextStyle(fontFamily: 'Schyler'),
                 decoration: InputDecoration(
                   hintStyle: const TextStyle(fontFamily: 'Schyler'),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)
-                  )
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1)),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r), borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1))
                 )
               )
             )
@@ -409,7 +459,6 @@ class InstrumentComponents {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
           child: TextButton(
               onPressed: () async {
-                print('ok');
                 ApiController().addReview(_getController.productsModelDetail.value.result!.first.id ?? 0);
               },
               child: TextSmall(text: 'Saqlash'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
@@ -435,7 +484,7 @@ class InstrumentComponents {
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       contentPadding: EdgeInsets.only(top: 5.h, left: 15.w, right: 15.w),
       title: 'Diqqat!'.tr,
-      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red),
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
       content: TextSmall(text: content, color: AppColors.black, maxLines: 100),
       confirm: Container(
           width: 120.w,
@@ -451,7 +500,7 @@ class InstrumentComponents {
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w, bottom: 5.h),
       title: 'Kardani o‘chirish'.tr,
-      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Schyler'),
       content: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),
@@ -481,4 +530,5 @@ class InstrumentComponents {
   );
 
   void showToast(String message, {color = AppColors.blue, textColor = AppColors.white, duration = 2}) {Fluttertoast.showToast(msg: message, fontAsset: 'Schyler', toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: duration, backgroundColor: color, textColor: textColor, fontSize: 16.sp);}
+
 }

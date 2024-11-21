@@ -187,6 +187,9 @@ class LocaleString extends Translations{
       'Kardani o‘chirish':'Kardani o‘chirish',
       'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi':'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi',
       'O‘chirish':'O‘chirish',
+      'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?':'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?',
+      'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?':'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.':'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan':'Ushbu telefon raqam ro‘yxatdan o‘tgan',
@@ -404,6 +407,9 @@ class LocaleString extends Translations{
       'Kardani o‘chirish': 'Delete card',
       'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Deleting this card will not remove the list of all transactions made with it.',
       'O‘chirish': 'Delete',
+      'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Do you want to delete the guaranteed product?',
+      'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Are you sure you want to archive this item?',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Archived items will be moved to the "Archive" section on your personal page.',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'This phone number is already registered',
@@ -621,6 +627,9 @@ class LocaleString extends Translations{
       'Kardani o‘chirish': 'Удалить карту',
       'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Удаление этой карты не удалит список всех транзакций, совершённых с её помощью.',
       'O‘chirish': 'Удалить',
+      'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Вы хотите удалить гарантированный продукт?',
+      'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Вы уверены, что хотите архивировать этот товар?',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Архивированные товары будут перемещены в раздел "Архив" на вашей личной странице.',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Этот номер телефона уже зарегистрирован',
@@ -658,8 +667,8 @@ class LocaleString extends Translations{
       'name':'Дилшоджон',
       'surname':'Хайдаров',
       'Familiya':'Фамилия',
-      'Ha':'Да',
-      'yo‘q':'Нет',
+      'Ha':'Ха',
+      'yo‘q': 'йўқ',
       'Bekor qilish':'Бекор қилиш',
       'Tayyor':'Тайёр',
 
@@ -838,6 +847,9 @@ class LocaleString extends Translations{
       'Kardani o‘chirish': 'Картани ўчириш',
       'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi': 'Ушбу картани ўчирганингиздан сўнг ушбу картанинг барча трансляцияларнинг рўйхати ўчирмайди.',
       'O‘chirish': 'Ўчириш',
+      'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Кафолатланган маҳсулотни ўчиришни хоҳлайсизми?',
+      'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Сиз ушбу товарни архивлашга ишончингиз комилми?',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Архивланган товарлар сизнинг шахсий саҳифангиздаги "Архив" бўлимига ўтказилади.',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Ушбу телефон рақам рўйхатдан ўтган',
