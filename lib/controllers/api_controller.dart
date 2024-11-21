@@ -215,20 +215,24 @@ class ApiController extends GetxController {
           } else if (isWorker) {
             Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
           }
-        } else if (data['status'] == 4) {
+        }
+        else if (data['status'] == 4) {
           logout();
           _getController.logout();
           Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
-        }
-      } else if (response.statusCode == 401) {
+        }}
+      else if (response.statusCode == 401) {
         logout();
         _getController.logout();
         Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
-      } else if (response.statusCode == 404) {
+        return;
+      }
+      else if (response.statusCode == 404) {
         Get.offAll(() => const NotConnection(), transition: Transition.fadeIn);
+        return;
       }
       else {
-        debugPrint('Xatolik1: Serverga ulanishda muammo');
+        Get.offAll(const NotConnection(), transition: Transition.fadeIn);
       }
     } catch(e) {
       debugPrint('bilmasam endi: $e');
