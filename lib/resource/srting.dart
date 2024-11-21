@@ -91,7 +91,7 @@ class LocaleString extends Translations{
       //transfer page
       'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
       'To‘lovga tasdiqlangan':'To‘lovga tasdiqlangan',
-      'Tasdiqlangan keshbek':'Tasdiqlangan keshbek',
+      'Tasdiqlangan keshbek':'keshbek',
       'Mening kartalarim':'Mening kartalarim',
       'To‘lov summasi':'To‘lov summasi',
       'Jo‘natish':'Jo‘natish',
@@ -100,9 +100,9 @@ class LocaleString extends Translations{
       'Kartani tahrirlash': 'Kartani tahrirlash',
       'Karta qo‘shish':'Karta qo‘shish',
       'Karta raqami': 'Karta raqami',
-      'Karta egasining ishmi familiyasi': 'Karta egasining ishmi familiyasi',
+      'Karta egasining ismi familiyasi': 'Karta egasining ismi familiyasi',
       'F.I.O': 'F.I.O',
-      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.',
       'Saqlash': 'Saqlash',
       'Qo‘shish': 'Qo‘shish',
       'Karta ma’lumotlari': 'Karta ma’lumotlari',
@@ -313,7 +313,7 @@ class LocaleString extends Translations{
       //transfer page
       'Kartaga o‘tkazmalar': 'Transfers to card',
       'To‘lovga tasdiqlangan': 'Approved for payment',
-      'Tasdiqlangan keshbek': 'Approved cashback',
+      'Tasdiqlangan keshbek': 'cashback',
       'Mening kartalarim': 'My cards',
       'To‘lov summasi': 'Payment amount',
       'Jo‘natish': 'Send',
@@ -322,10 +322,9 @@ class LocaleString extends Translations{
       'Kartani tahrirlash': 'Edit card',
       'Karta qo‘shish': 'Add card',
       'Karta raqami': 'Card number',
-      'Karta egasining ishmi familiyasi': 'Cardholder\'s first and last name',
+      'Karta egasining ismi familiyasi': 'Cardholder\'s first and last name',
       'F.I.O': 'Full name',
-      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
-      'Please enter the card number and the cardholder\'s full name completely. If the card number or the cardholder\'s name is incorrect, it may cause the transfer to this card to be rejected.',
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.': 'Please enter the card number and the cardholder\'s full name completely. If the card number or the cardholder\'s name is incorrect, it may cause the transfer to this card to be rejected.',
       'Saqlash': 'Save',
       'Qo‘shish': 'Add',
       'Karta ma’lumotlari': 'Card details',
@@ -535,8 +534,8 @@ class LocaleString extends Translations{
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Переводы на карту',
-      'To‘lovga tasdiqlangan': 'Подтверждено к оплате',
-      'Tasdiqlangan keshbek': 'Подтвержденный кэшбэк',
+      'To‘lovga tasdiqlangan': 'Одобрено к оплате',
+      'Tasdiqlangan keshbek': 'кэшбэк',
       'Mening kartalarim': 'Мои карты',
       'To‘lov summasi': 'Сумма оплаты',
       'Jo‘natish': 'Отправить',
@@ -545,9 +544,9 @@ class LocaleString extends Translations{
       'Kartani tahrirlash': 'Редактировать карту',
       'Karta qo‘shish': 'Добавить карту',
       'Karta raqami': 'Номер карты',
-      'Karta egasining ishmi familiyasi': 'Имя и фамилия владельца карты',
+      'Karta egasining ismi familiyasi': 'Имя и фамилия владельца карты',
       'F.I.O': 'Ф.И.О.',
-      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
       'Пожалуйста, введите номер карты и полное имя владельца карты. Если номер карты или имя владельца карты указаны неправильно, это может стать причиной отклонения перевода на эту карту.',
       'Saqlash': 'Сохранить',
       'Qo‘shish': 'Добавить',
@@ -760,7 +759,7 @@ class LocaleString extends Translations{
       //transfer page
       'Kartaga o‘tkazmalar': 'Картага ўтказмалар',
       'To‘lovga tasdiqlangan': 'Тўловга тасдиқланган',
-      'Tasdiqlangan keshbek': 'Тасдиқланган кешбек',
+      'Tasdiqlangan keshbek': 'кешбек',
       'Mening kartalarim': 'Менинг карталарим',
       'To‘lov summasi': 'Тўлов суммаси',
       'Jo‘natish': 'Жўнатиш',
@@ -769,9 +768,9 @@ class LocaleString extends Translations{
       'Kartani tahrirlash': 'Картани таҳрирлаш',
       'Karta qo‘shish': 'Карта қўшиш',
       'Karta raqami': 'Карта рақами',
-      'Karta egasining ishmi familiyasi': 'Карта эгасининг исми фамилияси',
+      'Karta egasining ismi familiyasi': 'Карта эгасининг исми фамилияси',
       'F.I.O': 'Ф.И.О',
-      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
+      'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.':
       'Илтимос, карта рақами ва карта эгасининг исми фамилияси тўлиқ киритинг. Агар карта рақами ёки карта эгасининг исми фамилияси нотўғри бўлса бу картга ўтказмани рад этишга сабаб бўлиши мумкин.',
       'Saqlash': 'Сақлаш',
       'Qo‘shish': 'Қўшиш',

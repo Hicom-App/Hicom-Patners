@@ -78,7 +78,7 @@ class AddCardPage extends StatelessWidget {
                   child: TextFieldCustom(fillColor: AppColors.white, hint: 'Karta raqami'.tr, mack: true, controller: _getController.cardNumberController, errorInput: _getController.errorInput[0], isNext: true, inputType: TextInputType.number)
                 )),
 
-                Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ishmi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp)),
+                Container(width: Get.width,margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h,bottom: 10.h), child: TextSmall(text: 'Karta egasining ismi familiyasi'.tr, color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 14.sp)),
                 Obx(() => ShakeWidget(
                   key: _getController.shakeKey[1],
                   shakeOffset: 5,
@@ -99,7 +99,7 @@ class AddCardPage extends StatelessWidget {
                         children: [
                           Icon(EneftyIcons.info_circle_bold, color: AppColors.red, size: 25.h),
                           SizedBox(width: 20.w),
-                          SizedBox(width: Get.width * 0.65, child: TextSmall(text: 'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ishmi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 10.sp, maxLines: 200))
+                          SizedBox(width: Get.width * 0.65, child: TextSmall(text: 'Iltimos, karta raqami va karta egasining ismi familiyasini to‘liq kiriting. Agar karta raqami yoki karta egasining ismi familiyasi noto‘g‘ri bo‘lsa bu kartaga o‘tkazmani rad etishga sabab bo‘lishi mumkin.', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 10.sp, maxLines: 200))
                         ]
                     )
                 ),
