@@ -32,6 +32,7 @@ class GetController extends GetxController {
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
+  RxBool ok = false.obs;
   var code = '+998'.obs;
   RxString countryCode = ''.obs;
   RxList<int> dropDownItems = <int>[0, 0, 0, 0].obs;
@@ -167,11 +168,9 @@ class GetController extends GetxController {
     super.onClose();
   }
 
-
   var connectionStatus = 'Unknown'.obs;
   late Connectivity _connectivity;
   late Stream<List<ConnectivityResult>> connectivityStream;
-
 
   @override
   void onInit() {

@@ -43,6 +43,8 @@ class LocaleString extends Translations{
       'Buyurtmachi': 'Buyurtmachi',
 
       //passcode page
+      'Parolni o‘zgartirish':'Parolni o‘zgartirish',
+      'Joriy parolni kiriting':'Joriy parolni kiriting',
       'Parol yaratish':'Parol yaratish',
       'Yangi parolni kiriting':'Yangi parolni kiriting',
       'Parolni qayta kiriting':'Parolni qayta kiriting',
@@ -264,6 +266,8 @@ class LocaleString extends Translations{
       'Buyurtmachi': 'Customer',
 
       //passcode page
+      'Parolni o‘zgartirish': 'Change password',
+      'Joriy parolni kiriting': 'Enter the current password',
       'Parol yaratish':'Create a password',
       'Yangi parolni kiriting':'Enter new password',
       'Parolni qayta kiriting':'Re-enter new passcode',
@@ -485,6 +489,8 @@ class LocaleString extends Translations{
       'Buyurtmachi': 'Заказчик',
 
       //passcode page
+      'Parolni o‘zgartirish': 'Изменить пароль',
+      'Joriy parolni kiriting': 'Введите текущий пароль',
       'Parol yaratish':'Создать пароль',
       'Yangi parolni kiriting':'Введите новый пароль',
       'Parolni qayta kiriting':'Повторите новый пароль',
@@ -706,6 +712,8 @@ class LocaleString extends Translations{
       'Buyurtmachi': 'Буюртмачи',
 
       //passcode page
+      'Parolni o‘zgartirish': 'Паролни ўзгартириш',
+      'Joriy parolni kiriting': 'Жорий паролни киритинг',
       'Parol yaratish':'Пароль яратиш',
       'Yangi parolni kiriting':'Янги паролни киритинг',
       'Parolni qayta kiriting':'Паролни қайта киритинг',

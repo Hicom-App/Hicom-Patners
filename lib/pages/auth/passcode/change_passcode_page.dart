@@ -11,7 +11,7 @@ class ChangePasscodePage extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
-  var ok = false;
+
   void _onDeleteTap() {
     if (_getController.enteredPasscode.value.isNotEmpty) {
       _getController.enteredPasscode.value = _getController.enteredPasscode.value.substring(0, _getController.enteredPasscode.value.length - 1);
@@ -42,14 +42,13 @@ class ChangePasscodePage extends StatelessWidget {
         // Yangi parolni kiritish
         _getController.errorField.value = true;
         _getController.tapTimes(() {
-          ok = true;
+          _getController.ok.value = true;
           _getController.secondPasscode.value = _getController.enteredPasscode.value;
           _getController.enteredPasscode.value = '';
           _getController.errorField.value = false;
         }, 1);
-      } else if (ok == true) {
+      } else if (_getController.ok.value == true) {
         if (_getController.secondPasscode.value == _getController.enteredPasscode.value) {
-          //_saveNewPasscode(_getController.secondPasscode.value);
           _getController.errorField.value = true;
           _getController.tapTimes(() {
             _getController.savePassCode(_getController.secondPasscode.value);
@@ -79,16 +78,14 @@ class ChangePasscodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _getController.enteredPasscode.value = '';
     _getController.firstPasscode.value = '';
-    ok = false;
+    _getController.secondPasscode.value = '';
+    _getController.ok.value = false;
     return Column(children: [
       Container(
         height: Get.height * 0.005,
         width: Get.width * 0.2,
         margin: EdgeInsets.only(top: Get.height * 0.02, bottom: Get.height * 0.03),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onSurface,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface, borderRadius: BorderRadius.circular(10.r))
       ),
       SizedBox(height: Get.height * 0.1),
       ShakeWidget(
@@ -99,30 +96,11 @@ class ChangePasscodePage extends StatelessWidget {
         shakeDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(4, (index) {
-            return Obx(() => Icon(
-              index < _getController.enteredPasscode.value.length
-                  ? Icons.circle
-                  : Icons.circle_outlined,
-              size: 20,
-              color: _getController.errorInput[0]
-                  ? Colors.red
-                  : _getController.errorField.value
-                  ? Colors.green
-                  : Colors.black,
-            ));
-          }),
-        ),
+            children: List.generate(4, (index) =>Obx(() => Icon(index < _getController.enteredPasscode.value.length ? Icons.circle : Icons.circle_outlined, size: 20, color: _getController.errorInput[0] ? Colors.red : _getController.errorField.value ? Colors.green : Colors.black)))
+        )
       ),
       SizedBox(height: 25.h),
-      Obx(() => TextSmall(
-        text: _getController.firstPasscode.value.isEmpty
-            ? 'Eski parolni kiriting'.tr
-            : _getController.secondPasscode.value.isEmpty
-            ? 'Yangi parolni kiriting'.tr
-            : 'Yangi parolni tasdiqlang'.tr,
-        color: AppColors.black,
-      )),
+      Obx(() => TextSmall(text: _getController.firstPasscode.value.isEmpty ? 'Joriy parolni kiriting'.tr : _getController.secondPasscode.value.isEmpty ? 'Yangi parolni kiriting'.tr : 'Parolni qayta kiriting'.tr, color: AppColors.black)),
       SizedBox(height: 25.h),
       Expanded(
         child: GridView.builder(
