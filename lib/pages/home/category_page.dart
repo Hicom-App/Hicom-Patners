@@ -52,6 +52,7 @@ class CategoryPage extends StatelessWidget {
         child: Obx(() => Column(
             children: [
               SearchTextField(
+                  margin: 20,
                   color: AppColors.grey.withOpacity(0.2),
                   onChanged: (value) {
                     if (value.isEmpty) {
@@ -82,7 +83,7 @@ class CategoryPage extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
-                          padding: EdgeInsets.only(left: 15.w, right: 5.w),
+                          padding: EdgeInsets.only(left: 25.w, right: 10.w),
                           itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: open == 1 ? true : false)),
                           itemCount: _getController.categoryProductsModel.value.result!.length
                       )

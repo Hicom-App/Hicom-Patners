@@ -265,7 +265,7 @@ class HomePage extends StatelessWidget {
                                                                           _getController.searchController.clear();
                                                                           Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
                                                                         },
-                                                                        child: ProductItems(index: i , i: index)
+                                                                        child: ProductItems(index: i, i: index)
                                                                     )
                                                               ]
                                                           )

@@ -10,7 +10,8 @@ class SearchTextField extends StatelessWidget{
   final Color color;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
-  SearchTextField({super.key, required this.color, this.onChanged, this.onSubmitted});
+  final int? margin;
+  SearchTextField({super.key, required this.color, this.onChanged, this.onSubmitted, this.margin = 25});
 
   final GetController _getController = Get.put(GetController());
 
@@ -19,7 +20,7 @@ class SearchTextField extends StatelessWidget{
     return Container(
         height: 60.sp,
         padding: EdgeInsets.only(right: 5.sp),
-        margin: EdgeInsets.only(right: 25.w,left: 25.w, top: 3.h),
+        margin: EdgeInsets.only(right: margin!.w, left: margin!.w, top: 3.h),
         child: TextField(
             controller: _getController.searchController,
             textInputAction: TextInputAction.search,
