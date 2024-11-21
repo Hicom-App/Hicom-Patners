@@ -25,8 +25,8 @@ class AddCardPage extends StatelessWidget {
     _getController.cardNumberText.value = '';
     _getController.tapTimes(() {
       isEdit == true ? _getController.cardNumberController.text = _getController.cardsModel.value.result![index!].cardNo.toString().replaceAllMapped(RegExp(r'.{4}'), (match) => '${match.group(0)} ') : null;
-      isEdit == true ? _getController.nameController.text = _getController.cardsModel.value.result![index!].cardHolder.toString() : null;
-      isEdit == true ? _getController.cardNameText.value = _getController.cardsModel.value.result![index!].cardHolder.toString() : null;
+      isEdit == true ? _getController.nameController.text = _getController.cardsModel.value.result![index!].cardHolder ?? '' : '';
+      isEdit == true ? _getController.cardNameText.value = _getController.cardsModel.value.result![index!].cardHolder ?? '' : '';
       isEdit == true ? _getController.cardNumberText.value = _getController.cardsModel.value.result![index!].cardNo.toString().replaceAllMapped(RegExp(r'.{4}'), (match) => '${match.group(0)} ') : null;
       }, 1);
     return Scaffold(

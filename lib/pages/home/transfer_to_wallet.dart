@@ -52,7 +52,7 @@ class TransferToWallet extends StatelessWidget {
                                   TextSmall(text: 'Tasdiqlangan keshbek'.tr, color: AppColors.black, fontSize: 11.sp, fontWeight: FontWeight.w500),
                                   Row(
                                       children: [
-                                        TextSmall(text: _getController.profileInfoModel.value.result!.first.cashbackRemain.toString(), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
+                                        TextSmall(text: _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain), color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 21.sp),
                                         TextSmall(text: ' ${'so‘m'.tr}'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                                       ]
                                   )
@@ -116,7 +116,7 @@ class TransferToWallet extends StatelessWidget {
                             margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 10.h),
                             child: TextSmall(text: 'To‘lov summasi'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
                         ),
-                        TextFieldCustom(fillColor: AppColors.white, hint: '${_getController.profileInfoModel.value.result!.first.cashbackCalculated} ${'so‘m'.tr}', controller: _getController.paymentController,  errorInput: _getController.errorInput[2], isNext: true, inputType: TextInputType.number)
+                        TextFieldCustom(fillColor: AppColors.white, hint: '${_getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain)} ${'so‘m'.tr}', controller: _getController.paymentController,  errorInput: _getController.errorInput[2], isNext: true, inputType: TextInputType.number)
                       ]
                     )
                   ),

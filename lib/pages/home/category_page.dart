@@ -65,7 +65,7 @@ class CategoryPage extends StatelessWidget {
                       }
                     } else if (open == 1) {
                       if (value.isNotEmpty && value.length > 3) {
-                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}")');
                       }
                     } else if (open == 2) {
                       if (value.isNotEmpty && value.length > 3) {
