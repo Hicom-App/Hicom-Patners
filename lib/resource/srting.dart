@@ -474,7 +474,7 @@ class LocaleString extends Translations{
       //register page
       'Ro‘yxatdan o‘tish':'Регистрация',
       'Ism': 'Имя',
-      'kun': 'день',
+      'kun': 'д',
       'oy': 'месяц',
       'yil': 'год',
       'Foydalanuvchi turi': 'Тип пользователя',
