@@ -1,3 +1,4 @@
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -197,8 +198,8 @@ class GuaranteePage extends StatelessWidget {
                                                           child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas'.tr : 'Faol'.tr, color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                       ),
                                                       const Spacer(),
-                                                      //InkWell(onTap: () => ApiController().archiveWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
-                                                      InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
+                                                      //InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
+                                                      InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(EneftyIcons.archive_add_bold, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                       SizedBox(width: 11.w)
                                                     ]
                                                 )

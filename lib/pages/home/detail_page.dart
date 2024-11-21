@@ -26,6 +26,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('id: $id');
     _getController.allComments.value = false;
+    _getController.fullText.value = false;
     ApiController().getProduct(id!, isCategory: false);
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
