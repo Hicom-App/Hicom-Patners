@@ -226,8 +226,9 @@ class InstrumentComponents {
                 hoverColor: Colors.blue.withOpacity(0.3),
                 splashColor: Colors.blue.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-                leading: Icon(EneftyIcons.edit_2_bold, color: AppColors.blue, size: 20.sp),
-                title: Text('Kartani tahrirlash'.tr),
+                leading: Icon(EneftyIcons.edit_2_bold, color: AppColors.blue, size: 30.sp),
+                //title: Text('Kartani tahrirlash'.tr),
+                title: TextSmall(text: 'Kartani tahrirlash'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
                 onTap: () {
                   Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn);
                 }
@@ -237,7 +238,7 @@ class InstrumentComponents {
                 hoverColor: Colors.red.withOpacity(0.3),
                 splashColor: Colors.red.withOpacity(0.3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-                leading: Icon(EneftyIcons.card_remove_bold, color: Colors.red, size: 20.sp),
+                leading: Icon(EneftyIcons.card_remove_bold, color: Colors.red, size: 30.sp),
                 title: Text('Kartani o‘chirish'.tr),
                 onTap: () {
                   Get.back();
