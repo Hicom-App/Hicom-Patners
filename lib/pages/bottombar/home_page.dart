@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
@@ -89,7 +87,6 @@ class HomePage extends StatelessWidget {
                                 Column(
                                     children: [
                                       TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                      //TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.cashbackCalculated.toString() : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold)
                                       TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackCalculated!) : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold),
                                     ]
                                 ),
@@ -214,12 +211,13 @@ class HomePage extends StatelessWidget {
                                             width: Get.width,
                                             child: SingleChildScrollView(
                                                 scrollDirection: Axis.horizontal,
+                                                padding: EdgeInsets.only(left: 25.w, right: 15.w),
                                                 child: Row(
                                                     children: [
-                                                      SizedBox(width: 35.w),
+                                                      //SizedBox(width: 25.w),
                                                       if (_getController.productsModel.value.result != null)
                                                         for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
+                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index)),
                                                     ]
                                                 )
                                             )
@@ -257,9 +255,9 @@ class HomePage extends StatelessWidget {
                                                       width: Get.width,
                                                       child: SingleChildScrollView(
                                                           scrollDirection: Axis.horizontal,
+                                                          padding: EdgeInsets.only(left: 25.w, right: 15.w),
                                                           child: Row(
                                                               children: [
-                                                                SizedBox(width: 35.w),
                                                                 if (_getController.productsModel.value.result != null)
                                                                   for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
                                                                     InkWell(
