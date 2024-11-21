@@ -50,8 +50,10 @@ class GetController extends GetxController {
   var image = File('').obs;
   RxString firstPasscode = ''.obs;
   RxString enteredPasscode = ''.obs;
+  RxString secondPasscode = ''.obs;
   RxBool isCreatingPasscode = true.obs;
   RxBool allComments = false.obs;
+
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();
@@ -496,7 +498,7 @@ class GetController extends GetxController {
 
   var listMonth = [{'name':'Hammasi'.tr, 'selected': true}, {'name':'Yanvar'.tr, 'selected': false}, {'name':'Fevral'.tr, 'selected': false}, {'name':'Mart'.tr, 'selected': false}, {'name':'Aprel'.tr, 'selected': false}, {'name':'Mays'.tr, 'selected': false}, {'name':'Iyun'.tr, 'selected': false}, {'name':'Iyul'.tr, 'selected': false}, {'name':'Avgust'.tr, 'selected': false}, {'name':'Sentabr'.tr, 'selected': false}, {'name':'Oktabr'.tr, 'selected': false}, {'name':'Noyabr'.tr, 'selected': false}, {'name':'Dekabr'.tr, 'selected': false}].obs;
 
-  var listTitle = ['Jarayonda'.tr, 'To‘langan'.tr, 'Rad etilgan'.tr].obs;
+  var listTitle = ['Jarayonda'.tr,'Tasdiqlangan'.tr, 'To‘langan'.tr, 'Rad etilgan'.tr].obs;
 
   int getCrossAxisCount() {
     double screenWidth = Get.width;

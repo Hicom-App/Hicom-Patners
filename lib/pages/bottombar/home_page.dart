@@ -125,7 +125,8 @@ class HomePage extends StatelessWidget {
                                                                 TextSmall(
                                                                     text: _getController.profileInfoModel.value.result != null
                                                                         ? index == 0 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWaiting!)
-                                                                        : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!)
+                                                                        : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain!)
+                                                                        : index == 2 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!)
                                                                         : _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRejected!)
                                                                         : '0',
                                                                     color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),

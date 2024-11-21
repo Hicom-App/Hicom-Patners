@@ -62,6 +62,7 @@ class LocaleString extends Translations{
 
       //home page
       'Jarayonda':'Jarayonda',
+      'Tasdiqlangan':'Tasdiqlangan',
       'To‘langan':'To‘langan',
       'Rad etilgan':'Rad etilgan',
       'Jami hisoblangan':'Jami hisoblangan',
@@ -282,6 +283,7 @@ class LocaleString extends Translations{
 
       //home page
       'Jarayonda':'In progress',
+      'Tasdiqlangan': 'Confirmed',
       'To‘langan':'Completed',
       'Rad etilgan':'Cancelled',
       'Jami hisoblangan':'Total amount',
@@ -502,8 +504,9 @@ class LocaleString extends Translations{
 
       //home page
       'Jarayonda':'В процессе',
-      'To‘langan':'Выполнено',
-      'Rad etilgan':'Отменено',
+      'To‘langan':'Выплачено',
+      'Tasdiqlangan': 'Одобрено',
+      'Rad etilgan':'Отказано',
       'Jami hisoblangan':'Общая сумма',
       'ID':'ИД',
       'so‘m':'сум',
@@ -722,6 +725,7 @@ class LocaleString extends Translations{
 
       //home page
       'Jarayonda':'Жараёнда',
+      'Tasdiqlangan': 'Тасдиқланган',
       'To‘langan':'Тўланган',
       'Rad etilgan':'Рад этилган',
       'Jami hisoblangan':'Жами ҳисобланган',

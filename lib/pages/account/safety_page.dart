@@ -23,6 +23,15 @@ class SafetyPage extends StatelessWidget {
       body: Column(
         children: [
           _buildListTile(
+              context: context,
+              icon:  EneftyIcons.password_check_bold,
+              color: Colors.black,
+              title: 'Parolni o‘zgartirish'.tr,
+              onTap: (){
+                InstrumentComponents().bottomSheetChangePassword(context);
+              }
+          ),
+          _buildListTile(
             context: context,
             icon:  EneftyIcons.profile_delete_bold,color: Colors.red,
             title: 'Hisobni o‘chirish'.tr,
@@ -36,7 +45,7 @@ class SafetyPage extends StatelessWidget {
     );
   }
   Container _buildListTile({required BuildContext context, required IconData icon, required String title, required VoidCallback onTap, color}) {
-    color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
+    color ??= AppColors.black;
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),

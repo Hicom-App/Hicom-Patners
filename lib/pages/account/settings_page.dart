@@ -8,8 +8,6 @@ import 'package:hicom_patners/pages/account/safety_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
-import '../home/notification_page.dart';
-import 'notification_settings_page.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});

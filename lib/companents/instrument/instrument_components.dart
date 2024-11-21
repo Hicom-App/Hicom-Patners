@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../pages/auth/login_page.dart';
+import '../../pages/auth/passcode/change_passcode_page.dart';
 import '../../pages/home/add_card_page.dart';
 import '../../resource/colors.dart';
 import '../filds/text_large.dart';
@@ -150,6 +151,21 @@ class InstrumentComponents {
                         )
                       ]
                   )
+              );
+            })
+    );
+
+  bottomSheetChangePassword(BuildContext context) => Get.bottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
+        enableDrag: true,
+        isScrollControlled: true,
+        backgroundColor: AppColors.white,
+        StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return SizedBox(
+                  height: Get.height * 0.9,
+                  width: double.infinity,
+                  child: ChangePasscodePage()
               );
             })
     );
