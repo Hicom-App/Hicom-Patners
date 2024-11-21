@@ -148,6 +148,7 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.changeCountriesModel(CountriesModel.fromJson(data));
           debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
+          getRegions(_getController.countriesModel.value.countries!.first.id!);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -168,6 +169,7 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.changeRegionsModel(CountriesModel.fromJson(data));
           debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
+          getCities(_getController.regionsModel.value.regions!.first.id!);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }

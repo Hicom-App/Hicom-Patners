@@ -520,8 +520,8 @@ class LocaleString extends Translations{
       'Ma’lumotlar yo‘q':'Нет данных','Ko‘proq':'еще',
 
       //account page
-      'Hisobim':'профиль',
-      'Hamyon':'кошелек',
+      'Hisobim':'Профиль',
+      'Hamyon':'Кошелек',
       'Arxiv':'Архив',
       'Sevimlilar':'Избранное',
       'Sozlamalar':'Настройки',

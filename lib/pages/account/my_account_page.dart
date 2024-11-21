@@ -180,7 +180,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             filterQuality: FilterQuality.high,
                                             imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
                                             placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                            errorWidget: (context, url, error) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover)
+                                            errorWidget: (context, url, error) => Image.asset('assets/images/avatar.png', fit: BoxFit.cover)
                                         )
                                       )
                                   ),
