@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                                 Column(
                                     children: [
                                       TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                      TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackCalculated!) : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold),
+                                      TextLarge(text: _getController.profileInfoModel.value.result != null ? '${_getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackCalculated!)} ${'so‘m'.tr}' : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold),
                                     ]
                                 ),
                                 SizedBox(
