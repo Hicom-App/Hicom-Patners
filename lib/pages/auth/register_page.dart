@@ -96,7 +96,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                                     duration: const Duration(milliseconds: 1500),
-                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'surname'.tr, controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
+                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Familiya'.tr, controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
                                                                 )
                                                               ]
                                                           )
@@ -306,7 +306,7 @@ class LoginPageState extends State<RegisterPage> {
                                                           _getController.shakeKey[1].currentState?.shake();
                                                           _getController.changeErrorInput(1, true);
                                                           _getController.tapTimes(() =>_getController.changeErrorInput(1, false),1);
-                                                        } else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime.now())) {
+                                                        } else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime.now()) || _getController.formattedDate.value == '') {
                                                           _getController.shakeKey[2].currentState?.shake();
                                                           _getController.changeErrorInput(2, true);
                                                           _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);

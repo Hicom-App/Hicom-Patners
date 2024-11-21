@@ -120,7 +120,7 @@ class DetailPage extends StatelessWidget {
                                                 TextSmall(text: 'Kafolat', color: AppColors.black70, fontSize: 10.sp),
                                                 SizedBox(width: Get.width * 0.01),
                                                 _getController.productsModelDetail.value.result != null
-                                                    ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} kun', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
+                                                    ? TextSmall(text: '${_getController.productsModelDetail.value.result!.first.warranty != null ? _getController.productsModelDetail.value.result!.first.warranty.toString() : '-'} ${'kun'.tr}', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15)
                                                     : Skeletonizer(child: TextSmall(text: 'Nimadur', color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 15))
                                               ]
                                           )

@@ -107,12 +107,7 @@ class ChangePasscodePage extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: 60),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            childAspectRatio: 1,
-          ),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 1),
           itemCount: 12,
           itemBuilder: (context, index) {
             if (index == 9) {
@@ -127,9 +122,9 @@ class ChangePasscodePage extends StatelessWidget {
             } else {
               return _buildNumberButton((index + 1).toString());
             }
-          },
-        ),
-      ),
+          }
+        )
+      )
     ]);
   }
 

@@ -61,7 +61,6 @@ class ApiController extends GetxController {
       var data = jsonDecode(await response.stream.bytesToString());
       if (data['status'] == 0) {
         _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
         _getController.startTimer();
         Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
       } else if (data['status'] == 5) {
@@ -88,7 +87,6 @@ class ApiController extends GetxController {
       var data = jsonDecode(await response.stream.bytesToString());
       if (data['status'] == 0) {
         _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        print(jsonEncode(_getController.sendCodeModel.value.toJson()).toString());
         _getController.startTimer();
         Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
       } else if (data['status'] == 3){
@@ -124,6 +122,7 @@ class ApiController extends GetxController {
           _getController.verifyCodeControllers.clear();
           if (isRegister) {
             getCountries();
+            _getController.updateSelectedDate(DateTime.now());
             Get.to(() => const RegisterPage());
           } else {
             getProfile();
@@ -241,9 +240,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfiles() async {
-    print(_getController.dropDownItems[1].toString());
-    print(_getController.dropDownItems[2].toString());
-    print(_getController.dropDownItems[3].toString());
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'),);
       request.headers.addAll(multipartHeaderBearer());
@@ -356,8 +352,8 @@ class ApiController extends GetxController {
 
   Future<void> postFcmToken() async {
     try {
-      print('========================================================================================================================================================================');
-      print(_getController.fcmToken);
+      debugPrint('========================================================================================================================================================================');
+      debugPrint(_getController.fcmToken);
       final response = await http.post(Uri.parse('$baseUrl/users/firebase-token'), headers: headerBearer(), body: {'fcm_token': _getController.fcmToken});
       debugPrint(response.body.toString());
       debugPrint(response.statusCode.toString());
@@ -396,14 +392,9 @@ class ApiController extends GetxController {
     filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(
-          isFavorite ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
-      print(isFavorite
-          ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
-          : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
+      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        //debugPrint(data.toString());
         if (data['status'] == 0) {
           if (isCategory == true) {
             _getController.changeProductsModel(CategoriesModel.fromJson(data));
@@ -431,10 +422,8 @@ class ApiController extends GetxController {
   Future<void> getProduct(int categoryId, {bool isCategory = true, filter}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
-      print('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != '' ? '&filter=$filter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data.toString());
         if (data['status'] == 0 && data['result'] != null) {
           if (isCategory == true) {
             _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
@@ -457,7 +446,6 @@ class ApiController extends GetxController {
 
   Future<void> getAllCatProducts({filter}) async {
     for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
-      print(filter);
       await getProduct(_getController.categoriesModel.value.result![i].id ?? 0, filter: filter);
     }
   }
@@ -471,7 +459,6 @@ class ApiController extends GetxController {
         debugPrint(data.toString());
         if (data['status'] == 0) {
           //getCategories();
-          print(data.toString());
           getProducts(0, isFavorite: isFavorite);
         } else {
           debugPrint('Xatolik: ${data['message']}');
@@ -494,7 +481,6 @@ class ApiController extends GetxController {
         var data = jsonDecode(responseBody);
         debugPrint(data.toString());
         if (data['status'] == 0) {
-          print(data.toString());
           _getController.surNameController.text = '';
           InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
           getProduct(id, isCategory: false);
@@ -590,7 +576,6 @@ class ApiController extends GetxController {
     try {
       //final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id&archived=1'), headers: headersBearer());
       final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
-      print('$baseUrl/warranty/products?id=$id${isArchived ? '&archived=1' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
@@ -614,7 +599,6 @@ class ApiController extends GetxController {
           'id': id.toString(),
           'is_archived': '1'
         });
-        print('$baseUrl/warranty/archive/products?id=$id');
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);
           debugPrint(data.toString());
@@ -630,7 +614,6 @@ class ApiController extends GetxController {
       }
       else {
         final response = await http.delete(Uri.parse('$baseUrl/warranty/archive?id=$id'), headers: headerBearer());
-        print('$baseUrl/warranty/archive/products?id=$id');
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);
           debugPrint(data.toString());
@@ -652,8 +635,6 @@ class ApiController extends GetxController {
   Future<void> getWarrantyProduct({filter = ''}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/warranty/archive${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
