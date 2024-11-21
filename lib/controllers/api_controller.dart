@@ -397,9 +397,7 @@ class ApiController extends GetxController {
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
       final response = await http.get(Uri.parse(
-          isFavorite
-              ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
-              : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
+          isFavorite ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
       print(isFavorite
           ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
           : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}');
@@ -417,7 +415,10 @@ class ApiController extends GetxController {
           debugPrint('Xatolik: ${data['message']}');
         }
         if (categoryId == 0 && isFavorite == false) {
-          getAllCatProducts();
+          if (filter != null && filter.isNotEmpty) {
+            _getController.clearCategoriesProductsModel();
+          }
+          getAllCatProducts(filter: encodedFilter != '' ? encodedFilter : null);
         }
       } else {
         debugPrint('Xatolik: Serverga ulanishda muammo');
@@ -429,7 +430,8 @@ class ApiController extends GetxController {
 
   Future<void> getProduct(int categoryId, {bool isCategory = true, filter}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
+      print('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != '' ? '&filter=$filter' : ''}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         print(data.toString());
@@ -445,6 +447,7 @@ class ApiController extends GetxController {
           debugPrint('Xatolik: ${data['message']}');
         }
       } else {
+
         debugPrint('Xatolik: Serverga ulanishda muammo');
       }
     } catch (e) {
@@ -454,6 +457,7 @@ class ApiController extends GetxController {
 
   Future<void> getAllCatProducts({filter}) async {
     for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
+      print(filter);
       await getProduct(_getController.categoriesModel.value.result![i].id ?? 0, filter: filter);
     }
   }
@@ -547,7 +551,7 @@ class ApiController extends GetxController {
           _getController.changeIndex(3);
           _getController.controllerConvex.animateTo(4);
         } else if (data['status'] == 9) {
-          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling');
+          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
         } else if (data['status'] == 8) {
           InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling');
         } else if (data['status'] == 20) {

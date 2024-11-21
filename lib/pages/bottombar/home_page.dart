@@ -154,12 +154,15 @@ class HomePage extends StatelessWidget {
                                       color: AppColors.grey.withOpacity(0.2),
                                       onChanged: (value) {
                                         if (value.isEmpty || value == '') {
-                                          ApiController().getProducts(0, isFavorite: false, isCategory: true);
-                                          ApiController().getAllCatProducts();
+                                          _getController.searchController.clear();
+                                          _getController.refreshController.refreshCompleted();
+                                          _getController.clearCategoriesProductsModel();
+                                          _getController.clearProductsModel();
+                                          _getController.clearCategoriesModel();
+                                          ApiController().getCategories();
                                         }
                                         if (_getController.searchController.value.text.length > 3 ) {
                                           ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
-                                          ApiController().getAllCatProducts(filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
                                         }
                                       }
                                   )
