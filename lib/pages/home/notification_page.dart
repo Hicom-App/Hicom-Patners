@@ -16,7 +16,7 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var notificationList = jsonDecode(_getController.loadNotificationMessages());
-    print(notificationList);
+    debugPrint(notificationList.toString());
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(

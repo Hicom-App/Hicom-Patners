@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hicom_patners/controllers/get_controller.dart';
 import '../firebase_options.dart';
@@ -11,15 +12,15 @@ class InitNotification {
   static Future<void> initialize() async {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     final fcmToken = await FirebaseMessaging.instance.getToken();
-    print('FCM Token: $fcmToken');
+    debugPrint('FCM Token: $fcmToken');
     GetController().saveFcmToken(fcmToken ?? '');
     await FirebaseMessaging.instance.requestPermission();
     for (var topic in _topics) {
       try {
         await FirebaseMessaging.instance.subscribeToTopic(topic);
-        print('Subscribed to topic: $topic');
+        debugPrint('Subscribed to topic: $topic');
       } catch (e) {
-        print('Failed to subscribe to topic: $topic. Error: $e');
+        debugPrint('Failed to subscribe to topic: $topic. Error: $e');
       }
     }
 
@@ -28,7 +29,7 @@ class InitNotification {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('App opened from notification: ${message.messageId}');
+      debugPrint('App opened from notification: ${message.messageId}');
     });
 
     await _configureNotificationChannels();
@@ -44,25 +45,25 @@ class InitNotification {
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(alert: true, badge: true, sound: true);
     _showNotification(message);
-    print('======================================================================================================================================================');
-    print("Handling background message: ${message.messageId}");
-    print("Message data: ${message.data}");
-    print("Message data: ${message.notification?.body}");
-    print("Message data: ${message.notification?.title}");
-    print('======================================================================================================================================================');
+    debugPrint('======================================================================================================================================================');
+    debugPrint("Handling background message: ${message.messageId}");
+    debugPrint("Message data: ${message.data}");
+    debugPrint("Message data: ${message.notification?.body}");
+    debugPrint("Message data: ${message.notification?.title}");
+    debugPrint('======================================================================================================================================================');
   }
 
   static Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    print('======================================================================================================================================================');
-    print('Foreground message: ${message.messageId}');
-    print("Message data: ${message.data}");
-    print("Message data: ${message.notification?.body}");
-    print("Message data: ${message.notification?.title}");
-    print('======================================================================================================================================================');
+    debugPrint('======================================================================================================================================================');
+    debugPrint('Foreground message: ${message.messageId}');
+    debugPrint("Message data: ${message.data}");
+    debugPrint("Message data: ${message.notification?.body}");
+    debugPrint("Message data: ${message.notification?.title}");
+    debugPrint('======================================================================================================================================================');
 
     GetController().saveNotificationMessage(message.data['title'] ?? 'Hicom Partner', message.notification?.body ?? message.data['body'] ?? '');
-    print("Notification message saved");
-    print(GetController().loadNotificationMessages());
+    debugPrint("Notification message saved");
+    debugPrint(GetController().loadNotificationMessages());
     _showNotification(message);
   }
 

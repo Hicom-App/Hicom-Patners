@@ -6,8 +6,10 @@ import 'package:hicom_patners/companents/instrument/shake_widget.dart';
 import 'package:hicom_patners/pages/sample/sample_page.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../../companents/filds/text_large.dart';
+import '../../../controllers/api_controller.dart';
 import '../../../controllers/get_controller.dart';
 import '../../../resource/colors.dart';
+import '../login_page.dart';
 
 class PasscodePage extends StatelessWidget {
   final LocalAuthentication auth = LocalAuthentication();
@@ -21,7 +23,7 @@ class PasscodePage extends StatelessWidget {
       _getController.hasFingerprint.value = availableBiometrics.contains(BiometricType.fingerprint) ? true : false;
       _getController.hasFaceID.value = availableBiometrics.contains(BiometricType.face) ? true : false;
     } catch (e) {
-      print('Error checking biometrics: $e');
+      debugPrint('Error checking biometrics: $e');
     }
   }
 
@@ -29,9 +31,9 @@ class PasscodePage extends StatelessWidget {
     if (!_getController.getBiometrics()) return;
     try {
       bool authenticated = await auth.authenticate(localizedReason: 'Unlock with your fingerprint or face', options: const AuthenticationOptions(biometricOnly: true, stickyAuth: true, useErrorDialogs: true));
-      if (authenticated) Get.offAll(() => SamplePage());
+      if (authenticated) Get.offAll(() => const SamplePage());
     } catch (e) {
-      print('Error authenticating: $e');
+      debugPrint('Error authenticating: $e');
     }
   }
 
@@ -46,7 +48,7 @@ class PasscodePage extends StatelessWidget {
         _getController.tapTimes(() {
           _getController.errorFieldOk.value = false;
           _getController.errorField.value = false;
-          Get.offAll(() => SamplePage());
+          Get.offAll(() => const SamplePage());
         }, 1);
       } else {
         _getController.shakeKey[9].currentState?.shake();
@@ -131,7 +133,10 @@ class PasscodePage extends StatelessWidget {
                                 )
                             ),
                             TextButton(onPressed: () {
-                              _getController.deletePassCode();
+                              //_getController.deletePassCode();
+                              ApiController().logout();
+                              _getController.logout();
+                              Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
                             }, child: TextSmall(text: 'Parolni unutdingizmi?'.tr, color: AppColors.black)),
                             SizedBox(height: 30.h)
                           ]

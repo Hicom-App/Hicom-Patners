@@ -11,6 +11,7 @@ class LocaleString extends Translations{
       'yo‘q':'yo‘q',
       'Bekor qilish':'Bekor qilish',
       'Tayyor':'Tayyor',
+      'Kiriting':'Kiritng',
 
       //laugage page
       'Tilni tanlang': 'Tilni tanlang',
@@ -86,12 +87,13 @@ class LocaleString extends Translations{
       'Chiqish':'Chiqish',
       'Ilova versiyasi':'Ilova versiyasi',
       'Yangi rasm joylash':'Yangi rasm joylash',
+      'Suratni o‘zgartirish':'Suratni o‘zgartirish',
       'Tug‘ilgan sana':'Tug‘ilgan sana',
 
       //transfer page
       'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
       'To‘lovga tasdiqlangan':'To‘lovga tasdiqlangan',
-      'Tasdiqlangan keshbek':'keshbek',
+      'Tasdiqlangan keshbek':'Keshbek',
       'Mening kartalarim':'Mening kartalarim',
       'To‘lov summasi':'To‘lov summasi',
       'Jo‘natish':'Jo‘natish',
@@ -119,7 +121,7 @@ class LocaleString extends Translations{
 
       //category page
       'Sevimli mahsulotlar': 'Sevimli mahsulotlar',
-      'Barcha mahsulotlar': 'Barcha mahsulotlar',
+      'Barcha mahsulotlar': 'Barcha tovarlar',
 
       //settings page
       'Kirish va xavfsizlik': 'Kirish va xavfsizlik',
@@ -128,7 +130,7 @@ class LocaleString extends Translations{
       'Hisobni o‘chirish':'Hisobni o‘chirish',
 
       //guarantee page
-      'Kafolat Muddatlari':'Kafolat Muddatlari',
+      'Kafolat Muddatlari':'Kafolat muddatlari',
 
       //report page
       'Hisobotlar': 'Hisobotlar',
@@ -184,7 +186,7 @@ class LocaleString extends Translations{
       'Kartani o‘chirish':'Kartani o‘chirish',
       'Tasdiqlash':'Tasdiqlash',
       'Hisobingizdan chiqishni xohlaysizmi?':'Hisobingizdan chiqishni xohlaysizmi?',
-      'Mahsulotni baxolang':'Mahsulotni baxolang',
+      'Mahsulotni baxolang':'Tovarni baxolang',
       'Izoh qoldiring':'Izoh qoldiring',
       'Diqqat!':'Diqqat!',
       'Kardani o‘chirish':'Kardani o‘chirish',
@@ -221,7 +223,7 @@ class LocaleString extends Translations{
       'Dec':'Dek',
 
       //CustomRefreshHeader
-      'Ma’lumotlarni yangilash uchun tashlang':'Ma’lumotlarni yangilash uchun tashlang',
+      'Ma’lumotlarni yangilash uchun tashlang':'Ma’lumotlarni yangilash uchun qo‘yib yuboring',
       'Ehhh nimadir xato ketdi':'Ehhh nimadir xato ketdi',
       'Ma’lumotlar yangilandi':'Ma’lumotlar yangilandi'
 
@@ -234,6 +236,7 @@ class LocaleString extends Translations{
       'yo‘q':'No',
       'Bekor qilish':'Cancel',
       'Tayyor':'Ready',
+      'Kiriting':'Enter',
 
       //laugage page
       'Tilni tanlang': 'Select language',
@@ -308,12 +311,13 @@ class LocaleString extends Translations{
       'Chiqish':'Log out',
       'Ilova versiyasi':'App version',
       'Yangi rasm joylash':'Upload new image',
+      'Suratni o‘zgartirish': 'Change photo',
       'Tug‘ilgan sana':'Date of birth',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Transfers to card',
       'To‘lovga tasdiqlangan': 'Approved for payment',
-      'Tasdiqlangan keshbek': 'cashback',
+      'Tasdiqlangan keshbek': 'Cashback',
       'Mening kartalarim': 'My cards',
       'To‘lov summasi': 'Payment amount',
       'Jo‘natish': 'Send',
@@ -443,7 +447,7 @@ class LocaleString extends Translations{
       'Dec': 'Dec',
 
       //CustomRefreshHeader
-      'Ma’lumotlarni yangilash uchun tashlang': 'Pull to refresh data',
+      'Ma’lumotlarni yangilash uchun tashlang': 'Release to update data',
       'Ehhh nimadir xato ketdi': 'Oops, something went wrong',
       'Ma’lumotlar yangilandi': 'Data updated',
 
@@ -456,6 +460,7 @@ class LocaleString extends Translations{
       'yo‘q':'Нет',
       'Bekor qilish':'Отменить',
       'Tayyor':'Готово',
+      'Kiriting':'Введите',
 
       //laugage page
       'Tilni tanlang': 'Выберите язык',
@@ -516,7 +521,8 @@ class LocaleString extends Translations{
       'ID':'ИД',
       'so‘m':'сум',
       'Qidirish':'Поиск',
-      'Ma’lumotlar yo‘q':'Нет данных','Ko‘proq':'еще',
+      'Ma’lumotlar yo‘q':'Нет данных',
+      'Ko‘proq':'eщё',
 
       //account page
       'Hisobim':'Профиль',
@@ -529,13 +535,14 @@ class LocaleString extends Translations{
       'Ilova haqida':'О приложении',
       'Chiqish':'Выход',
       'Ilova versiyasi':'Версия приложения',
-      'Yangi rasm joylash':'Добавить картинку',
+      'Yangi rasm joylash':'Добавить изображение',
+      'Suratni o‘zgartirish': 'Изменить фото',
       'Tug‘ilgan sana':'Дата рождения',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Переводы на карту',
       'To‘lovga tasdiqlangan': 'Одобрено к оплате',
-      'Tasdiqlangan keshbek': 'кэшбэк',
+      'Tasdiqlangan keshbek': 'Кэшбэк',
       'Mening kartalarim': 'Мои карты',
       'To‘lov summasi': 'Сумма оплаты',
       'Jo‘natish': 'Отправить',
@@ -577,7 +584,7 @@ class LocaleString extends Translations{
 
       //report page
       'Hisobotlar': 'Отчёты',
-      'Hisoblangan': 'Рассчитано',
+      'Hisoblangan': 'Начислено',
       'ta': 'шт',
       'Keshbek': 'Кэшбэк',
       'Bank kartalari': 'Банковские карты',
@@ -666,7 +673,7 @@ class LocaleString extends Translations{
       'Dec': 'Дек',
 
       //CustomRefreshHeader
-      'Ma’lumotlarni yangilash uchun tashlang': 'Потяните, чтобы обновить данные',
+      'Ma’lumotlarni yangilash uchun tashlang': 'Отпустите для обновления данных',
       'Ehhh nimadir xato ketdi': 'Ой, что-то пошло не так',
       'Ma’lumotlar yangilandi': 'Данные обновлены',
 
@@ -679,6 +686,7 @@ class LocaleString extends Translations{
       'yo‘q': 'йўқ',
       'Bekor qilish':'Бекор қилиш',
       'Tayyor':'Тайёр',
+      'Kiriting':'Киритинг',
 
       //laugage page
       'Tilni tanlang': 'Тилни танланг',
@@ -687,7 +695,7 @@ class LocaleString extends Translations{
       //login page
       'Telefon raqam': 'Телефон рақам',
       'Telefon raqamingizni kiriting': 'Телефон рақамингизни киритинг',
-      'Biz tasdiqlash kodini yuboramiz!': 'Biz тасдиқлаш кодини юборамиз!',
+      'Biz tasdiqlash kodini yuboramiz!': 'Биз тасдиқлаш кодини юборамиз!',
       'Kodni kiriting': 'Кодни киритинг',
       'Faollashtirish kodi': 'Фаоллаштириш коди',
       'raqamiga SMS tarzida yuborildi.':'рақамига SMS тарзида юборилди.',
@@ -754,12 +762,13 @@ class LocaleString extends Translations{
       'Chiqish':'Чиқиш',
       'Ilova versiyasi':'Илова версияси',
       'Yangi rasm joylash':'Янги расм жойлаш',
+      'Suratni o‘zgartirish': 'Суратни ўзгартириш',
       'Tug‘ilgan sana':'Туғилган сана',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Картага ўтказмалар',
       'To‘lovga tasdiqlangan': 'Тўловга тасдиқланган',
-      'Tasdiqlangan keshbek': 'кешбек',
+      'Tasdiqlangan keshbek': 'Кешбек',
       'Mening kartalarim': 'Менинг карталарим',
       'To‘lov summasi': 'Тўлов суммаси',
       'Jo‘natish': 'Жўнатиш',
@@ -788,7 +797,7 @@ class LocaleString extends Translations{
 
       //category page
       'Sevimli mahsulotlar': 'Севимли маҳсулотлар',
-      'Barcha mahsulotlar': 'Барча маҳсулотлар',
+      'Barcha mahsulotlar': 'Барча товарлар',
 
       //settings page
       'Kirish va xavfsizlik': 'Кириш ва хавфсизлик',
@@ -797,7 +806,7 @@ class LocaleString extends Translations{
       'Hisobni o‘chirish':'Ҳисобни ўчириш',
 
       //guarantee page
-      'Kafolat Muddatlari': 'Кафолат Муддатлари',
+      'Kafolat Muddatlari': 'Кафолат муддатлари',
 
       //report page
       'Hisobotlar': 'Ҳисоботлар',
@@ -852,7 +861,7 @@ class LocaleString extends Translations{
       'Kartani o‘chirish': 'Картани ўчириш',
       'Tasdiqlash': 'Тасдиқлаш',
       'Hisobingizdan chiqishni xohlaysizmi?': 'Ҳисобингиздан чиқишни хоҳлайсизми?',
-      'Mahsulotni baxolang': 'Маҳсулотни баҳоланг',
+      'Mahsulotni baxolang': 'Товарни баҳоланг',
       'Izoh qoldiring': 'Изоҳ қолдиринг',
       'Diqqat!': 'Диққат!',
       'Kardani o‘chirish': 'Картани ўчириш',
@@ -875,21 +884,21 @@ class LocaleString extends Translations{
       'Tasdiqlangan keshbekingizda mablag‘ yetarli emas': 'Тасдиқланган кэшбэкингизда маблағ етарли эмас',
 
       //month
-      'Jan': 'Yan',
-      'Feb': 'Fev',
-      'Mar': 'Mar',
-      'Apr': 'Apr',
-      'May': 'May',
-      'Jun': 'Iyun',
-      'Jul': 'Iyul',
-      'Aug': 'Avgu',
-      'Sep': 'Sen',
-      'Oct': 'Okt',
-      'Nov': 'Noy',
-      'Dec': 'Dek',
+      'Jan': 'Янв',
+      'Feb': 'Apr',
+      'Mar': 'Мар',
+      'Apr': 'Апр',
+      'May': 'Май',
+      'Jun': 'Июнь',
+      'Jul': 'Июл',
+      'Aug': 'Авг',
+      'Sep': 'Сен',
+      'Oct': 'Окт',
+      'Nov': 'Ной',
+      'Dec': 'Дек',
 
       //CustomRefreshHeader
-      'Ma’lumotlarni yangilash uchun tashlang': 'Маълумотларни янгилаш учун ташланг',
+      'Ma’lumotlarni yangilash uchun tashlang': 'Маълумотларни янгилаш учун қўйиб юборинг',
       'Ehhh nimadir xato ketdi': 'Эҳҳ нимадир хато кетди',
       'Ma’lumotlar yangilandi': 'Маълумотлар янгиланди',
 

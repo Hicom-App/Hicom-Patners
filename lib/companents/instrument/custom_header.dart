@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
-import 'package:hicom_patners/resource/colors.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,12 +14,10 @@ class CustomRefreshHeader extends StatelessWidget {
       builder: (BuildContext context, RefreshStatus? mode) {
         Widget body;
         if (mode == RefreshStatus.idle) {
-          //body = Text('Ma’lumotlarni yangilash uchun tashlang'.tr, style: TextStyle(fontSize: 14.sp, color: color, fontFamily: 'Schyler',));
           body = TextSmall(text: 'Ma’lumotlarni yangilash uchun tashlang'.tr, fontSize: 14.sp, color: color ?? Colors.white, fontWeight: FontWeight.w400);
         } else if (mode == RefreshStatus.refreshing) {
           body = Container(margin: EdgeInsets.only(top: 20.sp), child: const CircularProgressIndicator(color: Colors.blue, backgroundColor: Colors.white, strokeWidth: 2));
         } else if (mode == RefreshStatus.failed) {
-          //body = Text('Ex nimadir xato ketdi'.tr, style: TextStyle(fontSize: 14.sp, color: color));
           body = TextSmall(text: 'Ehhh nimadir xato ketdi'.tr, fontSize: 14.sp, color: color ?? Colors.white, fontWeight: FontWeight.w400);
         } else if (mode == RefreshStatus.canRefresh) {
           body = Text('Ma’lumotlarni yangilash uchun tashlang'.tr, style: TextStyle(fontSize: 14.sp, color: color));

@@ -59,7 +59,7 @@ class CategoryPage extends StatelessWidget {
                       getData();
                       return;
                     }
-                    print(value);
+                    debugPrint(value);
                     if (open == 0) {
                       if (value.isNotEmpty && value.length > 3) {
                         ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');

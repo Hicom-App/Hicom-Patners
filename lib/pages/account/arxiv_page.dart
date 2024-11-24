@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/search_text_field.dart';
-import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/instrument_components.dart';
 import '../../companents/refresh_component.dart';
@@ -220,9 +219,8 @@ class ArxivPage extends StatelessWidget {
                           for (int i = 0; i < 5; i++)
                             Container(
                                 margin: EdgeInsets.only(bottom: 12.h, top: 12.h, left: 15.w, right: 15.w),
-                                decoration: BoxDecoration(
-                                  // color: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-                                    borderRadius: const BorderRadius.all(Radius.circular(20))
+                                decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
                                 ),
                                 child: Column(
                                     children: [
@@ -387,7 +385,7 @@ class ArxivPage extends StatelessWidget {
                           SizedBox(height: Get.height * 0.01),
                           SearchTextField(color: Colors.grey.withOpacity(0.2)),
                           const Spacer(),
-                          Center(child: TextSmall(text: 'Ma‘lumot topilmadi', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16.sp)),
+                          Center(child: TextSmall(text: 'Ma’lumotlar yo‘q', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 16.sp)),
                           const Spacer(),
                         ]
                     )

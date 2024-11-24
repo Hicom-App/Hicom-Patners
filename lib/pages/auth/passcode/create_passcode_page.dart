@@ -21,7 +21,7 @@ class CreatePasscodePage extends StatelessWidget {
       _getController.hasFingerprint.value = availableBiometrics.contains(BiometricType.fingerprint);
       _getController.hasFaceID.value = availableBiometrics.contains(BiometricType.face);
     } catch (e) {
-      print('Error checking biometrics: $e');
+      debugPrint('Error checking biometrics: $e');
     }
   }
 
@@ -87,7 +87,7 @@ class CreatePasscodePage extends StatelessWidget {
           onPressed: () {
             _getController.savePassCode(_getController.enteredPasscode.value);
             _getController.saveBiometrics(false);
-            Get.offAll(() => SamplePage());
+            Get.offAll(() => const SamplePage());
           },
           child: TextSmall(text: 'yo‘q'.tr, color: AppColors.white, fontWeight: FontWeight.bold)
         )

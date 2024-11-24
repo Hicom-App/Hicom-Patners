@@ -32,17 +32,14 @@ class CatProductItem extends StatelessWidget{
                         child: FadeInImage(
                             image: NetworkImage(_getController.categoryProductsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
-                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
+                            imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 184.h, width: 180.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
                         )
                     ),
                     Positioned(
                         right: 12.w,
                         top: 10.h,
-                        child: InkWell(
-                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString()), isProduct: _getController.categoryProductsModel.value.result![index].favorite == 0 ? true : false, isFavorite: isFavorite).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)),
-                            child: Icon(_getController.categoryProductsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoryProductsModel.value.result![index].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)
-                        )
+                        child: InkWell(onTap: () => ApiController().addFavorites(int.parse(_getController.categoryProductsModel.value.result![index].id.toString()), isProduct: _getController.categoryProductsModel.value.result![index].favorite == 0 ? true : false, isFavorite: isFavorite).then((value) => _getController.updateCatProductsModel(index, _getController.categoryProductsModel.value.result![index].favorite == 0 ? 1 : 0)), child: Icon(_getController.categoryProductsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoryProductsModel.value.result![index].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
                     )
                   ]
               ),
@@ -60,11 +57,7 @@ class CatProductItem extends StatelessWidget{
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
                               TextSmall(
-                                text: '${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].rating != null)
-                                    ? _getController.categoryProductsModel.value.result![index].rating!.toStringAsFixed(1)
-                                    : '0'} * ${(_getController.productsModel.value.result != null && index < _getController.productsModel.value.result!.length && _getController.productsModel.value.result![index].reviews != null)
-                                    ? _getController.productsModel.value.result![index].reviews
-                                    : '0'} baxo',
+                                text: '${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].rating != null) ? _getController.categoryProductsModel.value.result![index].rating!.toStringAsFixed(1) : '0'} * ''${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].reviews != null) ? _getController.categoryProductsModel.value.result![index].reviews : '0'} baxo',
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w400,
                                 maxLines: 1,

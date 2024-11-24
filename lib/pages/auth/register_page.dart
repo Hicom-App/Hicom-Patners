@@ -78,7 +78,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                                     duration: const Duration(milliseconds: 1500),
-                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'name'.tr, controller: _getController.nameController, errorIndex: _getController.errorInput[0])
+                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Kiriting'.tr, controller: _getController.nameController, errorIndex: _getController.errorInput[0])
                                                                 )
                                                               ]
                                                           )
@@ -91,12 +91,12 @@ class LoginPageState extends State<RegisterPage> {
                                                           shakeDirection: Axis.horizontal,
                                                           child: Column(
                                                               children: [
-                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.013), child: TextSmall(text: 'surname'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
+                                                                Container(width: Get.width, margin: EdgeInsets.only(top: Get.height * 0.013), child: TextSmall(text: 'Familiya'.tr, color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp)),
                                                                 SizedBox(height: Get.height * 0.01),
                                                                 AnimatedOpacity(
                                                                     opacity: _getController.animateTextFields.value ? 1.0 : 1.0,
                                                                     duration: const Duration(milliseconds: 1500),
-                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Familiya'.tr, controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
+                                                                    child: TextFieldRegister(fillColor: AppColors.white, hint: 'Kiriting'.tr, controller: _getController.surNameController, errorIndex: _getController.errorInput[1])
                                                                 )
                                                               ]
                                                           )
@@ -235,9 +235,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                         height: 40.h,
                                                                         padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                                                         margin: EdgeInsets.only(top: Get.height * 0.01),
-                                                                        decoration: BoxDecoration(
-                                                                            border: _getController.errorInput[5] ? Border.all(color: AppColors.red) : null,
-                                                                            borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
+                                                                        decoration: BoxDecoration(border: _getController.errorInput[5] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(10.r), color: AppColors.white),
                                                                         child: Row(
                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                             crossAxisAlignment: CrossAxisAlignment.center,

@@ -77,7 +77,7 @@ class InstrumentComponents {
             })
     );
 
-  bottomSheetsCountries(BuildContext context,title,cat) => Get.bottomSheet(
+  bottomSheetsCountries(BuildContext context,title,cat, {me = false}) => Get.bottomSheet(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(10.0),left: Radius.circular(10.0))),
         enableDrag: true,
         isScrollControlled: true,
@@ -105,7 +105,7 @@ class InstrumentComponents {
                                             Get.back();
                                             cat == 0 ? _getController.changeDropDownItems(1, index) : cat == 1 ? _getController.changeDropDownItems(2, index) : _getController.changeDropDownItems(3, index);
                                             if (cat == 0) {
-                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!).then((value) {
+                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!, me: me).then((value) {
                                                 if (_getController.regionsModel.value.regions != null && _getController.regionsModel.value.regions!.isNotEmpty) {
                                                   ApiController().getCities(_getController.regionsModel.value.regions!.first.id!);
                                                 }
@@ -303,7 +303,7 @@ class InstrumentComponents {
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
       content: TextSmall(text: 'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?'.tr, color: AppColors.black, maxLines: 3),
       confirm: Container(
-          width: 130.w,
+          width: 120.w,
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
@@ -313,7 +313,7 @@ class InstrumentComponents {
             }, child: TextSmall(text: 'O‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       ),
       cancel: Container(
-          width: 130.w,
+          width: 120.w,
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
@@ -333,7 +333,7 @@ class InstrumentComponents {
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.blue, fontFamily: 'Schyler'),
       content: TextSmall(text: 'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.'.tr, color: AppColors.black, maxLines: 5),
       confirm: Container(
-          width: 130.w,
+          width: 120.w,
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
@@ -343,7 +343,7 @@ class InstrumentComponents {
             }, child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       ),
       cancel: Container(
-          width: 130.w,
+          width: 120.w,
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
@@ -514,32 +514,28 @@ class InstrumentComponents {
   void deleteCard(BuildContext context, int index) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
-      titlePadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w, bottom: 5.h),
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
       title: 'Kardani o‘chirish'.tr,
-      titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Schyler'),
-      content: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),
-      ),
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
+      content: Container(width: Get.width, padding: EdgeInsets.symmetric(horizontal: 15.w), child: TextSmall(text: 'Ushbu kartani o‘chirganingizdan so‘ng ushbu kartadan barcha translatsiyalarning ro‘yxati o‘chirmaydi'.tr, color: AppColors.black70, fontSize: 15.sp, maxLines: 100),),
       confirm: Container(
           width: 120.w,
           height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
           child: TextButton(
-              onPressed: () async {
-                ApiController().deleteCard(_getController.cardsModel.value.result![index].id!.toInt());
-              },
+              onPressed: () async => ApiController().deleteCard(_getController.cardsModel.value.result![index].id!.toInt()),
               child: TextSmall(text: 'O‘chirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
       ),
       cancel: Container(
           width: 120.w,
           height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
           child: TextButton(
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () => Get.back(),
             child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
       )

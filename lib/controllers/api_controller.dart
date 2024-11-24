@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
@@ -53,51 +54,69 @@ class ApiController extends GetxController {
   // Registratsiya
 
   Future<void> sendCodeRegister() async {
+    _getController.sendParam(false);
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/register'));
     request.fields['phone'] = _getController.code.value + _getController.phoneController.text;
     request.headers.addAll(header());
-    var response = await request.send();
-    if (response.statusCode == 200) {
-      var data = jsonDecode(await response.stream.bytesToString());
-      if (data['status'] == 0) {
-        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
-      } else if (data['status'] == 5) {
-        _getController.shakeKey[8].currentState?.shake();
-        InstrumentComponents().showToast('Ushbu telefon raqam ro‘yxatdan o‘tgan', color: AppColors.red, textColor: AppColors.white);
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        _getController.sendParam(true);
+        var data = jsonDecode(await response.stream.bytesToString());
+        if (data['status'] == 0) {
+          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+          _getController.startTimer();
+          Get.to(() => const VerifyPageNumber(isRegister: true), transition: Transition.fadeIn);
+        }
+        else if (data['status'] == 5) {
+          _getController.shakeKey[8].currentState?.shake();
+          InstrumentComponents().showToast('Ushbu telefon raqam ro‘yxatdan o‘tgan', color: AppColors.red, textColor: AppColors.white);
+        }
+        else {
+          _getController.shakeKey[8].currentState?.shake();
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        _getController.sendParam(true);
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-      else {
-        _getController.shakeKey[8].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      _getController.sendParam(true);
+      debugPrint('Xatolik: Serverga ulanishda muammo00');
     }
+
   }
 
   Future<void> sendCode() async {
+    _getController.sendParam(false);
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/login'));
     request.fields['phone'] = _getController.code.value + _getController.phoneController.text;
     request.fields['password'] = '';
     request.fields['restore'] = '0';
     request.headers.addAll(header());
-    var response = await request.send();
-    if (response.statusCode == 200) {
-      var data = jsonDecode(await response.stream.bytesToString());
-      if (data['status'] == 0) {
-        _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
-        _getController.startTimer();
-        Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
-      } else if (data['status'] == 3){
-        sendCodeRegister();
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        _getController.sendParam(true);
+        var data = jsonDecode(await response.stream.bytesToString());
+        if (data['status'] == 0) {
+          _getController.changeSendCodeModel(SendCodeModel.fromJson(data));
+          _getController.startTimer();
+          Get.to(() => const VerifyPageNumber(isRegister: false), transition: Transition.fadeIn);
+        } else if (data['status'] == 3){
+          sendCodeRegister();
+        }
+        else {
+          _getController.shakeKey[8].currentState?.shake();
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      } else {
+        _getController.sendParam(true);
+        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
-      else {
-        _getController.shakeKey[8].currentState?.shake();
-        debugPrint('Xatolik: ${data['message']}');
-      }
-    } else {
-      debugPrint('Xatolik: Serverga ulanishda muammo');
+    } catch (e) {
+      _getController.sendParam(true);
+      debugPrint('Xatolik: Serverga ulanishda muammo00');
     }
   }
 
@@ -140,7 +159,7 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getCountries() async {
+  Future<void> getCountries({bool me = false}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/place/countries'));
       if (response.statusCode == 200) {
@@ -148,7 +167,11 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.changeCountriesModel(CountriesModel.fromJson(data));
           debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
-          getRegions(_getController.countriesModel.value.countries!.first.id!);
+          if (me == false) {
+            getRegions(_getController.countriesModel.value.countries!.first.id!);
+          } else {
+            getRegions(_getController.profileInfoModel.value.result!.first.countryId!, me: true);
+          }
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -160,7 +183,7 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getRegions(int countryId) async {
+  Future<void> getRegions(int countryId, {bool? me = false}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
       debugPrint(response.body.toString());
@@ -169,7 +192,11 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.changeRegionsModel(CountriesModel.fromJson(data));
           debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
-          getCities(_getController.regionsModel.value.regions!.first.id!);
+          if (me == false) {
+            getCities(_getController.regionsModel.value.regions!.first.id!);
+          } else {
+            getCities(_getController.profileInfoModel.value.result!.first.regionId!);
+          }
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -364,6 +391,22 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> deleteImage() async {
+    try {
+      DefaultCacheManager().emptyCache().then((_) {
+        debugPrint('All cache cleared successfully');
+      }).catchError((e) {
+        debugPrint('Error clearing cache: $e');
+      });
+      final response = await http.delete(Uri.parse('$baseUrl/images/profiles?id=${_getController.profileInfoModel.value.result?.first.id}'), headers: headersBearer());
+      debugPrint(response.body.toString());
+      debugPrint(response.statusCode.toString());
+      ApiController().getCountries(me: true);
+    } catch (e) {
+      debugPrint('Xatolik: $e');
+    }
+  }
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
@@ -536,8 +579,8 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
-          _getController.changeIndex(3);
-          _getController.controllerConvex.animateTo(4);
+          _getController.changeIndex(2);
+          _getController.controllerConvex.animateTo(3);
         } else if (data['status'] == 9) {
           InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
         } else if (data['status'] == 8) {

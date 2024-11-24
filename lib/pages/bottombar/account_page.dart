@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
@@ -48,6 +48,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+   // ApiController().getProfile(isWorker: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -77,22 +78,24 @@ class _AccountPageState extends State<AccountPage> {
                                           filterQuality: FilterQuality.high,
                                           width: Get.width,
                                           fit: BoxFit.cover,
-                                          imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
+                                          cacheKey: 'front',
+                                          imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl.toString(),
                                           placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                          errorWidget: (context, url, error) => Image.asset('assets/images/avatar.png', fit: BoxFit.cover)
+                                          errorWidget: (context, url, error) {
+                                            print('Error loading image: $error');
+                                            DefaultCacheManager().removeFile('front').then((_) {
+                                              debugPrint('Cache cleared for key: avatar');
+                                            }).catchError((e) {
+                                              debugPrint('Error clearing cache for key avatar: $e');
+                                            });
+                                            return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
+                                          }
                                       )
                                     )
                                 )
                             )
                         ),
-                        Positioned(
-                            bottom: 0,
-                            child: Container(
-                                width: Get.width,
-                                height: Get.height * 0.1,
-                                decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)))
-                            )
-                        ),
+                        Positioned(bottom: 0, child: Container(width: Get.width, height: Get.height * 0.1, decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))))),
                         Positioned(
                             bottom: Get.height * 0.03,
                             width: Get.width,
@@ -120,9 +123,19 @@ class _AccountPageState extends State<AccountPage> {
                                                 borderRadius: BorderRadius.circular(500.r),
                                                 child: CachedNetworkImage(
                                                     filterQuality: FilterQuality.high,
+                                                    cacheKey: 'avatar',
                                                     imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
                                                     placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                                    errorWidget: (context, url, error) => Image.asset('assets/images/avatar.png', fit: BoxFit.cover)
+                                                    errorWidget: (context, url, error) {
+                                                      //clearCache();
+                                                      DefaultCacheManager().removeFile('avatar').then((_) {
+                                                        debugPrint('Cache cleared for key: avatar');
+                                                      }).catchError((e) {
+                                                        debugPrint('Error clearing cache for key avatar: $e');
+                                                      });
+                                                      debugPrint('Xatolik: $error');
+                                                      return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
+                                                    }
                                                 )
                                             )
                                         )

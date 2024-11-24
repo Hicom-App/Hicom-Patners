@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
@@ -9,6 +10,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:photo_view/photo_view.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
@@ -31,14 +33,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void initState() {
     super.initState();
+    _getController.ok.value = false;
     _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
     _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
     _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
 
-    ApiController().getRegions(int.parse(_getController.profileInfoModel.value.result!.first.countryId.toString()));
-    ApiController().getCities(int.parse(_getController.profileInfoModel.value.result!.first.regionId.toString()));
+    ApiController().getCountries(me: true);
     _getController.image.value = File('');
-    _getController.formattedDate.value = DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
+    _getController.formattedDate.value = DateFormat('dd.MM.yyyy').format(() {
+        final birthday = _getController.profileInfoModel.value.result!.first.birthday;
+        if (birthday == null || birthday.isEmpty) {return DateTime.now();}
+        final parsedBirthday = DateTime.parse(birthday);
+        return parsedBirthday.isAfter(DateTime(DateTime.now().year - 17, DateTime.now().month, DateTime.now().day)) ? parsedBirthday.subtract(const Duration(days: 18 * 365)) : parsedBirthday;}()
+    );
+
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
@@ -89,8 +97,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    //The following assertion was thrown building TextField(controller: TextEditingController#a3e2b(TextEditingValue(text: ┤Dilshodjon├, selection: TextSelection.invalid, composing: TextRange(start: -1, end: -1))), decoration: InputDecoration(hintText: "Ism", border: _NoInputBorder()), style: TextStyle(inherit: true, family: Schyler), textInputAction: next, dependencies: [DefaultSelectionStyle, InheritedCupertinoTheme, MediaQuery, UnmanagedRestorationScope, _InheritedTheme, _LocalizationsScope-[GlobalKey#1f963]], state: _TextFieldState#1ad9c):
+
     return Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+        backgroundColor: AppColors.white,
         body: CustomScrollView(
             controller: _scrollController,
             physics: const BouncingScrollPhysics(),
@@ -99,9 +110,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                   expandedHeight: fullImage ? 280.sp : 280.sp,
                   pinned: true,
                   elevation: 1,
-                  backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                  backgroundColor: AppColors.white,
                   surfaceTintColor: AppColors.white,
-                  shadowColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
+                  shadowColor: AppColors.white,
                   foregroundColor: AppColors.white,
                   leading: const SizedBox(),
                   flexibleSpace: LayoutBuilder(
@@ -147,7 +158,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 _getController.shakeKey[2].currentState?.shake();
                                                 _getController.changeErrorInput(2, true);
                                                 _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
-                                              } else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
+                                              }
+                                              else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))) {
+                                                _getController.shakeKey[2].currentState?.shake();
+                                                _getController.changeErrorInput(2, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                                              }
+                                              else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
                                                 _getController.shakeKey[5].currentState?.shake();
                                                 _getController.changeErrorInput(5, true);
                                                 _getController.tapTimes(() =>_getController.changeErrorInput(5, false),1);
@@ -164,28 +181,69 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       ]
                                   ),
                                   SizedBox(height: 15.h),
-                                  Container(
-                                      height: 150.w, width: 150.w,
-                                      decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
-                                      child: ClipOval(
-                                          /*child: FadeInImage(
-                                              image: _getController.image.value.path == ''
-                                                  ? NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13')
-                                                  : AssetImage(_getController.image.value.path),
-                                              placeholder: const AssetImage('assets/images/logo_back.png'),
-                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image:AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                              fit: BoxFit.cover
-                                          )*/
-                                        child: CachedNetworkImage(
-                                            filterQuality: FilterQuality.high,
-                                            imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
-                                            placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                            errorWidget: (context, url, error) => Image.asset('assets/images/avatar.png', fit: BoxFit.cover)
+                                  InkWell(
+                                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                    onTap: () {
+                                      if (_getController.ok.isTrue) return;
+                                      Get.to(() => Scaffold(
+                                          backgroundColor: Colors.transparent,
+                                          appBar: AppBar(
+                                            backgroundColor: Colors.transparent,
+                                            surfaceTintColor: Colors.transparent,
+                                            foregroundColor: Colors.transparent,
+                                            elevation: 0,
+                                            title: TextSmall(text: 'Rasm tanlash'.tr, color: Colors.black, fontWeight: FontWeight.bold),
+                                            leading: IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.arrow_left_bold, color: Colors.white, size: 30.sp)),
+                                            actions: [
+                                              IconButton(onPressed: () {
+                                                ApiController().deleteImage();
+                                                Get.back();
+                                                }, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))
+                                            ],
+                                          ),
+                                          body: SizedBox(
+                                            width: Get.width,
+                                            height: Get.height,
+                                            child: PhotoView(
+                                              filterQuality: FilterQuality.high,
+                                              minScale: PhotoViewComputedScale.contained * 0.8,
+                                              maxScale: PhotoViewComputedScale.covered * 1.8,
+                                              initialScale: PhotoViewComputedScale.contained,
+                                              basePosition: Alignment.center,
+                                              customSize: Size(Get.width, Get.height),
+                                              imageProvider: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl.toString()),
+                                            )
+                                          )
+                                      ), transition: Transition.rightToLeftWithFade);
+                                    },
+                                    child: Container(
+                                        height: 150.w, width: 150.w,
+                                        decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
+                                        child: ClipOval(
+                                            child: CachedNetworkImage(
+                                                filterQuality: FilterQuality.high,
+                                                cacheKey: 'avatar',
+                                                imageUrl:  _getController.image.value.path == '' ? _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13' : _getController.image.value.path,
+                                                placeholder: (context, url) => Image.asset(_getController.image.value.path == '' ? 'assets/images/logo_back.png' : _getController.image.value.path, fit: BoxFit.cover),
+                                                errorWidget: (context, url, error) {
+                                                  DefaultCacheManager().removeFile('avatar').then((_) {
+                                                    debugPrint('Cache cleared for key: avatar');
+                                                  }).catchError((e) {
+                                                    debugPrint('Error clearing cache for key avatar: $e');
+                                                  });
+                                                  _getController.ok.value = true;
+                                                  return  Image.asset(_getController.image.value.path == '' ? 'assets/images/avatar.png' : _getController.image.value.path, fit: BoxFit.cover);
+                                                }
+                                            )
                                         )
-                                      )
+                                    )
                                   ),
                                   SizedBox(height: 25.h),
-                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: 'Yangi rasm joylash'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
+                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(
+                                    text: _getController.ok.isFalse
+                                        ? 'Yangi rasm joylash'.tr
+                                        : 'Suratni o‘zgartirish'.tr,
+                                      color: AppColors.blue, fontWeight: FontWeight.w500))
                                 ]
                             )
                         );
@@ -248,7 +306,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDirection: Axis.horizontal,
                                   child: _buildListTile(title: _getController.dropDownItemsCountries.isNotEmpty ? _getController.dropDownItemsCountries[_getController.dropDownItems[1]].toString() : 'Mamlakat'.tr, onTap: () {
                                     if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
-                                    _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0);})
+                                    _getController.countriesModel.value.countries == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Mamlakat'.tr,0, me: true);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[5],
@@ -258,7 +316,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDirection: Axis.horizontal,
                                   child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, onTap: () {
                                     if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
-                                    _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1);})
+                                    _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1, me: true);})
                               ),
                               ShakeWidget(
                                   key: _getController.shakeKey[6],
@@ -268,7 +326,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeDirection: Axis.horizontal,
                                   child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, onTap: () {
                                     if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
-                                    _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2);})
+                                    _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2, me: true);})
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
@@ -293,6 +351,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
                                           onTap: () {
+                                            if (DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).isAfter(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))) {
+                                              _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).subtract(const Duration(days: 18 * 365)));
+                                            } else {
+                                              _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
+                                            }
                                             if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                             _getController.showCupertinoDatePicker(context);
                                           },

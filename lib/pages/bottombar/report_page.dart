@@ -61,7 +61,7 @@ class ReportPage extends StatelessWidget {
                                           child: Container(
                                               height: Get.height * 0.1,
                                               margin: EdgeInsets.only(right: 10.w),
-                                              padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                              padding: EdgeInsets.only(left: 15.w, right: 5.w),
                                               decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
                                               child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +94,7 @@ class ReportPage extends StatelessWidget {
                                           child: Container(
                                               height: Get.height * 0.1,
                                               margin: EdgeInsets.only(left: 10.w),
-                                              padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                              padding: EdgeInsets.only(left: 15.w, right: 5.w),
                                               decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r),topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
                                               child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +137,7 @@ class ReportPage extends StatelessWidget {
                                         child: Container(
                                             height: Get.height * 0.1,
                                             margin: EdgeInsets.only(right: 10.w),
-                                            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                            padding: EdgeInsets.only(left: 15.w, right: 5.w),
                                             decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
                                             child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +170,7 @@ class ReportPage extends StatelessWidget {
                                         child: Container(
                                             height: Get.height * 0.1,
                                             margin: EdgeInsets.only(left: 10.w),
-                                            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                                            padding: EdgeInsets.only(left: 15.w, right: 5.w),
                                             decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r), topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
                                             child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,7 +270,7 @@ class ReportPage extends StatelessWidget {
                                                                     margin: EdgeInsets.only(top: 3.h, right: 5.w),
                                                                     padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.green : AppColors.red),
-                                                                    child: TextSmall(text:transaction.operation == 0 ? 'Qabul qilindi': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
+                                                                    child: TextSmall(text:transaction.operation == 0 ? 'Hisoblangan': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
                                                                 )
                                                               ]
                                                           )

@@ -105,7 +105,9 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                                           textInputAction: TextInputAction.done,
                                                           onSubmitted: (_) {_focusNode.unfocus();},
                                                           flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
-                                                          onChanged: (phone) {if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
+                                                          onChanged: (phone) {
+                                                            _getController.sendParam(true);
+                                                            if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
                                                           onCountryChanged: (phone) {
                                                             _getController.code.value = '+${phone.fullCountryCode}';
                                                             _getController.countryCode.value = phone.regionCode;
@@ -136,14 +138,16 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                       height: 40.h,
                                       margin: EdgeInsets.only(bottom: Get.height * 0.06),
                                       child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
+                                          style: ElevatedButton.styleFrom(backgroundColor: _getController.send.value ? AppColors.blue : AppColors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                           onPressed: () {
-                                            if (_getController.phoneController.text.isNotEmpty) {
-                                              ApiController().sendCode();
-                                            } else {
-                                              _getController.changeErrorInput(0, true);
-                                              _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                              _getController.shakeKey[8].currentState?.shake();
+                                            if (_getController.send.value){
+                                              if (_getController.phoneController.text.isNotEmpty) {
+                                                ApiController().sendCode();
+                                              } else {
+                                                _getController.changeErrorInput(0, true);
+                                                _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
+                                                _getController.shakeKey[8].currentState?.shake();
+                                              }
                                             }
                                           },
                                           child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)

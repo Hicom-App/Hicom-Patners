@@ -24,11 +24,11 @@ main() async {
   Future<void> requestNotificationPermissions() async {
     NotificationSettings settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('Foydalanuvchi ruxsat berdi');
+      debugPrint('Foydalanuvchi ruxsat berdi');
     } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-      print('Foydalanuvchi vaqtinchalik ruxsat berdi');
+      debugPrint('Foydalanuvchi vaqtinchalik ruxsat berdi');
     } else {
-      print('Foydalanuvchi ruxsat bermadi');
+      debugPrint('Foydalanuvchi ruxsat bermadi');
     }
   }
 

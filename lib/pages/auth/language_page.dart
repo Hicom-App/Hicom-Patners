@@ -14,11 +14,11 @@ class LanguagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_getController.languageIndex.toString());
-   return Scaffold(
-       body: Scaffold(
-           body: SingleChildScrollView(
-               child: Container(
+    debugPrint(_getController.languageIndex.toString());
+    return Scaffold(
+        body: Scaffold(
+            body: SingleChildScrollView(
+                child: Container(
                    width: Get.width,
                    height: Get.height,
                    decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/fon.png'), fit: BoxFit.fitWidth)),

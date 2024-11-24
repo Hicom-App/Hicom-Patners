@@ -54,7 +54,9 @@ class GetController extends GetxController {
   RxString secondPasscode = ''.obs;
   RxBool isCreatingPasscode = true.obs;
   RxBool allComments = false.obs;
+  RxBool send = false.obs;
 
+  void sendParam(value)=> send.value = value;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
   var result = Rxn<Barcode>();
@@ -174,7 +176,7 @@ class GetController extends GetxController {
 
   @override
   void onInit() {
-    print('onInit');
+    debugPrint('onInit');
     getNotification();
     getBiometrics();
     _connectivity = Connectivity();
@@ -182,10 +184,6 @@ class GetController extends GetxController {
 
     connectivityStream.listen((List<ConnectivityResult> result) {
       connectionStatus.value = _getStatusMessage(result[0]);
-      for (int i = 0; i < result.length; i++) {
-        print('============================================================================================================');
-        print(result[i].toString());
-      }
       if (result[0] == ConnectivityResult.none) {
         Get.to(const NotConnection());
       }
@@ -217,6 +215,7 @@ class GetController extends GetxController {
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
 
   void logout() {
+    deletePassCode();
     GetStorage().erase();
     Get.delete<GetController>();
   }
@@ -251,7 +250,7 @@ class GetController extends GetxController {
       const oneSec = Duration(seconds: 1);
       _timer = Timer.periodic(
           oneSec, (timer) {
-            print(countdownDuration.value.inSeconds);
+            debugPrint(countdownDuration.value.inSeconds.toString());
             if (countdownDuration.value.inSeconds == 0) {
               timer.cancel();
             } else {
@@ -276,7 +275,7 @@ class GetController extends GetxController {
     if (_timer != null && _timer!.isActive) {
       stopTimer();
     }
-    countdownDuration.value = const Duration(minutes: 1, seconds: 59);
+    countdownDuration.value = const Duration(seconds: 5);
     startTimer();
   }
 
@@ -485,7 +484,7 @@ class GetController extends GetxController {
 
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
-    widgetOptions.add(AccountPage());
+    widgetOptions.add(const AccountPage());
     widgetOptions.add(GuaranteePage());
     widgetOptions.add(ReportPage());
   }
@@ -557,18 +556,16 @@ class GetController extends GetxController {
   void showCupertinoDatePicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return SizedBox(
-          height: 250,
-          child: CupertinoDatePicker(
-            initialDateTime: selectedDate.value,
-            minimumDate: DateTime(1900),
-            maximumDate: DateTime.now().add(const Duration(days: 365)),
-            onDateTimeChanged: (DateTime newDate) => updateSelectedDate(newDate),
-            mode: CupertinoDatePickerMode.date
-          )
-        );
-      }
+      builder: (context) => SizedBox(
+            height: 250,
+            child: CupertinoDatePicker(
+                initialDateTime: selectedDate.value,
+                minimumDate: DateTime(1900),
+                maximumYear: DateTime.now().year - 18,
+                onDateTimeChanged: (DateTime newDate) => updateSelectedDate(newDate),
+                mode: CupertinoDatePickerMode.date
+            )
+      )
     );
   }
 
@@ -694,7 +691,7 @@ class GetController extends GetxController {
     warrantyModel.value = warrantyModels;
     warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
     sortedWarrantyModel.value = convertToSortedWarrantyModel(warrantyModel.value);
-    print(sortedWarrantyModel.value.toJson());
+    debugPrint(sortedWarrantyModel.value.toJson().toString());
   }
 
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;

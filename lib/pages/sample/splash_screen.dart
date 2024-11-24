@@ -4,12 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/sample/sample_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import '../auth/language_page.dart';
-import '../auth/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -22,7 +20,7 @@ class SplashScreen extends StatelessWidget {
     //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
     //ApiController().login();
 
-    print('${_getController.token} ${_getController.phoneNumber}');
+    debugPrint('${_getController.token} ${_getController.phoneNumber}');
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
       ApiController().getProfile();
     } else {

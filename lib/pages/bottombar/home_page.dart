@@ -153,7 +153,7 @@ class HomePage extends StatelessWidget {
                                   SearchTextField(
                                       color: AppColors.grey.withOpacity(0.2),
                                       onChanged: (value) {
-                                        if (value.isEmpty || value == '') {
+                                        if (_getController.searchController.text.isEmpty) {
                                           _getController.searchController.clear();
                                           _getController.refreshController.refreshCompleted();
                                           _getController.clearCategoriesProductsModel();
@@ -247,7 +247,7 @@ class HomePage extends StatelessWidget {
                                         )
                                       ]
                                   ),
-                                if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                if (_getController.categoriesModel.value.result != null && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                   Column(
                                       children: [
                                         for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
