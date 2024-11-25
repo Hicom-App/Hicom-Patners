@@ -250,14 +250,15 @@ class HomePage extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      TextSmall(text: 'Barcha mahsulotlar'.tr, color: Theme.of(context).colorScheme.onSurface),
+                                                      TextSmall(text: 'Barcha mahsulotlar'.tr, color: AppColors.black),
                                                       const Spacer(),
                                                       TextButton(
                                                           onPressed: (){
                                                             _getController.searchController.clear();
                                                             Get.to(CategoryPage(index: 0, open: 2));
                                                           },
-                                                          child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                          child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
+                                                      )
                                                     ]
                                                 )
                                             )
