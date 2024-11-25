@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,11 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DefaultCacheManager().emptyCache().then((_) {
+      debugPrint('All cache cleared successfully');
+    }).catchError((e) {
+      debugPrint('Error clearing cache: $e');
+    });
     ApiController().postFcmToken();
     _getController.tapTimes(open,1);
     return Scaffold(

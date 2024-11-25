@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -189,10 +191,26 @@ class HomePage extends StatelessWidget {
                                                         SizedBox(
                                                             width: 40.w,
                                                             height: 38.w,
-                                                            child: FadeInImage(
+                                                            /*child: FadeInImage(
                                                                 image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
                                                                 placeholder: const AssetImage('assets/images/logo_back.png'),
                                                                 imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                                fit: BoxFit.contain
+                                                            )*/
+                                                            child: CachedNetworkImage(
+                                                                filterQuality: FilterQuality.high,
+                                                                cacheKey: _getController.categoriesModel.value.result![index].id.toString(),
+                                                                imageUrl: _getController.categoriesModel.value.result![index].photoUrl.toString(),
+                                                                placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                                                                errorWidget: (context, url, error) {
+                                                                  debugPrint('Xatolik: $url');
+                                                                  DefaultCacheManager().removeFile(_getController.categoriesModel.value.result![index].id.toString()).then((_) {
+                                                                    debugPrint('Cache cleared for key: avatar');
+                                                                  }).catchError((e) {
+                                                                    debugPrint('Error clearing cache for key avatar: $e');
+                                                                  });
+                                                                  return Image.asset('assets/images/logo_back.png', fit: BoxFit.cover);
+                                                                },
                                                                 fit: BoxFit.contain
                                                             )
                                                         ),
@@ -218,7 +236,6 @@ class HomePage extends StatelessWidget {
                                                 padding: EdgeInsets.only(left: 25.w, right: 15.w),
                                                 child: Row(
                                                     children: [
-                                                      //SizedBox(width: 25.w),
                                                       if (_getController.productsModel.value.result != null)
                                                         for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
                                                           InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index)),
@@ -328,10 +345,26 @@ class HomePage extends StatelessWidget {
                                                         SizedBox(
                                                             width: 40.w,
                                                             height: 38.w,
-                                                            child: FadeInImage(
+                                                            /*child: FadeInImage(
                                                                 image: NetworkImage(_getController.categoriesModel.value.result![index].photoUrl.toString(), headers: ApiController().headersBearer()),
                                                                 placeholder: const AssetImage('assets/images/logo_back.png'),
                                                                 imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)));},
+                                                                fit: BoxFit.contain
+                                                            )*/
+                                                            child: CachedNetworkImage(
+                                                                filterQuality: FilterQuality.high,
+                                                                cacheKey: _getController.categoriesModel.value.result![index].id.toString(),
+                                                                imageUrl: _getController.categoriesModel.value.result![index].photoUrl.toString(),
+                                                                placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                                                                errorWidget: (context, url, error) {
+                                                                  debugPrint('Xatolik: $url');
+                                                                  DefaultCacheManager().removeFile(_getController.categoriesModel.value.result![index].id.toString()).then((_) {
+                                                                    debugPrint('Cache cleared for key: avatar');
+                                                                  }).catchError((e) {
+                                                                    debugPrint('Error clearing cache for key avatar: $e');
+                                                                  });
+                                                                  return Image.asset('assets/images/logo_back.png', fit: BoxFit.cover);
+                                                                },
                                                                 fit: BoxFit.contain
                                                             )
                                                         ),

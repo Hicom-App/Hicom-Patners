@@ -233,7 +233,7 @@ class ApiController extends GetxController {
       debugPrint(response.statusCode.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
           if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
@@ -416,10 +416,10 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
-          debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
+          //debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
           getProducts(0);
         } else {
           debugPrint('Xatolik: ${data['message']}');

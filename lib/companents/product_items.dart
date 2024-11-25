@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../controllers/api_controller.dart';
@@ -30,11 +32,27 @@ class ProductItems extends StatelessWidget{
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                      child: FadeInImage(
+                      /*child: FadeInImage(
                         image: NetworkImage(_getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString()),
                         placeholder: const AssetImage('assets/images/logo_back.png'),
                         imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                         fit: BoxFit.cover
+                      )*/
+                      child: CachedNetworkImage(
+                          filterQuality: FilterQuality.high,
+                          cacheKey: _getController.categoriesProductsModel.value.all![index].result![i].id.toString(),
+                          imageUrl: _getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString(),
+                          placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                          errorWidget: (context, url, error) {
+                            debugPrint('Xatolik: $url');
+                            debugPrint('Xatolik: $error');
+                            DefaultCacheManager().removeFile(_getController.categoriesProductsModel.value.all![index].result![i].id.toString()).then((_) {
+                              debugPrint('Cache cleared for key: avatar');
+                            }).catchError((e) {
+                              debugPrint('Error clearing cache for key avatar: $e');
+                            });
+                            return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
+                          }
                       )
                     ),
                     Positioned(

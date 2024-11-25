@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/skletons/product_item_skeleton.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
@@ -31,11 +33,27 @@ class ProductItem extends StatelessWidget{
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                        child: FadeInImage(
+                        /*child: FadeInImage(
                             image: NetworkImage(_getController.productsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
                             imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
+                        )*/
+                        child: CachedNetworkImage(
+                            filterQuality: FilterQuality.high,
+                            cacheKey: _getController.productsModel.value.result![index].id.toString(),
+                            imageUrl: _getController.productsModel.value.result![index].photoUrl.toString(),
+                            placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+                            errorWidget: (context, url, error) {
+                              debugPrint('Xatolik: $url');
+                              debugPrint('Xatolik: $error');
+                              DefaultCacheManager().removeFile(_getController.productsModel.value.result![index].id.toString()).then((_) {
+                                debugPrint('Cache cleared for key: avatar');
+                              }).catchError((e) {
+                                debugPrint('Error clearing cache for key avatar: $e');
+                              });
+                              return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
+                            }
                         )
                     ),
                     Positioned(right: 12.w, top: 10.h, child: InkWell(onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateProductsModel(index, _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)), child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))
@@ -64,54 +82,7 @@ class ProductItem extends StatelessWidget{
         )
     )
         : const SizedBox()
-        : Skeletonizer(
-        child:Container(
-            height: 225.h,
-            width: 165.w,
-            margin: EdgeInsets.only(right: 15.w),
-            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 15.r, spreadRadius: 15.r, offset: const Offset(0, 0))]),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                            child: FadeInImage(
-                                image:  const AssetImage('assets/images/logo_back.png'),
-                                placeholder: const AssetImage('assets/images/logo_back.png'),
-                                imageErrorBuilder: (context, error, stackTrace) {
-                                  return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                fit: BoxFit.cover
-                            )
-                        ),
-                        Positioned(right: 12.w, top: 10.h, child: Icon(index == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: index == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20))
-                      ]
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(left: 13.w, right: 5.w),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextSmall(text: 'cat name', color: AppColors.black,fontWeight: FontWeight.bold, fontSize: 15.sp),
-                            TextSmall(text: 'HI-82E', color: AppColors.black70, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 12.sp),
-                            Row(
-                                children: [
-                                  SizedBox(width: 3.w),
-                                  Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
-                                  SizedBox(width: 5.w),
-                                  TextSmall(text: '${'100'} * ${'20'} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
-                                ]
-                            )
-                          ]
-                      )
-                  )
-                ]
-            )
-        )
-    );
+        : ProductItemSkeleton(index: index);
   }
 
 }

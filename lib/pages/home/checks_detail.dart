@@ -32,9 +32,9 @@ class ChecksDetail extends StatelessWidget{
         backgroundColor:  AppColors.white,
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.close, color:  AppColors.black), onPressed: () {Get.back();}),
-        actions: [
+        /*actions: [
           IconButton(icon: const Icon(Icons.download, color:  AppColors.black), onPressed: () {})
-        ]
+        ]*/
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -51,11 +51,7 @@ class ChecksDetail extends StatelessWidget{
             SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(15.w),
-              decoration: BoxDecoration(
-                color:  AppColors.white,
-                borderRadius: BorderRadius.circular(20.r),
-                boxShadow: const [BoxShadow(color:  AppColors.greys, spreadRadius: 2, blurRadius: 5)]
-              ),
+              decoration: BoxDecoration(color:  AppColors.white, borderRadius: BorderRadius.circular(20.r), boxShadow: const [BoxShadow(color:  AppColors.greys, spreadRadius: 2, blurRadius: 5)]),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
