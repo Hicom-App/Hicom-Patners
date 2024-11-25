@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -28,7 +26,7 @@ class CacheImage extends StatelessWidget {
           });
           return Image.asset('assets/images/logo_back.png', fit: BoxFit.cover);
         },
-        fit: BoxFit.contain
+        fit: fit
     );
   }
 }

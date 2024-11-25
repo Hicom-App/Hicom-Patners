@@ -69,7 +69,8 @@ class DetailPage extends StatelessWidget {
                                 width: Get.width,
                                 child: CacheImage(
                                     keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '',
-                                    url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : ''
+                                    url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : '',
+                                    fit: BoxFit.cover
                                 )
                             )
                         )

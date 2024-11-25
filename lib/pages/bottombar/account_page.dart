@@ -1,7 +1,5 @@
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
@@ -66,28 +64,7 @@ class _AccountPageState extends State<AccountPage> {
                         Positioned.fill(
                             child: Container(
                                 margin: EdgeInsets.only(bottom: Get.height * 0.03),
-                                child: ImageFiltered(
-                                    imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                                    child: ClipRRect(
-                                      child: CachedNetworkImage(
-                                          filterQuality: FilterQuality.high,
-                                          width: Get.width,
-                                          fit: BoxFit.cover,
-                                          cacheKey: 'front',
-                                          imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl.toString(),
-                                          placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                          errorWidget: (context, url, error) {
-                                            DefaultCacheManager().removeFile('front').then((_) {
-                                              debugPrint('Cache cleared for key: avatar');
-                                            }).catchError((e) {
-                                              debugPrint('Error clearing cache for key avatar: $e');
-                                            });
-                                            return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
-                                          }
-                                      )
-                                    )
-
-                                )
+                                child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: ClipRRect(child: SizedBox(width: Get.width, child: CacheImage(keys: 'front', url: _getController.profileInfoModel.value.result!.first.photoUrl.toString(), fit: BoxFit.cover))))
                             )
                         ),
                         Positioned(bottom: 0, child: Container(width: Get.width, height: Get.height * 0.1, decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))))),
@@ -112,16 +89,7 @@ class _AccountPageState extends State<AccountPage> {
                                     child: SizedBox(
                                         width: 130.w,
                                         height: 130.h,
-                                        child: Container(
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]),
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(500.r),
-                                                child: CacheImage(
-                                                    keys: 'avatar',
-                                                    url: _getController.profileInfoModel.value.result!.first.photoUrl ?? ''
-                                                )
-                                            )
-                                        )
+                                        child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '')))
                                     )
                                 )
                             )

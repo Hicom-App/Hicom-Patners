@@ -76,7 +76,7 @@ class ChecksDetail extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextSmall(text: 'Qabul qiluvchi'.tr,fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),
-                        TextSmall(text: _getController.getMaskedName(cardHolder.toString()),fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400)
+                        TextSmall(text: cardHolder.toString(),fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400)
                       ]
                   ),
                   Divider(thickness: 1, color: Colors.grey[300]),

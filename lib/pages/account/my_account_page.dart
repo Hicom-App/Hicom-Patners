@@ -174,6 +174,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 _getController.changeErrorInput(6, true);
                                                 _getController.tapTimes(() =>_getController.changeErrorInput(6, false),1);
                                               } else {
+                                                if (_getController.image.value.path != ''){
+                                                  ApiController().deleteImage();
+                                                }
                                                 ApiController().updateProfiles();
                                               }
                                               },
