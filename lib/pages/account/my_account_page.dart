@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/home/chashe_image.dart';
 import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -199,7 +200,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 ApiController().deleteImage();
                                                 Get.back();
                                                 }, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))
-                                            ],
+                                            ]
                                           ),
                                           body: SizedBox(
                                             width: Get.width,
@@ -220,20 +221,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         height: 150.w, width: 150.w,
                                         decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
                                         child: ClipOval(
-                                            child: CachedNetworkImage(
-                                                filterQuality: FilterQuality.high,
-                                                cacheKey: 'avatar',
-                                                imageUrl:  _getController.image.value.path == '' ? _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13' : _getController.image.value.path,
-                                                placeholder: (context, url) => Image.asset(_getController.image.value.path == '' ? 'assets/images/logo_back.png' : _getController.image.value.path, fit: BoxFit.cover),
-                                                errorWidget: (context, url, error) {
-                                                  DefaultCacheManager().removeFile('avatar').then((_) {
-                                                    debugPrint('Cache cleared for key: avatar');
-                                                  }).catchError((e) {
-                                                    debugPrint('Error clearing cache for key avatar: $e');
-                                                  });
-                                                  _getController.ok.value = true;
-                                                  return  Image.asset(_getController.image.value.path == '' ? 'assets/images/avatar.png' : _getController.image.value.path, fit: BoxFit.cover);
-                                                }
+                                            child: _getController.image.value.path == ''
+                                                ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '')
+                                                : Image.file(_getController.image.value, fit: BoxFit.cover
                                             )
                                         )
                                     )

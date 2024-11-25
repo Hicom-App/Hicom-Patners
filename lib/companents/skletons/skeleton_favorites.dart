@@ -57,7 +57,7 @@ class SkeletonFavorites extends StatelessWidget {
                                           SizedBox(width: 3.w),
                                           Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                                           SizedBox(width: 5.w),
-                                          TextSmall(text: '2.2 * 2122 baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                                          TextSmall(text: '2.2 * 2122 Baho', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                                         ]
                                     )
                                   ]

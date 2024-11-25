@@ -243,7 +243,7 @@ class ReportPage extends StatelessWidget {
                                                       Container(
                                                           width: Get.width,
                                                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                                                          child: TextSmall(text: transaction.operation == 0  ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Hisobga olish'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp)
+                                                          child: TextSmall(text: transaction.operation == 0  ? 'Keshbek'.tr : transaction.operation == 1 ? 'Bank kartalari'.tr : 'Bank kartalari'.tr, color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 13.sp)
                                                       ),
                                                       Container(
                                                           width: Get.width,
@@ -270,7 +270,7 @@ class ReportPage extends StatelessWidget {
                                                                     margin: EdgeInsets.only(top: 3.h, right: 5.w),
                                                                     padding: EdgeInsets.only(left: 15.w, right: 15.w),
                                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50.r), color:transaction.operation == 0 ? AppColors.blue : transaction.operation == 1 ? AppColors.primaryColor : transaction.operation == 2 ? AppColors.green : AppColors.red),
-                                                                    child: TextSmall(text:transaction.operation == 0 ? 'Hisoblangan': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘landi'.tr : 'Rad etildi'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
+                                                                    child: TextSmall(text:transaction.operation == 0 ? 'Hisoblangan': transaction.operation == 1 ? 'Jarayonda'.tr : transaction.operation == 2 ? 'To‘langan'.tr : 'Rad etilgan'.tr, color: AppColors.white, fontWeight: FontWeight.w400, fontSize: 10.sp)
                                                                 )
                                                               ]
                                                           )

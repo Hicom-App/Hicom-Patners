@@ -44,7 +44,7 @@ class ChecksDetail extends StatelessWidget{
             SizedBox(height: 20.h),
             Icon(operation == 0 ? TablerIcons.circle_plus_filled : operation == 1 ? TablerIcons.clock_filled : operation == 2 ? TablerIcons.circle_check_filled : TablerIcons.xbox_x_filled, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : operation == 2 ? AppColors.green : AppColors.blue, size: 80.sp),
             SizedBox(height: 10.h),
-            TextSmall(text: operation == 0 ? 'Hisoblangan'.tr : operation == 1 ? 'Jarayonda'.tr : operation == 2 ? 'Muvaffaqiyatli o‘tkazildi'.tr : 'Rad etildi'.tr, fontSize: 18.sp, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : AppColors.black, fontWeight: FontWeight.w500),
+            TextSmall(text: operation == 0 ? 'Hisoblangan'.tr : operation == 1 ? 'Jarayonda'.tr : operation == 2 ? 'Muvaffaqiyatli o‘tkazildi'.tr : 'Rad etilgan'.tr, fontSize: 18.sp, color: operation == 3 ? AppColors.red : operation == 1 ? AppColors.backgroundApp : AppColors.black, fontWeight: FontWeight.w500),
             SizedBox(height: 5.h),
             if (dateCreated.isNotEmpty)
               TextSmall(text: _getController.getDateFormat(dateCreated), fontSize: 14.sp, color:  AppColors.black, fontWeight: FontWeight.w400),

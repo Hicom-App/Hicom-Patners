@@ -9,6 +9,7 @@ import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
+import '../../companents/home/chashe_image.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/settings_page.dart';
@@ -67,12 +68,6 @@ class _AccountPageState extends State<AccountPage> {
                                 margin: EdgeInsets.only(bottom: Get.height * 0.03),
                                 child: ImageFiltered(
                                     imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                                    /*child: FadeInImage(
-                                        image: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
-                                        placeholder: const AssetImage('assets/images/logo_back.png'),
-                                        imageErrorBuilder: (context, error, stackTrace) => Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/avatar.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r)))),
-                                        fit: BoxFit.cover
-                                    )*/
                                     child: ClipRRect(
                                       child: CachedNetworkImage(
                                           filterQuality: FilterQuality.high,
@@ -82,7 +77,6 @@ class _AccountPageState extends State<AccountPage> {
                                           imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl.toString(),
                                           placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
                                           errorWidget: (context, url, error) {
-                                            print('Error loading image: $error');
                                             DefaultCacheManager().removeFile('front').then((_) {
                                               debugPrint('Cache cleared for key: avatar');
                                             }).catchError((e) {
@@ -92,6 +86,7 @@ class _AccountPageState extends State<AccountPage> {
                                           }
                                       )
                                     )
+
                                 )
                             )
                         ),
@@ -121,21 +116,9 @@ class _AccountPageState extends State<AccountPage> {
                                             decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]),
                                             child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(500.r),
-                                                child: CachedNetworkImage(
-                                                    filterQuality: FilterQuality.high,
-                                                    cacheKey: 'avatar',
-                                                    imageUrl: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13',
-                                                    placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                                                    errorWidget: (context, url, error) {
-                                                      //clearCache();
-                                                      DefaultCacheManager().removeFile('avatar').then((_) {
-                                                        debugPrint('Cache cleared for key: avatar');
-                                                      }).catchError((e) {
-                                                        debugPrint('Error clearing cache for key avatar: $e');
-                                                      });
-                                                      debugPrint('Xatolik: $error');
-                                                      return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
-                                                    }
+                                                child: CacheImage(
+                                                    keys: 'avatar',
+                                                    url: _getController.profileInfoModel.value.result!.first.photoUrl ?? ''
                                                 )
                                             )
                                         )

@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/skletons/product_item_skeleton.dart';
@@ -9,6 +7,7 @@ import 'package:hicom_patners/controllers/api_controller.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
+import 'home/chashe_image.dart';
 
 class ProductItem extends StatelessWidget{
   final int index;
@@ -39,21 +38,9 @@ class ProductItem extends StatelessWidget{
                             imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
                         )*/
-                        child: CachedNetworkImage(
-                            filterQuality: FilterQuality.high,
-                            cacheKey: _getController.productsModel.value.result![index].id.toString(),
-                            imageUrl: _getController.productsModel.value.result![index].photoUrl.toString(),
-                            placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                            errorWidget: (context, url, error) {
-                              debugPrint('Xatolik: $url');
-                              debugPrint('Xatolik: $error');
-                              DefaultCacheManager().removeFile(_getController.productsModel.value.result![index].id.toString()).then((_) {
-                                debugPrint('Cache cleared for key: avatar');
-                              }).catchError((e) {
-                                debugPrint('Error clearing cache for key avatar: $e');
-                              });
-                              return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
-                            }
+                        child: CacheImage(
+                          url: _getController.productsModel.value.result![index].photoUrl.toString(),
+                          keys:  _getController.productsModel.value.result![index].id.toString()
                         )
                     ),
                     Positioned(right: 12.w, top: 10.h, child: InkWell(onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateProductsModel(index, _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)), child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)))

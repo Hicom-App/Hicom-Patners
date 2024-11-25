@@ -6,6 +6,7 @@ import '../controllers/api_controller.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
+import 'home/chashe_image.dart';
 
 class CatProductItem extends StatelessWidget{
   final int index;
@@ -29,12 +30,16 @@ class CatProductItem extends StatelessWidget{
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                        child: FadeInImage(
+                        /*child: FadeInImage(
                             image: NetworkImage(_getController.categoryProductsModel.value.result![index].photoUrl.toString()),
                             placeholder: const AssetImage('assets/images/logo_back.png'),
                             imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 184.h, width: 180.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                             fit: BoxFit.cover
-                        )
+                        )*/
+                      child: CacheImage(
+                        keys: _getController.categoryProductsModel.value.result![index].id.toString(),
+                        url: _getController.categoryProductsModel.value.result![index].photoUrl.toString()
+                      )
                     ),
                     Positioned(
                         right: 12.w,
@@ -57,7 +62,7 @@ class CatProductItem extends StatelessWidget{
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
                               TextSmall(
-                                text: '${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].rating != null) ? _getController.categoryProductsModel.value.result![index].rating!.toStringAsFixed(1) : '0'} * ''${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].reviews != null) ? _getController.categoryProductsModel.value.result![index].reviews : '0'} baxo',
+                                text: '${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].rating != null) ? _getController.categoryProductsModel.value.result![index].rating!.toStringAsFixed(1) : '0'} * ''${(_getController.categoryProductsModel.value.result != null && index < _getController.categoryProductsModel.value.result!.length && _getController.categoryProductsModel.value.result![index].reviews != null) ? _getController.categoryProductsModel.value.result![index].reviews : '0'} ${'Baho'.tr}',
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w400,
                                 maxLines: 1,

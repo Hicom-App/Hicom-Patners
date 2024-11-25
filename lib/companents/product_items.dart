@@ -1,13 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../controllers/api_controller.dart';
 import '../controllers/get_controller.dart';
 import '../resource/colors.dart';
 import 'filds/text_small.dart';
+import 'home/chashe_image.dart';
 
 class ProductItems extends StatelessWidget{
   final int index;
@@ -38,21 +37,9 @@ class ProductItems extends StatelessWidget{
                         imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
                         fit: BoxFit.cover
                       )*/
-                      child: CachedNetworkImage(
-                          filterQuality: FilterQuality.high,
-                          cacheKey: _getController.categoriesProductsModel.value.all![index].result![i].id.toString(),
-                          imageUrl: _getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString(),
-                          placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-                          errorWidget: (context, url, error) {
-                            debugPrint('Xatolik: $url');
-                            debugPrint('Xatolik: $error');
-                            DefaultCacheManager().removeFile(_getController.categoriesProductsModel.value.all![index].result![i].id.toString()).then((_) {
-                              debugPrint('Cache cleared for key: avatar');
-                            }).catchError((e) {
-                              debugPrint('Error clearing cache for key avatar: $e');
-                            });
-                            return Image.asset('assets/images/avatar.png', fit: BoxFit.cover);
-                          }
+                      child: CacheImage(
+                          url: _getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString(),
+                          keys: _getController.categoriesProductsModel.value.all![index].result![i].id.toString()
                       )
                     ),
                     Positioned(
@@ -78,7 +65,7 @@ class ProductItems extends StatelessWidget{
                               SizedBox(width: 3.w),
                               Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                               SizedBox(width: 5.w),
-                              TextSmall(text: '${_getController.categoriesProductsModel.value.all![index].result![i].rating?.toStringAsFixed(1) ?? '0.0'} * ${_getController.categoriesProductsModel.value.all![index].result![i].reviews ?? '0'} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                              TextSmall(text: '${_getController.categoriesProductsModel.value.all![index].result![i].rating?.toStringAsFixed(1) ?? '0.0'} * ${_getController.categoriesProductsModel.value.all![index].result![i].reviews ?? '0'} ${'Baho'.tr}', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                             ]
                         )
                       ]

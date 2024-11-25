@@ -1,6 +1,7 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../resource/colors.dart';
@@ -50,7 +51,7 @@ class ProductItemSkeleton extends StatelessWidget {
                                   SizedBox(width: 3.w),
                                   Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp, size: 11.sp),
                                   SizedBox(width: 5.w),
-                                  TextSmall(text: '${'100'} * ${'20'} baxo', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
+                                  TextSmall(text: '${'100'} * ${'20'} ${'Baho'.tr}', color: Colors.black87, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 10.sp)
                                 ]
                             )
                           ]

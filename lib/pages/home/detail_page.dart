@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
+import '../../companents/home/chashe_image.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
@@ -63,7 +64,15 @@ class DetailPage extends StatelessWidget {
                                 ]*/
                             )
                         ),
-                        Expanded(child: SizedBox(width: Get.width, child: FadeInImage(image: _getController.productsModelDetail.value.result != null ? NetworkImage(_getController.productsModelDetail.value.result!.first.photoUrl.toString()) : const AssetImage('assets/images/logo_back.png'), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) => Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover))), fit: BoxFit.cover)))
+                        Expanded(
+                            child: SizedBox(
+                                width: Get.width,
+                                child: CacheImage(
+                                    keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '',
+                                    url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : ''
+                                )
+                            )
+                        )
                       ]
                   )
               ),
@@ -253,12 +262,14 @@ class DetailPage extends StatelessWidget {
                                         minRating: 0,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
+                                        ignoreGestures: true,
                                         itemCount: 5,
                                         itemSize: 12.sp,
                                         itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
                                         unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
                                         itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                                         onRatingUpdate: (double value) {},
+                                        glow: false,
                                       ),
                                       SizedBox(height: Get.height * 0.01),
                                       AnimatedSize(
