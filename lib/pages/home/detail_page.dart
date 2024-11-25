@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:intl/intl.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -65,13 +66,23 @@ class DetailPage extends StatelessWidget {
                             )
                         ),
                         Expanded(
-                            child: SizedBox(
-                                width: Get.width,
-                                child: CacheImage(
-                                    keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '',
-                                    url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : '',
-                                    fit: BoxFit.cover
-                                )
+                            child: InkWell(
+                                onTap: (){
+                                  if (_getController.productsModelDetail.value.result != null) {
+                                    Get.to(() => Scaffold(
+                                        backgroundColor: Colors.transparent,
+                                        body: PhotoView(
+                                          filterQuality: FilterQuality.high,
+                                          minScale: PhotoViewComputedScale.contained * 0.8,
+                                          maxScale: PhotoViewComputedScale.covered * 1.8,
+                                          initialScale: PhotoViewComputedScale.contained,
+                                          basePosition: Alignment.center,
+                                          imageProvider: NetworkImage(_getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : ''),
+                                        )
+                                    ), transition: Transition.fadeIn);
+                                  }
+                                },
+                                child: SizedBox(width: Get.width, child: CacheImage(keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '', url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : '', fit: BoxFit.cover))
                             )
                         )
                       ]
@@ -300,8 +311,7 @@ class DetailPage extends StatelessWidget {
               )
                 ]
             ))
-        ),
-        //bottomNavigationBar: BottomAppBar(height: 0, color: AppColors.white, elevation: 0, child: Container(height: 50.h))
+        )
     );
   }
 }

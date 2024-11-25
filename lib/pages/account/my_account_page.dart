@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
@@ -223,20 +221,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                     child: Container(
                                         height: 150.w, width: 150.w,
                                         decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
-                                        child: ClipOval(
-                                            child: _getController.image.value.path == ''
-                                                ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '')
-                                                : Image.file(_getController.image.value, fit: BoxFit.cover
-                                            )
-                                        )
+                                        child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '') : Image.file(_getController.image.value, fit: BoxFit.cover))
                                     )
                                   ),
                                   SizedBox(height: 25.h),
-                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(
-                                    text: _getController.ok.isFalse
-                                        ? 'Yangi rasm joylash'.tr
-                                        : 'Suratni o‘zgartirish'.tr,
-                                      color: AppColors.blue, fontWeight: FontWeight.w500))
+                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: _getController.ok.isFalse ? 'Yangi rasm joylash'.tr : 'Suratni o‘zgartirish'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
                                 ]
                             )
                         );
