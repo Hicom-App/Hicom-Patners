@@ -48,7 +48,6 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-   // ApiController().getProfile(isWorker: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -111,43 +110,37 @@ class _AccountPageState extends State<AccountPage> {
                 context: context,
                 icon: Icons.wallet,
                 title: 'Hamyon'.tr,
-                onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.fade),
+                onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.fade)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.bookmark,
                 title: 'Arxiv'.tr,
-                onTap: () => Get.to(() => ArxivPage(), transition: Transition.fadeIn),
+                onTap: () => Get.to(() => ArxivPage(), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.favorite,
                 title: 'Sevimlilar'.tr,
-                onTap: () => Get.to(() => CategoryPage(index: 0, open: 1), transition: Transition.fadeIn),
+                onTap: () => Get.to(() => CategoryPage(index: 0, open: 1), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.settings,
                 title: 'Sozlamalar'.tr,
-                onTap: () => Get.to(() => SettingsPage(), transition: Transition.fadeIn),
+                onTap: () => Get.to(() => SettingsPage(), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.help,
                 title: 'Yordam'.tr,
-                onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
+                onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info,
                 title: 'Batafsil'.tr,
-                onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
-              ),
-              _buildListTile(
-                context: context,
-                icon: Icons.info_outline,
-                title: 'Ilova haqida'.tr,
-                onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication),
+                onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_EN' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), mode: LaunchMode.externalApplication)
               ),
               _buildListTile(
                 context: context,

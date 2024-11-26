@@ -82,7 +82,7 @@ class DetailPage extends StatelessWidget {
                                     ), transition: Transition.fadeIn);
                                   }
                                 },
-                                child: SizedBox(width: Get.width, child: CacheImage(keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '', url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : '', fit: BoxFit.cover))
+                                child: SizedBox(width: Get.width, child: CacheImage(keys: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.id.toString() : '', url: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.photoUrl.toString() : ''))
                             )
                         )
                       ]

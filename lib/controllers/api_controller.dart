@@ -86,8 +86,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> sendCode() async {
-    print('phone${_getController.code.value}${_getController.phoneController.text}');
-    print('code${_getController.code.value}');
     _getController.sendParam(false);
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/login'));
     request.fields['phone'] = _getController.code.value + _getController.phoneController.text;
@@ -110,7 +108,6 @@ class ApiController extends GetxController {
         else {
           _getController.shakeKey[8].currentState?.shake();
           InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red, textColor: AppColors.white);
-          debugPrint('ok: ${data['message']}');
           debugPrint('Xatolik: ${data['message']}');
         }
       } else {
@@ -164,16 +161,12 @@ class ApiController extends GetxController {
   }
 
   Future<void> getCountries({bool me = false}) async {
-    print('suuu');
     final response = await http.get(Uri.parse('$baseUrl/place/countries'));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       debugPrint(response.statusCode.toString());
-      debugPrint(me.toString());
-      debugPrint(data['status'].toString());
       if (data['status'] == 0) {
         _getController.changeCountriesModel(CountriesModel.fromJson(data));
-        debugPrint('Davlatlar ro‘yxati: ${data['result']}');
         if (me == false) {
           getRegions(_getController.countriesModel.value.countries!.first.id != null ? _getController.countriesModel.value.countries!.first.id! : data['result'].first['id']);
         } else {
@@ -188,17 +181,12 @@ class ApiController extends GetxController {
   }
 
   Future<void> getRegions(int countryId, {bool? me = false}) async {
-    print('suuu1');
-    print(countryId);
     final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-    debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
         _getController.changeRegionsModel(CountriesModel.fromJson(data));
-        debugPrint('Viloyatlar ro‘yxati: ${data['result']}');
         if (me == false) {
-          //getCities(_getController.regionsModel.value.regions!.first.id!);
           getCities(_getController.regionsModel.value.regions![_getController.dropDownItems[2]].id != null ? _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id! : data['result'].first['id']);
         } else {
           getCities(_getController.profileInfoModel.value.result!.first.regionId!);
@@ -218,7 +206,6 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
         _getController.dropDownItemsCities.clear();
         _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
