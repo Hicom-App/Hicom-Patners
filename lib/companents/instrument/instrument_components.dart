@@ -105,16 +105,12 @@ class InstrumentComponents {
                                             Get.back();
                                             cat == 0 ? _getController.changeDropDownItems(1, index) : cat == 1 ? _getController.changeDropDownItems(2, index) : _getController.changeDropDownItems(3, index);
                                             if (cat == 0) {
-                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!, me: me).then((value) {
-                                                if (_getController.regionsModel.value.regions != null && _getController.regionsModel.value.regions!.isNotEmpty) {
-                                                  ApiController().getCities(_getController.regionsModel.value.regions!.first.id!);
-                                                }
-                                              });
-                                              _getController.clearRegionsModel();
+                                              ApiController().getRegions(_getController.countriesModel.value.countries![index].id!);
+                                              _getController.dropDownItemsCities.clear();
+                                              _getController.clearCitiesModel();
                                             }
                                             if (cat == 1) {
                                               ApiController().getCities(_getController.regionsModel.value.regions![index].id!);
-                                              _getController.clearCitiesModel();
                                             }
                                           });
                                         },
@@ -329,7 +325,7 @@ class InstrumentComponents {
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
       contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
-      title: 'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?'.tr,
+      title: 'Diqqat!'.tr,
       titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.blue, fontFamily: 'Schyler'),
       content: TextSmall(text: 'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.'.tr, color: AppColors.black, maxLines: 5),
       confirm: Container(
@@ -435,7 +431,7 @@ class InstrumentComponents {
               initialRating: _getController.productsModelDetail.value.result!= null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
               minRating: 0,
               direction: Axis.horizontal,
-              allowHalfRating: true,
+              allowHalfRating: false,
               itemCount: 5,
               itemSize: 25.sp,
               itemPadding: EdgeInsets.symmetric(horizontal: 5.sp),

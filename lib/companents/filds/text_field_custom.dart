@@ -23,33 +23,26 @@ class TextFieldCustom extends StatelessWidget {
     return Container(
       height: 52.sp,
       margin: EdgeInsets.only(right: 15.sp, left: 15.sp),
+      alignment: Alignment.center,
       decoration: BoxDecoration(border: Border.all(color: errorInput == true ? AppColors.red : AppColors.blackTransparent, width: 1), borderRadius: BorderRadius.circular(20.sp)),
       child: TextField(
-        controller: controller,
-        keyboardType: inputType ?? TextInputType.text,
-        textInputAction: isNext == true ? TextInputAction.next : TextInputAction.search,
-        onSubmitted: (isNext == true) ? (value) {Get.focusScope!.unfocus();} : null,
-        inputFormatters: (mack ?? false) ? [_getController.mackFormater] : [],
-        onChanged: (value) {
-          if (controller == _getController.cardNumberController) {
-            _getController.cardNumberText.value = value;
-            if (value.length == 19) {
-              Get.focusScope!.unfocus();
-            }
-          } else if (controller == _getController.nameController) {
-            _getController.cardNameText.value = value;
-          }
-        },
+          controller: controller,
+          keyboardType: inputType ?? TextInputType.text,
+          textInputAction: isNext == true ? TextInputAction.next : TextInputAction.search,
+          onSubmitted: (isNext == true) ? (value) {Get.focusScope!.unfocus();} : null,
+          inputFormatters: (mack ?? false) ? [_getController.mackFormater] : [],
           style: TextStyle(fontSize: 19.sp, fontFamily: 'Schyler', color: AppColors.black),
-          decoration: InputDecoration(
-              filled: true,
-              isDense: true,
-              border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20)),
-              fillColor: fillColor,
-              hintText: hint.tr,
-              hintStyle: TextStyle(color:AppColors.black.withOpacity(0.5), fontSize: 20.sp, fontFamily: 'Schyler'),
-              prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 18.sp)) : const SizedBox(height: 0, width: 0)
-          )
+          decoration: InputDecoration(filled: true, isDense: true, border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20)), fillColor: fillColor, hintText: hint.tr, hintStyle: TextStyle(color:AppColors.black.withOpacity(0.5), fontSize: 19.sp, fontFamily: 'Schyler'), prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 18.sp)) : const SizedBox(height: 0, width: 0)),
+          onChanged: (value) {
+    if (controller == _getController.cardNumberController) {
+    _getController.cardNumberText.value = value;
+    if (value.length == 19) {
+    Get.focusScope!.unfocus();
+    }
+    } else if (controller == _getController.nameController) {
+    _getController.cardNameText.value = value;
+    }
+    }
       )
     );
   }

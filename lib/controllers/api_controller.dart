@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/auth/login_page.dart';
 import 'package:hicom_patners/pages/auth/register_page.dart';
-import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/auth/countries_model.dart';
@@ -88,6 +86,8 @@ class ApiController extends GetxController {
   }
 
   Future<void> sendCode() async {
+    print('phone${_getController.code.value}${_getController.phoneController.text}');
+    print('code${_getController.code.value}');
     _getController.sendParam(false);
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/login'));
     request.fields['phone'] = _getController.code.value + _getController.phoneController.text;
@@ -96,7 +96,8 @@ class ApiController extends GetxController {
     request.headers.addAll(header());
     try {
       var response = await request.send();
-      if (response.statusCode == 200) {
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode == 200 || response.statusCode == 201) {
         _getController.sendParam(true);
         var data = jsonDecode(await response.stream.bytesToString());
         if (data['status'] == 0) {
@@ -108,6 +109,8 @@ class ApiController extends GetxController {
         }
         else {
           _getController.shakeKey[8].currentState?.shake();
+          InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red, textColor: AppColors.white);
+          debugPrint('ok: ${data['message']}');
           debugPrint('Xatolik: ${data['message']}');
         }
       } else {
@@ -140,8 +143,9 @@ class ApiController extends GetxController {
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
           if (isRegister) {
+            _getController.stopTimer();
             getCountries();
-            _getController.updateSelectedDate(DateTime.now());
+            _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
             Get.to(() => const RegisterPage());
           } else {
             getProfile();
@@ -160,70 +164,70 @@ class ApiController extends GetxController {
   }
 
   Future<void> getCountries({bool me = false}) async {
-    try {
-      final response = await http.get(Uri.parse('$baseUrl/place/countries'));
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          _getController.changeCountriesModel(CountriesModel.fromJson(data));
-          debugPrint('Davlatlar ro‘yxati: ${data['countries']}');
-          if (me == false) {
-            getRegions(_getController.countriesModel.value.countries!.first.id!);
-          } else {
-            getRegions(_getController.profileInfoModel.value.result!.first.countryId!, me: true);
-          }
+    print('suuu');
+    final response = await http.get(Uri.parse('$baseUrl/place/countries'));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      debugPrint(response.statusCode.toString());
+      debugPrint(me.toString());
+      debugPrint(data['status'].toString());
+      if (data['status'] == 0) {
+        _getController.changeCountriesModel(CountriesModel.fromJson(data));
+        debugPrint('Davlatlar ro‘yxati: ${data['result']}');
+        if (me == false) {
+          getRegions(_getController.countriesModel.value.countries!.first.id != null ? _getController.countriesModel.value.countries!.first.id! : data['result'].first['id']);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          getRegions(_getController.profileInfoModel.value.result!.first.countryId!, me: true);
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik countries 1: ${data['message']}');
       }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
+    } else {
+      debugPrint('Xatolik countries 2: Serverga ulanishda muammo');
     }
   }
 
   Future<void> getRegions(int countryId, {bool? me = false}) async {
-    try {
-      final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-      debugPrint(response.body.toString());
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          _getController.changeRegionsModel(CountriesModel.fromJson(data));
-          debugPrint('Viloyatlar ro‘yxati: ${data['regions']}');
-          if (me == false) {
-            getCities(_getController.regionsModel.value.regions!.first.id!);
-          } else {
-            getCities(_getController.profileInfoModel.value.result!.first.regionId!);
-          }
+    print('suuu1');
+    print(countryId);
+    final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        _getController.changeRegionsModel(CountriesModel.fromJson(data));
+        debugPrint('Viloyatlar ro‘yxati: ${data['result']}');
+        if (me == false) {
+          //getCities(_getController.regionsModel.value.regions!.first.id!);
+          getCities(_getController.regionsModel.value.regions![_getController.dropDownItems[2]].id != null ? _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id! : data['result'].first['id']);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          getCities(_getController.profileInfoModel.value.result!.first.regionId!);
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        _getController.clearRegionsModel();
+        debugPrint('Xatolik region 1: ${data['message']}');
       }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
+    } else {
+      _getController.clearRegionsModel();
+      debugPrint('Xatolik region 2: Serverga ulanishda muammo');
     }
   }
 
   Future<void> getCities(int regionId) async {
-    try {
-      final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        if (data['status'] == 0) {
-          debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
-          _getController.changeCitiesModel(CountriesModel.fromJson(data));
-        } else {
-          debugPrint('Xatolik: ${data['message']}');
-        }
+    final response = await http.get(Uri.parse('$baseUrl/place/cities?region_id=$regionId'));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        debugPrint('Shaharlar ro‘yxati: ${data['cities']}');
+        _getController.dropDownItemsCities.clear();
+        _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        _getController.clearCitiesModel();
+        debugPrint('Xatolik cities 1: ${data['message']}');
       }
-    } catch (e) {
-      debugPrint('Xatolik: $e');
+    } else {
+      _getController.clearCitiesModel();
+      debugPrint('Xatolik cities 2: Serverga ulanishda muammo');
     }
   }
 
@@ -238,9 +242,10 @@ class ApiController extends GetxController {
           _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
           if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
             getCountries();
-            _getController.updateSelectedDate(DateTime.now());
+            _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
             Get.to(() => const RegisterPage());
           } else if (isWorker) {
+            getCountries(me: true);
             Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
           }
         }
@@ -294,10 +299,9 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.clearSendCodeModel();
           getProfile(isWorker: false);
-          Get.back();
+          getCountries(me: true);
         } else if (data['status'] == 1) {
-          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
-
+          InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -329,12 +333,11 @@ class ApiController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(responseBody);
         if (data['status'] == 0) {
-          getCountries();
+          getCountries(me: true);
           getProfile(isWorker: true);
           Get.back();
         } else if (data['status'] == 1) {
-          Get.offAll(() => SplashScreen(), transition: Transition.fadeIn);
-
+          InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -393,15 +396,9 @@ class ApiController extends GetxController {
 
   Future<void> deleteImage() async {
     try {
-      DefaultCacheManager().emptyCache().then((_) {
-        debugPrint('All cache cleared successfully');
-      }).catchError((e) {
-        debugPrint('Error clearing cache: $e');
-      });
       final response = await http.delete(Uri.parse('$baseUrl/images/profiles?id=${_getController.profileInfoModel.value.result?.first.id}'), headers: headersBearer());
       debugPrint(response.body.toString());
       debugPrint(response.statusCode.toString());
-      ApiController().getCountries(me: true);
     } catch (e) {
       debugPrint('Xatolik: $e');
     }

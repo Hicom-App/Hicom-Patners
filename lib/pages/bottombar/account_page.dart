@@ -31,6 +31,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     super.initState();
+    ApiController().getProfile(isWorker: false);
     _scrollController.addListener(() {
       setState(() {
         _imageHeight = 0.28 - (_scrollController.offset / 1000);
@@ -61,12 +62,7 @@ class _AccountPageState extends State<AccountPage> {
                   width: Get.width,
                   child: Stack(
                       children: [
-                        Positioned.fill(
-                            child: Container(
-                                margin: EdgeInsets.only(bottom: Get.height * 0.03),
-                                child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: ClipRRect(child: SizedBox(width: Get.width, child: CacheImage(keys: 'front', url: _getController.profileInfoModel.value.result!.first.photoUrl.toString(), fit: BoxFit.cover))))
-                            )
-                        ),
+                        Positioned.fill(child: Container(margin: EdgeInsets.only(bottom: Get.height * 0.03), child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: ClipRRect(child: SizedBox(width: Get.width, child: CacheImage(keys: 'front', url: _getController.profileInfoModel.value.result!.first.photoUrl.toString(), fit: BoxFit.cover)))))),
                         Positioned(bottom: 0, child: Container(width: Get.width, height: Get.height * 0.1, decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))))),
                         Positioned(
                             bottom: Get.height * 0.03,
@@ -86,11 +82,7 @@ class _AccountPageState extends State<AccountPage> {
                                           )
                                       ), transition: Transition.fadeIn);
                                     },
-                                    child: SizedBox(
-                                        width: 130.w,
-                                        height: 130.h,
-                                        child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '')))
-                                    )
+                                    child: SizedBox(width: 130.w, height: 130.h, child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? ''))))
                                 )
                             )
                         )
@@ -111,7 +103,7 @@ class _AccountPageState extends State<AccountPage> {
                   icon: Icons.person,
                   title: 'Hisobim'.tr,
                   onTap: () {
-                    ApiController().getCountries();
+                    ApiController().getCountries(me: true);
                     Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);
                   }
               ),

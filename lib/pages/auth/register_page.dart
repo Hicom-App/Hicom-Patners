@@ -167,14 +167,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                                                       children: [
                                                                                         const Icon(Icons.keyboard_arrow_down, color: AppColors.black),
-                                                                                        TextSmall(
-                                                                                          //text: _getController.dropDownItems[2], // Use .value to access the DateTime
-                                                                                            text: _getController.dropDownItem[_getController.dropDownItems[0]].toString(),
-                                                                                            color: AppColors.black,
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                            maxLines: 3,
-                                                                                            fontSize: 13.sp
-                                                                                        )
+                                                                                        TextSmall(text: _getController.dropDownItem[_getController.dropDownItems[0]].toString(), color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3, fontSize: 13.sp)
                                                                                       ]
                                                                                   )
                                                                               )

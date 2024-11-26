@@ -89,6 +89,7 @@ class LocaleString extends Translations{
       'Yangi rasm joylash':'Yangi rasm joylash',
       'Suratni o‘zgartirish':'Suratni o‘zgartirish',
       'Tug‘ilgan sana':'Tug‘ilgan sana',
+      'Yoshingiz 18 dan kichik bo‘lmasligi kerak':'Yoshingiz 18 dan kichik bo‘lmasligi kerak',
 
       //transfer page
       'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
@@ -194,7 +195,7 @@ class LocaleString extends Translations{
       'O‘chirish':'O‘chirish',
       'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?':'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?',
       'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?':'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?',
-      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.':'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.':'Ushbu mahsulotni arxivga ko‘chirmoqchimisiz?',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan':'Ushbu telefon raqam ro‘yxatdan o‘tgan',
@@ -313,6 +314,7 @@ class LocaleString extends Translations{
       'Yangi rasm joylash':'Upload new image',
       'Suratni o‘zgartirish': 'Change photo',
       'Tug‘ilgan sana':'Date of birth',
+      'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Your age must not be less than 18',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Transfers to card',
@@ -418,7 +420,7 @@ class LocaleString extends Translations{
       'O‘chirish': 'Delete',
       'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Do you want to delete the guaranteed product?',
       'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Are you sure you want to archive this item?',
-      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Archived items will be moved to the "Archive" section on your personal page.',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Do you want to archive this product?',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'This phone number is already registered',
@@ -538,6 +540,7 @@ class LocaleString extends Translations{
       'Yangi rasm joylash':'Добавить изображение',
       'Suratni o‘zgartirish': 'Изменить фото',
       'Tug‘ilgan sana':'Дата рождения',
+      'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ваш возраст не должен быть меньше 18',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Переводы на карту',
@@ -644,7 +647,7 @@ class LocaleString extends Translations{
       'O‘chirish': 'Удалить',
       'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Вы хотите удалить гарантированный продукт?',
       'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Вы уверены, что хотите архивировать этот товар?',
-      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Архивированные товары будут перемещены в раздел "Архив" на вашей личной странице.',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Хотите ли вы переместить данный товар в архив?',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Этот номер телефона уже зарегистрирован',
@@ -764,6 +767,7 @@ class LocaleString extends Translations{
       'Yangi rasm joylash':'Янги расм жойлаш',
       'Suratni o‘zgartirish': 'Суратни ўзгартириш',
       'Tug‘ilgan sana':'Туғилган сана',
+      'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ёшингиз 18 дан кичик бўлмаслиги керак',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Картага ўтказмалар',
@@ -869,7 +873,7 @@ class LocaleString extends Translations{
       'O‘chirish': 'Ўчириш',
       'Kafolatlangan mahsulotni o‘chirishni xohlaysizmi?': 'Кафолатланган маҳсулотни ўчиришни хоҳлайсизми?',
       'Siz ushbu tovarni arxivlashga ishonchingiz komilmi?': 'Сиз ушбу товарни архивлашга ишончингиз комилми?',
-      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Архивланган товарлар сизнинг шахсий саҳифангиздаги "Архив" бўлимига ўтказилади.',
+      'Arxivlangan tovarlar sizning shaxsiy sahifangizdagi "Arxiv" bo‘limiga o‘tkaziladi.': 'Ушбу маҳсулотни архивга кўчирмоқчимисиз?',
 
       //Api Controller
       'Ushbu telefon raqam ro‘yxatdan o‘tgan': 'Ушбу телефон рақам рўйхатдан ўтган',

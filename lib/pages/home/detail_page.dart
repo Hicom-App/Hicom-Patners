@@ -237,7 +237,7 @@ class DetailPage extends StatelessWidget {
                             initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
                             minRating: 0,
                             direction: Axis.horizontal,
-                            allowHalfRating: true,
+                            allowHalfRating: false,
                             itemCount: 5,
                             itemSize: 20.sp,
                             itemPadding:
@@ -284,6 +284,7 @@ class DetailPage extends StatelessWidget {
                                         glow: false,
                                       ),
                                       SizedBox(height: Get.height * 0.01),
+                                      if (_getController.reviewsModel.value.result![index].review != null && _getController.reviewsModel.value.result![index].review!.isNotEmpty)
                                       AnimatedSize(
                                           duration: const Duration(milliseconds: 300),
                                           curve: Curves.easeInOut,

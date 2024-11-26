@@ -107,7 +107,10 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                                           flagsButtonPadding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01),
                                                           onChanged: (phone) {
                                                             _getController.sendParam(true);
-                                                            if (phone.countryISOCode != 'uz') {_getController.countryCode.value = phone.countryISOCode;}},
+                                                            if (phone.countryISOCode != 'uz') {
+                                                              _getController.countryCode.value = phone.countryISOCode;
+                                                            }
+                                                          },
                                                           onCountryChanged: (phone) {
                                                             _getController.code.value = '+${phone.fullCountryCode}';
                                                             _getController.countryCode.value = phone.regionCode;

@@ -33,19 +33,12 @@ class _MyAccountPageState extends State<MyAccountPage> {
   void initState() {
     super.initState();
     _getController.ok.value = false;
-    _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName!;
-    _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName!;
-    _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address!;
+    _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName ?? '';
+    _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName ?? '';
+    _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address ?? '';
 
-    ApiController().getCountries(me: true);
     _getController.image.value = File('');
-    _getController.formattedDate.value = DateFormat('dd.MM.yyyy').format(() {
-        final birthday = _getController.profileInfoModel.value.result!.first.birthday;
-        if (birthday == null || birthday.isEmpty) {return DateTime.now();}
-        final parsedBirthday = DateTime.parse(birthday);
-        return parsedBirthday.isAfter(DateTime(DateTime.now().year - 17, DateTime.now().month, DateTime.now().day)) ? parsedBirthday.subtract(const Duration(days: 18 * 365)) : parsedBirthday;}()
-    );
-
+    _getController.formattedDate.value = _getController.profileInfoModel.value.result!.first.birthday == null || _getController.profileInfoModel.value.result!.first.birthday!.isEmpty ? '01.01.2000': DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).year > DateTime.now().year -18 ? DateFormat('dd.MM.yyyy').format(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))  : DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
@@ -62,6 +55,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+
     super.dispose();
   }
 
@@ -96,9 +90,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    //The following assertion was thrown building TextField(controller: TextEditingController#a3e2b(TextEditingValue(text: ┤Dilshodjon├, selection: TextSelection.invalid, composing: TextRange(start: -1, end: -1))), decoration: InputDecoration(hintText: "Ism", border: _NoInputBorder()), style: TextStyle(inherit: true, family: Schyler), textInputAction: next, dependencies: [DefaultSelectionStyle, InheritedCupertinoTheme, MediaQuery, UnmanagedRestorationScope, _InheritedTheme, _LocalizationsScope-[GlobalKey#1f963]], state: _TextFieldState#1ad9c):
-
     return Scaffold(
         backgroundColor: AppColors.white,
         body: CustomScrollView(
@@ -158,10 +149,11 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 _getController.changeErrorInput(2, true);
                                                 _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
                                               }
-                                              else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))) {
+                                              else if (_getController.formattedDate.value.isNotEmpty && DateTime.now().year - DateFormat('dd.MM.yyyy').parse(_getController.formattedDate.value).year < 18) {
                                                 _getController.shakeKey[2].currentState?.shake();
                                                 _getController.changeErrorInput(2, true);
                                                 _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                                                InstrumentComponents().showToast('Yoshingiz 18 dan kichik bo‘lmasligi kerak'.tr, color: AppColors.red);
                                               }
                                               else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
                                                 _getController.shakeKey[5].currentState?.shake();
@@ -175,6 +167,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 if (_getController.image.value.path != ''){
                                                   ApiController().deleteImage();
                                                 }
+                                                Get.back();
                                                 ApiController().updateProfiles();
                                               }
                                               },
@@ -220,7 +213,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                     },
                                     child: Container(
                                         height: 150.w, width: 150.w,
-                                        decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.white,
+                                            boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
                                         child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '') : Image.file(_getController.image.value, fit: BoxFit.cover))
                                     )
                                   ),
@@ -296,19 +292,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString() : 'Viloyatingizni Tanlang'.tr, onTap: () {
+                                  child: _buildListTile(title:  _getController.dropDownItemsRegions.isNotEmpty ? _getController.dropDownItemsRegions.length > _getController.dropDownItems[2] ? _getController.dropDownItemsRegions[_getController.dropDownItems[2]].toString(): 'Viloyatingizni Tanlang'.tr : 'Viloyatingizni Tanlang'.tr, onTap: () {
                                     if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                     _getController.regionsModel.value.regions == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Viloyat'.tr,1, me: true);})
                               ),
+                              // _getController.dropDownItemsCities[_getController.dropDownItems[3]]
                               ShakeWidget(
                                   key: _getController.shakeKey[6],
                                   shakeOffset: 5,
                                   shakeCount: 15,
                                   shakeDuration: const Duration(milliseconds: 500),
                                   shakeDirection: Axis.horizontal,
-                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr, onTap: () {
+                                  child: _buildListTile(title: _getController.dropDownItemsCities.isNotEmpty ?_getController.dropDownItemsCities.length > _getController.dropDownItems[3] ? _getController.dropDownItemsCities[_getController.dropDownItems[3]].toString() : 'Shaharingizni Tanlang'.tr  : 'Shaharingizni Tanlang'.tr, onTap: () {
                                     if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
-                                    _getController.citiesModel.value.cities == null ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2, me: true);})
+                                    _getController.citiesModel.value.cities == null || _getController.citiesModel.value.cities!.isEmpty ? null : InstrumentComponents().bottomSheetsCountries(context,'Shahar'.tr,2, me: true);})
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10.h),
@@ -333,11 +330,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
                                           onTap: () {
-                                            if (DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).isAfter(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))) {
-                                              _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).subtract(const Duration(days: 18 * 365)));
-                                            } else {
-                                              _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
+                                            if (DateFormat('dd.MM.yyyy').format(DateTime.now()).compareTo(_getController.formattedDate.value) < 0) {
+                                              _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
                                             }
+                                            _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
                                             if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                             _getController.showCupertinoDatePicker(context);
                                           },

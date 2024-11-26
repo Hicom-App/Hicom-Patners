@@ -147,7 +147,7 @@ class GetController extends GetxController {
     }
   }
 
-  String getDateFormat(String timeStamp) {
+  /*String getDateFormat(String timeStamp) {
     if (timeStamp.isEmpty) return '';
     var date = DateTime.parse(timeStamp);
     if (date.day == DateTime.now().day && date.year == DateTime.now().year) {
@@ -156,6 +156,35 @@ class GetController extends GetxController {
       return 'Kecha'.tr;
     } else {
       return '${date.day} ${getMonth(DateFormat('MMM').format(date))} ${date.year}';
+    }
+  }*/
+
+  String getDateFormat(String timeStamp) {
+    try {
+      if (timeStamp.isEmpty) return '';
+
+      DateTime date;
+
+      // `timeStamp`ni parse qilishga urinish
+      try {
+        date = DateTime.parse(timeStamp);
+      } catch (_) {
+        // Agar noto'g'ri format bo'lsa, `dd.MM.yyyy` sifatida parse qilish
+        date = DateFormat('dd.MM.yyyy').parse(timeStamp);
+      }
+
+      var now = DateTime.now();
+      var yesterday = now.subtract(Duration(days: 1));
+
+      if (date.year == now.year && date.month == now.month && date.day == now.day) {
+        return 'Bugun'.tr; // Bugungi sana
+      } else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+        return 'Kecha'.tr; // Kechagi sana
+      } else {
+        return '${date.day} ${getMonth(DateFormat('MMM').format(date))} ${date.year}';
+      }
+    } catch (e) {
+      return ''; // Xatolik bo'lsa bo'sh qiymat qaytariladi
     }
   }
 
@@ -166,7 +195,7 @@ class GetController extends GetxController {
   @override
   void onClose() {
     controller?.dispose();
-    nameController.dispose();
+    stopTimer();
     super.onClose();
   }
 
@@ -215,6 +244,8 @@ class GetController extends GetxController {
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
 
   void logout() {
+    clearProfileInfoModel();
+    clearControllers();
     deletePassCode();
     GetStorage().erase();
     Get.delete<GetController>();
@@ -261,7 +292,8 @@ class GetController extends GetxController {
     }
   }
 
-  void stopTimer() => _timer!.cancel();
+  //void stopTimer() => _timer!.cancel();
+  void stopTimer() => _timer?.cancel();
 
   void stopTimerTap() => _timerTap!.cancel();
 
@@ -293,10 +325,15 @@ class GetController extends GetxController {
   final TextEditingController paymentController = TextEditingController();
 
   void clearControllers() {
+    cardNumberController.clear();
     nameController.clear();
-    phoneController.clear();
+    surNameController.clear();
+    streetController.clear();
     codeController.clear();
     passwordProjectController.clear();
+    verifyCodeControllers.clear();
+    paymentController.clear();
+    phoneController.clear();
   }
 
   late TabController tabController;
@@ -559,7 +596,7 @@ class GetController extends GetxController {
       builder: (context) => SizedBox(
             height: 250,
             child: CupertinoDatePicker(
-                initialDateTime: selectedDate.value,
+                initialDateTime: DateTime.parse(selectedDate.value.toString()).year > DateTime.now().year - 18 ? DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day) : selectedDate.value,
                 minimumDate: DateTime(1900),
                 maximumYear: DateTime.now().year - 18,
                 onDateTimeChanged: (DateTime newDate) => updateSelectedDate(newDate),
@@ -630,34 +667,48 @@ class GetController extends GetxController {
   //change models
 
   void changeCountriesModel(CountriesModel countriesModel) {
-    this.countriesModel.value = countriesModel;
-    dropDownItemsCountries.value = countriesModel.countries!.map((e) => e.name!).toList();
+    try {
+      this.countriesModel.value = countriesModel;
+      dropDownItemsCountries.value = countriesModel.countries!.map((e) => e.name!).toList();
 
-    int matchingIndex = countriesModel.countries!.indexWhere((country) => country.id == profileInfoModel.value.result!.first.countryId);
-    if (matchingIndex != -1) {
-      dropDownItems[1] = matchingIndex;
+      int matchingIndex = countriesModel.countries!.indexWhere((country) => country.id == profileInfoModel.value.result!.first.countryId);
+      if (matchingIndex != -1) {
+        dropDownItems[1] = matchingIndex;
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   void changeRegionsModel(CountriesModel regionsModel) {
-    this.regionsModel.value = regionsModel;
-    dropDownItemsRegions.value = regionsModel.regions!.map((e) => e.name!).toList();
+    try {
+      this.regionsModel.value = regionsModel;
+      dropDownItemsRegions.value = regionsModel.regions!.map((e) => e.name!).toList();
 
-    int? profileRegionId = profileInfoModel.value.result!.first.regionId;
-    int matchingIndex = regionsModel.regions!.indexWhere((region) => region.id == profileRegionId);
-    if (matchingIndex != -1) {
-      dropDownItems[2] = matchingIndex;
+      int? profileRegionId = profileInfoModel.value.result!.first.regionId;
+      int matchingIndex = regionsModel.regions!.indexWhere((region) => region.id == profileRegionId);
+      if (matchingIndex != -1) {
+        dropDownItems[2] = matchingIndex;
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
   void changeCitiesModel(CountriesModel citiesModel) {
-    this.citiesModel.value = citiesModel;
-    dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
-
-    int? profileCityId = profileInfoModel.value.result!.first.cityId;
-    int matchingIndex = citiesModel.cities!.indexWhere((city) => city.id == profileCityId);
-    if (matchingIndex != -1) {
-      dropDownItems[3] = matchingIndex;
+    try {
+      this.citiesModel.value = citiesModel;
+      if(citiesModel.cities != null && citiesModel.cities!.isEmpty){
+        clearCitiesModel();
+      }
+      dropDownItemsCities.value = citiesModel.cities!.map((e) => e.name!).toList();
+      int? profileCityId = profileInfoModel.value.result!.first.cityId;
+      int matchingIndex = citiesModel.cities!.indexWhere((city) => city.id == profileCityId);
+      if (matchingIndex != -1) {
+        dropDownItems[3] = matchingIndex;
+      }
+    } catch (e) {
+      debugPrint('Xatolik: $e');
     }
   }
 
@@ -768,6 +819,7 @@ class GetController extends GetxController {
     citiesModel.value = CountriesModel();
     dropDownItemsCities.value = [];
     dropDownItems[3] = 0;
+
   }
 
   void clearProfileInfoModel() => profileInfoModel.value = ProfileInfoModel();

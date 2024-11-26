@@ -82,14 +82,23 @@ class GuaranteePage extends StatelessWidget {
           if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
-            Map<String, List<dynamic>> groupedWarranty = {};
-            for (var warranty in sortedWarrantyList) {
+            //Map<String, List<dynamic>> groupedWarranty = {};
+            /*for (var warranty in sortedWarrantyList) {
               String formattedDate = warranty.warrantyStart.toString();
               if (!groupedWarranty.containsKey(formattedDate)) {
                 groupedWarranty[formattedDate] = [];
               }
               groupedWarranty[formattedDate]!.add(warranty);
-            }
+            }*/
+
+            final groupedWarranty = _getController.warrantyModel.value.result!.fold<Map<String, List<dynamic>>>({}, (grouped, warranty) {
+              String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
+              if (!grouped.containsKey(formattedDate)) {
+                grouped[formattedDate] = [];
+              }
+              grouped[formattedDate]!.add(warranty);
+              return grouped;
+            });
             return Column(
               children: [
                 SizedBox(height: Get.height * 0.01),
@@ -114,10 +123,8 @@ class GuaranteePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           String dateKey = groupedWarranty.keys.elementAt(index);
                           List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
-                          List<dynamic> activeWarrantiesForDate = groupedWarranty[dateKey]!.where((warranty) => warranty.active == 1).toList();
-                          if (activeWarrantiesForDate.isEmpty) {
-                            return const SizedBox.shrink();
-                          }
+
+                          if (warrantiesForDate.isEmpty) {return const SizedBox.shrink();}
                           return Column(
                             children: [
                               Container(margin: EdgeInsets.only(bottom: 20.h), padding: EdgeInsets.symmetric(horizontal: Get.width * 0.015), child: TextSmall(text: _getController.getDateFormat(dateKey), color: AppColors.black.withOpacity(0.6), fontWeight: FontWeight.w400)),
@@ -126,7 +133,7 @@ class GuaranteePage extends StatelessWidget {
                                   padding: EdgeInsets.only(left: 15.w, top: 8.h, bottom: 9.h),
                                   margin: EdgeInsets.only(bottom: 15.h),
                                   width: Get.width,
-                                  decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.light ? Colors.white : AppColors.black70, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))], borderRadius: BorderRadius.circular(18.r)),
+                                  decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 20.r, spreadRadius: 18.r, offset: const Offset(0, 0))], borderRadius: BorderRadius.circular(18.r)),
                                   child: Column(
                                     children: [
                                       Row(
@@ -139,24 +146,7 @@ class GuaranteePage extends StatelessWidget {
                                                   children: [
                                                     Positioned(width: 2, height: Get.height * 0.11, child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(10.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))])))),
                                                     Positioned(right: 0, width: 2, height: Get.height * 0.11, child: Center(child: Container(alignment: Alignment.center, width: 2.w, height: Get.height * 0.09, decoration: BoxDecoration(color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(20.r)), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 6.r, blurStyle: BlurStyle.outer, spreadRadius: 1.r, offset: const Offset(0, 10))])))),
-                                                    Positioned.fill(
-                                                        child: Container(
-                                                          decoration: const BoxDecoration(color: AppColors.white),
-                                                          child: ClipRRect(
-                                                            borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                                                            /*child: FadeInImage(
-                                                              image: NetworkImage(warranty.photoUrl ?? 'https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'),
-                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
-                                                              imageErrorBuilder: (context, error, stackTrace) {return Container(decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover), borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))));},
-                                                              fit: BoxFit.cover
-                                                            )*/
-                                                            child: CacheImage(
-                                                              keys: warranty.id.toString(),
-                                                              url: warranty.photoUrl ?? '',
-                                                            )
-                                                          )
-                                                        )
-                                                    )
+                                                    Positioned.fill(child: Container(decoration: const BoxDecoration(color: AppColors.white), child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(20.r)), child: CacheImage(keys: warranty.id.toString(), url: warranty.photoUrl ?? '', fit: BoxFit.cover))))
                                                   ]
                                               )
                                           ),
@@ -170,7 +160,6 @@ class GuaranteePage extends StatelessWidget {
                                                     children: [
                                                       SizedBox(width: 110.w, child: TextSmall(text: warranty.name.toString(), color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold, fontSize: 18.sp)),
                                                       const Spacer(),
-                                                      //(onTap: () => ApiController().deleteWarrantyProduct(warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 20.sp)),
                                                       InkWell(onTap: () => InstrumentComponents().deleteWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.delete, color: AppColors.red, size: 20.sp)),
                                                       SizedBox(width: 12.w),
                                                     ]
@@ -204,7 +193,6 @@ class GuaranteePage extends StatelessWidget {
                                                           child: Center(child: TextSmall(text:DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? 'Faol emas'.tr : 'Faol'.tr, color: DateTime.now().isAfter(DateTime.parse(_getController.warrantyModel.value.result![index].warrantyExpire.toString())) ? AppColors.white : AppColors.white, fontSize: 11.sp))
                                                       ),
                                                       const Spacer(),
-                                                      //InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(Icons.archive_outlined, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                       InkWell(onTap: () => InstrumentComponents().archiveWarrantyDialog(context,warranty.id!.toInt()), child: Icon(EneftyIcons.archive_add_bold, color: index == 1 ? AppColors.black70 : AppColors.black70, size: 23.sp)),
                                                       SizedBox(width: 11.w)
                                                     ]

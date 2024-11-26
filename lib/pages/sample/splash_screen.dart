@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
+import 'package:hicom_patners/pages/auth/register_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -23,7 +24,10 @@ class SplashScreen extends StatelessWidget {
 
     debugPrint('${_getController.token} ${_getController.phoneNumber}');
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
+      _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
+      //ApiController().getCountries();
       ApiController().getProfile();
+      //Get.offAll(() => RegisterPage(), transition: Transition.downToUp);
     } else {
       //Get.offAll(() => LoginPage(), transition: Transition.downToUp);
       Get.offAll(() => LanguagePage(), transition: Transition.fadeIn);
@@ -32,11 +36,11 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DefaultCacheManager().emptyCache().then((_) {
+    /*DefaultCacheManager().emptyCache().then((_) {
       debugPrint('All cache cleared successfully');
     }).catchError((e) {
       debugPrint('Error clearing cache: $e');
-    });
+    });*/
     ApiController().postFcmToken();
     _getController.tapTimes(open,1);
     return Scaffold(
