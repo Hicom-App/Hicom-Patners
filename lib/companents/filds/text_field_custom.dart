@@ -34,15 +34,15 @@ class TextFieldCustom extends StatelessWidget {
           style: TextStyle(fontSize: 19.sp, fontFamily: 'Schyler', color: AppColors.black),
           decoration: InputDecoration(filled: true, isDense: true, border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20)), fillColor: fillColor, hintText: hint.tr, hintStyle: TextStyle(color:AppColors.black.withOpacity(0.5), fontSize: 19.sp, fontFamily: 'Schyler'), prefixIcon: icons != null ? Padding(padding: EdgeInsets.all(Get.height * 0.013), child: Icon(icons, color: Theme.of(context).colorScheme.onSurface)) : null, suffixIcon: _getController.searchController.text.isNotEmpty ? IconButton(onPressed: () {_getController.searchController.clear();}, icon: Icon(TablerIcons.x, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6), size: 18.sp)) : const SizedBox(height: 0, width: 0)),
           onChanged: (value) {
-    if (controller == _getController.cardNumberController) {
-    _getController.cardNumberText.value = value;
-    if (value.length == 19) {
-    Get.focusScope!.unfocus();
-    }
-    } else if (controller == _getController.nameController) {
-    _getController.cardNameText.value = value;
-    }
-    }
+            if (controller == _getController.cardNumberController) {
+              _getController.cardNumberText.value = value;
+              if (value.length == 19) {
+                Get.focusScope!.unfocus();
+              }
+            } else if (controller == _getController.nameController) {
+              _getController.cardNameText.value = value;
+            }
+          }
       )
     );
   }
