@@ -11,9 +11,9 @@ import '../../companents/home/chashe_image.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/settings_page.dart';
+import '../account/web_page.dart';
 import '../home/category_page.dart';
 import '../home/transfer_to_wallet.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:photo_view/photo_view.dart';
 
 class AccountPage extends StatefulWidget {
@@ -61,15 +61,14 @@ class _AccountPageState extends State<AccountPage> {
                   width: Get.width,
                   child: Stack(
                       children: [
-                        Positioned.fill(child: Container(margin: EdgeInsets.only(bottom: Get.height * 0.03), child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: ClipRRect(child: SizedBox(width: Get.width, child: CacheImage(keys: 'front', url: _getController.profileInfoModel.value.result!.first.photoUrl.toString(), fit: BoxFit.cover)))))),
+                        Positioned.fill(child: Container(margin: EdgeInsets.only(bottom: Get.height * 0.03), child: ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: ClipRRect(child: SizedBox(width: Get.width, child: CacheImage(keys: 'front', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13', fit: BoxFit.cover)))))),
                         Positioned(bottom: 0, child: Container(width: Get.width, height: Get.height * 0.1, decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))))),
                         Positioned(
                             bottom: Get.height * 0.03,
                             width: Get.width,
                             child: Center(
                                 child: InkWell(
-                                    onTap: () {
-                                      Get.to(() => Scaffold(
+                                    onTap: () => Get.to(() => Scaffold(
                                           backgroundColor: Colors.transparent,
                                           body: PhotoView(
                                             filterQuality: FilterQuality.high,
@@ -79,9 +78,8 @@ class _AccountPageState extends State<AccountPage> {
                                             basePosition: Alignment.center,
                                             imageProvider: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                           )
-                                      ), transition: Transition.fadeIn);
-                                    },
-                                    child: SizedBox(width: 130.w, height: 130.h, child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? ''))))
+                                      ), transition: Transition.fadeIn),
+                                    child: SizedBox(width: 130.w, height: 130.h, child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'))))
                                 )
                             )
                         )
@@ -131,16 +129,24 @@ class _AccountPageState extends State<AccountPage> {
                 onTap: () => Get.to(() => SettingsPage(), transition: Transition.fadeIn)
               ),
               _buildListTile(
-                context: context,
-                icon: Icons.help,
-                title: 'Yordam'.tr,
-                onTap: () => launchUrl(Uri.parse('https://hicom.uz/'), mode: LaunchMode.externalApplication)
+                  context: context,
+                  icon: Icons.help,
+                  title: 'Yordam'.tr,
+                  onTap: () => Get.to(() => WebPage(title: 'Yordam'.tr,
+                      url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'),
+                      transition: Transition.fadeIn)
+
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info,
-                title: 'Batafsil'.tr,
-                onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_EN' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), mode: LaunchMode.externalApplication)
+                //title: 'Batafsil'.tr,
+                title: 'Maxfiylik siyosati'.tr,
+                //onTap: () => launchUrl(Uri.parse(), mode: LaunchMode.externalApplication)
+                onTap: () => Get.to(() => WebPage(title: 'Batafsil'.tr,
+                    url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'),
+                    transition: Transition.fadeIn)
+                //onTap: () => print(GetController().language.toString())
               ),
               _buildListTile(
                 context: context,

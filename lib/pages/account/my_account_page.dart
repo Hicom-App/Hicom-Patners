@@ -97,7 +97,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: fullImage ? 280.sp : 280.sp,
+                  expandedHeight: fullImage ? 285.h : 285.h,
                   pinned: true,
                   elevation: 1,
                   backgroundColor: AppColors.white,
@@ -134,8 +134,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(width: 15.w),
                                         TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         const Spacer(),
-                                        TextButton(
-                                            onPressed: () {
+                                        InkWell(onTap: () {
                                               if (_getController.nameController.text.isEmpty) {
                                                 _getController.shakeKey[0].currentState?.shake();
                                                 _getController.changeErrorInput(0, true);
@@ -170,8 +169,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 Get.back();
                                                 ApiController().updateProfiles();
                                               }
-                                              },
-                                            child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                            }, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),
@@ -212,7 +210,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       ), transition: Transition.rightToLeftWithFade);
                                     },
                                     child: Container(
-                                        height: 150.w, width: 150.w,
+                                        height: 130.w, width: 130.w,
                                         decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: AppColors.white,
@@ -330,9 +328,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
                                           onTap: () {
-                                            if (DateFormat('dd.MM.yyyy').format(DateTime.now()).compareTo(_getController.formattedDate.value) < 0) {
+                                            /*if (DateFormat('dd.MM.yyyy').format(DateTime.now()).compareTo(_getController.formattedDate.value) < 0) {
                                               _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
-                                            }
+                                            }*/
                                             _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
                                             if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                             _getController.showCupertinoDatePicker(context);

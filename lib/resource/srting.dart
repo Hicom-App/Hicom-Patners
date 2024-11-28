@@ -90,6 +90,7 @@ class LocaleString extends Translations{
       'Suratni o‘zgartirish':'Suratni o‘zgartirish',
       'Tug‘ilgan sana':'Tug‘ilgan sana',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak':'Yoshingiz 18 dan kichik bo‘lmasligi kerak',
+      'Maxfiylik siyosati':'Maxfiylik siyosati',
 
       //transfer page
       'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
@@ -315,6 +316,7 @@ class LocaleString extends Translations{
       'Suratni o‘zgartirish': 'Change photo',
       'Tug‘ilgan sana':'Date of birth',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Your age must not be less than 18',
+      'Maxfiylik siyosati': 'Privacy Policy',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Transfers to card',
@@ -473,7 +475,7 @@ class LocaleString extends Translations{
       'Telefon raqamingizni kiriting': 'Введите номер телефона',
       'Biz tasdiqlash kodini yuboramiz!': 'Мы отправим вам код подтверждения!',
       'Kodni kiriting': 'Введите код',
-      'Faollashtirish kodi': 'Код активации был отправлен по SMS на номер',
+      'Faollashtirish kodi': 'Код активации был отправлен в виде SMS на номер',
       'raqamiga SMS tarzida yuborildi.':'.',
       'Kodni qayta yuborish':'Отправить код повторно',
 
@@ -541,6 +543,7 @@ class LocaleString extends Translations{
       'Suratni o‘zgartirish': 'Изменить фото',
       'Tug‘ilgan sana':'Дата рождения',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ваш возраст не должен быть меньше 18',
+      'Maxfiylik siyosati': 'Политика конфиденциальности',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Переводы на карту',
@@ -753,7 +756,7 @@ class LocaleString extends Translations{
       'Ma’lumotlar yo‘q':'Маълумотлар йўқ',
       'Ko‘proq':'Кўпроқ',
 
-      //profile page
+      //account page
       'Hisobim':'Ҳисобим',
       'Hamyon':'Ҳамён',
       'Arxiv':'Архив',
@@ -768,6 +771,7 @@ class LocaleString extends Translations{
       'Suratni o‘zgartirish': 'Суратни ўзгартириш',
       'Tug‘ilgan sana':'Туғилган сана',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ёшингиз 18 дан кичик бўлмаслиги керак',
+      'Maxfiylik siyosati': 'Махфийлик сиёсати',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Картага ўтказмалар',

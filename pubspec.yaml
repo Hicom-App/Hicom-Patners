@@ -32,10 +32,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   enefty_icons: ^1.0.7
   url_launcher: ^6.2.6
-  adaptive_theme: ^3.6.0
   flutter_html: ^3.0.0-beta.2
   convex_bottom_bar: ^3.2.0
-  intl: ^0.19.0
+  intl: ^0.18.1
   image_picker: ^1.1.2
   image_cropper: ^8.0.2
   photo_view: ^0.15.0
@@ -44,12 +43,13 @@ dependencies:
   fluttertoast: ^8.2.8
   connectivity_plus: ^6.1.0
   badges: ^3.1.2
-  flutter_dynamic_icon: ^2.1.0
   firebase_core: ^3.7.0
   firebase_messaging: ^15.1.4
   flutter_local_notifications: ^18.0.1
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
+  webview_all: ^0.4.5
+  icons_launcher: ^3.0.0
 
   
 dev_dependencies:
@@ -59,6 +59,15 @@ dev_dependencies:
 
 
   flutter_lints: ^3.0.0
+
+
+icons_launcher:
+  image_path: "assets/images/appIcon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 flutter:
   uses-material-design: true

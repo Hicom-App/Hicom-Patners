@@ -32,7 +32,6 @@ class LoginPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     _getController.isKeyboardVisible.value = MediaQuery.of(context).viewInsets.bottom != 0;
     if (!_getController.isKeyboardVisible.value) _getController.startDelayedAnimation();
-    //_getController.selectedDate.value = DateTime.now();
     _getController.selectedDate.value = DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day);
 
     return GestureDetector(

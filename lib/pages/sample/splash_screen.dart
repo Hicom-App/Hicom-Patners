@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/auth/register_page.dart';
 import '../../companents/filds/text_small.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
@@ -17,19 +15,10 @@ class SplashScreen extends StatelessWidget {
   final GetController _getController = Get.put(GetController());
 
   void open() {
-    //Get.offAll(() => LanguagePage(), transition: Transition.fadeIn);
-    //Get.offAll(() => LoginPage(), transition: Transition.fadeIn);
-    //Get.offAll(() => OnBoarding(), transition: Transition.fadeIn);
-    //ApiController().login();
-
     debugPrint('${_getController.token} ${_getController.phoneNumber}');
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
-      _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
-      //ApiController().getCountries();
       ApiController().getProfile();
-      //Get.offAll(() => RegisterPage(), transition: Transition.downToUp);
     } else {
-      //Get.offAll(() => LoginPage(), transition: Transition.downToUp);
       Get.offAll(() => LanguagePage(), transition: Transition.fadeIn);
     }
   }
