@@ -25,11 +25,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*DefaultCacheManager().emptyCache().then((_) {
-      debugPrint('All cache cleared successfully');
-    }).catchError((e) {
-      debugPrint('Error clearing cache: $e');
-    });*/
     ApiController().postFcmToken();
     _getController.tapTimes(open,1);
     return Scaffold(

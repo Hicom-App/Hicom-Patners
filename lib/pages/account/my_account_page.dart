@@ -39,6 +39,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
     _getController.image.value = File('');
     _getController.formattedDate.value = _getController.profileInfoModel.value.result!.first.birthday == null || _getController.profileInfoModel.value.result!.first.birthday!.isEmpty ? '01.01.2000': DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).year > DateTime.now().year -18 ? DateFormat('dd.MM.yyyy').format(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))  : DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
+    _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
     _scrollController.addListener(() {
       setState(() {
         double offset = _scrollController.offset;
@@ -55,7 +56,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     super.dispose();
   }
 
@@ -69,13 +69,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
         compressFormat: ImageCompressFormat.jpg,
         compressQuality: 100,
         uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Suratni moslashtiring',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false
-          ),
+          AndroidUiSettings(toolbarTitle: 'Suratni moslashtiring', toolbarColor: Colors.deepOrange, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.original, lockAspectRatio: false),
           IOSUiSettings(title: 'Suratni moslashtiring')
         ]
       );
@@ -169,7 +163,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                                 Get.back();
                                                 ApiController().updateProfiles();
                                               }
-                                            }, child: TextSmall(text: 'Tayyor'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                            }, child: TextSmall(text: 'Tayyor'.tr, color:AppColors.black, fontWeight: FontWeight.bold)),
                                         SizedBox(width: 15.w)
                                       ]
                                   ),
@@ -187,12 +181,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             elevation: 0,
                                             title: TextSmall(text: 'Rasm tanlash'.tr, color: Colors.black, fontWeight: FontWeight.bold),
                                             leading: IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.arrow_left_bold, color: Colors.white, size: 30.sp)),
-                                            actions: [
-                                              IconButton(onPressed: () {
-                                                ApiController().deleteImage();
-                                                Get.back();
-                                                }, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))
-                                            ]
+                                            actions: [IconButton(onPressed: () {ApiController().deleteImage();Get.back();}, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))]
                                           ),
                                           body: SizedBox(
                                             width: Get.width,
@@ -215,7 +204,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                             shape: BoxShape.circle,
                                             color: AppColors.white,
                                             boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
-                                        child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? '') : Image.file(_getController.image.value, fit: BoxFit.cover))
+                                        child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13') : Image.file(_getController.image.value, fit: BoxFit.cover))
                                     )
                                   ),
                                   SizedBox(height: 25.h),
@@ -328,9 +317,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                       decoration: BoxDecoration(border: _getController.errorInput[2] ? Border.all(color: AppColors.red) : null, borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
                                       child: ListTile(
                                           onTap: () {
-                                            /*if (DateFormat('dd.MM.yyyy').format(DateTime.now()).compareTo(_getController.formattedDate.value) < 0) {
-                                              _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
-                                            }*/
                                             _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
                                             if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();
                                             _getController.showCupertinoDatePicker(context);
@@ -338,12 +324,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                           hoverColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           title: TextSmall(text: 'Tug‘ilgan sana'.tr, color: AppColors.black),
-                                          trailing: TextSmall(text: _getController.formattedDate.value.toString(), color: AppColors.black70)
+                                          trailing: TextSmall(text: _getController.formattedDate.value, color: AppColors.black70)
                                       )
                                   )
                               ),
                               SizedBox(height: 300.h)
                             ]
+
                         ))
                     )
                   ])
