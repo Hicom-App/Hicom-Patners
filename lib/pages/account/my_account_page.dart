@@ -91,7 +91,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverAppBar(
-                  expandedHeight: fullImage ? 285.h : 285.h,
+                  expandedHeight: fullImage ? 290.h : 290.h,
                   pinned: true,
                   elevation: 1,
                   backgroundColor: AppColors.white,
@@ -116,100 +116,104 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   ]
                               )
                             ),
-                            background: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: 40.h),
-                                  Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(width: 15.w),
-                                        TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
-                                        const Spacer(),
-                                        InkWell(onTap: () {
-                                              if (_getController.nameController.text.isEmpty) {
-                                                _getController.shakeKey[0].currentState?.shake();
-                                                _getController.changeErrorInput(0, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                              } else if (_getController.surNameController.text.isEmpty) {
-                                                _getController.shakeKey[1].currentState?.shake();
-                                                _getController.changeErrorInput(1, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(1, false),1);
-                                              } else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime.now())) {
-                                                _getController.shakeKey[2].currentState?.shake();
-                                                _getController.changeErrorInput(2, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                            background: Container(
+                                width: Get.width,
+                                height: 290.h,
+                                margin: EdgeInsets.only(top: 20.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(width: 15.w),
+                                          TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                          const Spacer(),
+                                          TextButton(onPressed: () {
+                                            if (_getController.nameController.text.isEmpty) {
+                                              _getController.shakeKey[0].currentState?.shake();
+                                              _getController.changeErrorInput(0, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
+                                            } else if (_getController.surNameController.text.isEmpty) {
+                                              _getController.shakeKey[1].currentState?.shake();
+                                              _getController.changeErrorInput(1, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(1, false),1);
+                                            } else if (_getController.formattedDate.value == DateFormat('dd.MM.yyyy').format(DateTime.now())) {
+                                              _getController.shakeKey[2].currentState?.shake();
+                                              _getController.changeErrorInput(2, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                                            }
+                                            else if (_getController.formattedDate.value.isNotEmpty && DateTime.now().year - DateFormat('dd.MM.yyyy').parse(_getController.formattedDate.value).year < 18) {
+                                              _getController.shakeKey[2].currentState?.shake();
+                                              _getController.changeErrorInput(2, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
+                                              InstrumentComponents().showToast('Yoshingiz 18 dan kichik bo‘lmasligi kerak'.tr, color: AppColors.red);
+                                            }
+                                            else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
+                                              _getController.shakeKey[5].currentState?.shake();
+                                              _getController.changeErrorInput(5, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(5, false),1);
+                                            } else if (_getController.citiesModel.value.cities == null || _getController.dropDownItemsCities.isEmpty) {
+                                              _getController.shakeKey[6].currentState?.shake();
+                                              _getController.changeErrorInput(6, true);
+                                              _getController.tapTimes(() =>_getController.changeErrorInput(6, false),1);
+                                            } else {
+                                              if (_getController.image.value.path != ''){
+                                                ApiController().deleteImage();
                                               }
-                                              else if (_getController.formattedDate.value.isNotEmpty && DateTime.now().year - DateFormat('dd.MM.yyyy').parse(_getController.formattedDate.value).year < 18) {
-                                                _getController.shakeKey[2].currentState?.shake();
-                                                _getController.changeErrorInput(2, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
-                                                InstrumentComponents().showToast('Yoshingiz 18 dan kichik bo‘lmasligi kerak'.tr, color: AppColors.red);
-                                              }
-                                              else if (_getController.regionsModel.value.regions == null || _getController.dropDownItemsRegions.isEmpty) {
-                                                _getController.shakeKey[5].currentState?.shake();
-                                                _getController.changeErrorInput(5, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(5, false),1);
-                                              } else if (_getController.citiesModel.value.cities == null || _getController.dropDownItemsCities.isEmpty) {
-                                                _getController.shakeKey[6].currentState?.shake();
-                                                _getController.changeErrorInput(6, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(6, false),1);
-                                              } else {
-                                                if (_getController.image.value.path != ''){
-                                                  ApiController().deleteImage();
-                                                }
-                                                Get.back();
-                                                ApiController().updateProfiles();
-                                              }
-                                            }, child: TextSmall(text: 'Tayyor'.tr, color:AppColors.black, fontWeight: FontWeight.bold)),
-                                        SizedBox(width: 15.w)
-                                      ]
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  InkWell(
-                                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                                    onTap: () {
-                                      if (_getController.ok.isTrue) return;
-                                      Get.to(() => Scaffold(
-                                          backgroundColor: Colors.transparent,
-                                          appBar: AppBar(
-                                            backgroundColor: Colors.transparent,
-                                            surfaceTintColor: Colors.transparent,
-                                            foregroundColor: Colors.transparent,
-                                            elevation: 0,
-                                            title: TextSmall(text: 'Rasm tanlash'.tr, color: Colors.black, fontWeight: FontWeight.bold),
-                                            leading: IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.arrow_left_bold, color: Colors.white, size: 30.sp)),
-                                            actions: [IconButton(onPressed: () {ApiController().deleteImage();Get.back();}, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))]
-                                          ),
-                                          body: SizedBox(
-                                            width: Get.width,
-                                            height: Get.height,
-                                            child: PhotoView(
-                                              filterQuality: FilterQuality.high,
-                                              minScale: PhotoViewComputedScale.contained * 0.8,
-                                              maxScale: PhotoViewComputedScale.covered * 1.8,
-                                              initialScale: PhotoViewComputedScale.contained,
-                                              basePosition: Alignment.center,
-                                              customSize: Size(Get.width, Get.height),
-                                              imageProvider: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl.toString()),
-                                            )
-                                          )
-                                      ), transition: Transition.rightToLeftWithFade);
-                                    },
-                                    child: Container(
-                                        height: 130.w, width: 130.w,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppColors.white,
-                                            boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
-                                        child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13') : Image.file(_getController.image.value, fit: BoxFit.cover))
-                                    )
-                                  ),
-                                  SizedBox(height: 25.h),
-                                  TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: _getController.ok.isFalse ? 'Yangi rasm joylash'.tr : 'Suratni o‘zgartirish'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
-                                ]
+                                              Get.back();
+                                              ApiController().updateProfiles();
+                                            }
+                                          }, child: TextSmall(text: 'Tayyor'.tr, color:AppColors.black, fontWeight: FontWeight.bold)),
+                                          SizedBox(width: 15.w)
+                                        ]
+                                    ),
+                                    SizedBox(height: 15.h),
+                                    InkWell(
+                                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                        onTap: () {
+                                          if (_getController.ok.isTrue) return;
+                                          Get.to(() => Scaffold(
+                                              backgroundColor: Colors.transparent,
+                                              appBar: AppBar(
+                                                  backgroundColor: Colors.transparent,
+                                                  surfaceTintColor: Colors.transparent,
+                                                  foregroundColor: Colors.transparent,
+                                                  elevation: 0,
+                                                  title: TextSmall(text: 'Rasm tanlash'.tr, color: Colors.black, fontWeight: FontWeight.bold),
+                                                  leading: IconButton(onPressed: () => Get.back(), icon: Icon(EneftyIcons.arrow_left_bold, color: Colors.white, size: 30.sp)),
+                                                  actions: [IconButton(onPressed: () {ApiController().deleteImage();Get.back();}, icon: Icon(EneftyIcons.trush_square_bold, color: Colors.red, size: 30.sp))]
+                                              ),
+                                              body: SizedBox(
+                                                  width: Get.width,
+                                                  height: Get.height,
+                                                  child: PhotoView(
+                                                    filterQuality: FilterQuality.high,
+                                                    minScale: PhotoViewComputedScale.contained * 0.8,
+                                                    maxScale: PhotoViewComputedScale.covered * 1.8,
+                                                    initialScale: PhotoViewComputedScale.contained,
+                                                    basePosition: Alignment.center,
+                                                    customSize: Size(Get.width, Get.height),
+                                                    imageProvider: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl.toString()),
+                                                  )
+                                              )
+                                          ), transition: Transition.rightToLeftWithFade);
+                                        },
+                                        child: Container(
+                                            height: 130.w, width: 130.w,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.white,
+                                                boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 5, blurRadius: 15, offset: Offset(0, 0))]),
+                                            child: ClipOval(child: _getController.image.value.path == '' ?  CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13') : Image.file(_getController.image.value, fit: BoxFit.cover))
+                                        )
+                                    ),
+                                    SizedBox(height: 25.h),
+                                    TextButton(onPressed: () {_pickImage();}, child: TextSmall(text: _getController.ok.isFalse ? 'Yangi rasm joylash'.tr : 'Suratni o‘zgartirish'.tr, color: AppColors.blue, fontWeight: FontWeight.w500))
+                                  ]
+                              )
                             )
                         );
                       }

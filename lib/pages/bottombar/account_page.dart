@@ -79,7 +79,7 @@ class _AccountPageState extends State<AccountPage> {
                                             imageProvider: NetworkImage(_getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'),
                                           )
                                       ), transition: Transition.fadeIn),
-                                    child: SizedBox(width: 130.w, height: 130.h, child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'))))
+                                    child: SizedBox(width: 130.w, height: 130.h, child: Container(decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 20))]), child: ClipRRect(borderRadius: BorderRadius.circular(500.r), child: CacheImage(keys: 'avatar', url: _getController.profileInfoModel.value.result!.first.photoUrl ?? 'https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13', fit: BoxFit.cover))))
                                 )
                             )
                         )
