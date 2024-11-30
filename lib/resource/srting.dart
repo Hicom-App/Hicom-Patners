@@ -91,6 +91,7 @@ class LocaleString extends Translations{
       'Tug‘ilgan sana':'Tug‘ilgan sana',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak':'Yoshingiz 18 dan kichik bo‘lmasligi kerak',
       'Maxfiylik siyosati':'Maxfiylik siyosati',
+      'Suratni moslashtiring':'Suratni moslashtiring',
 
       //transfer page
       'Kartaga o‘tkazmalar':'Kartaga o‘tkazmalar',
@@ -317,6 +318,7 @@ class LocaleString extends Translations{
       'Tug‘ilgan sana':'Date of birth',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Your age must not be less than 18',
       'Maxfiylik siyosati': 'Privacy Policy',
+      'Suratni moslashtiring':'Customize the photo',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Transfers to card',
@@ -544,6 +546,7 @@ class LocaleString extends Translations{
       'Tug‘ilgan sana':'Дата рождения',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ваш возраст не должен быть меньше 18',
       'Maxfiylik siyosati': 'Политика конфиденциальности',
+      'Suratni moslashtiring':'Редактировать свою фотографию',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Переводы на карту',
@@ -772,6 +775,7 @@ class LocaleString extends Translations{
       'Tug‘ilgan sana':'Туғилган сана',
       'Yoshingiz 18 dan kichik bo‘lmasligi kerak': 'Ёшингиз 18 дан кичик бўлмаслиги керак',
       'Maxfiylik siyosati': 'Махфийлик сиёсати',
+      'Suratni moslashtiring':'Суратни мослаштиринг',
 
       //transfer page
       'Kartaga o‘tkazmalar': 'Картага ўтказмалар',

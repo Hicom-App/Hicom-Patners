@@ -25,6 +25,7 @@ class LoginPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+    _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
     _getController.startDelayedAnimation();
   }
 
@@ -32,7 +33,6 @@ class LoginPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     _getController.isKeyboardVisible.value = MediaQuery.of(context).viewInsets.bottom != 0;
     if (!_getController.isKeyboardVisible.value) _getController.startDelayedAnimation();
-    _getController.selectedDate.value = DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day);
 
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -289,11 +289,11 @@ class LoginPageState extends State<RegisterPage> {
                                                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
                                                       //onPressed: () => ApiController().updateProfile(),
                                                       onPressed: (){
-                                                        if (_getController.nameController.text.isEmpty) {
+                                                        if (_getController.nameController.text.isEmpty || _getController.nameController.text == ' ') {
                                                           _getController.shakeKey[0].currentState?.shake();
                                                           _getController.changeErrorInput(0, true);
                                                           _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                                        } else if (_getController.surNameController.text.isEmpty) {
+                                                        } else if (_getController.surNameController.text.isEmpty || _getController.surNameController.text == ' ') {
                                                           _getController.shakeKey[1].currentState?.shake();
                                                           _getController.changeErrorInput(1, true);
                                                           _getController.tapTimes(() =>_getController.changeErrorInput(1, false),1);

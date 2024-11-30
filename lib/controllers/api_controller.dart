@@ -261,8 +261,6 @@ class ApiController extends GetxController {
   }
 
   Future<void> updateProfiles() async {
-    print(_getController.selectedDate.value.toString());
-    print(DateFormat('yyyy-MM-dd').format(_getController.selectedDate.value));
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/users/profile'),);
       request.headers.addAll(multipartHeaderBearer());

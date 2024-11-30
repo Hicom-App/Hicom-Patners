@@ -36,7 +36,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
     _getController.nameController.text = _getController.profileInfoModel.value.result!.first.firstName ?? '';
     _getController.surNameController.text = _getController.profileInfoModel.value.result!.first.lastName ?? '';
     _getController.streetController.text = _getController.profileInfoModel.value.result!.first.address ?? '';
-
+    _getController.changeDropDownItems(0, _getController.profileInfoModel.value.result!.first.userType ?? 0);
     _getController.image.value = File('');
     _getController.formattedDate.value = _getController.profileInfoModel.value.result!.first.birthday == null || _getController.profileInfoModel.value.result!.first.birthday!.isEmpty ? '01.01.2000': DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!).year > DateTime.now().year -18 ? DateFormat('dd.MM.yyyy').format(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day))  : DateFormat('dd.MM.yyyy').format(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
     _getController.updateSelectedDate(DateTime.parse(_getController.profileInfoModel.value.result!.first.birthday!));
@@ -69,8 +69,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
         compressFormat: ImageCompressFormat.jpg,
         compressQuality: 100,
         uiSettings: [
-          AndroidUiSettings(toolbarTitle: 'Suratni moslashtiring', toolbarColor: Colors.deepOrange, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.original, lockAspectRatio: false),
-          IOSUiSettings(title: 'Suratni moslashtiring')
+          AndroidUiSettings(toolbarTitle: 'Suratni moslashtiring'.tr, toolbarColor: Colors.deepOrange, toolbarWidgetColor: Colors.white, initAspectRatio: CropAspectRatioPreset.original, lockAspectRatio: false),
+          IOSUiSettings(title: 'Suratni moslashtiring'.tr)
         ]
       );
 

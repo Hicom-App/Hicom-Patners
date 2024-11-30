@@ -10,20 +10,7 @@ class InitNotification {
   static final List<String> _topics = ['HicomPartner_C1', 'HicomPartner_R12', 'HicomPartner_D3', 'HicomPartner_U2', 'HicomPartner'];
 
   static Future<void> initialize() async {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    Future<void> requestNotificationPermissions() async {
-      NotificationSettings settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
-      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-        debugPrint('Foydalanuvchi ruxsat berdi');
-      } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-        debugPrint('Foydalanuvchi vaqtinchalik ruxsat berdi');
-      } else {
-        debugPrint('Foydalanuvchi ruxsat bermadi');
-      }
-    }
-
-    requestNotificationPermissions();
+    //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     final fcmToken = await FirebaseMessaging.instance.getToken();
     debugPrint('FCM Token: $fcmToken');
     GetController().saveFcmToken(fcmToken ?? '');
