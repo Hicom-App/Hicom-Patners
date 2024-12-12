@@ -24,8 +24,7 @@ class SettingsPage extends StatelessWidget {
       body: Column(
           children: [
             _buildListTile(context: context, icon: EneftyIcons.security_bold, title: 'Kirish va xavfsizlik'.tr, onTap: () => Get.to(() => SafetyPage(), transition: Transition.downToUp), status: 0),
-            //_buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: () => Get.to(() => const NotificationSettingsPage(), transition: Transition.downToUp), status: 0),
-            _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: (){}, status: 1),
+            _buildListTile(context: context, icon: EneftyIcons.notification_bold, title: 'Bildirishnomalar'.tr, onTap: (){}, status: 1, notify: false),
             _buildListTile(context: context, icon: EneftyIcons.finger_cricle_bold, title: 'Biometriya orqali kirish'.tr, onTap: (){}, status: 1, notify: true),
             _buildListTile(context: context, icon: EneftyIcons.language_circle_bold, title: 'Afzal til'.tr, lang: _getController.languageName(Get.locale.toString()), onTap: (){InstrumentComponents().languageDialog(context);}, status: 3)
           ]
@@ -36,36 +35,41 @@ class SettingsPage extends StatelessWidget {
     lang ??= 'English';
     color ??= Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white;
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        height: 60.h,
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
+        child: InkWell(
+            borderRadius: BorderRadius.circular(20.r),
             onTap: onTap,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            leading: Icon(icon, color: color),
-            title: Text(title, style: TextStyle(fontSize: 14, color: color)),
-            trailing: status == 0
-                ? Icon(Icons.chevron_right, color: color)
-                : status == 1
-                ? Obx(() =>
-                CupertinoSwitch(
-                    value: notify ? _getController.getBiometricsValue.value : _getController.getNotificationValue.value,
-                    onChanged: (value) {
-                      if (notify) {
-                        _getController.saveBiometrics(value);
-                      } else {
-                        _getController.saveNotification(value);
-                      }
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Row(
+                children: [
+                  Icon(icon, color: color),
+                  SizedBox(width: 10.w),
+                  Expanded(child: Text(title, style: TextStyle(fontSize: 14, color: color))),
+                  status == 0
+                      ? const Icon(Icons.chevron_right, color: Colors.grey)
+                      : status == 1
+                      ? Obx(() => CupertinoSwitch(
+                      value: notify ? _getController.getBiometricsValue.value : _getController.getNotificationValue.value,
+                      onChanged: (value) {
+                        if (notify) {
+                          _getController.saveBiometrics(value);
+                        } else {
+                          _getController.saveNotification(value);
+                        }
                       },
-                    activeColor: AppColors.blue,
-                    trackColor: AppColors.grey.withOpacity(0.5),
-                    focusColor: AppColors.blue,
-                    thumbColor: AppColors.white,
-                    applyTheme: true
-                )
+                      activeColor: AppColors.blue,
+                      trackColor: AppColors.grey.withOpacity(0.5),
+                      focusColor: AppColors.blue,
+                      thumbColor: AppColors.white,
+                      applyTheme: true
+                  ))
+                      : TextSmall(text: lang, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14.sp)
+                ]
             )
-                : TextSmall(text: lang, color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14.sp)
         )
     );
   }

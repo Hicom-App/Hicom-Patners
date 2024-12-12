@@ -334,7 +334,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
                               ),
                               SizedBox(height: 300.h)
                             ]
-
                         ))
                     )
                   ])

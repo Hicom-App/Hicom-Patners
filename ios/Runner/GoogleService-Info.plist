@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>hicom.uz.patners</string>
+	<string>partner.hicom.uz</string>
 	<key>PROJECT_ID</key>
 	<string>hicom-67d37</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:938461696447:ios:f68f116b65914bf29bd10a</string>
+	<string>1:938461696447:ios:e2ab4021f0d789bf9bd10a</string>
 </dict>
 </plist>

@@ -115,7 +115,7 @@ class LoginPageState extends State<RegisterPage> {
                                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                       children: [
-                                                                        TextSmall(text: '${'kun'.tr} / ${'oy'.tr} / ${'yil'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
+                                                                        TextSmall(text: '${'kuni'.tr} / ${'oy'.tr} / ${'yil'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, maxLines: 3,fontSize: 13.sp),
                                                                         InkWell(
                                                                             onTap: () {
                                                                               if (FocusManager.instance.primaryFocus != null) FocusManager.instance.primaryFocus?.unfocus();

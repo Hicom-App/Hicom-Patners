@@ -68,16 +68,11 @@ class HomePage extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Row(
-                                              children: [
-                                                TextLarge(text: _getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : '', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
-                                                SizedBox(width: 5.w),
-                                                TextLarge(text: _getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : '', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
-                                              ]
-                                          ),
+                                          TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                           TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                         ]
                                     ),
+                                   // title: TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                     actions: [
                                       IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
                                     ]
@@ -278,7 +273,8 @@ class HomePage extends StatelessWidget {
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                               children: [
-                                                                TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                                //TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
+                                                                TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                 const Spacer(),
                                                                 TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                               ]

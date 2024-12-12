@@ -39,6 +39,7 @@ class DetailPage extends StatelessWidget {
             scrollController: _getController.scrollGuaranteeController,
             enablePullUp: false,
             onLoading: null,
+            color: AppColors.black,
             onRefresh: (){ApiController().getProduct(id!, isCategory: false).then((_) => _getController.refreshGuaranteeController.refreshCompleted());},
             child: Obx(() => Column(
                 children: [
@@ -263,7 +264,7 @@ class DetailPage extends StatelessWidget {
                                             height: 25.w,
                                             width: 25.w,
                                             margin: EdgeInsets.only(right: 6.w),
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : AssetImage(_getController.image.value.path), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) => Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover))), fit: BoxFit.cover))
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.grey, spreadRadius: 0.22, blurRadius: 25)]), child: ClipOval(child: FadeInImage(image: _getController.reviewsModel.value.result![index].userAvatar != '' ? NetworkImage(_getController.reviewsModel.value.result![index].userAvatar!) : const AssetImage('assets/images/logo_back.png'), placeholder: const AssetImage('assets/images/logo_back.png'), imageErrorBuilder: (context, error, stackTrace) => Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage('https://avatars.mds.yandex.net/i?id=04a44da22808ead8020a647bb3f768d2_sr-7185373-images-thumbs&n=13'), fit: BoxFit.cover))), fit: BoxFit.cover))
                                         ),
                                         TextSmall(text: _getController.reviewsModel.value.result![index].userName ?? 'Anonim', color: AppColors.black, fontWeight: FontWeight.bold),
                                         const TextSmall(text: ' | ', color: AppColors.black, fontWeight: FontWeight.bold),

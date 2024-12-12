@@ -276,7 +276,12 @@ class InstrumentComponents {
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h,top: 25.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
-          child: TextButton(onPressed: () {Get.back();ApiController().logout();_getController.logout();Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);}, child: TextSmall(text: 'Chiqish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+          child: TextButton(onPressed: () {
+            Get.back();
+            ApiController().logout();
+            _getController.logout();
+            Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+            }, child: TextSmall(text: 'Chiqish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       ),
       cancel: Container(
           width: 120.w,

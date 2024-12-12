@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,28 +16,16 @@ import 'firebase_options.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
+  FlutterNativeSplash.remove();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  Future<void> requestNotificationPermissions() async {
-    NotificationSettings settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      debugPrint('Foydalanuvchi ruxsat berdi');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-      debugPrint('Foydalanuvchi vaqtinchalik ruxsat berdi');
-    } else {
-      debugPrint('Foydalanuvchi ruxsat bermadi');
-    }
-  }
-
-  requestNotificationPermissions();
-  try {
-    if (Platform.isAndroid) {
-      await InitNotification.initialize();
-    }
-  } catch (e) {
+  try{
+    await InitNotification.initialize();
+  }catch(e){
     debugPrint(e.toString());
   }
   runApp(MyApp());

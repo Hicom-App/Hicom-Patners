@@ -1,5 +1,5 @@
 name: hicom_patners
-description: "A new Hicom patners app"
+description: "Hicom Partner"
 
 publish_to: 'none'
 
@@ -43,13 +43,15 @@ dependencies:
   fluttertoast: ^8.2.8
   connectivity_plus: ^6.1.0
   badges: ^3.1.2
-  firebase_core: ^3.7.0
+  firebase_core: ^3.8.0
   firebase_messaging: ^15.1.4
   flutter_local_notifications: ^18.0.1
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   webview_all: ^0.4.5
   icons_launcher: ^3.0.0
+  change_app_package_name: ^1.4.0
+  flutter_native_splash: ^2.4.3
 
   
 dev_dependencies:
@@ -76,17 +78,8 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/svg_assets/
-    - assets/shapes.riv
-    - assets/button.riv
-    - assets/test.riv
-    - assets/spline.png
-
 
   fonts:
     - family: Schyler
       fonts:
         - asset: assets/fonts/code-next-book.ttf
-#        - asset: assets/fonts/avantgardectt.ttf
-#        - asset: assets/fonts/avantgardectt_bold.ttf
-#        - asset: assets/fonts/avantgardectt_bolditalic.ttf
-#        - asset: assets/fonts/avantgardectt_italic.ttf

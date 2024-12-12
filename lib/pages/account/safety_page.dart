@@ -1,5 +1,6 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../companents/filds/text_small.dart';
@@ -47,10 +48,12 @@ class SafetyPage extends StatelessWidget {
   Container _buildListTile({required BuildContext context, required IconData icon, required String title, required VoidCallback onTap, color}) {
     color ??= AppColors.black;
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        height: 60.h,
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
         margin: const EdgeInsets.only(top: 13.0, left: 15.0, right: 15.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
-        child: ListTile(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: Colors.grey.withOpacity(0.2)),
+
+        /*child: ListTile(
             onTap: onTap,
             hoverColor: Colors.transparent,
             focusColor: Colors.transparent,
@@ -59,6 +62,19 @@ class SafetyPage extends StatelessWidget {
             leadingAndTrailingTextStyle: const TextStyle(fontFamily: 'Schyler'),
             title: Text(title, style: TextStyle(fontSize: 14, color: color, fontFamily: 'Schyler')),
             trailing: Icon(Icons.chevron_right, color: color)
+        )*/
+        child: InkWell(
+          onTap: onTap,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(icon, color: color),
+                SizedBox(width: 10.w),
+                Text(title, style: TextStyle(fontSize: 14, color: color, fontFamily: 'Schyler')),
+                const Spacer(),
+                Icon(Icons.chevron_right, color: color)
+              ])
         )
     );
   }

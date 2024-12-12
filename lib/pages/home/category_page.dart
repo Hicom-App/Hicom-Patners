@@ -11,41 +11,65 @@ import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import 'detail_page.dart';
 
-class CategoryPage extends StatelessWidget {
+class CategoryPage extends StatefulWidget {
   final int index;
   final int open;
-  CategoryPage({super.key, required this.index, required this.open});
+  const CategoryPage({super.key, required this.index, required this.open});
 
+  @override
+  State<CategoryPage> createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
   final GetController _getController = Get.put(GetController());
 
   void getData() {
     _getController.searchController.clear();
-    if (open == 0) {
-      ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false);
-    } else if (open == 1) {
+    if (widget.open == 0) {
+      ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false);
+    } else if (widget.open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true);
-    } else if (open == 2) {
+    } else if (widget.open == 2) {
       ApiController().getProducts(0, isCategory: false, isFavorite: false);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _getController.clearCategoryProductsModel();
     getData();
+  }
+
+  @override
+  void dispose() {
+    Future.microtask(() {
+      _getController.searchController.clear();
+      _getController.refreshController.refreshCompleted();
+      _getController.clearCategoriesProductsModel();
+      _getController.clearProductsModel();
+      _getController.clearCategoriesModel();
+      ApiController().getCategories();
+    });
+    super.dispose();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: open == 0 ? _getController.categoriesModel.value.result![index].name! : open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
-      body: RefreshComponent(
+        backgroundColor: AppColors.white,
+        appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: widget.open == 0 ? _getController.categoriesModel.value.result![widget.index].name! : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
+        body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
         onRefresh: () {
           _getController.searchController.clear();
-          if (open == 0) {
-            ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
-          } else if (open == 1) {
+          if (widget.open == 0) {
+            ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
+          } else if (widget.open == 1) {
             ApiController().getProducts(0,isCategory: false, isFavorite: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
-          } else if (open == 2) {
+          } else if (widget.open == 2) {
             ApiController().getProducts(0, isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           }
         },
@@ -60,15 +84,15 @@ class CategoryPage extends StatelessWidget {
                       return;
                     }
                     debugPrint(value);
-                    if (open == 0) {
+                    if (widget.open == 0) {
                       if (value.isNotEmpty && value.length > 3) {
-                        ApiController().getProducts(_getController.categoriesModel.value.result![index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
                       }
-                    } else if (open == 1) {
+                    } else if (widget.open == 1) {
                       if (value.isNotEmpty && value.length > 3) {
                         ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}")');
                       }
-                    } else if (open == 2) {
+                    } else if (widget.open == 2) {
                       if (value.isNotEmpty && value.length > 3) {
                         ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                       }
@@ -84,7 +108,7 @@ class CategoryPage extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
                           padding: EdgeInsets.only(left: 25.w, right: 10.w),
-                          itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: open == 1 ? true : false)),
+                          itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: widget.open == 1 ? true : false)),
                           itemCount: _getController.categoryProductsModel.value.result!.length
                       )
                   )

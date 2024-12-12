@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA2akP04SymYqUkwFbIsOvK4QDvBh7urYw',
-    appId: '1:938461696447:android:a83d39492661e7129bd10a',
+    appId: '1:938461696447:android:dc1e5ccc804397e09bd10a',
     messagingSenderId: '938461696447',
     projectId: 'hicom-67d37',
     storageBucket: 'hicom-67d37.firebasestorage.app',
@@ -59,10 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCDGMklq_9CxFwm60dieVAz9Dax3Yxwnso',
-    appId: '1:938461696447:ios:f68f116b65914bf29bd10a',
+    appId: '1:938461696447:ios:e2ab4021f0d789bf9bd10a',
     messagingSenderId: '938461696447',
     projectId: 'hicom-67d37',
     storageBucket: 'hicom-67d37.firebasestorage.app',
-    iosBundleId: 'hicom.uz.patners',
+    iosBundleId: 'partner.hicom.uz',
   );
+
 }

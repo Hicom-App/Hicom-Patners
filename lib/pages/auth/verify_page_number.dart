@@ -28,6 +28,7 @@ class VerifyPageNumberState extends State<VerifyPageNumber> with SingleTickerPro
   @override
   void initState() {
     super.initState();
+    _getController.saveNotification(true);
     _startDelayedAnimation();
   }
 

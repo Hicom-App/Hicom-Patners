@@ -174,7 +174,7 @@ class GetController extends GetxController {
       }
 
       var now = DateTime.now();
-      var yesterday = now.subtract(Duration(days: 1));
+      var yesterday = now.subtract(const Duration(days: 1));
 
       if (date.year == now.year && date.month == now.month && date.day == now.day) {
         return 'Bugun'.tr; // Bugungi sana
@@ -255,7 +255,7 @@ class GetController extends GetxController {
 
   get token => GetStorage().read('token');
 
-  String get fcmToken => GetStorage().read('fcmToken');
+  String get fcmToken => GetStorage().read('fcmToken') ?? '';
 
   get getSelectedCardIndex => selectedCard.value = GetStorage().read('selectedCardIndex') ?? 0;
 
@@ -659,7 +659,6 @@ class GetController extends GetxController {
   var cardsModel = CardsModel().obs;
   var sortedTransactionsModel = SortedPayTransactions().obs;
   var twoList = TwoList().obs;
-
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
 

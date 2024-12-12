@@ -20,10 +20,10 @@ class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<AccountPage> createState() => AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class AccountPageState extends State<AccountPage> {
   final ScrollController _scrollController = ScrollController();
   final GetController _getController = Get.put(GetController());
   double _imageHeight = 0.28;
@@ -86,14 +86,7 @@ class _AccountPageState extends State<AccountPage> {
                       ]
                   )
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextSmall(text: _getController.profileInfoModel.value.result?.first.firstName ?? '', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-                    SizedBox(width: 5.w),
-                    TextSmall(text: _getController.profileInfoModel.value.result?.first.lastName ?? '', color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20)
-                  ]
-              ),
+              TextSmall(text: '${_getController.profileInfoModel.value.result?.first.firstName ?? ''} ${_getController.profileInfoModel.value.result?.first.lastName ?? ''}', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
               TextSmall(text: _getController.profileInfoModel.value.result?.first.phone ?? '', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
               _buildListTile(
                   context: context,
@@ -120,7 +113,7 @@ class _AccountPageState extends State<AccountPage> {
                 context: context,
                 icon: Icons.favorite,
                 title: 'Sevimlilar'.tr,
-                onTap: () => Get.to(() => CategoryPage(index: 0, open: 1), transition: Transition.fadeIn)
+                onTap: () => Get.to(() => const CategoryPage(index: 0, open: 1), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
@@ -167,9 +160,26 @@ class _AccountPageState extends State<AccountPage> {
   Container _buildListTile({required BuildContext context, required IconData icon, required String title, required VoidCallback onTap, Color? color}) {
     color ??= Colors.black;
     return Container(
+      height: 50.h,
       margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
+      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.grey.withOpacity(0.2)),
-      child: ListTile(onTap: onTap, leading: Icon(icon, color: color), title: TextSmall(text: title, color: color, fontSize: 16.sp, fontWeight: FontWeight.w500), trailing: Icon(Icons.chevron_right, color: color))
+     // child: ListTile(onTap: onTap, leading: Icon(icon, color: color), title: TextSmall(text: title, color: color, fontSize: 16.sp, fontWeight: FontWeight.w500), trailing: Icon(Icons.chevron_right, color: color))
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20.r),
+        onTap: onTap,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: Row(
+          children: [
+            Icon(icon, color: color),
+            SizedBox(width: 10.w),
+            TextSmall(text: title, color: color, fontSize: 16.sp, fontWeight: FontWeight.w500),
+            const Spacer(),
+            Icon(Icons.chevron_right, color: color)
+          ]
+        )
+      )
     );
   }
 }
