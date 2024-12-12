@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,7 +9,6 @@ import 'package:hicom_patners/resource/srting.dart';
 import 'controllers/dependency.dart';
 import 'controllers/firebase_api.dart';
 import 'controllers/get_controller.dart';
-import 'firebase_options.dart';
 
 
 main() async {
@@ -22,7 +19,6 @@ main() async {
   FlutterNativeSplash.remove();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   try{
     await InitNotification.initialize();
   }catch(e){

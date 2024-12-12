@@ -390,7 +390,14 @@ class GetController extends GetxController {
     if (messagesJson != null) {
       messages = json.decode(messagesJson);
     }
+    debugPrint('======================================================================================================================================================');
+    debugPrint(messages.toString());
+    debugPrint('======================================================================================================================================================');
     messages.add({"title": title, "body": body, "date": DateTime.now().toString()});
+    debugPrint('======================================================================================================================================================');
+    debugPrint('+++++');
+    print(messages);
+    debugPrint('======================================================================================================================================================');
     GetStorage().write('notificationMessages', json.encode(messages));
   }
 
@@ -741,7 +748,7 @@ class GetController extends GetxController {
     warrantyModel.value = warrantyModels;
     warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
     sortedWarrantyModel.value = convertToSortedWarrantyModel(warrantyModel.value);
-    debugPrint(sortedWarrantyModel.value.toJson().toString());
+    //debugPrint(sortedWarrantyModel.value.toJson().toString());
   }
 
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;

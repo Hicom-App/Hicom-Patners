@@ -450,7 +450,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
         } else {
@@ -532,7 +532,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/warranty/archive${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
         } else {

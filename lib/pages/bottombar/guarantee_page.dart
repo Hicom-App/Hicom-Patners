@@ -82,15 +82,6 @@ class GuaranteePage extends StatelessWidget {
           if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty) {
             final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
             sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
-            //Map<String, List<dynamic>> groupedWarranty = {};
-            /*for (var warranty in sortedWarrantyList) {
-              String formattedDate = warranty.warrantyStart.toString();
-              if (!groupedWarranty.containsKey(formattedDate)) {
-                groupedWarranty[formattedDate] = [];
-              }
-              groupedWarranty[formattedDate]!.add(warranty);
-            }*/
-
             final groupedWarranty = _getController.warrantyModel.value.result!.fold<Map<String, List<dynamic>>>({}, (grouped, warranty) {
               String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
               if (!grouped.containsKey(formattedDate)) {
