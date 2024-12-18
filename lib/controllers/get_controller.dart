@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
+import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -146,18 +147,6 @@ class GetController extends GetxController {
       return 'uz_UZ';
     }
   }
-
-  /*String getDateFormat(String timeStamp) {
-    if (timeStamp.isEmpty) return '';
-    var date = DateTime.parse(timeStamp);
-    if (date.day == DateTime.now().day && date.year == DateTime.now().year) {
-      return 'Bugun'.tr;
-    } else if (date.day == DateTime.now().day - 1 && date.year == DateTime.now().year) {
-      return 'Kecha'.tr;
-    } else {
-      return '${date.day} ${getMonth(DateFormat('MMM').format(date))} ${date.year}';
-    }
-  }*/
 
   String getDateFormat(String timeStamp) {
     try {
@@ -378,11 +367,8 @@ class GetController extends GetxController {
     getBiometrics();
   }
 
-  //save notification message
-
   void saveNotificationMessage(String title, String body) {
     if (title.isEmpty || body.isEmpty) {
-      debugPrint("Notification message is empty");
       return;
     }
     List messages = [];
@@ -390,14 +376,7 @@ class GetController extends GetxController {
     if (messagesJson != null) {
       messages = json.decode(messagesJson);
     }
-    debugPrint('======================================================================================================================================================');
-    debugPrint(messages.toString());
-    debugPrint('======================================================================================================================================================');
     messages.add({"title": title, "body": body, "date": DateTime.now().toString()});
-    debugPrint('======================================================================================================================================================');
-    debugPrint('+++++');
-    print(messages);
-    debugPrint('======================================================================================================================================================');
     GetStorage().write('notificationMessages', json.encode(messages));
   }
 
@@ -458,6 +437,9 @@ class GetController extends GetxController {
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
   final ScrollController scrollGuaranteeController = ScrollController();
 
+  final RefreshController refreshDetailController = RefreshController(initialRefresh: false);
+  final ScrollController scrollDetailController = ScrollController();
+
   final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
   final ScrollController scrollTransferWalletController = ScrollController();
 
@@ -485,18 +467,6 @@ class GetController extends GetxController {
 
   void changeCardBackIndex(int value) => cardBackIndex.value = value;
 
-  void changeSelectedMonths(int value) {
-    clearSortedTransactionsModel();
-    ApiController().getTransactions(
-        filter: 't.date_created%20%3E%3D%20%222024-11-01%22%20AND%20t.date_created%20%3C%3D%20%222024-11-30%22'
-    );
-    for (var i = 0; i < listMonth.length; i++) {
-      listMonth[i]['selected'] = i == value ? true : false;
-    }
-    selectMonth.value = value;
-    listMonth.refresh();
-  }
-
   void changeSelectedMonth(int value) {
     for (var i = 0; i < listMonth.length; i++) {
       listMonth[i]['selected'] = i == value ? true : false;
@@ -520,7 +490,7 @@ class GetController extends GetxController {
         }
       }
       String filter = 't.date_created >= "${DateFormat('yyyy-MM-dd').format(firstDayOfMonth)}" '
-          'AND t.date_created <= "${DateFormat('yyyy-MM-dd').format(lastDayOfMonth)}"';
+          'AND t.date_created <= "${DateFormat('yyyy-MM-dd').format(lastDayOfMonth)} 23:59:59"';
       ApiController().getTransactions(filter: filter);
     }
     listMonth.refresh();
@@ -529,6 +499,7 @@ class GetController extends GetxController {
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
     widgetOptions.add(const AccountPage());
+    widgetOptions.add(QRViewExample());
     widgetOptions.add(GuaranteePage());
     widgetOptions.add(ReportPage());
   }
@@ -746,9 +717,8 @@ class GetController extends GetxController {
 
   void changeWarrantyModel(WarrantyModel warrantyModels) {
     warrantyModel.value = warrantyModels;
-    warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
+    //warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
     sortedWarrantyModel.value = convertToSortedWarrantyModel(warrantyModel.value);
-    //debugPrint(sortedWarrantyModel.value.toJson().toString());
   }
 
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;

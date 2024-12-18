@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/resource/colors.dart';
-import 'package:webview_all/webview_all.dart';
 
 class WebPage extends StatelessWidget{
   final String title;
@@ -19,7 +18,7 @@ class WebPage extends StatelessWidget{
             centerTitle: true,
             leading: IconButton(icon: Icon(Icons.arrow_back, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back())
         ),
-        body: Center(child: Webview(url: url))
+        //body: Center(child: Webview(url: url))
     );
   }
 }

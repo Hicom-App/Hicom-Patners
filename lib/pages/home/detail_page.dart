@@ -35,8 +35,8 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
         body: RefreshComponent(
-            refreshController: _getController.refreshGuaranteeController,
-            scrollController: _getController.scrollGuaranteeController,
+            refreshController: _getController.refreshDetailController,
+            scrollController: _getController.scrollDetailController,
             enablePullUp: false,
             onLoading: null,
             color: AppColors.black,

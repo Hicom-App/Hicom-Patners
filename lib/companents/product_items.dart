@@ -31,12 +31,6 @@ class ProductItems extends StatelessWidget{
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                      /*child: FadeInImage(
-                        image: NetworkImage(_getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString()),
-                        placeholder: const AssetImage('assets/images/logo_back.png'),
-                        imageErrorBuilder: (context, error, stackTrace) => ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),), child: Container(height: 162.h, width: 165.w, decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/logo_back.png'), fit: BoxFit.cover)))),
-                        fit: BoxFit.cover
-                      )*/
                       child: CacheImage(
                           url: _getController.categoriesProductsModel.value.all![index].result![i].photoUrl.toString(),
                           keys: _getController.categoriesProductsModel.value.all![index].result![i].id.toString()

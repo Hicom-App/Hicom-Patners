@@ -9,8 +9,19 @@ class CacheImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CachedNetworkImage(
+      filterQuality: FilterQuality.high,
+      imageUrl: url,
+      //cacheKey: keys,
+      placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+      errorWidget: (context, url, error) {
+        debugPrint('Xatolik: $url');
+        return Image.asset('assets/images/logo_back.png', fit: BoxFit.cover);
+      },
+      fit: fit,
+    );
+
+    /*return CachedNetworkImage(
         filterQuality: FilterQuality.high,
         imageUrl: url,
         placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
@@ -19,6 +30,6 @@ class CacheImage extends StatelessWidget {
           return Image.asset('assets/images/logo_back.png', fit: BoxFit.cover);
         },
         fit: fit
-    );
+    );*/
   }
 }

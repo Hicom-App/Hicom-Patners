@@ -244,7 +244,6 @@ class ApiController extends GetxController {
         //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
-          //debugPrint(jsonEncode(_getController.categoriesModel.value).toString());
           getProducts(0);
         } else {
           debugPrint('Xatolik: ${data['message']}');
@@ -450,18 +449,15 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        //debugPrint(data.toString());
+        debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}');
+        debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
-        } else {
-          debugPrint('Xatolik: ${data['message']}');
         }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
       debugPrint('Xatolik: $e');
-      debugPrint(stacktrace.toString());
+      debugPrint('Xatolik: $stacktrace');
     }
   }
 
@@ -707,6 +703,8 @@ class ApiController extends GetxController {
   Future<void> getTransactions({String? filter}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
+      debugPrint('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
+      debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         if (jsonDecode(response.body)['status'] == 0) {
           _getController.changeSortedTransactionsModel(
@@ -730,7 +728,7 @@ class ApiController extends GetxController {
   Future<void> getProfile({bool isWorker = true}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
-      debugPrint(response.statusCode.toString());
+      //debugPrint(response.statusCode.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         //debugPrint(data.toString());

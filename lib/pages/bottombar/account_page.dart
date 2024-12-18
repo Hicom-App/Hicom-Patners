@@ -7,11 +7,11 @@ import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/account/my_account_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../companents/home/chashe_image.dart';
 import '../../controllers/get_controller.dart';
 import '../account/arxiv_page.dart';
 import '../account/settings_page.dart';
-import '../account/web_page.dart';
 import '../home/category_page.dart';
 import '../home/transfer_to_wallet.dart';
 import 'package:photo_view/photo_view.dart';
@@ -125,21 +125,16 @@ class AccountPageState extends State<AccountPage> {
                   context: context,
                   icon: Icons.help,
                   title: 'Yordam'.tr,
-                  onTap: () => Get.to(() => WebPage(title: 'Yordam'.tr,
-                      url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'),
-                      transition: Transition.fadeIn)
-
+                  onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'), mode: LaunchMode.externalApplication)
+                  //onTap: () => Get.to(() => WebPage(title: 'Yordam'.tr, url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'),transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info,
                 //title: 'Batafsil'.tr,
                 title: 'Maxfiylik siyosati'.tr,
-                //onTap: () => launchUrl(Uri.parse(), mode: LaunchMode.externalApplication)
-                onTap: () => Get.to(() => WebPage(title: 'Batafsil'.tr,
-                    url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'),
-                    transition: Transition.fadeIn)
-                //onTap: () => print(GetController().language.toString())
+                onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), mode: LaunchMode.externalApplication)
+                //onTap: () => Get.to(() => WebPage(title: 'Batafsil'.tr, url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,

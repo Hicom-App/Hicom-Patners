@@ -23,7 +23,7 @@ class ReportPage extends StatelessWidget {
             ? Column(
                 children: [
                   Container(width: Get.width, height: Get.height * 0.431,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 30.r, offset: const Offset(0, 0))]),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
                       child: Column(
                           children: [
                             AppBar(backgroundColor: Colors.transparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
@@ -57,12 +57,14 @@ class ReportPage extends StatelessWidget {
                                       Container(
                                           width: Get.width * 0.43,
                                           height: Get.height * 0.1,
-                                          decoration: BoxDecoration(color:AppColors.blue, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(color: AppColors.white,width: 1.8.sp),
+                                              color:AppColors.blue, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                           child: Container(
                                               height: Get.height * 0.1,
                                               margin: EdgeInsets.only(right: 10.w),
                                               padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                                              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
+                                              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r),topRight: Radius.circular(1.r), bottomRight: Radius.circular(1.r))),
                                               child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -90,12 +92,20 @@ class ReportPage extends StatelessWidget {
                                       Container(
                                           width: Get.width * 0.43,
                                           height: Get.height * 0.1,
-                                          decoration: BoxDecoration(color:AppColors.red, borderRadius: BorderRadius.all(Radius.circular(20.r))),
+                                          decoration: BoxDecoration(border: Border.all(color: AppColors.white,width: 1.8.sp), color:AppColors.red, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                           child: Container(
                                               height: Get.height * 0.1,
                                               margin: EdgeInsets.only(left: 10.w),
-                                              padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                                              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r),topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
+                                              padding: EdgeInsets.only(left: 10.w, right: 5.w),
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.white,
+                                                  borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(1.r),
+                                                      bottomLeft: Radius.circular(1.r),
+                                                      topRight: Radius.circular(10.r),
+                                                      bottomRight: Radius.circular(10.r)
+                                                  )
+                                              ),
                                               child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -133,12 +143,14 @@ class ReportPage extends StatelessWidget {
                                     Container(
                                         width: Get.width * 0.43,
                                         height: Get.height * 0.1,
-                                        decoration: BoxDecoration(color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: AppColors.white,width: 1.8.sp),
+                                            color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                         child: Container(
                                             height: Get.height * 0.1,
                                             margin: EdgeInsets.only(right: 10.w),
                                             padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r),topRight: Radius.circular(5.r), bottomRight: Radius.circular(5.r))),
+                                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r),topRight: Radius.circular(1.r), bottomRight: Radius.circular(1.r))),
                                             child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -166,12 +178,20 @@ class ReportPage extends StatelessWidget {
                                     Container(
                                         width: Get.width * 0.43,
                                         height: Get.height * 0.1,
-                                        decoration: BoxDecoration(color:AppColors.green, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                        decoration: BoxDecoration(border: Border.all(color: AppColors.white,width: 1.8.sp), color:AppColors.green, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                         child: Container(
                                             height: Get.height * 0.1,
                                             margin: EdgeInsets.only(left: 10.w),
-                                            padding: EdgeInsets.only(left: 15.w, right: 5.w),
-                                            decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r),bottomLeft: Radius.circular(5.r), topRight: Radius.circular(15.r), bottomRight: Radius.circular(15.r))),
+                                            padding: EdgeInsets.only(left: 10.w, right: 5.w),
+                                            decoration: BoxDecoration(
+                                                color: AppColors.white,
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(1.r),
+                                                    bottomLeft: Radius.circular(1.r),
+                                                    topRight: Radius.circular(10.r),
+                                                    bottomRight: Radius.circular(10.r)
+                                                )
+                                            ),
                                             child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -208,10 +228,10 @@ class ReportPage extends StatelessWidget {
                     child: RefreshComponent(
                         scrollController: _getController.scrollReportController,
                         refreshController: _getController.refreshReportController,
+                        color: AppColors.black,
                         onRefresh: () async {
                           _getController.clearSortedTransactionsModel();
                           _getController.changeSelectedMonth(0);
-                          //ApiController().getTransactions();
                         },
                         child: _getController.sortedTransactionsModel.value.result != null && _getController.sortedTransactionsModel.value.result!.isNotEmpty
                             ? ListView.builder(
@@ -237,7 +257,7 @@ class ReportPage extends StatelessWidget {
                                                 alignment: Alignment.center,
                                                 margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
                                                 padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 5.r, offset: const Offset(0, 0))]),
                                                 child: Column(
                                                     children: [
                                                       Container(

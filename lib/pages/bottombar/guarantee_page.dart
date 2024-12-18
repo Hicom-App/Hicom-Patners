@@ -26,6 +26,9 @@ class GuaranteePage extends StatelessWidget {
     ApiController().getWarrantyProducts(filter: 'c.active=1');
     _getController.refreshGuaranteeController.refreshCompleted();
     _getController.refreshGuaranteeController.loadComplete();
+    if(_getController.searchController.text.isNotEmpty){
+      _getController.searchController.clear();
+    }
   }
 
   String getMonth(String date) {
@@ -79,32 +82,34 @@ class GuaranteePage extends StatelessWidget {
         scrollController: _getController.scrollGuaranteeController,
         color: AppColors.black, onRefresh: () => getData(),
         child: Obx(() {
-          if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty) {
-            final sortedWarrantyList = List.from(_getController.warrantyModel.value.result!);
-            sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
-            final groupedWarranty = _getController.warrantyModel.value.result!.fold<Map<String, List<dynamic>>>({}, (grouped, warranty) {
-              String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
-              if (!grouped.containsKey(formattedDate)) {
-                grouped[formattedDate] = [];
-              }
-              grouped[formattedDate]!.add(warranty);
-              return grouped;
-            });
-            return Column(
+          final sortedWarrantyList = _getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty ? List.from(_getController.warrantyModel.value.result!) : [];
+          sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
+
+          final groupedWarranty =  _getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty ?
+          _getController.warrantyModel.value.result!.fold<Map<String, List<dynamic>>>({}, (grouped, warranty) {
+            String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
+            if (!grouped.containsKey(formattedDate)) {
+              grouped[formattedDate] = [];
+            }
+            grouped[formattedDate]!.add(warranty);
+            return grouped;
+          }) : {};
+
+          return Column(
               children: [
                 SizedBox(height: Get.height * 0.01),
                 SearchTextField(
                     color: Colors.grey.withOpacity(0.2),
                     onChanged: (value) {
                       if (value.isEmpty) {
-                        getData();
-                        return;
+                        ApiController().getWarrantyProducts(filter: 'c.active=1');
                       } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3) {
-                        ApiController().getWarrantyProducts(filter: 'c.active=1 OR name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getWarrantyProducts(filter: 'c.active=1 AND name CONTAINS "${_getController.searchController.text}"');
                       }
                     }
                 ),
-                Container(
+                if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty)
+                  Container(
                     width: Get.width,
                     margin: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h, bottom: 15.h),
                     child: ListView.builder(
@@ -114,7 +119,6 @@ class GuaranteePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           String dateKey = groupedWarranty.keys.elementAt(index);
                           List<dynamic> warrantiesForDate = groupedWarranty[dateKey]!;
-
                           if (warrantiesForDate.isEmpty) {return const SizedBox.shrink();}
                           return Column(
                             children: [
@@ -202,16 +206,14 @@ class GuaranteePage extends StatelessWidget {
                         }
                     )
                 )
+                else if (_getController.warrantyModel.value.result == null || _getController.warrantyModel.value.result!.isNotEmpty)
+                  const GuaranteeSkeleton()
+                else
+                  const EmptyComponent()
               ]
             );
           }
-          else if (_getController.warrantyModel.value.result == null || _getController.warrantyModel.value.result!.isNotEmpty) {
-            return const GuaranteeSkeleton();
-          }
-          else {
-            return const EmptyComponent();
-          }
-        })
+        )
       )
     );
   }

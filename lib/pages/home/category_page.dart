@@ -44,12 +44,14 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   void dispose() {
     Future.microtask(() {
-      _getController.searchController.clear();
-      _getController.refreshController.refreshCompleted();
-      _getController.clearCategoriesProductsModel();
-      _getController.clearProductsModel();
-      _getController.clearCategoriesModel();
-      ApiController().getCategories();
+      if (_getController.searchController.text.isNotEmpty){
+        _getController.searchController.clear();
+        _getController.refreshController.refreshCompleted();
+        _getController.clearCategoriesProductsModel();
+        _getController.clearProductsModel();
+        _getController.clearCategoriesModel();
+        ApiController().getCategories();
+      }
     });
     super.dispose();
   }

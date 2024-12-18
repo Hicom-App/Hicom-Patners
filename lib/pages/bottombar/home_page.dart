@@ -23,13 +23,9 @@ import '../home/transfer_to_wallet.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-
   final GetController _getController = Get.put(GetController());
-
   @override
   Widget build(BuildContext context) {
-    ApiController().getProfile(isWorker: false);
-    ApiController().getCategories();
     return  Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
@@ -179,14 +175,7 @@ class HomePage extends StatelessWidget {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
-                                                        SizedBox(
-                                                            width: 40.w,
-                                                            height: 38.w,
-                                                            child: CacheImage(
-                                                                keys: _getController.categoriesModel.value.result![index].id.toString(),
-                                                                url: _getController.categoriesModel.value.result![index].photoUrl.toString()
-                                                            )
-                                                        ),
+                                                        SizedBox(width: 40.w, height: 38.w, child: CacheImage(keys: _getController.categoriesModel.value.result![index].id.toString(), url: _getController.categoriesModel.value.result![index].photoUrl.toString())),
                                                         Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
                                                       ]
                                                   )
@@ -211,7 +200,7 @@ class HomePage extends StatelessWidget {
                                                     children: [
                                                       if (_getController.productsModel.value.result != null)
                                                         for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index)),
+                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
                                                     ]
                                                 )
                                             )
@@ -228,7 +217,7 @@ class HomePage extends StatelessWidget {
                                                       TextButton(
                                                           onPressed: (){
                                                             _getController.searchController.clear();
-                                                            Get.to(CategoryPage(index: 0, open: 2));
+                                                            Get.to(const CategoryPage(index: 0, open: 2));
                                                           },
                                                           child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
                                                       )

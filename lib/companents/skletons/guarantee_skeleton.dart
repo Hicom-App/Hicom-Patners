@@ -16,7 +16,6 @@ class GuaranteeSkeleton extends StatelessWidget{
        child: Column(
            children: [
              SizedBox(height: Get.height * 0.01),
-             SearchTextField(color: Colors.grey.withOpacity(0.2)),
              for (int i = 0; i < 5; i++)
                Container(
                    margin: EdgeInsets.only(bottom: 12.h, top: 12.h, left: 15.w, right: 15.w),

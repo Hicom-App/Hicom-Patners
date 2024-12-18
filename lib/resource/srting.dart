@@ -15,7 +15,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Tilni tanlang',
-      'QR Kodni Skaynerlash': 'QR Kodni Skaynerlash',
+      'QR Kodni Skaynerlash': 'QR Kodni Skanerlash',
 
       //login page
       'Telefon raqam': 'Telefon raqam',
@@ -124,7 +124,7 @@ class LocaleString extends Translations{
       'Faol':'Faol',
 
       //category page
-      'Sevimli mahsulotlar': 'Sevimli mahsulotlar',
+      'Sevimli mahsulotlar': 'Sevimli tovarlar',
       'Barcha mahsulotlar': 'Barcha tovarlar',
 
       //settings page
@@ -812,7 +812,7 @@ class LocaleString extends Translations{
       'Faol': 'Фаол',
 
       //category page
-      'Sevimli mahsulotlar': 'Севимли маҳсулотлар',
+      'Sevimli mahsulotlar': 'Севимли товарлар',
       'Barcha mahsulotlar': 'Барча товарлар',
 
       //settings page
