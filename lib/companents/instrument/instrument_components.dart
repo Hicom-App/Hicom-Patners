@@ -508,7 +508,7 @@ class InstrumentComponents {
           height: 42.h,
           margin: EdgeInsets.only(bottom: 15.h),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
-          child: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'Ha'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+          child: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'Ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       )
   );
 

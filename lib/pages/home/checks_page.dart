@@ -226,8 +226,8 @@ class ChecksPage extends StatelessWidget {
                   width: Get.width,
                   height: Get.height * 0.54,
                   child: RefreshComponent(
-                      scrollController: _getController.scrollReportController,
-                      refreshController: _getController.refreshReportController,
+                      scrollController: _getController.scrollCategoryController,
+                      refreshController: _getController.refreshCategoryController,
                       color: AppColors.black,
                       onRefresh: () async {
                         _getController.clearSortedTransactionsModel();

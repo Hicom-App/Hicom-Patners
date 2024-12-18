@@ -56,6 +56,7 @@ class GetController extends GetxController {
   RxBool isCreatingPasscode = true.obs;
   RxBool allComments = false.obs;
   RxBool send = false.obs;
+  RxInt selectedInitStack = 0.obs;
 
   void sendParam(value)=> send.value = value;
 

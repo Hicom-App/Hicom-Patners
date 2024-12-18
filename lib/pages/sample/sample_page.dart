@@ -36,6 +36,11 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
   void _onItemTapped(int index) {
     _getController.changeIndex(index);
     _getController.searchController.clear();
+    if (index == 3){
+      _getController.clearWarrantyModel();
+      _getController.clearSortedWarrantyModel();
+      ApiController().getWarrantyProducts(filter: 'c.active=1');
+    }
   }
 
   @override

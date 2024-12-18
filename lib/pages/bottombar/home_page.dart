@@ -24,6 +24,8 @@ import '../home/transfer_to_wallet.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final GetController _getController = Get.put(GetController());
+
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -45,293 +47,296 @@ class HomePage extends StatelessWidget {
                   _getController.clearCategoriesModel();
                   ApiController().getCategories();
                 },
-                child: Obx(() => Column(
-                    children: [
-                      SizedBox(
-                          height: Get.height * 0.352,
-                          width: Get.width,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                AppBar(
-                                    surfaceTintColor: Colors.transparent,
-                                    shadowColor: Colors.transparent,
-                                    foregroundColor: Colors.transparent,
-                                    backgroundColor: Colors.transparent,
-                                    centerTitle: false,
-                                    title: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
-                                          TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                child: Obx(() => IndexedStack(
+                  index: _getController.selectedInitStack.value,
+                  children: [
+                    Column(
+                        children: [
+                          SizedBox(
+                              height: Get.height * 0.352,
+                              width: Get.width,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    AppBar(
+                                        surfaceTintColor: Colors.transparent,
+                                        shadowColor: Colors.transparent,
+                                        foregroundColor: Colors.transparent,
+                                        backgroundColor: Colors.transparent,
+                                        centerTitle: false,
+                                        title: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
+                                              TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                            ]
+                                        ),
+                                        // title: TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
+                                        actions: [
+                                          IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
                                         ]
                                     ),
-                                   // title: TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
-                                    actions: [
-                                      IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
-                                    ]
-                                ),
-                                Column(
-                                    children: [
-                                      TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
-                                      TextLarge(text: _getController.profileInfoModel.value.result != null ? '${_getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackCalculated!)} ${'so‘m'.tr}' : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold),
-                                    ]
-                                ),
-                                SizedBox(
-                                    width: Get.width,
-                                    height: 90.h,
-                                    child: ListView.builder(
-                                        itemCount: _getController.listTitle.length,
-                                        scrollDirection: Axis.horizontal,
-                                        physics: const BouncingScrollPhysics(),
-                                        padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                                        itemBuilder: (context, index) => GestureDetector(
-                                            onTap: () {
-                                              if(index == 1) {
-                                                Get.to(() => TransferToWallet(index: index));
-                                              }else if(index == 0) {
-                                                Get.to(() => ChecksPage());
-                                              }
-                                            },
-                                            child: Card(
-                                                color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
-                                                elevation: 0,
-                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.r)),
-                                                child: SizedBox(
-                                                    height: 100.h,
-                                                    width: 178.w,
-                                                    child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black, fontSize: 17.sp),
-                                                          Row(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              children: [
-                                                                TextSmall(
-                                                                    text: _getController.profileInfoModel.value.result != null
-                                                                        ? index == 0 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWaiting!)
-                                                                        : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain!)
-                                                                        : index == 2 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!)
-                                                                        : _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRejected!)
-                                                                        : '0',
-                                                                    color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
-                                                                TextSmall(text: ' ${'so‘m'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
-                                                              ]
-                                                          )
-                                                        ]
+                                    Column(
+                                        children: [
+                                          TextSmall(text: 'Jami hisoblangan'.tr, color: AppColors.white, fontWeight: FontWeight.bold),
+                                          TextLarge(text: _getController.profileInfoModel.value.result != null ? '${_getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackCalculated!)} ${'so‘m'.tr}' : '0 ${'so‘m'.tr}',color: AppColors.white,fontWeight: FontWeight.bold),
+                                        ]
+                                    ),
+                                    SizedBox(
+                                        width: Get.width,
+                                        height: 90.h,
+                                        child: ListView.builder(
+                                            itemCount: _getController.listTitle.length,
+                                            scrollDirection: Axis.horizontal,
+                                            physics: const BouncingScrollPhysics(),
+                                            padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                                            itemBuilder: (context, index) => GestureDetector(
+                                                onTap: () {
+                                                  if(index == 1) {
+                                                    Get.to(() => TransferToWallet(index: index));
+                                                  }else if(index == 0) {
+                                                    Get.to(() => ChecksPage());
+                                                  }
+                                                },
+                                                child: Card(
+                                                    color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
+                                                    elevation: 0,
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.r)),
+                                                    child: SizedBox(
+                                                        height: 100.h,
+                                                        width: 178.w,
+                                                        child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            children: [
+                                                              TextSmall(text: _getController.listTitle[index].tr, color: AppColors.black, fontSize: 17.sp),
+                                                              Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  children: [
+                                                                    TextSmall(
+                                                                        text: _getController.profileInfoModel.value.result != null
+                                                                            ? index == 0 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWaiting!)
+                                                                            : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain!)
+                                                                            : index == 2 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!)
+                                                                            : _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRejected!)
+                                                                            : '0',
+                                                                        color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                                                    TextSmall(text: ' ${'so‘m'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
+                                                                  ]
+                                                              )
+                                                            ]
+                                                        )
                                                     )
                                                 )
                                             )
                                         )
                                     )
-                                )
-                              ]
-                          )
-                      ),
-                      Container(
-                          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
-                          child: _getController.productsModel.value.result != null
-                              ? Column(
-                              children: [
-                                SizedBox(height: 25.h),
-                                if (_getController.categoriesModel.value.result != null)
-                                  SearchTextField(
-                                      color: AppColors.grey.withOpacity(0.2),
-                                      onChanged: (value) {
-                                        if (_getController.searchController.text.isEmpty) {
-                                          _getController.searchController.clear();
-                                          _getController.refreshController.refreshCompleted();
-                                          _getController.clearCategoriesProductsModel();
-                                          _getController.clearProductsModel();
-                                          _getController.clearCategoriesModel();
-                                          ApiController().getCategories();
-                                        }
-                                        if (_getController.searchController.value.text.length > 3 ) {
-                                          ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
-                                        }
-                                      }
-                                  )
-                                else
-                                  Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
-                                SizedBox(height: 15.h),
-                                if (_getController.categoriesModel.value.result != null)
-                                  SizedBox(
-                                      width: Get.width,
-                                      height: 82.h,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          padding: EdgeInsets.only(left: 10.w, right: 30.w),
-                                          itemBuilder: (context, index) => InkWell(
-                                              onTap: () => Get.to(CategoryPage(index: index, open: 0)),
-                                              child:  Container(
-                                                  margin: EdgeInsets.only(left: 15.w),
-                                                  padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                  decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
-                                                  child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        SizedBox(width: 40.w, height: 38.w, child: CacheImage(keys: _getController.categoriesModel.value.result![index].id.toString(), url: _getController.categoriesModel.value.result![index].photoUrl.toString())),
-                                                        Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
-                                                      ]
-                                                  )
-                                              )
-                                          ),
-                                          itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                          shrinkWrap: true
+                                  ]
+                              )
+                          ),
+                          Container(
+                              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
+                              child: _getController.productsModel.value.result != null
+                                  ? Column(
+                                  children: [
+                                    SizedBox(height: 25.h),
+                                    if (_getController.categoriesModel.value.result != null)
+                                      SearchTextField(
+                                          color: AppColors.grey.withOpacity(0.2),
+                                          onChanged: (value) {
+                                            if (_getController.searchController.text.isEmpty) {
+                                              _getController.searchController.clear();
+                                              _getController.refreshController.refreshCompleted();
+                                              _getController.clearCategoriesProductsModel();
+                                              _getController.clearProductsModel();
+                                              _getController.clearCategoriesModel();
+                                              ApiController().getCategories();
+                                            }
+                                            if (_getController.searchController.value.text.length > 3 ) {
+                                              ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
+                                            }
+                                          }
                                       )
-                                  )
-                                else
-                                  const SkeletonCategory(),
-                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
-                                  Stack(
-                                      children: [
-                                        SizedBox(
-                                            height: 345.h,
-                                            width: Get.width,
-                                            child: SingleChildScrollView(
-                                                scrollDirection: Axis.horizontal,
-                                                padding: EdgeInsets.only(left: 25.w, right: 15.w),
-                                                child: Row(
-                                                    children: [
-                                                      if (_getController.productsModel.value.result != null)
-                                                        for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                          InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
-                                                    ]
+                                    else
+                                      Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                                    SizedBox(height: 15.h),
+                                    if (_getController.categoriesModel.value.result != null)
+                                      SizedBox(
+                                          width: Get.width,
+                                          height: 82.h,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              padding: EdgeInsets.only(left: 10.w, right: 30.w),
+                                              itemBuilder: (context, index) => InkWell(
+                                                  onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                                  child:  Container(
+                                                      margin: EdgeInsets.only(left: 15.w),
+                                                      padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                                                      decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
+                                                      child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(width: 40.w, height: 38.w, child: CacheImage(keys: _getController.categoriesModel.value.result![index].id.toString(), url: _getController.categoriesModel.value.result![index].photoUrl.toString())),
+                                                            Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
+                                                          ]
+                                                      )
+                                                  )
+                                              ),
+                                              itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
+                                              shrinkWrap: true
+                                          )
+                                      )
+                                    else
+                                      const SkeletonCategory(),
+                                    if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                      Stack(
+                                          children: [
+                                            SizedBox(
+                                                height: 345.h,
+                                                width: Get.width,
+                                                child: SingleChildScrollView(
+                                                    scrollDirection: Axis.horizontal,
+                                                    padding: EdgeInsets.only(left: 25.w, right: 15.w),
+                                                    child: Row(
+                                                        children: [
+                                                          if (_getController.productsModel.value.result != null)
+                                                            for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                              InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
+                                                        ]
+                                                    )
+                                                )
+                                            ),
+                                            Positioned(
+                                                child: Container(
+                                                    margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                    child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          TextSmall(text: 'Barcha mahsulotlar'.tr, color: AppColors.black),
+                                                          const Spacer(),
+                                                          TextButton(
+                                                              onPressed: (){
+                                                                _getController.searchController.clear();
+                                                                Get.to(const CategoryPage(index: 0, open: 2));
+                                                              },
+                                                              child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
+                                                          )
+                                                        ]
+                                                    )
                                                 )
                                             )
-                                        ),
-                                        Positioned(
-                                            child: Container(
-                                                margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                                child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          ]
+                                      ),
+                                    if (_getController.categoriesModel.value.result != null && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                      Column(
+                                          children: [
+                                            for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
+                                              if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
+                                                Stack(
                                                     children: [
-                                                      TextSmall(text: 'Barcha mahsulotlar'.tr, color: AppColors.black),
-                                                      const Spacer(),
-                                                      TextButton(
-                                                          onPressed: (){
-                                                            _getController.searchController.clear();
-                                                            Get.to(const CategoryPage(index: 0, open: 2));
-                                                          },
-                                                          child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
+                                                      SizedBox(
+                                                          height: 345.h,
+                                                          width: Get.width,
+                                                          child: SingleChildScrollView(
+                                                              scrollDirection: Axis.horizontal,
+                                                              padding: EdgeInsets.only(left: 25.w, right: 15.w),
+                                                              child: Row(
+                                                                  children: [
+                                                                    if (_getController.productsModel.value.result != null)
+                                                                      for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                                        InkWell(
+                                                                            onTap: () {
+                                                                              _getController.searchController.clear();
+                                                                              Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
+                                                                            },
+                                                                            child: ProductItems(index: i, i: index)
+                                                                        )
+                                                                  ]
+                                                              )
+                                                          )
+                                                      ),
+                                                      Positioned(
+                                                          child: Container(
+                                                              margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                              child: Row(
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                  children: [
+                                                                    TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
+                                                                    const Spacer(),
+                                                                    TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                  ]
+                                                              )
+                                                          )
                                                       )
                                                     ]
                                                 )
-                                            )
-                                        )
-                                      ]
-                                  ),
-                                if (_getController.categoriesModel.value.result != null && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
-                                  Column(
-                                      children: [
-                                        for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
-                                          if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
-                                            Stack(
-                                                children: [
-                                                  SizedBox(
-                                                      height: 345.h,
-                                                      width: Get.width,
-                                                      child: SingleChildScrollView(
-                                                          scrollDirection: Axis.horizontal,
-                                                          padding: EdgeInsets.only(left: 25.w, right: 15.w),
-                                                          child: Row(
-                                                              children: [
-                                                                if (_getController.productsModel.value.result != null)
-                                                                  for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
-                                                                    InkWell(
-                                                                        onTap: () {
-                                                                          _getController.searchController.clear();
-                                                                          Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
-                                                                        },
-                                                                        child: ProductItems(index: i, i: index)
-                                                                    )
-                                                              ]
-                                                          )
-                                                      )
-                                                  ),
-                                                  Positioned(
-                                                      child: Container(
-                                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
-                                                          child: Row(
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                              children: [
-                                                                //TextSmall(text: _getController.getCategoryName(int.parse(_getController.categoriesModel.value.result![i].id.toString())), color: Theme.of(context).colorScheme.onSurface),
-                                                                TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
-                                                                const Spacer(),
-                                                                TextButton(onPressed: () => Get.to(CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
-                                                              ]
-                                                          )
+                                          ]
+                                      ),
+                                    if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
+                                      Container(
+                                          height: Get.height * 0.3,
+                                          width: Get.width,
+                                          alignment: Alignment.center,
+                                          child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: Theme.of(context).colorScheme.onSurface)
+                                      ),
+                                    SizedBox(height: Get.height * 0.1)
+                                  ]
+                              )
+                                  : Column(
+                                  children: [
+                                    SizedBox(height: 25.h),
+                                    Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                                    SizedBox(height: 15.h),
+                                    if (_getController.categoriesModel.value.result != null)
+                                      SizedBox(
+                                          width: Get.width,
+                                          height: 82.h,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              padding: EdgeInsets.only(left: 10.w, right: 30.w),
+                                              itemBuilder: (context, index) => InkWell(
+                                                  onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                                  child:  Container(
+                                                      margin: EdgeInsets.only(left: 15.w),
+                                                      padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                                                      decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
+                                                      child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                                                                width: 40.w,
+                                                                height: 38.w,
+                                                                child: CacheImage(
+                                                                    url: _getController.categoriesModel.value.result![index].photoUrl.toString(),
+                                                                    keys: _getController.categoriesModel.value.result![index].id.toString()
+                                                                )
+                                                            ),
+                                                            Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
+                                                          ]
                                                       )
                                                   )
-                                                ]
-                                            )
-                                      ]
-                                  ),
-                                if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
-                                  Container(
-                                      height: Get.height * 0.3,
-                                      width: Get.width,
-                                      alignment: Alignment.center,
-                                      child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: Theme.of(context).colorScheme.onSurface)
-                                  ),
-                                SizedBox(height: Get.height * 0.1)
-                              ]
-                          )
-                              : Column(
-                              children: [
-                                SizedBox(height: 25.h),
-                                Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
-                                SizedBox(height: 15.h),
-                                if (_getController.categoriesModel.value.result != null)
-                                  SizedBox(
-                                      width: Get.width,
-                                      height: 82.h,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          padding: EdgeInsets.only(left: 10.w, right: 30.w),
-                                          itemBuilder: (context, index) => InkWell(
-                                              onTap: () => Get.to(CategoryPage(index: index, open: 0)),
-                                              child:  Container(
-                                                  margin: EdgeInsets.only(left: 15.w),
-                                                  padding: EdgeInsets.only(left: 6.w, right: 6.w),
-                                                  decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(20.r)),
-                                                  child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        SizedBox(
-                                                            width: 40.w,
-                                                            height: 38.w,
-                                                            child: CacheImage(
-                                                              url: _getController.categoriesModel.value.result![index].photoUrl.toString(),
-                                                              keys: _getController.categoriesModel.value.result![index].id.toString()
-                                                            )
-                                                        ),
-                                                        Container(margin: EdgeInsets.only(top: 5.h), width: 71.w, child: Center(child: _getController.categoriesModel.value.result != null ? TextSmall(text: _getController.categoriesModel.value.result![index].name.toString(), color: AppColors.white, maxLines: 1, fontSize: 11.sp, fontWeight: FontWeight.w600) : const SizedBox()))
-                                                      ]
-                                                  )
-                                              )
-                                          ),
-                                          itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                          shrinkWrap: true
+                                              ),
+                                              itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
+                                              shrinkWrap: true
+                                          )
                                       )
-                                  )
-                                else
-                                  const SkeletonCategory(),
-                                for (int i = 0; i < 3; i++)
-                                  const SkeletonProducts()
-                              ]
+                                    else
+                                      const SkeletonCategory(),
+                                    for (int i = 0; i < 3; i++)
+                                      const SkeletonProducts()
+                                  ]
+                              )
                           )
-                      )
-                    ])
-                )
+                        ])
+                  ],
+                ))
             )
         )
     );

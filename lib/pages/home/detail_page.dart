@@ -29,7 +29,6 @@ class DetailPage extends StatelessWidget {
     debugPrint('id: $id');
     _getController.allComments.value = false;
     _getController.fullText.value = false;
-    //productsModelDetail clear
     _getController.clearProductsModelDetail();
     ApiController().getProduct(id!, isCategory: false);
     return Scaffold(
@@ -40,7 +39,7 @@ class DetailPage extends StatelessWidget {
             enablePullUp: false,
             onLoading: null,
             color: AppColors.black,
-            onRefresh: (){ApiController().getProduct(id!, isCategory: false).then((_) => _getController.refreshGuaranteeController.refreshCompleted());},
+            onRefresh: () {ApiController().getProduct(id!, isCategory: false).then((_) {_getController.refreshGuaranteeController.refreshCompleted();_getController.refreshDetailController.refreshCompleted();});},
             child: Obx(() => Column(
                 children: [
                   SizedBox(
