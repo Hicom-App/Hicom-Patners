@@ -238,7 +238,7 @@ class GetController extends GetxController {
     clearControllers();
     deletePassCode();
     GetStorage().erase();
-    Get.delete<GetController>();
+    //Get.delete<GetController>();
   }
 
   get phoneNumber => GetStorage().read('phoneNumber');

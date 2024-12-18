@@ -131,6 +131,7 @@ class ApiController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(await response.stream.bytesToString());
       if (data['status'] == 0) {
+        _getController.stopTimer();
         _getController.deletePassCode();
         _getController.saveBiometrics(false);
         _getController.saveToken(data['result']['token']);
@@ -142,7 +143,6 @@ class ApiController extends GetxController {
           _getController.errorField.value = false;
           _getController.verifyCodeControllers.clear();
           if (isRegister) {
-            _getController.stopTimer();
             getCountries();
             _getController.updateSelectedDate(DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day));
             Get.to(() => const RegisterPage());
