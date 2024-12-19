@@ -439,32 +439,32 @@ class GetController extends GetxController {
   }
 
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);
-  final ScrollController scrollController = ScrollController();
-  final ScrollController scrollControllerOk = ScrollController();
+  final ScrollController  scrollController = ScrollController();
+  final ScrollController  scrollControllerOk = ScrollController();
 
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
-  final ScrollController scrollGuaranteeController = ScrollController();
+  final ScrollController  scrollGuaranteeController = ScrollController();
 
   final RefreshController refreshDetailController = RefreshController(initialRefresh: false);
-  final ScrollController scrollDetailController = ScrollController();
+  final ScrollController  scrollDetailController = ScrollController();
 
   final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
-  final ScrollController scrollTransferWalletController = ScrollController();
+  final ScrollController  scrollTransferWalletController = ScrollController();
 
   final RefreshController refreshNotificationController = RefreshController(initialRefresh: false);
-  final ScrollController scrollNotificationController = ScrollController();
+  final ScrollController  scrollNotificationController = ScrollController();
 
   final RefreshController refreshChecksController = RefreshController(initialRefresh: false);
-  final ScrollController scrollChecksController = ScrollController();
+  final ScrollController  scrollChecksController = ScrollController();
 
   final RefreshController refreshCategoryController = RefreshController(initialRefresh: false);
-  final ScrollController scrollCategoryController = ScrollController();
+  final ScrollController  scrollCategoryController = ScrollController();
 
   final RefreshController refreshReportController = RefreshController(initialRefresh: false);
-  final ScrollController scrollReportController = ScrollController();
+  final ScrollController  scrollReportController = ScrollController();
 
   final RefreshController refreshArchiveController = RefreshController(initialRefresh: false);
-  final ScrollController scrollArchiveController = ScrollController();
+  final ScrollController  scrollArchiveController = ScrollController();
 
   var widgetOptions = <Widget>[];
   var index = 0.obs;
@@ -732,7 +732,6 @@ class GetController extends GetxController {
   void changeReviewsModel(ReviewsModel reviewsModels) => reviewsModel.value = reviewsModels;
 
   void changeCardsModel(CardsModel cardsModels) => cardsModel.value = cardsModels;
-
 
   void changeSortedTransactionsModel(SortedPayTransactions sortedTransactionsModels, TwoList twoLists){
     sortedTransactionsModel.value = sortedTransactionsModels;

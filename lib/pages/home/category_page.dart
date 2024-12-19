@@ -110,7 +110,10 @@ class _CategoryPageState extends State<CategoryPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
                           padding: EdgeInsets.only(left: 25.w, right: 10.w),
-                          itemBuilder: (context, index) => InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: widget.open == 1 ? true : false)),
+                          itemBuilder: (context, index) => InkWell(
+                            splashColor: Colors.transparent,
+                              overlayColor: WidgetStateProperty.all(Colors.transparent),
+                              onTap: () => Get.to(DetailPage(id: _getController.categoryProductsModel.value.result![index].id)), child: CatProductItem(index: index, isFavorite: widget.open == 1 ? true : false)),
                           itemCount: _getController.categoryProductsModel.value.result!.length
                       )
                   )
