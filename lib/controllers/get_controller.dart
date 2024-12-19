@@ -355,6 +355,13 @@ class GetController extends GetxController {
     }
   }
 
+  int getCategoryId(String catName) {
+    if (categoriesModel.value.result != null) {
+      return categoriesModel.value.result!.firstWhere((element) => element.name == catName).id!;
+    }
+    return 0;
+  }
+
   void saveLanguage(Locale locale) {
     debugPrint(locale.languageCode.toString());
     GetStorage().write('language', '${locale.languageCode}_${locale.countryCode}');

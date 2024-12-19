@@ -103,7 +103,7 @@ class GuaranteePage extends StatelessWidget {
                     onChanged: (value) {
                       if (value.isEmpty) {
                         ApiController().getWarrantyProducts(filter: 'c.active=1');
-                      } else if (_getController.searchController.text.isNotEmpty && _getController.searchController.text.length > 3) {
+                      } else if (_getController.searchController.text.isNotEmpty) {
                         ApiController().getWarrantyProducts(filter: 'c.active=1 AND name CONTAINS "${_getController.searchController.text}"');
                       }
                     }

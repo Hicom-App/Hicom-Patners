@@ -446,7 +446,7 @@ class ApiController extends GetxController {
 
   Future<void> getWarrantyProducts({filter = ''}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter&sort=warranty_start.desc' : '?sort=warranty_start.desc'}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}');
@@ -525,7 +525,7 @@ class ApiController extends GetxController {
 
   Future<void> getWarrantyProduct({filter = ''}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/warranty/archive${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/warranty/archive${filter != '' ? '?filter=$filter&sort=warranty_start.desc' : '?sort=warranty_start.desc'}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         //debugPrint(data.toString());

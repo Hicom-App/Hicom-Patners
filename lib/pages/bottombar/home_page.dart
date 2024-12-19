@@ -155,9 +155,7 @@ class HomePage extends StatelessWidget {
                                               _getController.clearCategoriesModel();
                                               ApiController().getCategories();
                                             }
-                                            if (_getController.searchController.value.text.length > 3 ) {
-                                              ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
-                                            }
+                                            ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
                                           }
                                       )
                                     else
@@ -252,7 +250,8 @@ class HomePage extends StatelessWidget {
                                                                         InkWell(
                                                                             onTap: () {
                                                                               _getController.searchController.clear();
-                                                                              Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
+                                                                              //Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
+                                                                              Get.to(DetailPage(id: _getController.getCategoryId(_getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString())));
                                                                             },
                                                                             child: ProductItems(index: i, i: index)
                                                                         )

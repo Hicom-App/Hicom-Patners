@@ -228,7 +228,7 @@ class ArxivPage extends StatelessWidget {
   void _onSearch(String value) {
     if (value.isEmpty) {
       _fetchInitialData();
-    } else if (value.length > 3) {
+    } else {
       ApiController().getWarrantyProduct(filter: 'c.active=1 AND name CONTAINS "$value"',);
     }
   }

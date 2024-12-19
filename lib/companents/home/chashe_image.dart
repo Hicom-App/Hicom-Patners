@@ -12,7 +12,6 @@ class CacheImage extends StatelessWidget {
     return CachedNetworkImage(
       filterQuality: FilterQuality.high,
       imageUrl: url,
-      cacheKey: keys,
       placeholder: (context, url) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
       errorWidget: (context, url, error) {
         debugPrint('Xatolik: $url');
