@@ -113,9 +113,7 @@ class AccountPageState extends State<AccountPage> {
                 context: context,
                 icon: Icons.favorite,
                 title: 'Sevimlilar'.tr,
-                onTap: () => Get.to(() => const CategoryPage(
-                    id: 0,
-                    open: 1), transition: Transition.fadeIn)
+                onTap: () => Get.to(() => const CategoryPage(id: 0, open: 1), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
@@ -128,15 +126,12 @@ class AccountPageState extends State<AccountPage> {
                   icon: Icons.help,
                   title: 'Yordam'.tr,
                   onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'), mode: LaunchMode.externalApplication)
-                  //onTap: () => Get.to(() => WebPage(title: 'Yordam'.tr, url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/links/сontact_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/links/сontact_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/links/сontact_en.html' : 'https://hicom.uz/links/сontact_uz-cyr.html'),transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
                 icon: Icons.info,
-                //title: 'Batafsil'.tr,
                 title: 'Maxfiylik siyosati'.tr,
                 onTap: () => launchUrl(Uri.parse(GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), mode: LaunchMode.externalApplication)
-                //onTap: () => Get.to(() => WebPage(title: 'Batafsil'.tr, url: GetController().language.toString() == 'uz_UZ' ? 'https://hicom.uz/doc/partner/private_policy_uz.html' : GetController().language.toString() == 'ru_RU' ? 'https://hicom.uz/doc/partner/private_policy_ru.html' :  GetController().language.toString() == 'en_US' ? 'https://hicom.uz/doc/partner/private_policy_en.html' : 'https://hicom.uz/doc/partner/private_policy_uz-cyr.html'), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
