@@ -24,7 +24,7 @@ class _CategoryPageState extends State<CategoryPage> {
   final GetController _getController = Get.put(GetController());
 
   void getData() {
-    _getController.searchController.clear();
+    _getController.catSearchController.clear();
     if (widget.open == 0) {
       ApiController().getProducts(widget.id, isCategory: false);
     } else if (widget.open == 1) {
@@ -41,21 +41,6 @@ class _CategoryPageState extends State<CategoryPage> {
     getData();
   }
 
-  @override
-  void dispose() {
-    Future.microtask(() {
-      if (_getController.searchController.text.isNotEmpty){
-        _getController.searchController.clear();
-        _getController.refreshController.refreshCompleted();
-        _getController.clearCategoriesProductsModel();
-        _getController.clearProductsModel();
-        _getController.clearCategoriesModel();
-        ApiController().getCategories();
-      }
-    });
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +51,7 @@ class _CategoryPageState extends State<CategoryPage> {
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
         onRefresh: () {
-          _getController.searchController.clear();
+          _getController.catSearchController.clear();
           if (widget.open == 0) {
             ApiController().getProducts(_getController.categoriesModel.value.result![widget.id].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 1) {
@@ -78,6 +63,7 @@ class _CategoryPageState extends State<CategoryPage> {
         child: Obx(() => Column(
             children: [
               SearchTextField(
+                  controller: _getController.catSearchController,
                   margin: 20,
                   color: AppColors.grey.withOpacity(0.2),
                   onChanged: (value) {
@@ -88,15 +74,15 @@ class _CategoryPageState extends State<CategoryPage> {
                     debugPrint(value);
                     if (widget.open == 0) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(widget.id, isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(widget.id, isCategory: false, filter: 'name CONTAINS "${_getController.catSearchController.text}"');
                       }
                     } else if (widget.open == 1) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}")');
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}")');
                       }
                     } else if (widget.open == 2) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
+                        ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}"');
                       }
                     }
                   }

@@ -265,7 +265,7 @@ class ArxivPage extends StatelessWidget {
           return Column(
             children: [
               SizedBox(height: Get.height * 0.01),
-              SearchTextField(color: Colors.grey.withOpacity(0.2), onChanged: _onSearch),
+              SearchTextField(color: Colors.grey.withOpacity(0.2), onChanged: _onSearch, controller: _getController.archiveSearchController),
               if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty)
                 Container(
                     width: Get.width,

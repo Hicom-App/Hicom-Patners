@@ -26,8 +26,8 @@ class GuaranteePage extends StatelessWidget {
     ApiController().getWarrantyProducts(filter: 'c.active=1');
     _getController.refreshGuaranteeController.refreshCompleted();
     _getController.refreshGuaranteeController.loadComplete();
-    if(_getController.searchController.text.isNotEmpty){
-      _getController.searchController.clear();
+    if(_getController.guaranteeSearchController.text.isNotEmpty){
+      _getController.guaranteeSearchController.clear();
     }
   }
 
@@ -84,7 +84,6 @@ class GuaranteePage extends StatelessWidget {
         child: Obx(() {
           final sortedWarrantyList = _getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty ? List.from(_getController.warrantyModel.value.result!) : [];
           sortedWarrantyList.sort((a, b) => DateTime.parse(a.dateCreated.toString()).compareTo(DateTime.parse(b.dateCreated.toString())));
-
           final groupedWarranty =  _getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty ?
           _getController.warrantyModel.value.result!.fold<Map<String, List<dynamic>>>({}, (grouped, warranty) {
             String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.parse(warranty.warrantyStart.toString()));
@@ -94,7 +93,6 @@ class GuaranteePage extends StatelessWidget {
             grouped[formattedDate]!.add(warranty);
             return grouped;
           }) : {};
-
           return Column(
               children: [
                 SizedBox(height: Get.height * 0.01),
@@ -103,10 +101,10 @@ class GuaranteePage extends StatelessWidget {
                     onChanged: (value) {
                       if (value.isEmpty) {
                         ApiController().getWarrantyProducts(filter: 'c.active=1');
-                      } else if (_getController.searchController.text.isNotEmpty) {
-                        ApiController().getWarrantyProducts(filter: 'c.active=1 AND name CONTAINS "${_getController.searchController.text}"');
+                      } else if (_getController.guaranteeSearchController.text.isNotEmpty) {
+                        ApiController().getWarrantyProducts(filter: 'c.active=1 AND name CONTAINS "${_getController.guaranteeSearchController.text}"');
                       }
-                    }
+                    }, controller: _getController.guaranteeSearchController,
                 ),
                 if (_getController.warrantyModel.value.result != null && _getController.warrantyModel.value.result!.isNotEmpty)
                   Container(

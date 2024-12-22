@@ -156,10 +156,10 @@ class HomePage extends StatelessWidget {
                                               ApiController().getCategories();
                                             }
                                             ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
-                                          }
+                                          }, controller: _getController.searchController,
                                       )
                                     else
-                                      Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                                      Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController,)),
                                     SizedBox(height: 15.h),
                                     if (_getController.categoriesModel.value.result != null)
                                       SizedBox(
@@ -294,7 +294,7 @@ class HomePage extends StatelessWidget {
                                   : Column(
                                   children: [
                                     SizedBox(height: 25.h),
-                                    Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2))),
+                                    Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController)),
                                     SizedBox(height: 15.h),
                                     if (_getController.categoriesModel.value.result != null)
                                       SizedBox(

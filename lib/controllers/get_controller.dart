@@ -303,6 +303,9 @@ class GetController extends GetxController {
 
 
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController catSearchController = TextEditingController();
+  final TextEditingController guaranteeSearchController = TextEditingController();
+  final TextEditingController archiveSearchController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surNameController = TextEditingController();
