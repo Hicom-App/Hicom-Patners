@@ -53,7 +53,7 @@ class AccountPageState extends State<AccountPage> {
       body: SingleChildScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
-        child: Obx(() => Column(
+        child: Obx(() => _getController.profileInfoModel.value.result != null ? Column(
             children: [
               AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
@@ -113,7 +113,9 @@ class AccountPageState extends State<AccountPage> {
                 context: context,
                 icon: Icons.favorite,
                 title: 'Sevimlilar'.tr,
-                onTap: () => Get.to(() => const CategoryPage(index: 0, open: 1), transition: Transition.fadeIn)
+                onTap: () => Get.to(() => const CategoryPage(
+                    id: 0,
+                    open: 1), transition: Transition.fadeIn)
               ),
               _buildListTile(
                 context: context,
@@ -147,7 +149,7 @@ class AccountPageState extends State<AccountPage> {
               TextSmall(text: '${'Ilova versiyasi'.tr} ${_getController.version.value}', color: AppColors.black, fontSize: 12.sp),
               SizedBox(height: Get.height * 0.2)
             ]
-        ))
+        ) : const Center(child: CircularProgressIndicator()))
       )
     );
   }

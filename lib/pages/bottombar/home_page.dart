@@ -169,7 +169,7 @@ class HomePage extends StatelessWidget {
                                               scrollDirection: Axis.horizontal,
                                               padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                               itemBuilder: (context, index) => InkWell(
-                                                  onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                                  onTap: () => Get.to(CategoryPage(open: 0, id: _getController.categoriesModel.value.result![index].id!.toInt())),
                                                   child:  Container(
                                                       margin: EdgeInsets.only(left: 15.w),
                                                       padding: EdgeInsets.only(left: 6.w, right: 6.w),
@@ -220,7 +220,9 @@ class HomePage extends StatelessWidget {
                                                           TextButton(
                                                               onPressed: (){
                                                                 _getController.searchController.clear();
-                                                                Get.to(const CategoryPage(index: 0, open: 2));
+                                                                Get.to(const CategoryPage(
+                                                                    id: 0,
+                                                                    open: 2));
                                                               },
                                                               child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
                                                           )
@@ -268,7 +270,9 @@ class HomePage extends StatelessWidget {
                                                                     TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                     const Spacer(),
                                                                     TextButton(onPressed: () => Get.to(
-                                                                        CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                        CategoryPage(
+                                                                            id: _getController.categoriesProductsModel.value.all![i].result!.first.categoryId!.toInt(),
+                                                                            open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                                   ]
                                                               )
                                                           )
@@ -300,7 +304,9 @@ class HomePage extends StatelessWidget {
                                               scrollDirection: Axis.horizontal,
                                               padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                               itemBuilder: (context, index) => InkWell(
-                                                  onTap: () => Get.to(CategoryPage(index: index, open: 0)),
+                                                  onTap: () => Get.to(CategoryPage(
+                                                    id: _getController.categoriesModel.value.result![index].id!.toInt(),
+                                                      open: 0)),
                                                   child:  Container(
                                                       margin: EdgeInsets.only(left: 15.w),
                                                       padding: EdgeInsets.only(left: 6.w, right: 6.w),

@@ -154,7 +154,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                         onPressed: () {
                           FocusScope.of(context).unfocus();
                           isKeyboardVisible = false;
-                          if (_getController.phoneController.text.length < 8) {
+                          if (_getController.phoneController.text.length < 9) {
                             _getController.changeErrorInput(0, true);
                             _getController.tapTimes(() => _getController.changeErrorInput(0, false), 1);
                             _getController.shakeKey[8].currentState?.shake();

@@ -316,18 +316,6 @@ class ApiController extends GetxController {
     }
   }
 
-  /*Future<void> getAllCatProducts({filter}) async {
-    for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++) {
-      await getProduct(_getController.categoriesModel.value.result![i].id ?? 0, filter: filter);
-    }
-  }*/
-
-  /*Future<void> getAllCatProducts({filter}) async {
-    for (var category in _getController.categoriesModel.value.result!) {
-      await getProduct(category.id ?? 0, filter: filter);
-    }
-  }*/
-
   Future<void> getAllCatProducts({filter}) async {
     await Future.forEach(_getController.categoriesModel.value.result!, (category) async {
       debugPrint(category.id.toString());

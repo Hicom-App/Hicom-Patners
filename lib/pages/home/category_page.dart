@@ -12,9 +12,9 @@ import '../../resource/colors.dart';
 import 'detail_page.dart';
 
 class CategoryPage extends StatefulWidget {
-  final int index;
+  final int id;
   final int open;
-  const CategoryPage({super.key, required this.index, required this.open});
+  const CategoryPage({super.key, required this.id, required this.open});
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -26,7 +26,7 @@ class _CategoryPageState extends State<CategoryPage> {
   void getData() {
     _getController.searchController.clear();
     if (widget.open == 0) {
-      ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false);
+      ApiController().getProducts(widget.id, isCategory: false);
     } else if (widget.open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true);
     } else if (widget.open == 2) {
@@ -61,14 +61,14 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.white,
-        appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: widget.open == 0 ? _getController.categoriesModel.value.result![widget.index].name! : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
+        appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: widget.open == 0 ? _getController.getCategoryName(widget.id) : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
         body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
         onRefresh: () {
           _getController.searchController.clear();
           if (widget.open == 0) {
-            ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
+            ApiController().getProducts(_getController.categoriesModel.value.result![widget.id].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 1) {
             ApiController().getProducts(0,isCategory: false, isFavorite: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 2) {
@@ -87,15 +87,15 @@ class _CategoryPageState extends State<CategoryPage> {
                     }
                     debugPrint(value);
                     if (widget.open == 0) {
-                      if (value.isNotEmpty && value.length > 3) {
-                        ApiController().getProducts(_getController.categoriesModel.value.result![widget.index].id!.toInt(), isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
+                      if (value.isNotEmpty) {
+                        ApiController().getProducts(widget.id, isCategory: false, filter: 'name CONTAINS "${_getController.searchController.text}"');
                       }
                     } else if (widget.open == 1) {
-                      if (value.isNotEmpty && value.length > 3) {
+                      if (value.isNotEmpty) {
                         ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}")');
                       }
                     } else if (widget.open == 2) {
-                      if (value.isNotEmpty && value.length > 3) {
+                      if (value.isNotEmpty) {
                         ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.searchController.text}" OR category_name CONTAINS "${_getController.searchController.text}"');
                       }
                     }
