@@ -67,7 +67,7 @@ class GuaranteeSkeleton extends StatelessWidget{
                                                      child: ClipRRect(
                                                          borderRadius: BorderRadius.all(Radius.circular(20.r)),
                                                          child: FadeInImage(
-                                                             image: const NetworkImage('https://hicom.uz/wp-content/uploads/2024/01/24Pro-600x600.png'),
+                                                             image: const AssetImage('assets/images/logo_back.png'),
                                                              placeholder: const AssetImage('assets/images/logo_back.png'),
                                                              imageErrorBuilder: (context, error, stackTrace) {
                                                                return Container(

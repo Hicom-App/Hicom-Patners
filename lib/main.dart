@@ -1,3 +1,4 @@
+import 'package:disposable_cached_images/disposable_cached_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -24,8 +25,14 @@ main() async {
   }catch(e){
     debugPrint(e.toString());
   }
-  runApp(MyApp());
-  DependencyInjection.init();
+  await DisposableImages.init();
+  runApp(DisposableImages(MyApp()));
+  //runApp(MyApp());
+  try{
+    DependencyInjection.init();
+  } catch(e){
+    debugPrint(e.toString());
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -48,7 +48,6 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
             if (scrollNotification is UserScrollNotification) {
@@ -115,9 +114,11 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                                             setState(() {});
                                                           },
                                                           onCountryChanged: (phone) {
+                                                            _getController.sendParam(true);
                                                             _getController.code.value = '+${phone.fullCountryCode}';
                                                             _getController.countryCode.value = phone.regionCode;
                                                             _getController.phoneController.clear();
+                                                            setState(() {});
                                                           },
                                                           countries: countries.where((element) => ['UZ', 'RU', 'KG', 'TJ', 'KZ'].contains(element.code)).toList(),
                                                           invalidNumberMessage: null,
@@ -136,83 +137,42 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                     )
                                 )
                             )
-                            /*const Spacer(),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                      height: 40.h,
-                                      margin: EdgeInsets.only(bottom: height * 0.06),
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(backgroundColor: _getController.send.value ? AppColors.blue : AppColors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                          onPressed: () {
-                                            if (_getController.send.value){
-                                              if (_getController.phoneController.text.isNotEmpty) {
-                                                ApiController().sendCode();
-                                              } else {
-                                                _getController.changeErrorInput(0, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                                _getController.shakeKey[8].currentState?.shake();
-                                              }
-                                            }
-                                          },
-                                          child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
-                                      )
-                                  )
-                                ]
-                            ),
-                            SizedBox(height: 50.h)*/
                           ]
                       )
                   ),
-                  Positioned(
-                      bottom: Get.height * 0.11,
-                      right: 0,
-                      child: Column(
-                        children: [
-                          AnimatedSlide(
-                              offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
-                              duration: Duration(milliseconds: animateTextFields ? 550 : 400),
-                              curve: Curves.easeInOut,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                        height: 40.h,
-                                        margin: EdgeInsets.only(bottom: Get.height * 0.3),
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(backgroundColor: _getController.phoneController.text.isNotEmpty ? AppColors.blue : AppColors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
-                                            onPressed: () {
-                                              FocusScope.of(context).unfocus();
-                                              isKeyboardVisible = false;
-                                              _getController.sendParam(true);
-                                              if (_getController.phoneController.text.length < 8) {
-                                                _getController.changeErrorInput(0, true);
-                                                _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                                _getController.shakeKey[8].currentState?.shake();
-                                                return;
-                                              } else {
-                                                if (_getController.send.value){
-                                                  if (_getController.phoneController.text.isNotEmpty) {
-                                                    ApiController().sendCode();
-                                                  } else {
-                                                    _getController.changeErrorInput(0, true);
-                                                    _getController.tapTimes(() =>_getController.changeErrorInput(0, false),1);
-                                                    _getController.shakeKey[8].currentState?.shake();
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
-                                        )
-                                    )
-                                  ]
-                              )
-                          )
-                        ]
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    bottom: isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom + 20.h : Get.height * 0.106,
+                    right: 0,
+                    child: AnimatedSlide(
+                      offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),
+                      duration: Duration(milliseconds: animateTextFields ? 550 : 400),
+                      curve: Curves.easeInOut,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: _getController.phoneController.text.isNotEmpty ? AppColors.blue : AppColors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12.r), bottomLeft: Radius.circular(12.r)))),
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          isKeyboardVisible = false;
+                          if (_getController.phoneController.text.length < 8) {
+                            _getController.changeErrorInput(0, true);
+                            _getController.tapTimes(() => _getController.changeErrorInput(0, false), 1);
+                            _getController.shakeKey[8].currentState?.shake();
+                          } else {
+                            if (_getController.send.value) {
+                              if (_getController.phoneController.text.isNotEmpty) {
+                                ApiController().sendCode();
+                              } else {
+                                _getController.changeErrorInput(0, true);
+                                _getController.tapTimes(() => _getController.changeErrorInput(0, false), 1);
+                                _getController.shakeKey[8].currentState?.shake();
+                              }
+                            }
+                          }
+                        },
+                        child: Icon(Icons.arrow_forward, color: AppColors.white, size: 30.sp)
                       )
+                    )
                   )
                 ]
               )

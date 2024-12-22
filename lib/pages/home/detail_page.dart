@@ -56,8 +56,9 @@ class DetailPage extends StatelessWidget {
                                 backgroundColor: Colors.grey.shade200,
                                 centerTitle: true,
                                 elevation: 0,
-                                title: _getController.productsModelDetail.value.result != null
-                                    ? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString().toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)
+                                title: _getController.productsModelDetail.value.result != null && _getController.productsModelDetail.value.result!.isNotEmpty
+                                    //? TextLarge(text: _getController.getCategoryName(_getController.productsModelDetail.value.result!.first.categoryId!).toString().toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)
+                                    ? TextLarge(text: _getController.productsModelDetail.value.result!.first.categoryName!.toUpperCase(), color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)
                                     : Skeletonizer(child: TextLarge(text: 'Nimadurda', color: AppColors.black, fontWeight: FontWeight.w500, fontSize: 20.sp)),
                                 /*actions: [
                                   IconButton(icon: Icon(Icons.share, color: AppColors.blue, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.back()),

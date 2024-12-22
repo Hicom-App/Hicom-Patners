@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
       ApiController().getProfile();
     } else {
-      Get.offAll(() => LanguagePage(), transition: Transition.fadeIn);
+      Get.offAll(() => const LanguagePage(), transition: Transition.fadeIn);
     }
   }
 
@@ -39,9 +39,11 @@ class SplashScreen extends StatelessWidget {
                   children: <Widget>[
                     Flexible(child: Container()),
                     SizedBox(height: Get.height * 0.07),
-                    SizedBox(width: Get.width * 0.43, child: SvgPicture.asset('assets/svg_assets/logo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
+                    //SizedBox(width: Get.width * 0.43, child: SvgPicture.asset('assets/svg_assets/logo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
+                    SizedBox(width: 120.w, child: SvgPicture.asset('assets/svg_assets/logo.svg', colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), fit: BoxFit.contain)),
                     Flexible(child: Container()),
-                    CupertinoActivityIndicator(radius: Get.width * 0.05, color: AppColors.white),
+                    //CupertinoActivityIndicator(radius: Get.width * 0.05, color: AppColors.white),
+                    CupertinoActivityIndicator(radius: 20.sp, color: AppColors.white),
                     SizedBox(height: Get.height * 0.04),
                     TextSmall(text: '${'Ilova versiyasi'.tr} ${_getController.version.value}', color: AppColors.white, fontSize: 12.sp),
                     SizedBox(height: Get.height * 0.03)

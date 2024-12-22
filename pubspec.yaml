@@ -48,10 +48,10 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
-  #webview_all: ^0.4.5
   icons_launcher: ^3.0.0
   change_app_package_name: ^1.4.0
   flutter_native_splash: ^2.4.3
+  disposable_cached_images: ^1.2.1
 
   
 dev_dependencies:

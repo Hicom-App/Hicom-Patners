@@ -1,3 +1,4 @@
+/*
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,10 +22,15 @@ import '../../controllers/get_controller.dart';
 import '../home/checks_page.dart';
 import '../home/transfer_to_wallet.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
-  final GetController _getController = Get.put(GetController());
+class HomePage1 extends StatefulWidget {
+  const HomePage1({super.key});
 
+  @override
+  State<HomePage1> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage1> {
+  final GetController _getController = Get.put(GetController());
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +191,7 @@ class HomePage extends StatelessWidget {
                                                   )
                                               ),
                                               itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                              //shrinkWrap: true
+                                              shrinkWrap: true
                                           )
                                       )
                                     else
@@ -205,7 +211,7 @@ class HomePage extends StatelessWidget {
                                                             for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
                                                               InkWell(onTap: () => Get.to(DetailPage(id: _getController.productsModel.value.result![index].id)), child: ProductItem(index: index))
                                                         ]
-                                                    )
+                                                  )
                                                 )
                                             ),
                                             Positioned(
@@ -251,7 +257,8 @@ class HomePage extends StatelessWidget {
                                                                             onTap: () {
                                                                               _getController.searchController.clear();
                                                                               Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
-                                                                              },
+                                                                              //Get.to(DetailPage(id: _getController.getCategoryId(_getController.categoriesProductsModel.value.all![i].result![index].categoryName.toString())));
+                                                                            },
                                                                             child: ProductItems(index: i, i: index)
                                                                         )
                                                                   ]
@@ -268,7 +275,9 @@ class HomePage extends StatelessWidget {
                                                                     TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                     const Spacer(),
                                                                     TextButton(onPressed: () => Get.to(
-                                                                        CategoryPage(index: i, open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                        //CategoryPage(index: i, open: 0)),
+                                                                        CategoryPage(index: _getController.getCategoryId(_getController.productsModel.value.result!.first.categoryName.toString()), open: 0)),
+                                                                        child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                                   ]
                                                               )
                                                           )
@@ -339,5 +348,6 @@ class HomePage extends StatelessWidget {
             )
         )
     );
+
   }
-}
+}*/
