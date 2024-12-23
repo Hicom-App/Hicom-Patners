@@ -13,9 +13,7 @@ class CacheImage extends StatelessWidget {
       imageUrl: url,
       fit: fit,
       onLoading: (context, one, two) => const Center(child: CircularProgressIndicator(color: Colors.red)),
-      progressBuilder: (context, progress) => Center(
-        child: LinearProgressIndicator(value: progress),
-      ),
+      progressBuilder: (context, progress) => Center(child: CircularProgressIndicator(value: progress, color: Colors.red)),
       onError: (context, error, stackTrace, retryCall) => const Center(child: CircularProgressIndicator(color: Colors.red)),
       onImage: (context, imageWidget, height, width) => imageWidget
     );
