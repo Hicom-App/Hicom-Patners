@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import '../../companents/filds/text_small.dart';
+import '../../controllers/firebase_api.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
 import '../auth/language_page.dart';
@@ -14,13 +15,19 @@ class SplashScreen extends StatelessWidget {
 
   final GetController _getController = Get.put(GetController());
 
-  void open() {
+  Future<void> open() async {
+    try{
+      await InitNotification.initialize();
+    }catch(e){
+      debugPrint(e.toString());
+    }
     debugPrint('${_getController.token} ${_getController.phoneNumber}');
     if (_getController.token != null && _getController.token!.isNotEmpty || _getController.phoneNumber != null && _getController.phoneNumber!.isNotEmpty) {
       ApiController().getProfile();
     } else {
       Get.offAll(() => const LanguagePage(), transition: Transition.fadeIn);
     }
+
   }
 
   @override

@@ -373,9 +373,7 @@ class GetController extends GetxController {
 
   void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
 
-  void saveBiometrics(bool value) {
-    GetStorage().write('biometrics', value).then((value) => getBiometrics());
-  }
+  void saveBiometrics(bool value) => GetStorage().write('biometrics', value).then((value) => getBiometrics());
 
   void saveNotificationMessage(String title, String body) {
     if (title.isEmpty || body.isEmpty) {

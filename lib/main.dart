@@ -8,26 +8,18 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:hicom_patners/resource/srting.dart';
 import 'controllers/dependency.dart';
-import 'controllers/firebase_api.dart';
 import 'controllers/get_controller.dart';
 
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   FlutterNativeSplash.remove();
   await GetStorage.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  try{
-    await InitNotification.initialize();
-  }catch(e){
-    debugPrint(e.toString());
-  }
   await DisposableImages.init();
   runApp(DisposableImages(MyApp()));
-  //runApp(MyApp());
   try{
     DependencyInjection.init();
   } catch(e){
