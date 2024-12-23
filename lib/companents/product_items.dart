@@ -40,7 +40,8 @@ class ProductItems extends StatelessWidget{
                         right: 12.w,
                         top: 10.h,
                         child: InkWell(
-                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoriesProductsModel.value.all![index].result![i].id.toString()), isProduct: _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? true : false).then((value) => _getController.updateCategoriesProductsModel(index, i, _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? 1 : 0)),
+                            //onTap: () => ApiController().addFavorites(int.parse(_getController.categoriesProductsModel.value.all![index].result![i].id.toString()), isProduct: _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? true : false).then((value) => _getController.updateCategoriesProductsModel(index, i, _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? 1 : 0)),
+                            onTap: () => ApiController().addFavorites(int.parse(_getController.categoriesProductsModel.value.all![index].result![i].id.toString()), isProduct: _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? true : false).then((value) => _getController.updateFavoriteAllModels(_getController.categoriesProductsModel.value.all![index].result![i].id!.toInt(), _getController.categoriesProductsModel.value.all![index].result![i].favorite == 0 ? 1 : 0)),
                             child: Icon(_getController.categoriesProductsModel.value.all![index].result![i].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.categoriesProductsModel.value.all![index].result![i].favorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface, size: 20)
                         )
                     )

@@ -130,7 +130,7 @@ class LocaleString extends Translations{
       //settings page
       'Kirish va xavfsizlik': 'Kirish va xavfsizlik',
       'Biometriya orqali kirish': 'Biometriya orqali kirish',
-      'Afzal til': 'Afzal til',
+      'Afzal til': 'Til',
       'Hisobni o‘chirish':'Hisobni o‘chirish',
 
       //guarantee page
@@ -358,7 +358,7 @@ class LocaleString extends Translations{
       //settings page
       'Kirish va xavfsizlik': 'Login and security',
       'Biometriya orqali kirish': 'Login with biometrics',
-      'Afzal til': 'Preferred language',
+      'Afzal til': 'Language',
       'Hisobni o‘chirish':'Delete account',
 
       //guarantee page
@@ -588,7 +588,7 @@ class LocaleString extends Translations{
       //settings page
       'Kirish va xavfsizlik': 'Вход и безопасность',
       'Biometriya orqali kirish': 'Вход с помощью биометрии',
-      'Afzal til': 'Предпочтительный язык',
+      'Afzal til': 'Язык',
       'Hisobni o‘chirish':'Удалить аккаунт',
 
       //guarantee page
@@ -818,7 +818,7 @@ class LocaleString extends Translations{
       //settings page
       'Kirish va xavfsizlik': 'Кириш ва хавфсизлик',
       'Biometriya orqali kirish': 'Биометрия орқали кириш',
-      'Afzal til': 'Афзал тил',
+      'Afzal til': 'Тил',
       'Hisobni o‘chirish':'Ҳисобни ўчириш',
 
       //guarantee page

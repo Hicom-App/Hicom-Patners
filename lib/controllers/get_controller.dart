@@ -374,8 +374,7 @@ class GetController extends GetxController {
   void savePassCode(String passCode) => GetStorage().write('passCode', passCode);
 
   void saveBiometrics(bool value) {
-    GetStorage().write('biometrics', value);
-    getBiometrics();
+    GetStorage().write('biometrics', value).then((value) => getBiometrics());
   }
 
   void saveNotificationMessage(String title, String body) {
@@ -741,23 +740,33 @@ class GetController extends GetxController {
     twoList.value = twoLists;
   }
 
-  void updateCategoriesProductsModel(int item, int index, int value) {
+  void updateFavoriteAllModels(int productId, int value) {
     if (categoriesProductsModel.value.all != null && categoriesProductsModel.value.all!.isNotEmpty) {
-      categoriesProductsModel.value.all![item].result![index].favorite = value;
+      for (var i = 0; i < categoriesProductsModel.value.all!.length; i++) {
+        for (var j = 0; j < categoriesProductsModel.value.all![i].result!.length; j++) {
+          if (categoriesProductsModel.value.all![i].result![j].id == productId) {
+            categoriesProductsModel.value.all![i].result![j].favorite = value;
+          }
+        }
+      }
       categoriesProductsModel.refresh();
     }
-  }
 
-  void updateProductsModel(int index, int value) {
     if (productsModel.value.result != null) {
-      productsModel.value.result![index].favorite = value;
+      for (var i = 0; i < productsModel.value.result!.length; i++) {
+        if (productsModel.value.result![i].id == productId) {
+          productsModel.value.result![i].favorite = value;
+        }
+      }
       productsModel.refresh();
     }
-  }
 
-  void updateCatProductsModel(int index, int value) {
     if (categoryProductsModel.value.result != null) {
-      categoryProductsModel.value.result![index].favorite = value;
+      for (var i = 0; i < categoryProductsModel.value.result!.length; i++) {
+        if (categoryProductsModel.value.result![i].id == productId) {
+          categoryProductsModel.value.result![i].favorite = value;
+        }
+      }
       categoryProductsModel.refresh();
     }
   }

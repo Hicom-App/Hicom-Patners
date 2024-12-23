@@ -323,8 +323,6 @@ class ApiController extends GetxController {
     });
   }
 
-
-
   Future<void> addFavorites(int id, {bool isProduct = true, isFavorite = false}) async {
     try {
       final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: headerBearer());
@@ -333,7 +331,6 @@ class ApiController extends GetxController {
         var data = jsonDecode(response.body);
         debugPrint(data.toString());
         if (data['status'] == 0) {
-          //getCategories();
           getProducts(0, isFavorite: isFavorite);
         } else {
           debugPrint('Xatolik: ${data['message']}');

@@ -40,6 +40,13 @@ class _CategoryPageState extends State<CategoryPage> {
     _getController.clearCategoryProductsModel();
     getData();
   }
+  @override
+  void dispose() {
+    super.dispose();
+    if (widget.open == 1) {
+      ApiController().getProducts(0);
+    }
+  }
 
 
   @override
