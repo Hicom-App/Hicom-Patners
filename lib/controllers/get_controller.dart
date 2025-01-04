@@ -9,7 +9,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
-import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -29,7 +28,7 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  RxString version = '1.0.0'.obs;
+  RxString version = '1.0.2'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -237,6 +236,8 @@ class GetController extends GetxController {
     clearProfileInfoModel();
     clearControllers();
     deletePassCode();
+    firstPasscode.value = '';
+    enteredPasscode.value = '';
     GetStorage().erase();
     //Get.delete<GetController>();
   }
@@ -399,14 +400,26 @@ class GetController extends GetxController {
   var getBiometricsValue = false.obs;
   var getNotificationValue = true.obs;
 
-  bool getBiometrics(){
-    getBiometricsValue.value = GetStorage().read('biometrics') ?? false;
+  bool getBiometrics() {
+    //getBiometricsValue.value = GetStorage().read('biometrics') ?? false;
+    //return getBiometricsValue.value;
+    try {
+      getBiometricsValue.value = GetStorage().read('biometrics') ?? false;
+    } catch (e) {
+      getBiometricsValue.value = false;
+    }
     return getBiometricsValue.value;
   }
 
   bool getNotification(){
-    getNotificationValue.value = GetStorage().read('notification') ?? false;
+    try {
+      getNotificationValue.value = GetStorage().read('notification') ?? true;
+    } catch (e) {
+      getNotificationValue.value = true;
+    }
     return getNotificationValue.value;
+    //getNotificationValue.value = GetStorage().read('notification') ?? false;
+    //return getNotificationValue.value;
   }
 
   void saveNotification(bool value) {
@@ -507,7 +520,7 @@ class GetController extends GetxController {
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
     widgetOptions.add(const AccountPage());
-    widgetOptions.add(QRViewExample());
+    widgetOptions.add(const SizedBox());
     widgetOptions.add(GuaranteePage());
     widgetOptions.add(ReportPage());
   }
@@ -638,6 +651,7 @@ class GetController extends GetxController {
   var productsModelDetail = CategoriesModel().obs;
   var categoryProductsModel = CategoriesModel().obs;
   var categoriesProductsModel = CategoriesProductsModel().obs;
+  var categoriesAllProductsModel = CategoriesProductsModel().obs;
   var sendCodeModel = SendCodeModel().obs;
   var warrantyModel = WarrantyModel().obs;
   var sortedWarrantyModel = SortedWarrantyModel().obs;
@@ -715,17 +729,30 @@ class GetController extends GetxController {
     }
   }
 
+  void addCategoriesAllProductsModels(CategoriesModel categories) {
+    if (categoriesAllProductsModel.value.all == null) {
+      categoriesAllProductsModel.value.all = <CategoriesModel>[];
+    } else {
+      categoriesAllProductsModel.value.all!.add(categories);
+    }
+  }
+
   void addCategoriesProductsModel(CategoriesModel categories) {
     categoriesProductsModel.value.all ??= <CategoriesModel>[];
     categoriesProductsModel.value.all!.add(categories);
     categoriesProductsModel.refresh();
   }
 
+  void addCategoriesAllProductsModel(CategoriesModel categories) {
+    categoriesAllProductsModel.value.all ??= <CategoriesModel>[];
+    categoriesAllProductsModel.value.all!.add(categories);
+    categoriesAllProductsModel.refresh();
+  }
+
   void changeSendCodeModel(SendCodeModel sendCodeModels) => sendCodeModel.value = sendCodeModels;
 
   void changeWarrantyModel(WarrantyModel warrantyModels) {
     warrantyModel.value = warrantyModels;
-    //warrantyModel.value = WarrantyModel.fromJson(json.decode(jsonEncode(warrantyModels)));
     sortedWarrantyModel.value = convertToSortedWarrantyModel(warrantyModel.value);
   }
 
@@ -749,7 +776,16 @@ class GetController extends GetxController {
       }
       categoriesProductsModel.refresh();
     }
-
+    if (categoriesAllProductsModel.value.all != null && categoriesAllProductsModel.value.all!.isNotEmpty) {
+      for (var i = 0; i < categoriesAllProductsModel.value.all!.length; i++) {
+        for (var j = 0; j < categoriesAllProductsModel.value.all![i].result!.length; j++) {
+          if (categoriesAllProductsModel.value.all![i].result![j].id == productId) {
+            categoriesAllProductsModel.value.all![i].result![j].favorite = value;
+          }
+        }
+      }
+      categoriesAllProductsModel.refresh();
+    }
     if (productsModel.value.result != null) {
       for (var i = 0; i < productsModel.value.result!.length; i++) {
         if (productsModel.value.result![i].id == productId) {
@@ -767,6 +803,7 @@ class GetController extends GetxController {
       }
       categoryProductsModel.refresh();
     }
+
   }
 
   String getSortedTransactionsResultIndex(int? value) {
@@ -776,15 +813,12 @@ class GetController extends GetxController {
     for (var i = 0; i < result!.length; i++) {
       for (var j = 0; j < result[i].results!.length; j++) {
         final operation = result[i].results![j].operation;
-
-        // If value is null, count all items. Otherwise, filter by operation.
         if (value == null || operation == value) {
           indices.add(j);
         }
       }
     }
 
-    // Return total count of indices or '0' if no matching items found.
     return indices.isEmpty ? '0' : indices.length.toString();
   }
 
@@ -818,6 +852,8 @@ class GetController extends GetxController {
   void clearProfileInfoModel() => profileInfoModel.value = ProfileInfoModel();
 
   void clearCategoriesProductsModel() => categoriesProductsModel.value = CategoriesProductsModel();
+
+  void clearCategoriesAllProductsModel() => categoriesAllProductsModel.value = CategoriesProductsModel();
 
   void clearProductsModelDetail() => productsModelDetail.value = CategoriesModel();
 

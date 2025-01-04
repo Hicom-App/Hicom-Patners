@@ -26,20 +26,25 @@ class _CategoryPageState extends State<CategoryPage> {
   void getData() {
     _getController.catSearchController.clear();
     if (widget.open == 0) {
-      ApiController().getProducts(widget.id, isCategory: false);
+      ApiController().getProducts(widget.id, isCategory: false, category: true);
     } else if (widget.open == 1) {
-      ApiController().getProducts(0,isCategory: false, isFavorite: true);
+      ApiController().getProducts(0,isCategory: false, isFavorite: true, category: true);
     } else if (widget.open == 2) {
-      ApiController().getProducts(0, isCategory: false, isFavorite: false);
+      ApiController().getProducts(0, isCategory: false, isFavorite: false, category: true);
     }
   }
 
   @override
   void initState() {
     super.initState();
+    print('CategoryPage');
+    print(widget.id.toString());
+    print(widget.open.toString());
+    print('=====================');
     _getController.clearCategoryProductsModel();
     getData();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -60,11 +65,12 @@ class _CategoryPageState extends State<CategoryPage> {
         onRefresh: () {
           _getController.catSearchController.clear();
           if (widget.open == 0) {
-            ApiController().getProducts(_getController.categoriesModel.value.result![widget.id].id!.toInt(), isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
+            print('CategoryPage');
+            ApiController().getProducts(widget.id, isCategory: false,category: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 1) {
-            ApiController().getProducts(0,isCategory: false, isFavorite: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
+            ApiController().getProducts(0,isCategory: false, isFavorite: true, category: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 2) {
-            ApiController().getProducts(0, isCategory: false).then((_) => _getController.refreshCategoryController.refreshCompleted());
+            ApiController().getProducts(0, isCategory: false, category: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
           }
         },
         child: Obx(() => Column(
@@ -81,15 +87,15 @@ class _CategoryPageState extends State<CategoryPage> {
                     debugPrint(value);
                     if (widget.open == 0) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(widget.id, isCategory: false, filter: 'name CONTAINS "${_getController.catSearchController.text}"');
+                        ApiController().getProducts(widget.id, isCategory: false, filter: 'name CONTAINS "${_getController.catSearchController.text}"',category: true);
                       }
                     } else if (widget.open == 1) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}")');
+                        ApiController().getProducts(0,isCategory: false, isFavorite: true, filter: '(name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}")', category: true);
                       }
                     } else if (widget.open == 2) {
                       if (value.isNotEmpty) {
-                        ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}"');
+                        ApiController().getProducts(0, isCategory: false , filter: 'name CONTAINS "${_getController.catSearchController.text}" OR category_name CONTAINS "${_getController.catSearchController.text}"', category: true);
                       }
                     }
                   }

@@ -55,10 +55,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   void dispose() {
+    FocusScope.of(context).unfocus();
     _scrollController.dispose();
     super.dispose();
   }
-
 
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -80,7 +80,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +128,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           SizedBox(width: 15.w),
-                                          TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.bold)),
+                                          TextButton(onPressed: Get.back, child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.black, fontWeight: FontWeight.bold)),
                                           const Spacer(),
                                           TextButton(onPressed: () {
                                             if (_getController.nameController.text.isEmpty) {

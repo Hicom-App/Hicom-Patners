@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,6 @@ import 'package:hicom_patners/pages/home/category_page.dart';
 import 'package:hicom_patners/pages/home/detail_page.dart';
 import 'package:hicom_patners/pages/home/notification_page.dart';
 import 'package:hicom_patners/resource/colors.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_large.dart';
 import '../../companents/filds/text_small.dart';
@@ -25,6 +25,10 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
   final GetController _getController = Get.put(GetController());
 
+  final DebounceTimer _debounceTimer = DebounceTimer(milliseconds: 1000);
+  Future<void> search(value) async {
+    ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -32,7 +36,7 @@ class HomePage extends StatelessWidget {
         body: Container(
             height: Get.height,
             width: Get.width,
-            decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/home_fon.png'), fit: BoxFit.cover)),
+            decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/background.png'), fit: BoxFit.cover)),
             child: RefreshComponent(
                 color: AppColors.white,
                 scrollController: _getController.scrollController,
@@ -42,9 +46,11 @@ class HomePage extends StatelessWidget {
                   _getController.searchController.clear();
                   _getController.refreshController.refreshCompleted();
                   _getController.clearCategoriesProductsModel();
+                  _getController.clearCategoriesAllProductsModel();
                   _getController.clearProductsModel();
                   _getController.clearCategoriesModel();
-                  ApiController().getCategories();
+                  ApiController().getProfile(isWorker: false);
+                  ApiController().getCategories(category: false);
                 },
                 child: Obx(() => IndexedStack(
                   index: _getController.selectedInitStack.value,
@@ -64,15 +70,15 @@ class HomePage extends StatelessWidget {
                                         foregroundColor: Colors.transparent,
                                         backgroundColor: Colors.transparent,
                                         centerTitle: false,
+                                        leading: null,
                                         title: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                               TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
                                             ]
                                         ),
-                                        // title: TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
                                         actions: [
                                           IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
                                         ]
@@ -142,23 +148,29 @@ class HomePage extends StatelessWidget {
                                   ? Column(
                                   children: [
                                     SizedBox(height: 25.h),
-                                    if (_getController.categoriesModel.value.result != null)
+                                    //if (_getController.categoriesModel.value.result != null)
                                       SearchTextField(
-                                          color: AppColors.grey.withOpacity(0.2),
-                                          onChanged: (value) {
-                                            if (_getController.searchController.text.isEmpty) {
-                                              _getController.searchController.clear();
-                                              _getController.refreshController.refreshCompleted();
-                                              _getController.clearCategoriesProductsModel();
-                                              _getController.clearProductsModel();
-                                              _getController.clearCategoriesModel();
-                                              ApiController().getCategories();
-                                            }
-                                            ApiController().getProducts(0, isFavorite: false, isCategory: true, filter: 'name CONTAINS "$value" OR category_name CONTAINS "$value"');
-                                          }, controller: _getController.searchController,
-                                      )
-                                    else
-                                      Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController,)),
+                                        controller: _getController.searchController,
+                                        color: AppColors.grey.withOpacity(0.2),
+                                        onChanged: (value) {
+                                          _getController.clearCategoriesProductsModel();
+                                          _getController.clearCategoriesAllProductsModel();
+                                          _getController.clearProductsModel();
+                                          if (_getController.searchController.text.isEmpty) {
+                                            _getController.searchController.clear();
+                                            _getController.refreshController.refreshCompleted();
+                                            _getController.clearCategoriesProductsModel();
+                                            _getController.clearCategoriesAllProductsModel();
+                                            _getController.clearProductsModel();
+                                            _getController.clearCategoriesModel();
+                                            ApiController().getCategories();
+                                          }
+                                          //_getController.clearCategoriesAllProductsModel();
+                                          _debounceTimer(() => search(value));
+                                        },
+                                      ),
+                                    //else
+                                      //Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController)),
                                     SizedBox(height: 15.h),
                                     if (_getController.categoriesModel.value.result != null)
                                       SizedBox(
@@ -218,10 +230,7 @@ class HomePage extends StatelessWidget {
                                                           const Spacer(),
                                                           TextButton(
                                                               onPressed: (){
-                                                                _getController.searchController.clear();
-                                                                Get.to(const CategoryPage(
-                                                                    id: 0,
-                                                                    open: 2));
+                                                                Get.to(const CategoryPage(id: 0, open: 2));
                                                               },
                                                               child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
                                                           )
@@ -231,11 +240,11 @@ class HomePage extends StatelessWidget {
                                             )
                                           ]
                                       ),
-                                    if (_getController.categoriesModel.value.result != null && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
+                                    if (_getController.categoriesModel.value.result != null && _getController.categoriesAllProductsModel.value.all != null && _getController.categoriesAllProductsModel.value.all!.isNotEmpty && _getController.productsModel.value.result != null && _getController.productsModel.value.result!.isNotEmpty)
                                       Column(
                                           children: [
                                             for (int i = 0; i < _getController.categoriesModel.value.result!.length; i++)
-                                              if (_getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.length > i && _getController.categoriesProductsModel.value.all![i].result!.isNotEmpty)
+                                              if (_getController.categoriesAllProductsModel.value.all != null && _getController.categoriesAllProductsModel.value.all!.length > i && _getController.categoriesAllProductsModel.value.all![i].result!.isNotEmpty)
                                                 Stack(
                                                     children: [
                                                       SizedBox(
@@ -247,13 +256,12 @@ class HomePage extends StatelessWidget {
                                                               child: Row(
                                                                   children: [
                                                                     if (_getController.productsModel.value.result != null)
-                                                                      for (int index = 0; index < _getController.productsModel.value.result!.length; index++)
+                                                                      for (int index = 0; index < _getController.categoriesAllProductsModel.value.all![i].result!.length; index++)
                                                                         InkWell(
                                                                             onTap: () {
-                                                                              _getController.searchController.clear();
-                                                                              Get.to(DetailPage(id: _getController.categoriesProductsModel.value.all![i].result![index].id));
+                                                                              Get.to(DetailPage(id: _getController.categoriesAllProductsModel.value.all![i].result![index].id));
                                                                             },
-                                                                            child: ProductItems(index: i, i: index)
+                                                                            child: ProductItems(index: i, i: index, category: false)
                                                                         )
                                                                   ]
                                                               )
@@ -266,10 +274,10 @@ class HomePage extends StatelessWidget {
                                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                   children: [
-                                                                    TextSmall(text: _getController.categoriesProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
+                                                                    TextSmall(text: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                     const Spacer(),
                                                                     TextButton(onPressed: () => Get.to(
-                                                                        CategoryPage(id: _getController.categoriesProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                        CategoryPage(id: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                                   ]
                                                               )
                                                           )
@@ -278,7 +286,7 @@ class HomePage extends StatelessWidget {
                                                 )
                                           ]
                                       ),
-                                    if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesProductsModel.value.all != null && _getController.categoriesProductsModel.value.all!.isNotEmpty)
+                                    if (_getController.productsModel.value.result != null && _getController.productsModel.value.result!.isEmpty && _getController.categoriesAllProductsModel.value.all != null && _getController.categoriesAllProductsModel.value.all!.isNotEmpty)
                                       Container(
                                           height: Get.height * 0.3,
                                           width: Get.width,
@@ -291,7 +299,26 @@ class HomePage extends StatelessWidget {
                                   : Column(
                                   children: [
                                     SizedBox(height: 25.h),
-                                    Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController)),
+                                    SearchTextField(
+                                      controller: _getController.searchController,
+                                      color: AppColors.grey.withOpacity(0.2),
+                                      onChanged: (value) {
+                                        _getController.clearCategoriesProductsModel();
+                                        _getController.clearCategoriesAllProductsModel();
+                                        _getController.clearProductsModel();
+                                        if (_getController.searchController.text.isEmpty) {
+                                          _getController.searchController.clear();
+                                          _getController.refreshController.refreshCompleted();
+                                          _getController.clearCategoriesProductsModel();
+                                          _getController.clearCategoriesAllProductsModel();
+                                          _getController.clearProductsModel();
+                                          _getController.clearCategoriesModel();
+                                          ApiController().getCategories();
+                                        }
+                                        //_getController.clearCategoriesAllProductsModel();
+                                        _debounceTimer(() => search(value));
+                                      },
+                                    ),
                                     SizedBox(height: 15.h),
                                     if (_getController.categoriesModel.value.result != null)
                                       SizedBox(
@@ -340,5 +367,23 @@ class HomePage extends StatelessWidget {
             )
         )
     );
+  }
+}
+
+
+
+class DebounceTimer {
+  final int milliseconds;
+  Timer? _timer;
+
+  DebounceTimer({required this.milliseconds});
+
+  void call(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+
+  void dispose() {
+    _timer?.cancel();
   }
 }

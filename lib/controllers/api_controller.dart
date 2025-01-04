@@ -236,7 +236,7 @@ class ApiController extends GetxController {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Mahsulot kategoriyalari ro'yxatini olish
 
-  Future<void> getCategories() async {
+  Future<void> getCategories({bool category = false}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: headersBearer());
       if (response.statusCode == 200) {
@@ -244,7 +244,7 @@ class ApiController extends GetxController {
         //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeCategoriesModel(CategoriesModel.fromJson(data));
-          getProducts(0);
+          getProducts(0, category: category);
         } else {
           debugPrint('Xatolik: ${data['message']}');
         }
@@ -258,13 +258,14 @@ class ApiController extends GetxController {
   }
 
   // Mahsulotlar ro'yxatini olish
-  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter}) async {
+  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false}) async {
     filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
       final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        debugPrint(data.toString());
         if (data['status'] == 0) {
           if (isCategory == true) {
             _getController.changeProductsModel(CategoriesModel.fromJson(data));
@@ -279,7 +280,7 @@ class ApiController extends GetxController {
           if (filter != null && filter.isNotEmpty) {
             _getController.clearCategoriesProductsModel();
           }
-          getAllCatProducts(filter: encodedFilter != '' ? encodedFilter : null);
+          getAllCatProducts(filter: encodedFilter != '' ? encodedFilter : null, category: category);
         }
       } else {
         debugPrint('Xatolik: Serverga ulanishda muammo');
@@ -290,7 +291,24 @@ class ApiController extends GetxController {
     }
   }
 
-  Future<void> getProduct(int categoryId, {bool isCategory = true, filter}) async {
+  Future<void> getAllCatProducts({filter, bool category = false}) async {
+    await Future.forEach(_getController.categoriesModel.value.result!, (category) async {
+      debugPrint(category.id.toString());
+      await getProduct(category.id ?? 0, filter: filter, category: false);
+    });
+  }
+
+/*
+  Future<void> getAllCatProducts({filter, bool category = false}) async {
+    await Future.forEach(_getController.categoriesModel.value.result!, (result) async {
+      debugPrint(category.toString());
+      await getProduct(result.id ?? 0, filter: filter, category: category);
+    });
+  }
+*/
+
+
+  Future<void> getProduct(int categoryId, {bool isCategory = true, filter, bool category = false}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
@@ -298,6 +316,7 @@ class ApiController extends GetxController {
         if (data['status'] == 0 && data['result'] != null) {
           if (isCategory == true) {
             _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
+            _getController.addCategoriesAllProductsModel(CategoriesModel.fromJson(data));
           } else {
             _getController.clearProductsModelDetail();
             _getController.changeProductsModelDetail(CategoriesModel.fromJson(data));
@@ -314,13 +333,6 @@ class ApiController extends GetxController {
       debugPrint('Xatolik: $e');
       debugPrint(stacktrace.toString());
     }
-  }
-
-  Future<void> getAllCatProducts({filter}) async {
-    await Future.forEach(_getController.categoriesModel.value.result!, (category) async {
-      debugPrint(category.id.toString());
-      await getProduct(category.id ?? 0, filter: filter);
-    });
   }
 
   Future<void> addFavorites(int id, {bool isProduct = true, isFavorite = false}) async {
@@ -409,8 +421,9 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
-          _getController.changeIndex(2);
+          _getController.changeIndex(3);
           _getController.controllerConvex.animateTo(3);
+          getProfile(isWorker: false);
         } else if (data['status'] == 9) {
           InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
         } else if (data['status'] == 8) {
@@ -713,10 +726,8 @@ class ApiController extends GetxController {
   Future<void> getProfile({bool isWorker = true}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/users/profile'), headers: headersBearer());
-      //debugPrint(response.statusCode.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
-        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
           if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {

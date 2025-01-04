@@ -4,6 +4,7 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
