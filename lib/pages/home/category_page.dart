@@ -25,23 +25,28 @@ class _CategoryPageState extends State<CategoryPage> {
 
   void getData() {
     _getController.catSearchController.clear();
-    if (widget.open == 0) {
+    /*if (widget.open == 0) {
       ApiController().getProducts(widget.id, isCategory: false, category: true);
     } else if (widget.open == 1) {
       ApiController().getProducts(0,isCategory: false, isFavorite: true, category: true);
     } else if (widget.open == 2) {
-      ApiController().getProducts(0, isCategory: false, isFavorite: false, category: true);
+      ApiController().getProducts(0, isCategory: false, isFavorite: false, category: true, filter: 'category_id = ${widget.id}');
+    }*/
+
+    if (widget.open == 0) {
+      ApiController().getProducts(widget.id, isCategory: false,category: true);
+    } else if (widget.open == 1) {
+      ApiController().getProducts(0,isCategory: false, isFavorite: true, category: true);
+    } else if (widget.open == 2) {
+      ApiController().getProducts(0, isCategory: false, category: true);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    print('CategoryPage');
-    print(widget.id.toString());
-    print(widget.open.toString());
-    print('=====================');
     _getController.clearCategoryProductsModel();
+    print('CategoryPage suuu');
     getData();
   }
 
@@ -65,7 +70,6 @@ class _CategoryPageState extends State<CategoryPage> {
         onRefresh: () {
           _getController.catSearchController.clear();
           if (widget.open == 0) {
-            print('CategoryPage');
             ApiController().getProducts(widget.id, isCategory: false,category: true).then((_) => _getController.refreshCategoryController.refreshCompleted());
           } else if (widget.open == 1) {
             ApiController().getProducts(0,isCategory: false, isFavorite: true, category: true).then((_) => _getController.refreshCategoryController.refreshCompleted());

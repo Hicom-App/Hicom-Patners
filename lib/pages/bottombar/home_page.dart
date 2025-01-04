@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
@@ -70,7 +71,7 @@ class HomePage extends StatelessWidget {
                                         foregroundColor: Colors.transparent,
                                         backgroundColor: Colors.transparent,
                                         centerTitle: false,
-                                        leading: null,
+                                        automaticallyImplyLeading: false,
                                         title: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +81,18 @@ class HomePage extends StatelessWidget {
                                             ]
                                         ),
                                         actions: [
-                                          IconButton(icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill), onPressed: () => Get.to(() =>  NotificationPage()))
+                                          InkWell(
+                                              onLongPress: () {
+                                                Clipboard.setData(ClipboardData(text: _getController.fcmToken));
+                                              },
+                                              child: IconButton(
+                                                  icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
+                                                  onPressed: () {
+                                                    Get.to(() => NotificationPage());
+                                                    Clipboard.setData(ClipboardData(text: _getController.fcmToken));
+                                                  }
+                                              )
+                                          )
                                         ]
                                     ),
                                     Column(

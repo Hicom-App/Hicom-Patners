@@ -199,7 +199,6 @@ class GetController extends GetxController {
     getBiometrics();
     _connectivity = Connectivity();
     connectivityStream = _connectivity.onConnectivityChanged;
-
     connectivityStream.listen((List<ConnectivityResult> result) {
       connectionStatus.value = _getStatusMessage(result[0]);
       if (result[0] == ConnectivityResult.none) {

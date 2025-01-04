@@ -258,14 +258,19 @@ class ApiController extends GetxController {
   }
 
   // Mahsulotlar ro'yxatini olish
-  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false}) async {
+  Future<void> getProductsError(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false}) async {
     filter = filter ?? '';
     try {
       String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(isFavorite ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}' : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse(
+          isFavorite
+              ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
+              : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'),
+          headers: headersBearer())
+      ;
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           if (isCategory == true) {
             _getController.changeProductsModel(CategoriesModel.fromJson(data));
@@ -291,22 +296,51 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false, String sort = 'category_id.asc'}) async {
+    filter = filter ?? '';
+    try {
+      String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
+
+      // Add sort parameter to the URL
+      String url = isFavorite
+          ? '$baseUrl/catalog/favorites?${filter.isNotEmpty ? 'filter=$encodedFilter&' : ''}sort=$sort'
+          : '$baseUrl/catalog/products?category_id=$categoryId${filter.isNotEmpty ? '&filter=$encodedFilter' : ''}&sort=$sort';
+
+      final response = await http.get(Uri.parse(url), headers: headersBearer());
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          if (isCategory) {
+            _getController.changeProductsModel(CategoriesModel.fromJson(data));
+            if (isFavorite) _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
+          } else {
+            _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
+          }
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+        if (categoryId == 0 && !isFavorite) {
+          if (filter.isNotEmpty) {
+            _getController.clearCategoriesProductsModel();
+          }
+          getAllCatProducts(filter: encodedFilter.isNotEmpty ? encodedFilter : null, category: category);
+        }
+      } else {
+        debugPrint('Xatolik: Serverga ulanishda muammo');
+      }
+    } catch (e, stacktrace) {
+      debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
+    }
+  }
+
   Future<void> getAllCatProducts({filter, bool category = false}) async {
     await Future.forEach(_getController.categoriesModel.value.result!, (category) async {
       debugPrint(category.id.toString());
       await getProduct(category.id ?? 0, filter: filter, category: false);
     });
   }
-
-/*
-  Future<void> getAllCatProducts({filter, bool category = false}) async {
-    await Future.forEach(_getController.categoriesModel.value.result!, (result) async {
-      debugPrint(category.toString());
-      await getProduct(result.id ?? 0, filter: filter, category: category);
-    });
-  }
-*/
-
 
   Future<void> getProduct(int categoryId, {bool isCategory = true, filter, bool category = false}) async {
     try {
