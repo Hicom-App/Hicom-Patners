@@ -36,9 +36,9 @@
 		<key>NSCameraUsageDescription</key>
 		<string>Scan Qr Code</string>
 		<key>NSFaceIDUsageDescription</key>
-		<string>mening ilovam yuz identifikatori yordamida autentifikatsiya qilinmoqda</string>
+		<string>my app is authenticating using face ID</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>We need to access your photo library to pick images.</string>
+		<string>We need access to your photo library to allow you to select and upload a profile picture. Your selected photo is stored securely on our servers and used to personalize your in-app profile.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>

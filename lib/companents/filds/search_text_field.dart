@@ -1,8 +1,10 @@
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:hicom_patners/controllers/get_controller.dart';
 import 'package:hicom_patners/resource/colors.dart';
 
 class SearchTextField extends StatelessWidget{
@@ -32,7 +34,10 @@ class SearchTextField extends StatelessWidget{
                 fillColor: color,
                 hintText: 'Qidirish'.tr,
                 hintStyle: TextStyle(fontFamily: 'Schyler', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 18.sp),
-                prefixIcon: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color:AppColors.black)),
+                prefixIcon: InkWell(
+                    onLongPress: () => Clipboard.setData(ClipboardData(text: GetController().fcmToken)),
+                    child: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color:AppColors.black)),
+                ),
                 suffixIcon: controller.text.isNotEmpty
                     ? IconButton(onPressed: () {
                       controller.text = '';

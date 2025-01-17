@@ -4,11 +4,12 @@ import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+
+
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
@@ -58,7 +59,6 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
               }
             },
             child: Obx(() => IndexedStack(index: _getController.index.value, children: _getController.widgetOptions))
-            //child: Obx(() => _getController.widgetOptions.elementAt(_getController.index.value))
         ),
         extendBody: true,
         bottomNavigationBar: ConvexAppBar(
@@ -81,14 +81,13 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
                       child: Container(
                           margin: EdgeInsets.all(5.r),
                           decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-                          child: IconButton(icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
+                          child: IconButton(highlightColor: AppColors.blackTransparent, icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
                       )
                   )
               ),
               const TabItem(icon: EneftyIcons.box_3_bold),
               const TabItem(icon: EneftyIcons.chart_2_bold)
             ],
-            //onTap: (int i) => _onItemTapped(i >= 3 ? i - 1 : i)
             onTap: _onItemTapped
         )
     );

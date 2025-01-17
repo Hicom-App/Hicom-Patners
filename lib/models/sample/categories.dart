@@ -49,7 +49,7 @@ class CategoriesModel {
   }
 }
 
-class Result {int? id;int? active;String? name;int? categoryId;int? cashback; String? categoryName; int? warranty; String? brand; int? price; int? discount;int? reviews;var rating;String? description;String? photoUrl;int? favorite;
+class Result {int? id;int? active;String? name;int? categoryId;int? cashback; String? categoryName; int? warranty; String? brand; int? price; int? discount;int? reviews; var rating; String? description;String? photoUrl;int? favorite;
 
   Result({this.id, this.active, this.name, this.categoryId, this.categoryName, this.cashback, this.warranty, this.brand, this.price, this.discount, this.reviews, this.rating, this.description, this.photoUrl, this.favorite});
 
@@ -61,7 +61,7 @@ class Result {int? id;int? active;String? name;int? categoryId;int? cashback; St
     categoryName = json['category_name'];
     cashback = json['cashback'];
     warranty = json['warranty'];
-    brand = json['brand'];
+    brand = json['brand'] ?? '-';
     price = json['price'];
     discount = json['discount'];
     reviews = json['reviews'];

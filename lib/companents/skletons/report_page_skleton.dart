@@ -9,6 +9,7 @@ class ReportPageSkeleton extends StatelessWidget {
   const ReportPageSkeleton({super.key});
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(

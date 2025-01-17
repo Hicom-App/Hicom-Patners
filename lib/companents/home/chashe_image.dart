@@ -10,14 +10,12 @@ class CacheImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DisposableCachedImage.network(
-      imageUrl: url,
-      fit: fit,
-      //onLoading: (context, one, two) => const Center(child: CircularProgressIndicator(color: Colors.red)),
-      onLoading: (context, one, two) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-      //progressBuilder: (context, progress) => Center(child: CircularProgressIndicator(value: progress, color: Colors.red)),
-      progressBuilder: (context, progress) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
-        onError: (context, error, stackTrace, retryCall) => const Center(child: CircularProgressIndicator(color: Colors.red)),
-      onImage: (context, imageWidget, height, width) => imageWidget
+        imageUrl: url,
+        fit: fit,
+        onLoading: (context, one, two) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+        progressBuilder: (context, progress) => Image.asset('assets/images/logo_back.png', fit: BoxFit.cover),
+        onError: (context, error, stackTrace, retryCall) => Center(child: Image.asset('assets/images/logo_back.png', fit: BoxFit.cover)),
+        onImage: (context, imageWidget, height, width) => imageWidget
     );
   }
 }

@@ -24,7 +24,9 @@ import 'get_controller.dart';
 class ApiController extends GetxController {
   final GetController _getController = Get.put(GetController());
 
-  final  baseUrl = 'http://185.196.213.76:8080/api';
+  //final  baseUrl = 'http://185.196.213.76:8080/api';
+  final  baseUrl = 'https://hicom.app:81/api';
+
 
   //return header function
   Map<String, String> headersBearer() {
@@ -347,6 +349,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        debugPrint(data.toString());
         if (data['status'] == 0 && data['result'] != null) {
           if (isCategory == true) {
             _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
@@ -454,6 +457,8 @@ class ApiController extends GetxController {
         Get.back();
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
+          _getController.clearSortedTransactionsModel();
+          _getController.changeSelectedMonth(0);
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
           _getController.changeIndex(3);
           _getController.controllerConvex.animateTo(3);
@@ -707,6 +712,8 @@ class ApiController extends GetxController {
           _getController.paymentController.clear();
           Get.back();
           getProfile(isWorker: false);
+          _getController.clearSortedTransactionsModel();
+          _getController.changeSelectedMonth(0);
           getCards();
           InstrumentComponents().showToast('Sizning so‘rovingiz ko‘rib chiqish uchun yuborildi', color: AppColors.green);
         } else if (jsonDecode(responseBody)['status'] == 1) {
