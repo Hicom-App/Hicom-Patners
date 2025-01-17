@@ -151,6 +151,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                           decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
+                          constraints: BoxConstraints(minHeight: Get.height * 0.6),
                           child: _getController.productsModel.value.result != null
                               ? Column(
                               children: [
