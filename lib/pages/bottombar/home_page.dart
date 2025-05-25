@@ -156,7 +156,6 @@ class HomePage extends StatelessWidget {
                               ? Column(
                               children: [
                                 SizedBox(height: 25.h),
-                                //if (_getController.categoriesModel.value.result != null)
                                 SearchTextField(
                                   controller: _getController.searchController,
                                   color: AppColors.grey.withOpacity(0.2),
@@ -177,8 +176,6 @@ class HomePage extends StatelessWidget {
                                     _debounceTimer(() => search(value));
                                   },
                                 ),
-                                //else
-                                //Skeletonizer(child: SearchTextField(color: AppColors.grey.withOpacity(0.2), controller: _getController.searchController)),
                                 SizedBox(height: 15.h),
                                 if (_getController.categoriesModel.value.result != null)
                                   SizedBox(
@@ -188,7 +185,7 @@ class HomePage extends StatelessWidget {
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                         itemBuilder: (context, index) => InkWell(
-                                            onLongPress: () =>  _getController.categoriesModel.value.result != null && _getController.categoriesModel.value.result!.isNotEmpty && index == _getController.categoriesModel.value.result!.length - 1 ? Clipboard.setData(ClipboardData(text: _getController.token)): null,
+                                            //onLongPress: () =>  _getController.categoriesModel.value.result != null && _getController.categoriesModel.value.result!.isNotEmpty && index == _getController.categoriesModel.value.result!.length - 1 ? Clipboard.setData(ClipboardData(text: _getController.token)): null,
                                             onTap: () => Get.to(CategoryPage(open: 0, id: _getController.categoriesModel.value.result![index].id!.toInt())),
                                             child:  Container(
                                                 margin: EdgeInsets.only(left: 15.w),
@@ -285,8 +282,7 @@ class HomePage extends StatelessWidget {
                                                               children: [
                                                                 TextSmall(text: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                 const Spacer(),
-                                                                TextButton(onPressed: () => Get.to(
-                                                                    CategoryPage(id: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                TextButton(onPressed: () => Get.to(CategoryPage(id: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
                                                               ]
                                                           )
                                                       )

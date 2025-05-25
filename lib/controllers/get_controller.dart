@@ -28,7 +28,7 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  RxString version = '1.0.2'.obs;
+  RxString version = '1.0.3'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -232,13 +232,14 @@ class GetController extends GetxController {
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
 
   void logout() {
+    changeIndex(0);
+    controllerConvex.animateTo(0);
     clearProfileInfoModel();
     clearControllers();
     deletePassCode();
     firstPasscode.value = '';
     enteredPasscode.value = '';
     GetStorage().erase();
-    //Get.delete<GetController>();
   }
 
   get phoneNumber => GetStorage().read('phoneNumber');

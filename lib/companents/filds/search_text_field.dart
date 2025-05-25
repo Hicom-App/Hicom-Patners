@@ -35,7 +35,7 @@ class SearchTextField extends StatelessWidget{
                 hintText: 'Qidirish'.tr,
                 hintStyle: TextStyle(fontFamily: 'Schyler', color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 18.sp),
                 prefixIcon: InkWell(
-                    onLongPress: () => Clipboard.setData(ClipboardData(text: GetController().fcmToken)),
+                    //onLongPress: () => Clipboard.setData(ClipboardData(text: GetController().fcmToken)),
                     child: Padding(padding: EdgeInsets.all(Get.height * 0.013), child: const Icon(EneftyIcons.search_normal_2_outline, color:AppColors.black)),
                 ),
                 suffixIcon: controller.text.isNotEmpty

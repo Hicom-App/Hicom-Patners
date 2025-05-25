@@ -5,7 +5,7 @@ publish_to: 'none'
 
 
 
-version: 1.0.2+4
+version: 1.0.3+7
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
@@ -46,8 +46,6 @@ dependencies:
   firebase_core: ^3.8.0
   firebase_messaging: ^15.1.4
   flutter_local_notifications: ^18.0.1
-  #cached_network_image: ^3.4.1
-  #flutter_cache_manager: ^3.4.1
   icons_launcher: ^3.0.0
   change_app_package_name: ^1.4.0
   disposable_cached_images: ^1.2.1
