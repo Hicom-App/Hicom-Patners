@@ -31,17 +31,6 @@ flutter pub get
 flutter run
 ```
 
-## 📂 Loyihaning tuzilishi
-
-```
-lib/
-├── main.dart
-├── controllers/
-├── views/
-├── models/
-└── services/
-```
-
 ## 🤝 Xizmatdan foydalanish
 
 Ilovadan foydalanish uchun siz Hicom tizimining rasmiy hamkori bo‘lishingiz kerak. Ro‘yxatdan o‘tish yoki tizimga ulanish bo‘yicha yordam kerak bo‘lsa, Hicom rasmiy sayti orqali biz bilan bog‘laning.
