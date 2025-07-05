@@ -233,7 +233,10 @@ class GetController extends GetxController {
 
   void logout() {
     changeIndex(0);
-    controllerConvex.animateTo(0);
+    //controllerConvex.animateTo(0);
+    if (controllerConvex != null) {
+      controllerConvex!.animateTo(0);
+    }
     clearProfileInfoModel();
     clearControllers();
     deletePassCode();
@@ -331,7 +334,7 @@ class GetController extends GetxController {
   }
 
   late TabController tabController;
-  late TabController controllerConvex;
+  TabController? controllerConvex;
 
   String maskString(String input) {
     if (input.length < 20) return input;

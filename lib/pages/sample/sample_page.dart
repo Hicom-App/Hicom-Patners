@@ -31,7 +31,7 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
 
   @override
   void dispose() {
-    _getController.controllerConvex.dispose();
+    _getController.controllerConvex?.dispose();
     super.dispose();
   }
 
@@ -55,7 +55,7 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
                 exit(0);
               } else {
                 _getController.changeIndex(0);
-                _getController.controllerConvex.animateTo(0);
+                _getController.controllerConvex?.animateTo(0);
               }
             },
             child: Obx(() => IndexedStack(index: _getController.index.value, children: _getController.widgetOptions))

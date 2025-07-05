@@ -59,6 +59,7 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'Internet mavjud emas',
       'Qayta urinish':'Qayta urinish',
+      'Iltimos, internet aloqangizni tekshiring': 'Iltimos, internet aloqangizni tekshiring',
 
       //notification page
       'Bildirishnomalar':'Bildirishnomalar',
@@ -288,6 +289,7 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'No internet connection',
       'Qayta urinish':'Retry',
+      'Iltimos, internet aloqangizni tekshiring': 'Please check your internet connection',
 
       //notification page
       'Bildirishnomalar':'Notifications',
@@ -516,6 +518,7 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'Нет подключения к интернету',
       'Qayta urinish':'Повторить',
+      'Iltimos, internet aloqangizni tekshiring': 'Пожалуйста, проверьте ваше интернет-соединение',
 
       //notification page
       'Bildirishnomalar':'Уведомления',
@@ -746,6 +749,7 @@ class LocaleString extends Translations{
       //no connection page
       'Internet mavjud emas':'Интернет мавжуд эмас',
       'Qayta urinish':'Қайта уриниш',
+      'Iltimos, internet aloqangizni tekshiring': 'Илтимос, интернет алоқангизни текширинг',
 
       //notification page
       'Bildirishnomalar':'Билдиришномалар',

@@ -461,7 +461,7 @@ class ApiController extends GetxController {
           _getController.changeSelectedMonth(0);
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
           _getController.changeIndex(3);
-          _getController.controllerConvex.animateTo(3);
+          _getController.controllerConvex?.animateTo(3);
           getProfile(isWorker: false);
         } else if (data['status'] == 9) {
           InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
@@ -778,13 +778,20 @@ class ApiController extends GetxController {
           } else if (isWorker) {
             getCountries(me: true);
             Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
+            //Get.offAll(() => NotConnection());
           }
         }
         else if (data['status'] == 4) {
           logout();
           _getController.logout();
           Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
-        }}
+        }
+        else if (data['status'] == 22) {
+          logout();
+          _getController.logout();
+          Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+        }
+      }
       else if (response.statusCode == 401) {
         logout();
         _getController.logout();
