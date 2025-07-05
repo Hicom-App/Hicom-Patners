@@ -805,6 +805,7 @@ class ApiController extends GetxController {
       else {
         Get.offAll(const NotConnection(), transition: Transition.fadeIn);
       }
+      
     } catch(e, stacktrace) {
       debugPrint('bilmasam endi: $e');
       debugPrint(stacktrace.toString());
