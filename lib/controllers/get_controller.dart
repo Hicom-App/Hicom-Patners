@@ -28,7 +28,7 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  RxString version = '1.0.3'.obs;
+  RxString version = '1.0.5'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -228,6 +228,18 @@ class GetController extends GetxController {
   void saveFcmToken(String token) => GetStorage().write('fcmToken', token);
 
   void savePhoneNumber(String phoneNumber) => GetStorage().write('phoneNumber', phoneNumber);
+
+
+  void saveProfile() {
+    final jsonProfile = json.encode(profileInfoModel.value.toJson());
+    GetStorage().write('profile', jsonProfile);
+  }
+
+  int? get getProfileId => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['id']) as int?;
+  String get getProfileFirstName => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['first_name'] ?? '') as String;
+  String get getProfileLastName => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['last_name'] ?? '') as String;
+  int? get getProfileRole => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['user_type']) as int?;
+
 
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
 
@@ -714,7 +726,10 @@ class GetController extends GetxController {
     }
   }
 
-  void changeProfileInfoModel(ProfileInfoModel profileInfo) => profileInfoModel.value = profileInfo;
+  void changeProfileInfoModel(ProfileInfoModel profileInfo) {
+    profileInfoModel.value = profileInfo;
+    saveProfile();
+  }
 
   void changeCategoriesModel(CategoriesModel categories) => categoriesModel.value = categories;
 

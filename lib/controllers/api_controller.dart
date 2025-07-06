@@ -28,6 +28,7 @@ class ApiController extends GetxController {
   final  baseUrl = 'https://hicom.app:81/api';
 
 
+
   //return header function
   Map<String, String> headersBearer() {
     return {
@@ -226,9 +227,7 @@ class ApiController extends GetxController {
     try {
       debugPrint('========================================================================================================================================================================');
       debugPrint(_getController.fcmToken);
-      final response = await http.post(Uri.parse('$baseUrl/users/firebase-token'), headers: headerBearer(), body: {'fcm_token': _getController.fcmToken});
-      debugPrint(response.body.toString());
-      debugPrint(response.statusCode.toString());
+      await http.post(Uri.parse('$baseUrl/users/firebase-token'), headers: headerBearer(), body: {'fcm_token': _getController.fcmToken});
     } catch (e, stacktrace) {
       debugPrint('Xatolik: $e');
       debugPrint(stacktrace.toString());
@@ -778,7 +777,7 @@ class ApiController extends GetxController {
           } else if (isWorker) {
             getCountries(me: true);
             Get.offAll(() => _getController.getPassCode() != '' ? PasscodePage() : CreatePasscodePage());
-            //Get.offAll(() => NotConnection());
+            //Get.offAll(() => NotConnection());\
           }
         }
         else if (data['status'] == 4) {
@@ -799,17 +798,19 @@ class ApiController extends GetxController {
         return;
       }
       else if (response.statusCode == 404) {
-        Get.offAll(() => const NotConnection(), transition: Transition.fadeIn);
+        Get.offAll(() => const NotConnection(), transition: Transition.fadeIn, arguments: true);
+        sendErrorMessage('404 Server Ishlamayotgan bo‘lishi mumkin!');
         return;
       }
       else {
-        Get.offAll(const NotConnection(), transition: Transition.fadeIn);
+        sendErrorMessage('Xatolik: Server Ishlamayotgan bo‘lishi mumkin!');
+        Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
       }
-
     } catch(e, stacktrace) {
       debugPrint('bilmasam endi: $e');
+      sendErrorMessage('Server Ishlamayotgan bo‘lishi mumkin!: $e\n$stacktrace');
       debugPrint(stacktrace.toString());
-      Get.offAll(const NotConnection(), transition: Transition.fadeIn);
+      Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
     }
   }
 
@@ -933,6 +934,48 @@ class ApiController extends GetxController {
       debugPrint(response.statusCode.toString());
     } catch (e, stacktrace) {
       debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
+    }
+  }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//message error
+
+  String formatLoginErrorMessage({required String id, required String name, required String phone, required String error}) {
+    return """
+🆔 ID: $id
+👤 Ismi: $name
+📞 Telefon raqami: $phone
+⚠️ Muammo: $error
+""";
+  }
+
+  Future<void> sendErrorMessage(String errorMessage) async {
+    try {
+      final url = Uri.parse('https://hicom.uz/link-sniper/error_message.php');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'error_message': formatLoginErrorMessage(
+            id: _getController.getProfileId != null ? _getController.getProfileId.toString() : 'Noma’lum',
+            name: '${_getController.getProfileFirstName ?? ''} ${_getController.getProfileLastName ?? ''}',
+            phone: _getController.phoneNumber ?? 'Noma’lum',
+            error: errorMessage,
+          )
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        debugPrint('Error message sent successfully: ${response.body}');
+      } else {
+        debugPrint('Failed to send error message. Status code: ${response.statusCode}');
+      }
+    } catch (e, stacktrace) {
+      debugPrint('Exception while sending error message: $e');
       debugPrint(stacktrace.toString());
     }
   }
