@@ -19,6 +19,7 @@ class ReportPage extends StatelessWidget {
     _getController.changeSelectedMonth(0);
     ApiController().getTransactions();
     return Scaffold(
+        backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
         body: Obx(() => _getController.sortedTransactionsModel.value.result != null
             ? Column(
                 children: [
