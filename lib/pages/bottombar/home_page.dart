@@ -40,12 +40,12 @@ class HomePage extends StatelessWidget {
             decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/background.png'), fit: BoxFit.cover)),
             child: RefreshComponent(
                 color: AppColors.white,
-                scrollController: _getController.scrollController,
-                refreshController: _getController.refreshController,
+                scrollController: _getController.scrollHomeController,
+                refreshController: _getController.refreshHomeController,
                 enablePullUp: false,
                 onRefresh: () async {
                   _getController.searchController.clear();
-                  _getController.refreshController.refreshCompleted();
+                  _getController.refreshHomeController.refreshCompleted();
                   _getController.clearCategoriesProductsModel();
                   _getController.clearCategoriesAllProductsModel();
                   _getController.clearProductsModel();

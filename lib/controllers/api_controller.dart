@@ -169,7 +169,7 @@ class ApiController extends GetxController {
     final response = await http.get(Uri.parse('$baseUrl/place/countries'));
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      debugPrint(response.statusCode.toString());
+      //debugPrint(response.statusCode.toString());
       if (data['status'] == 0) {
         _getController.changeCountriesModel(CountriesModel.fromJson(data));
         if (me == false) {
@@ -338,7 +338,7 @@ class ApiController extends GetxController {
 
   Future<void> getAllCatProducts({filter, bool category = false}) async {
     await Future.forEach(_getController.categoriesModel.value.result!, (category) async {
-      debugPrint(category.id.toString());
+      //debugPrint(category.id.toString());
       await getProduct(category.id ?? 0, filter: filter, category: false);
     });
   }
@@ -348,7 +348,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0 && data['result'] != null) {
           if (isCategory == true) {
             _getController.addCategoriesProductsModel(CategoriesModel.fromJson(data));
@@ -374,10 +374,10 @@ class ApiController extends GetxController {
   Future<void> addFavorites(int id, {bool isProduct = true, isFavorite = false}) async {
     try {
       final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: headerBearer());
-      debugPrint(response.body.toString());
+      //debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           getProducts(0, isFavorite: isFavorite);
         } else {
@@ -397,10 +397,10 @@ class ApiController extends GetxController {
       request.fields.addAll({'id': '0', 'product_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      debugPrint(responseBody.toString());
+      //debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
         var data = jsonDecode(responseBody);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.surNameController.text = '';
           InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
@@ -421,7 +421,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeReviewsModel(ReviewsModel.fromJson(data));
           _getController.initializeExpandedCommentList(data['result'].length);
@@ -448,8 +448,8 @@ class ApiController extends GetxController {
       request.fields.addAll({'qrcode': _getController.codeController.text});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      debugPrint(responseBody.toString());
-      debugPrint(response.statusCode.toString());
+      //debugPrint(responseBody.toString());
+      //debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         _getController.searchController.clear();
         var data = jsonDecode(responseBody);
@@ -485,8 +485,8 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter&sort=warranty_start.desc' : '?sort=warranty_start.desc'}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}');
-        debugPrint(data.toString());
+        //debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}');
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
         }
@@ -503,7 +503,7 @@ class ApiController extends GetxController {
       final response = await http.delete(Uri.parse('$baseUrl/warranty/products?id=$id'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        debugPrint(data.toString());
+        //debugPrint(data.toString());
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
         } else {
@@ -527,7 +527,7 @@ class ApiController extends GetxController {
         });
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);
-          debugPrint(data.toString());
+          //debugPrint(data.toString());
           if (data['status'] == 0) {
             getWarrantyProducts(filter: 'c.active=1');
           } else {
@@ -542,7 +542,7 @@ class ApiController extends GetxController {
         final response = await http.delete(Uri.parse('$baseUrl/warranty/archive?id=$id'), headers: headerBearer());
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);
-          debugPrint(data.toString());
+          //debugPrint(data.toString());
           if (data['status'] == 0) {
             getWarrantyProduct(filter: 'c.active=1');
           } else {
@@ -705,7 +705,7 @@ class ApiController extends GetxController {
     try {
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      debugPrint(responseBody.toString());
+      //debugPrint(responseBody.toString());
       if (response.statusCode == 200) {
         if (jsonDecode(responseBody)['status'] == 0) {
           _getController.paymentController.clear();
@@ -741,8 +741,8 @@ class ApiController extends GetxController {
   Future<void> getTransactions({String? filter}) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
-      debugPrint('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
-      debugPrint(response.body.toString());
+      //debugPrint('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
+      //debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         if (jsonDecode(response.body)['status'] == 0) {
           _getController.changeSortedTransactionsModel(

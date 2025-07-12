@@ -25,15 +25,11 @@ class NotConnection extends StatelessWidget {
             ),
             SizedBox(height: 30.h),
             // Matnni Schyler shrifti bilan
-            Text(
-                //'Internet mavjud emas'.tr,
-              arguments != null && arguments == true ? 'Diqqat!'.tr : 'Internet mavjud emas'.tr,
+            Text(arguments != null && arguments == true ? 'Diqqat!'.tr : 'Internet mavjud emas'.tr,
                 style: TextStyle(fontFamily: 'Schyler', color: AppColors.black.withOpacity(0.85), fontSize: 18.sp, fontWeight: FontWeight.w600, letterSpacing: 0.5), textAlign: TextAlign.center),
             SizedBox(height: 10.h),
             // Qo'shimcha izoh matni
-            Text(
-                //'Iltimos, internet aloqangizni tekshiring'.tr,
-              arguments != null && arguments == true ? 'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring'.tr : 'Iltimos, internet aloqangizni tekshiring'.tr,
+            Text(arguments != null && arguments == true ? 'Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring'.tr : 'Iltimos, internet aloqangizni tekshiring'.tr,
                 style: TextStyle(fontFamily: 'Schyler', color: AppColors.black70, fontSize: 14.sp, fontWeight: FontWeight.w400), textAlign: TextAlign.center),
             SizedBox(height: 40.h),
             // Zamonaviy gradientli tugma

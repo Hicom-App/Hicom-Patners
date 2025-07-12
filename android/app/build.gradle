@@ -84,19 +84,3 @@ flutter {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }
-
-kotlin {
-    jvmToolchain(17)
-}
-
-subprojects {
-    afterEvaluate { project ->
-        project.tasks.withType(JavaCompile).configureEach {
-            it.sourceCompatibility = JavaVersion.VERSION_17
-            it.targetCompatibility = JavaVersion.VERSION_17
-        }
-        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-            it.kotlinOptions.jvmTarget = "17"
-        }
-    }
-}

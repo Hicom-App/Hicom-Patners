@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'instrument/custom_header.dart';
 
 class RefreshComponent extends StatelessWidget {
@@ -25,7 +25,7 @@ class RefreshComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
+    /*return SmartRefresher(
         enablePullDown: true,
         enablePullUp: enablePullUp ?? true,
         physics: physics,
@@ -35,9 +35,31 @@ class RefreshComponent extends StatelessWidget {
         onRefresh: onRefresh ?? _getData,
         controller: refreshController,
         scrollController: scrollController,
+
         child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: child
+        )
+    );*/
+    return RefreshConfiguration(
+        enableScrollWhenRefreshCompleted: true,
+        enableLoadingWhenFailed: true,
+        hideFooterWhenNotFull: false,
+        enableBallisticLoad: true,
+        child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: enablePullUp ?? true,
+            physics: physics,
+            header: CustomRefreshHeader(color: color),
+            footer: CustomRefreshFooter(color: color),
+            onLoading: onLoading ?? _onLoading,
+            onRefresh: onRefresh ?? _getData,
+            controller: refreshController,
+            scrollController: scrollController,
+            child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: child
+            )
         )
     );
   }

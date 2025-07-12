@@ -11,7 +11,7 @@ import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../companents/instrument/shake_widget.dart';
 import '../models/auth/countries_model.dart';
@@ -28,7 +28,7 @@ import '../pages/not_connection.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  RxString version = '1.0.5'.obs;
+  RxString version = '1.0.6'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -327,6 +327,7 @@ class GetController extends GetxController {
   final TextEditingController surNameController = TextEditingController();
   final TextEditingController streetController = TextEditingController();
   final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshHomeController = RefreshController(initialRefresh: false);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
   final TextEditingController passwordProjectController = TextEditingController();
@@ -468,6 +469,7 @@ class GetController extends GetxController {
 
   final RefreshController refreshLibController = RefreshController(initialRefresh: false);
   final ScrollController  scrollController = ScrollController();
+  final ScrollController  scrollHomeController = ScrollController();
   final ScrollController  scrollControllerOk = ScrollController();
 
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
