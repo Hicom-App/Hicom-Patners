@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
+import '../../companents/custom_app_bar.dart';
 import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
@@ -31,12 +32,12 @@ class AddCardPage extends StatelessWidget {
       }, 1);
     return Scaffold(
         backgroundColor: AppColors.greys,
-        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.greys, title: TextSmall(text: isEdit == true ? 'Kartani tahrirlash'.tr : 'Karta qo‘shish'.tr, color:AppColors.black, fontWeight: FontWeight.w500)),
+        appBar: CustomAppBar(title: isEdit == true ? 'Kartani tahrirlash'.tr : 'Karta qo‘shish'.tr, isBack: true, isCenter: true),
         body: SingleChildScrollView(
           child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.h), child: TextSmall(text: 'Karta ma’lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp)),
+                Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h), child: TextSmall(text: 'Karta ma’lumotlari'.tr, color: AppColors.black, fontWeight: FontWeight.w500,fontSize: 14.sp)),
                 Obx(() => Container(
                         width: Get.width,
                         height: 150.h,

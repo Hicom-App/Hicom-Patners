@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
+import 'package:hicom_patners/pages/bottombar/home_page.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../companents/filds/text_large.dart';
@@ -9,6 +10,7 @@ import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+import '../sample/sample_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

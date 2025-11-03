@@ -10,6 +10,7 @@ import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
+import '../models/sample/partner_models.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
 import '../models/sample/sorted_pay_transactions.dart';
@@ -17,6 +18,7 @@ import '../models/sample/warranty_model.dart';
 import '../pages/auth/passcode/create_passcode_page.dart';
 import '../pages/auth/passcode/passcode_page.dart';
 import '../pages/auth/verify_page_number.dart';
+import '../pages/bottombar/guarantee_page.dart';
 import '../pages/not_connection.dart';
 import '../resource/colors.dart';
 import 'get_controller.dart';
@@ -27,7 +29,13 @@ class ApiController extends GetxController {
   //final  baseUrl = 'http://185.196.213.76:8080/api';
   final  baseUrl = 'https://hicom.app:81/api';
 
-
+  Future<List<dynamic>> getProjects() async {
+    return [
+      {'id': 1, 'name': 'Loyiha 1'},
+      {'id': 2, 'name': 'Loyiha 2'},
+      {'id': 3, 'name': 'Loyiha 3'},
+    ];
+  }
 
   //return header function
   Map<String, String> headersBearer() {
@@ -133,6 +141,7 @@ class ApiController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       var data = jsonDecode(await response.stream.bytesToString());
+      print(data);
       if (data['status'] == 0) {
         _getController.stopTimer();
         _getController.deletePassCode();
@@ -166,44 +175,57 @@ class ApiController extends GetxController {
   }
 
   Future<void> getCountries({bool me = false}) async {
-    final response = await http.get(Uri.parse('$baseUrl/place/countries'));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      //debugPrint(response.statusCode.toString());
-      if (data['status'] == 0) {
-        _getController.changeCountriesModel(CountriesModel.fromJson(data));
-        if (me == false) {
-          getRegions(_getController.countriesModel.value.countries!.first.id != null ? _getController.countriesModel.value.countries!.first.id! : data['result'].first['id']);
+    try{
+      final response = await http.get(Uri.parse('$baseUrl/place/countries'));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.changeCountriesModel(CountriesModel.fromJson(data));
+          if (me == false) {
+            getRegions(_getController.countriesModel.value.countries!.first.id != null ? _getController.countriesModel.value.countries!.first.id! : data['result'].first['id']);
+          } else {
+            getRegions(_getController.profileInfoModel.value.result!.first.countryId!, me: true);
+          }
         } else {
-          getRegions(_getController.profileInfoModel.value.result!.first.countryId!, me: true);
+          debugPrint('Xatolik countries 1: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik countries 1: ${data['message']}');
+        debugPrint('Xatolik countries 2: Serverga ulanishda muammo');
       }
-    } else {
-      debugPrint('Xatolik countries 2: Serverga ulanishda muammo');
+    } catch (e, stacktrace) {
+      _getController.clearCountriesModel();
+      debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
     }
+
   }
 
   Future<void> getRegions(int countryId, {bool? me = false}) async {
-    final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        _getController.changeRegionsModel(CountriesModel.fromJson(data));
-        if (me == false) {
-          getCities(_getController.regionsModel.value.regions![_getController.dropDownItems[2]].id != null ? _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id! : data['result'].first['id']);
+    try{
+      final response = await http.get(Uri.parse('$baseUrl/place/regions?country_id=$countryId'));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          _getController.changeRegionsModel(CountriesModel.fromJson(data));
+          if (me == false) {
+            getCities(_getController.regionsModel.value.regions![_getController.dropDownItems[2]].id != null ? _getController.regionsModel.value.regions![_getController.dropDownItems[2]].id! : data['result'].first['id']);
+          } else {
+            getCities(_getController.profileInfoModel.value.result!.first.regionId!);
+          }
         } else {
-          getCities(_getController.profileInfoModel.value.result!.first.regionId!);
+          _getController.clearRegionsModel();
+          debugPrint('Xatolik region 1: ${data['message']}');
         }
       } else {
         _getController.clearRegionsModel();
-        debugPrint('Xatolik region 1: ${data['message']}');
+        debugPrint('Xatolik region 2: Serverga ulanishda muammo');
       }
-    } else {
+    } catch (e, stacktrace) {
       _getController.clearRegionsModel();
-      debugPrint('Xatolik region 2: Serverga ulanishda muammo');
+      debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
     }
+
   }
 
   Future<void> getCities(int regionId) async {
@@ -258,45 +280,6 @@ class ApiController extends GetxController {
     }
   }
 
-  // Mahsulotlar ro'yxatini olish
-  Future<void> getProductsError(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false}) async {
-    filter = filter ?? '';
-    try {
-      String encodedFilter = filter != null && filter.isNotEmpty ? Uri.encodeComponent(filter) : '';
-      final response = await http.get(Uri.parse(
-          isFavorite
-              ? '$baseUrl/catalog/favorites${filter != '' ? '?filter=$encodedFilter' : ''}'
-              : '$baseUrl/catalog/products?category_id=$categoryId${filter != '' ? '&filter=$encodedFilter' : ''}'),
-          headers: headersBearer())
-      ;
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        //debugPrint(data.toString());
-        if (data['status'] == 0) {
-          if (isCategory == true) {
-            _getController.changeProductsModel(CategoriesModel.fromJson(data));
-            isFavorite ? _getController.changeCatProductsModel(CategoriesModel.fromJson(data)) : null;
-          } else {
-            _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
-          }
-        } else {
-          debugPrint('Xatolik: ${data['message']}');
-        }
-        if (categoryId == 0 && isFavorite == false) {
-          if (filter != null && filter.isNotEmpty) {
-            _getController.clearCategoriesProductsModel();
-          }
-          getAllCatProducts(filter: encodedFilter != '' ? encodedFilter : null, category: category);
-        }
-      } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
-      }
-    } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
-      debugPrint(stacktrace.toString());
-    }
-  }
-
   Future<void> getProducts(int categoryId, {bool isCategory = true, bool isFavorite = false, filter, bool category = false, String sort = 'category_id.asc'}) async {
     filter = filter ?? '';
     try {
@@ -307,6 +290,7 @@ class ApiController extends GetxController {
           ? '$baseUrl/catalog/favorites?${filter.isNotEmpty ? 'filter=$encodedFilter&' : ''}sort=$sort'
           : '$baseUrl/catalog/products?category_id=$categoryId${filter.isNotEmpty ? '&filter=$encodedFilter' : ''}&sort=$sort';
 
+      print(url);
       final response = await http.get(Uri.parse(url), headers: headersBearer());
 
       if (response.statusCode == 200) {
@@ -416,6 +400,34 @@ class ApiController extends GetxController {
     }
   }
 
+  Future<void> addReviewPartner(int id) async {
+    print(id.toString());
+    try {
+      var request = http.MultipartRequest('PUT', Uri.parse('$baseUrl/catalog/shopreviews'));
+      request.headers.addAll(multipartHeaderBearer());
+      request.fields.addAll({'id': '0', 'shop_id': id.toString(), 'rating': _getController.rating.value.toString(), 'review': _getController.surNameController.text, 'user_id': '0'});
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      //debugPrint(responseBody.toString());
+      if (response.statusCode == 200) {
+        var data = jsonDecode(responseBody);
+        //debugPrint(data.toString());
+        if (data['status'] == 0) {
+          _getController.surNameController.text = '';
+          InstrumentComponents().showToast('Sizning fikringiz muvaffaqiyatli saqlandi');
+          getProduct(id, isCategory: false);
+          Get.back();
+        } else {
+          debugPrint('Xatolik: ${data['message']}');
+        }
+      }
+    } catch (e, stacktrace) {
+      debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
+    }
+  }
+
+
   Future<void> getReviews(int id) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/catalog/reviews?product_id=$id'), headers: headersBearer());
@@ -441,6 +453,106 @@ class ApiController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Kafolatli mahsulotlar
 
+  final Map<int, String> uzbekMonths = {
+    1: 'yanvar',
+    2: 'fevral',
+    3: 'mart',
+    4: 'aprel',
+    5: 'may',
+    6: 'iyun',
+    7: 'iyul',
+    8: 'avgust',
+    9: 'sentabr',
+    10: 'oktabr',
+    11: 'noyabr',
+    12: 'dekabr',
+  };
+
+// O'zbek tilidagi kun nomlari (agar kerak bo'lsa, masalan qisqa)
+  final Map<int, String> uzbekWeekdays = {
+    DateTime.sunday: 'Yakshanba',
+    DateTime.monday: 'Dushanba',
+    DateTime.tuesday: 'Seshanba',
+    DateTime.wednesday: 'Chorshanba',
+    DateTime.thursday: 'Payshanba',
+    DateTime.friday: 'Juma',
+    DateTime.saturday: 'Shanba',
+  };
+
+  String formatUzbekDate(DateTime date, {String pattern = "d MMMM y, HH:mm"}) {
+    final day = date.day.toString().padLeft(2, '0');  // Kun (01, 02...)
+    final monthName = uzbekMonths[date.month] ?? 'Noma\'lum oy';  // Oy nomi
+    final year = date.year.toString();
+    final hour = date.hour.toString().padLeft(2, '0');
+    final minute = date.minute.toString().padLeft(2, '0');
+
+    // Pattern bo'yicha almashtirish
+    String formatted = pattern
+        .replaceAll('d', day)  // Kun raqami
+        .replaceAll('MMMM', monthName)  // To'liq oy nomi
+        .replaceAll('y', year)  // Yil
+        .replaceAll('HH', hour)  // Soat (24-soat format)
+        .replaceAll('mm', minute);  // Daqiqa
+
+    return formatted;
+  }
+
+  String formatLocalizedDate(DateTime date, {String lang = 'uz'}) {
+    final day = date.day.toString().padLeft(2, '0');
+    final month = date.month.toString().padLeft(2, '0');
+    final year = date.year.toString();
+    final hour = date.hour.toString().padLeft(2, '0');
+    final minute = date.minute.toString().padLeft(2, '0');
+
+    if (lang == 'ru') {
+      // 12.10.2025 в 18:00
+      return '$day.$month.$year в $hour:$minute';
+    } else if (lang == 'en') {
+      // on 12.10.2025 at 18:00
+      return 'on $day.$month.$year at $hour:$minute';
+    } else if (lang == 'oz') {
+      // on 12.10.2025 at 18:00
+      return '$day.$month.$year соат $hour:$minute да';
+    } else {
+      // O'zbekcha: 12.10.2025 soat 18:00 da
+      return '$day.$month.$year soat $hour:$minute da';
+    }
+  }
+
+  DateTime? parseLocalizedDateTime(String dateStr) {
+    // Stringni bo'shliq bo'yicha bo'lish
+    final parts = dateStr.split(' ');
+    if (parts.length < 6) return null; // Noto'g'ri format
+
+    final monthStr = parts[1]; // "Nov"
+    final dayStr = parts[2];   // "01"
+    final yearStr = parts[3];  // "2025"
+    final timeStr = parts[4];  // "17:11:55"
+
+    // Oy nomlarini raqamga o'tkazish (inglizcha qisqa nomlar)
+    final monthMap = <String, int>{
+      'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+      'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
+    };
+
+    final month = monthMap[monthStr];
+    if (month == null) return null; // Noma'lum oy
+
+    // Vaqtni bo'lish
+    final timeParts = timeStr.split(':');
+    if (timeParts.length != 3) return null;
+
+    final hour = int.tryParse(timeParts[0]) ?? 0;
+    final minute = int.tryParse(timeParts[1]) ?? 0;
+    final second = int.tryParse(timeParts[2]) ?? 0;
+
+    final day = int.tryParse(dayStr.replaceAll(RegExp(r'[a-zA-Z]'), '')) ?? 1; // Kun raqamini tozalash
+    final year = int.tryParse(yearStr) ?? DateTime.now().year;
+
+    // DateTime yaratish (timezone ignore, local time deb hisoblaymiz)
+    return DateTime(year, month, day, hour, minute, second);
+  }
+
   Future<void> addWarrantyProduct(String code, context) async {
     try {
       var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/warranty/products'));
@@ -448,8 +560,8 @@ class ApiController extends GetxController {
       request.fields.addAll({'qrcode': _getController.codeController.text});
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      //debugPrint(responseBody.toString());
-      //debugPrint(response.statusCode.toString());
+      debugPrint(responseBody.toString());
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         _getController.searchController.clear();
         var data = jsonDecode(responseBody);
@@ -462,21 +574,78 @@ class ApiController extends GetxController {
           _getController.changeIndex(3);
           _getController.controllerConvex?.animateTo(3);
           getProfile(isWorker: false);
-        } else if (data['status'] == 9) {
-          InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
-        } else if (data['status'] == 8) {
+        }
+        else if (data['status'] == 9) {
+          final info = data['additional'];
+          final int? ids = info['code_id'].toInt();
+          final userPhone = info['user_phone'] ?? '';
+          final maskedPhone = userPhone.replaceRange(6, 9, '***');
+          final codeAdded = info['code_added'] ?? '';
+
+/*
+          DateTime parsedDate;
+          try {
+            parsedDate = DateTime.parse(codeAdded);
+          } catch (e) {
+            debugPrint('Sana parsing xatosi: $e');
+            parsedDate = DateTime.now();
+          }
+*/
+
+          DateTime parsedDate;
+          try {
+            parsedDate = parseLocalizedDateTime(codeAdded) ?? DateTime.now(); // Yangi parse funksiyasi
+          } catch (e) {
+            //debugPrint('Sana parsing xatosi: $e');
+            parsedDate = DateTime.now();
+          }
+
+          final currentLang = _getController.headerLanguage;
+          final formattedDate = formatLocalizedDate(parsedDate, lang: currentLang);
+
+          // Xabarlar
+          String message;
+          if (currentLang == 'ru') {
+            message =
+            'Этот QR-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
+          } else if (currentLang == 'en') {
+            message =
+            'This QR code was previously registered by the user with the number $maskedPhone $formattedDate.';
+          } else if (currentLang == 'oz') {
+            message = 'Ушбу ҚР-код аввал $maskedPhone рақамли фойдаланувчи томонидан $formattedDate рўйхатдан ўтказилган.';
+          } else {
+            message = 'Ushbu QR-kod avval $maskedPhone raqamli foydalanuvchi tomonidan $formattedDate ro‘yxatdan o‘tkazilgan.';
+          }
+          // Dialog ko'rsatish
+          if (_getController.profileInfoModel.value.result?.first.phone == userPhone) {
+            _getController.clearWarrantyModel();
+            _getController.clearSortedWarrantyModel();
+            _getController.warrantyId.value = ids;
+            //InstrumentComponents().addWarrantyOpenDialog(context, formattedDate: formattedDate);
+            ApiController().getWarrantyProducts(filter: 'c.active=1');
+            Get.to(() => const GuaranteePage(), transition: Transition.fadeIn);
+          } else {
+            InstrumentComponents().addWarrantyDialog(context, message);
+          }
+          //InstrumentComponents().addWarrantyDialog(context, 'Ushbu mahsulotning seriya raqami ro‘yxatdan o‘tgan! Agarda xatolik bo‘lsa, bizga murojaat qiling.');
+        }
+        else if (data['status'] == 8) {
           InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling');
-        } else if (data['status'] == 20) {
+        }
+        else if (data['status'] == 20) {
           InstrumentComponents().addWarrantyDialog(context,'Ushbu mahsulotning Arxivda mavjud!');
         }
         else {
-          debugPrint('Xatolik: ${data['message']}');
+          //debugPrint('Xatolik: ${data['message']}');
           InstrumentComponents().showToast('Xatolik: ${data['message']}', color: AppColors.red);
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
-      debugPrint(stacktrace.toString());
+      debugPrint('addWarrantyProduct funksiyasida xatolik: $e');
+      debugPrint('Stacktrace: $stacktrace');
+      Get.back();
+      InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling');
+      //InstrumentComponents().showToast('Tarmoq muammosi: Iltimos, qayta urinib ko‘ring', color: AppColors.red);
     }
   }
 
@@ -485,7 +654,7 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/warranty/products${filter != '' ? '?filter=$filter&sort=warranty_start.desc' : '?sort=warranty_start.desc'}'), headers: headersBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        //debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter' : ''}');
+        debugPrint('$baseUrl/warranty/products${filter != '' ? '?filter=$filter&sort=warranty_start.desc' : '?sort=warranty_start.desc'}');
         //debugPrint(data.toString());
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
@@ -743,14 +912,17 @@ class ApiController extends GetxController {
       final response = await http.get(Uri.parse('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}'), headers: headersBearer());
       //debugPrint('$baseUrl/payment/transactions${filter != '' ? '?filter=$filter' : ''}');
       //debugPrint(response.body.toString());
+      print(response.statusCode.toString());
       if (response.statusCode == 200) {
         if (jsonDecode(response.body)['status'] == 0) {
           _getController.changeSortedTransactionsModel(
             SortedPayTransactions.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][0])}),
             TwoList.fromJson({"status": jsonDecode(response.body)['status'], "message": jsonDecode(response.body)['message'], "result": List.from(jsonDecode(response.body)['result'][1])}),
           );
+        } else if (jsonDecode(response.body)['status'] == 4){
+          debugPrint('token: ${jsonDecode(response.body)['message']}');
         } else {
-          debugPrint('Error: ${jsonDecode(response.body)['message']}');
+          debugPrint('Xatolik: ${jsonDecode(response.body)['message']}');
         }
       } else {
         debugPrint('Xatolik: Serverga ulanishda muammo');
@@ -769,6 +941,8 @@ class ApiController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         if (data['status'] == 0) {
+          print('$baseUrl/users/profile');
+          debugPrint(data['result'].toString());
           _getController.changeProfileInfoModel(ProfileInfoModel.fromJson(data));
           if (isWorker && _getController.profileInfoModel.value.result?.first.firstName == null || _getController.profileInfoModel.value.result?.first.lastName == '') {
             getCountries();
@@ -781,36 +955,52 @@ class ApiController extends GetxController {
           }
         }
         else if (data['status'] == 4) {
-          logout();
-          _getController.logout();
-          Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+          if (_getController.token != null && _getController.token.isNotEmpty){
+            debugPrint('4');
+            logout();
+            _getController.logout();
+            Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+          }
         }
         else if (data['status'] == 22) {
-          logout();
-          _getController.logout();
-          Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+          debugPrint('22');
+          if (_getController.token != null && _getController.token.isNotEmpty){
+            logout();
+            _getController.logout();
+            Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+          }
         }
       }
       else if (response.statusCode == 401) {
+        debugPrint('exx 401');
         logout();
         _getController.logout();
         Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
         return;
       }
       else if (response.statusCode == 404) {
-        Get.offAll(() => const NotConnection(), transition: Transition.fadeIn, arguments: true);
-        sendErrorMessage('404 Server Ishlamayotgan bo‘lishi mumkin!');
-        return;
+        if (_getController.token != null && _getController.token.isNotEmpty){
+          debugPrint('exx 404');
+          Get.offAll(() => const NotConnection(), transition: Transition.fadeIn, arguments: true);
+          sendErrorMessage('404 Server Ishlamayotgan bo‘lishi mumkin!');
+          return;
+        }
       }
       else {
-        sendErrorMessage('Xatolik: Server Ishlamayotgan bo‘lishi mumkin!');
-        Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
+        if (_getController.token != null && _getController.token.isNotEmpty){
+          debugPrint('exx else');
+          sendErrorMessage('Xatolik: Server Ishlamayotgan bo‘lishi mumkin!');
+          Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
+        }
+
       }
     } catch(e, stacktrace) {
-      debugPrint('bilmasam endi: $e');
-      sendErrorMessage('Server Ishlamayotgan bo‘lishi mumkin!: $e\n$stacktrace');
-      debugPrint(stacktrace.toString());
-      Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
+      if (_getController.token != null && _getController.token.isNotEmpty){
+        debugPrint('bilmasam endi: $e');
+        sendErrorMessage('Server Ishlamayotgan bo‘lishi mumkin!: $e\n$stacktrace');
+        debugPrint(stacktrace.toString());
+        Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
+      }
     }
   }
 
@@ -940,6 +1130,26 @@ class ApiController extends GetxController {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Patner magazine
+
+  Future<void> getPartnerMagazine({bool? rating, String? search}) async {
+    String ratingSort = rating == true ? '?sort=rating.desc' : '';
+    String searchFilter = search != null ? rating == true ? '&filter=name CONTAINS $search' : '?filter=name CONTAINS ${'"$search"'}' : '';
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/catalog/shops$ratingSort$searchFilter'));
+      debugPrint('$baseUrl/catalog/shops$ratingSort$searchFilter');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        _getController.changePartnerModels(PartnerModels.fromJson(data));
+      }
+    } catch (e, stacktrace) {
+      debugPrint('Xatolik: $e');
+      debugPrint(stacktrace.toString());
+    }
+  }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //message error
 
   String formatLoginErrorMessage({required String id, required String name, required String phone, required String error}) {
@@ -979,5 +1189,7 @@ class ApiController extends GetxController {
       debugPrint(stacktrace.toString());
     }
   }
+
+
 
 }

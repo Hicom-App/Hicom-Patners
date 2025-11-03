@@ -294,7 +294,7 @@ class CreatePasscodePage extends StatelessWidget {
             try {
               _getController.savePassCode(_getController.enteredPasscode.value);
               _getController.saveBiometrics(false);
-              Get.off(() => const SamplePage());
+              Get.offAll(() => const SamplePage());
             } catch (e) {
               debugPrint('Error saving passcode: $e');
             }

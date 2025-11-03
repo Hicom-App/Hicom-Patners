@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hicom_patners/pages/sample/qr_scan_page.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
+import '../partners/controllers/partners_controller.dart';
+import '../switches/views/scan_switch_view.dart';
 
 
 class SamplePage extends StatefulWidget {
@@ -19,12 +20,13 @@ class SamplePage extends StatefulWidget {
 
 class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateMixin {
   final GetController _getController = Get.put(GetController());
+  final PartnersController _controller = Get.put(PartnersController());
 
   @override
   void initState() {
     super.initState();
-    _getController.controllerConvex = TabController(length: 5, vsync: this);
     _getController.changeWidgetOptions();
+    _getController.controllerConvex = TabController(length: 5, vsync: this);
     ApiController().getProfile(isWorker: false);
     ApiController().getCategories();
   }
@@ -37,10 +39,12 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
 
   void _onItemTapped(int index) {
     _getController.changeIndex(index);
+    print('index: $index');
     if (index == 3){
-      _getController.clearWarrantyModel();
-      _getController.clearSortedWarrantyModel();
-      ApiController().getWarrantyProducts(filter: 'c.active=1');
+      //_getController.clearWarrantyModel();
+      //_getController.clearSortedWarrantyModel();
+      //ApiController().getWarrantyProducts(filter: 'c.active=1');
+      _controller.initializeApp();
     }
   }
 
@@ -73,20 +77,20 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
             initialActiveIndex: 0,
             height: Platform.isAndroid ? 70.sp : 50.sp,
             items: [
-              const TabItem(icon: EneftyIcons.home_bold),
-              const TabItem(icon: EneftyIcons.profile_bold),
+              const TabItem(icon: Iconsax.home_1),
+              const TabItem(icon: Iconsax.hierarchy_square_2),
               TabItem(
                   icon: Container(
                       decoration: BoxDecoration(borderRadius: Platform.isAndroid ? BorderRadius.all(Radius.circular(4000.r)) : null, shape: Platform.isIOS ? BoxShape.circle : BoxShape.rectangle, color: AppColors.white),
                       child: Container(
                           margin: EdgeInsets.all(5.r),
                           decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-                          child: IconButton(highlightColor: AppColors.blackTransparent, icon: Icon(EneftyIcons.scan_barcode_bold, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(QRViewExample()))
+                          child: IconButton(highlightColor: AppColors.blackTransparent, icon: Icon(Iconsax.scan_barcode, color: AppColors.white, size: 30.sp), onPressed: () => Get.to(ScanSwitchView(title: 'QR Kodni Skaynerlash'.tr,)))
                       )
                   )
               ),
-              const TabItem(icon: EneftyIcons.box_3_bold),
-              const TabItem(icon: EneftyIcons.chart_2_bold)
+              TabItem(icon: Iconsax.shop),
+              const TabItem(icon: Iconsax.chart_21)
             ],
             onTap: _onItemTapped
         )

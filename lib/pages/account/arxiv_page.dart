@@ -199,6 +199,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../companents/custom_app_bar.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/home/chashe_image.dart';
@@ -238,14 +239,7 @@ class ArxivPage extends StatelessWidget {
     _fetchInitialData();
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: TextSmall(text: 'Arxivlangan tovarlar'.tr, color: AppColors.black, fontWeight: FontWeight.w500, maxLines: 1)
-      ),
+        appBar: CustomAppBar(title: 'Arxivlangan tovarlar'.tr, isBack: true, isCenter: true),
       body: RefreshComponent(
         refreshController: _getController.refreshArchiveController,
         scrollController: _getController.scrollArchiveController,

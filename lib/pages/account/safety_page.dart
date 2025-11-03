@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../companents/custom_app_bar.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/instrument_components.dart';
 import '../../controllers/get_controller.dart';
@@ -17,12 +18,10 @@ class SafetyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-      appBar: AppBar(backgroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-          foregroundColor: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white,
-          surfaceTintColor: Theme.of(context).brightness == Brightness.light ? AppColors.white : AppColors.black,
-          title: TextSmall(text: 'Kirish va xavfsizlik'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)),
+      appBar: CustomAppBar(title: 'Kirish va xavfsizlik'.tr, isBack: true, isCenter: true),
       body: Column(
         children: [
+          SizedBox(height: 20.h),
           _buildListTile(
               context: context,
               icon:  EneftyIcons.password_check_bold,

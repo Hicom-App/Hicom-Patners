@@ -21,6 +21,8 @@ import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 import '../home/checks_page.dart';
 import '../home/transfer_to_wallet.dart';
+import 'account_page.dart';
+
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -70,22 +72,49 @@ class HomePage extends StatelessWidget {
                                     backgroundColor: Colors.transparent,
                                     centerTitle: false,
                                     automaticallyImplyLeading: false,
-                                    title: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                    title: InkWell(
+                                      onTap: () => Get.to(() => const AccountPage()),
+                                      focusColor: AppColors.blackTransparent,
+                                      overlayColor: WidgetStateProperty.all(AppColors.blackTransparent),
+                                      splashColor: AppColors.blackTransparent,
+                                      highlightColor: AppColors.blackTransparent,
+                                      child: Row(
                                         children: [
-                                          TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1),
-                                          TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1)
+                                          Container(
+                                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: AppColors.white, width: 1)),
+                                              child: CircleAvatar(
+                                                  radius: 20.r,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: ClipOval(
+                                                      child: _getController.profileInfoModel.value.result != null && _getController.profileInfoModel.value.result!.isNotEmpty && _getController.profileInfoModel.value.result!.first.photoUrl.toString() != 'null'
+                                                          ? Image.network(_getController.profileInfoModel.value.result!.first.photoUrl.toString(), fit: BoxFit.cover, width: 40.w, height: 40.w)
+                                                          : Image.asset('assets/images/user.png', fit: BoxFit.cover, width: 40.w, height: 40.w
+                                                      )
+                                                  )
+                                              )
+                                          ),
+                                          SizedBox(width: 10.w),
+                                          Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                if (_getController.profileInfoModel.value.result != null && _getController.profileInfoModel.value.result!.isNotEmpty)
+                                                  TextLarge(text: '${_getController.profileInfoModel.value.result != null ?  _getController.profileInfoModel.value.result!.first.firstName.toString() : ''} ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.lastName.toString() : ''}', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 18.sp)
+                                                else
+                                                  TextLarge(text: 'Mening profilim', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 18.sp),
+                                                if (_getController.profileInfoModel.value.result != null && _getController.profileInfoModel.value.result!.isNotEmpty)
+                                                  TextSmall(text: '${'ID'.tr}: ${_getController.profileInfoModel.value.result != null ? _getController.profileInfoModel.value.result!.first.id : ''}', color: AppColors.white, fontWeight: FontWeight.w400, maxLines: 1, fontSize: 14.sp)
+                                              ]
+                                          )
                                         ]
+                                      )
                                     ),
                                     actions: [
                                       InkWell(
                                           child: IconButton(
                                               icon: Icon(EneftyIcons.notification_bold, color: AppColors.white, size: Theme.of(context).iconTheme.fill),
-                                              onPressed: () {
-                                                Get.to(() => NotificationPage());
-                                                Clipboard.setData(ClipboardData(text: _getController.fcmToken));
-                                              }
+                                              onPressed: () => Get.to(() => NotificationPage()),
+                                              onLongPress: () => Clipboard.setData(ClipboardData(text: _getController.fcmToken))
                                           )
                                       )
                                     ]
@@ -106,16 +135,15 @@ class HomePage extends StatelessWidget {
                                         padding: EdgeInsets.only(left: 30.w, right: 30.w),
                                         itemBuilder: (context, index) => GestureDetector(
                                             onTap: () {
-                                              if(index == 1) {
+                                              if(index == 1 && _getController.token != null && _getController.token.isNotEmpty) {
                                                 Get.to(() => TransferToWallet(index: index));
-                                              }else if(index == 0) {
+                                              }else if(index == 0 && _getController.token != null && _getController.token.isNotEmpty) {
                                                 Get.to(() => ChecksPage());
                                               }
                                             },
-                                            child: Card(
-                                                color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white,
-                                                elevation: 0,
-                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.r)),
+                                            child: Container(
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(13.r), color: Theme.of(context).brightness == Brightness.dark ? AppColors.black : AppColors.white, image: const DecorationImage(image: AssetImage('assets/images/foncard.jpg'), fit: BoxFit.fill)),
+                                                margin: EdgeInsets.only(right: 10.w),
                                                 child: SizedBox(
                                                     height: 100.h,
                                                     width: 178.w,
@@ -128,14 +156,7 @@ class HomePage extends StatelessWidget {
                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
-                                                                TextSmall(
-                                                                    text: _getController.profileInfoModel.value.result != null
-                                                                        ? index == 0 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWaiting!)
-                                                                        : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain!)
-                                                                        : index == 2 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!)
-                                                                        : _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRejected!)
-                                                                        : '0',
-                                                                    color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                                                TextSmall(text: _getController.profileInfoModel.value.result != null ? index == 0 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWaiting!) : index == 1 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRemain!) : index == 2 ? _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackWithdrawn!) : _getController.getMoneyFormat(_getController.profileInfoModel.value.result!.first.cashbackRejected!) : '0', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp),
                                                                 TextSmall(text: ' ${'so‘m'.tr}', color: AppColors.black, fontWeight: FontWeight.bold, fontSize: 17.sp)
                                                               ]
                                                           )
@@ -150,7 +171,7 @@ class HomePage extends StatelessWidget {
                           )
                       ),
                       Container(
-                          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.3), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
+                          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r)), boxShadow: [BoxShadow(color: AppColors.black.withAlpha(10), spreadRadius: 3, blurRadius: 35, offset: const Offset(0, 0))]),
                           constraints: BoxConstraints(minHeight: Get.height * 0.6),
                           child: _getController.productsModel.value.result != null
                               ? Column(
@@ -158,7 +179,7 @@ class HomePage extends StatelessWidget {
                                 SizedBox(height: 25.h),
                                 SearchTextField(
                                   controller: _getController.searchController,
-                                  color: AppColors.grey.withOpacity(0.2),
+                                  color: AppColors.greys.withAlpha(150),
                                   onChanged: (value) {
                                     _getController.clearCategoriesProductsModel();
                                     _getController.clearCategoriesAllProductsModel();
@@ -185,7 +206,6 @@ class HomePage extends StatelessWidget {
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.only(left: 10.w, right: 30.w),
                                         itemBuilder: (context, index) => InkWell(
-                                            //onLongPress: () =>  _getController.categoriesModel.value.result != null && _getController.categoriesModel.value.result!.isNotEmpty && index == _getController.categoriesModel.value.result!.length - 1 ? Clipboard.setData(ClipboardData(text: _getController.token)): null,
                                             onTap: () => Get.to(CategoryPage(open: 0, id: _getController.categoriesModel.value.result![index].id!.toInt())),
                                             child:  Container(
                                                 margin: EdgeInsets.only(left: 15.w),
@@ -202,7 +222,6 @@ class HomePage extends StatelessWidget {
                                             )
                                         ),
                                         itemCount: _getController.categoriesModel.value.result != null ? _getController.categoriesModel.value.result!.length : 0,
-                                        //shrinkWrap: true
                                       )
                                   )
                                 else
@@ -211,7 +230,7 @@ class HomePage extends StatelessWidget {
                                   Stack(
                                       children: [
                                         SizedBox(
-                                            height: 345.h,
+                                            height: 365.h,
                                             width: Get.width,
                                             child: SingleChildScrollView(
                                                 scrollDirection: Axis.horizontal,
@@ -234,12 +253,7 @@ class HomePage extends StatelessWidget {
                                                     children: [
                                                       TextSmall(text: 'Barcha mahsulotlar'.tr, color: AppColors.black),
                                                       const Spacer(),
-                                                      TextButton(
-                                                          onPressed: (){
-                                                            Get.to(const CategoryPage(id: 0, open: 2));
-                                                          },
-                                                          child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9))
-                                                      )
+                                                      TextButton(onPressed: () => Get.to(const CategoryPage(id: 0, open: 2)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.black70))
                                                     ]
                                                 )
                                             )
@@ -254,7 +268,7 @@ class HomePage extends StatelessWidget {
                                             Stack(
                                                 children: [
                                                   SizedBox(
-                                                      height: 345.h,
+                                                      height: 355.h,
                                                       width: Get.width,
                                                       child: SingleChildScrollView(
                                                           scrollDirection: Axis.horizontal,
@@ -263,26 +277,21 @@ class HomePage extends StatelessWidget {
                                                               children: [
                                                                 if (_getController.productsModel.value.result != null)
                                                                   for (int index = 0; index < _getController.categoriesAllProductsModel.value.all![i].result!.length; index++)
-                                                                    InkWell(
-                                                                        onTap: () {
-                                                                          Get.to(DetailPage(id: _getController.categoriesAllProductsModel.value.all![i].result![index].id));
-                                                                        },
-                                                                        child: ProductItems(index: i, i: index, category: false)
-                                                                    )
+                                                                    InkWell(onTap: () => Get.to(DetailPage(id: _getController.categoriesAllProductsModel.value.all![i].result![index].id)), child: ProductItems(index: i, i: index, category: false))
                                                               ]
                                                           )
                                                       )
                                                   ),
                                                   Positioned(
                                                       child: Container(
-                                                          margin: EdgeInsets.only(left: 25.w, top: 10.h),
+                                                          margin: EdgeInsets.only(left: 25.w),
                                                           child: Row(
                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                               children: [
                                                                 TextSmall(text: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryName.toString(), color: Theme.of(context).colorScheme.onSurface),
                                                                 const Spacer(),
-                                                                TextButton(onPressed: () => Get.to(CategoryPage(id: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.grey.withOpacity(0.9)))
+                                                                TextButton(onPressed: () => Get.to(CategoryPage(id: _getController.categoriesAllProductsModel.value.all![i].result!.first.categoryId!.toInt(), open: 0)), child: TextSmall(text: 'Ko‘proq'.tr, color: AppColors.black70))
                                                               ]
                                                           )
                                                       )
@@ -306,7 +315,8 @@ class HomePage extends StatelessWidget {
                                 SizedBox(height: 25.h),
                                 SearchTextField(
                                   controller: _getController.searchController,
-                                  color: AppColors.grey.withOpacity(0.2),
+                                  //color: AppColors.grey.withOpacity(0.2),
+                                  color: AppColors.grey.withAlpha(100),
                                   onChanged: (value) {
                                     _getController.clearCategoriesProductsModel();
                                     _getController.clearCategoriesAllProductsModel();
@@ -378,15 +388,10 @@ class HomePage extends StatelessWidget {
 class DebounceTimer {
   final int milliseconds;
   Timer? _timer;
-
   DebounceTimer({required this.milliseconds});
-
   void call(VoidCallback action) {
     _timer?.cancel();
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
-
-  void dispose() {
-    _timer?.cancel();
-  }
+  void dispose() => _timer?.cancel();
 }

@@ -41,7 +41,7 @@ class DetailPage extends StatelessWidget {
             onRefresh: () {
               _getController.clearProductsModelDetail();
               ApiController().getProduct(id!, isCategory: false).then((_) {
-                _getController.refreshGuaranteeController.refreshCompleted();
+                //_getController.refreshGuaranteeController.refreshCompleted();
                 _getController.refreshDetailController.refreshCompleted();});
               },
             child: Obx(() => Column(
@@ -112,7 +112,59 @@ class DetailPage extends StatelessWidget {
                                             : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 1, fontSize: 16.sp))
                                       ]
                                   )),
-                                  _getController.productsModelDetail.value.result != null ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false).then((_) => _getController.updateFavoriteAllModels(_getController.productsModelDetail.value.result!.first.id!.toInt(), _getController.productsModelDetail.value.result!.first.favorite == 0 ? 0 : 1))), child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color:_getController.productsModelDetail.value.result!.first.favorite == 0 ? AppColors.black : AppColors.red, size: 19.sp))) : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
+                                  if (_getController.token != null && _getController.token.isNotEmpty)
+                                  _getController.productsModelDetail.value.result != null
+                                      ? InkWell(
+                                    onTap: () {
+                                      final currentProduct = _getController.productsModelDetail.value.result!.first;
+                                      final currentFavorite = currentProduct.favorite ?? 0; // Null xavfsiz
+                                      final newFavorite = currentFavorite == 0 ? 1 : 0; // Toggle: 0 -> 1, 1 -> 0
+
+                                      debugPrint('Yurakcha bosildi: Eski favorite = $currentFavorite, Yangi = $newFavorite'); // Debug uchun
+
+                                      // Lokal yangilash (UI tezroq o'zgarishi uchun)
+                                      currentProduct.favorite = newFavorite;
+                                      _getController.productsModelDetail.refresh(); // Modelni yangilash
+
+                                      // API chaqirish
+                                      ApiController().addFavorites(currentProduct.id!, isProduct: newFavorite == 1).then((_) {
+                                        // Refetch qilish
+                                        ApiController().getProduct(id!, isCategory: false).then((_) {
+                                          // Barcha modellarda yangilash (yangi qiymat bilan)
+                                          _getController.updateFavoriteAllModels(currentProduct.id!, newFavorite);
+                                          debugPrint('Favorites yangilandi: $newFavorite');
+                                        });
+                                      }).catchError((error) {
+                                        // Xato bo'lsa, lokal qiymatni qaytarish
+                                        currentProduct.favorite = currentFavorite;
+                                        _getController.productsModelDetail.refresh();
+                                        debugPrint('Favorites xatosi: $error');
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(9.r),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.greys,
+                                        borderRadius: BorderRadius.circular(100.r),
+                                      ),
+                                      child: Icon(
+                                        (_getController.productsModelDetail.value.result!.first.favorite ?? 0) == 0
+                                            ? EneftyIcons.heart_outline
+                                            : EneftyIcons.heart_bold,
+                                        color: (_getController.productsModelDetail.value.result!.first.favorite ?? 0) == 0
+                                            ? AppColors.black
+                                            : AppColors.red,
+                                        size: 19.sp,
+                                      ),
+                                    ),
+                                  )
+                                      : Skeletonizer(
+                                    child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp),
+                                  ),
+                                  if (_getController.token != null && _getController.token.isNotEmpty)
+                                    _getController.productsModelDetail.value.result != null
+                                        ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false).then((_) => _getController.updateFavoriteAllModels(_getController.productsModelDetail.value.result!.first.id!.toInt(), _getController.productsModelDetail.value.result!.first.favorite == 0 ? 0 : 1))), child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color:_getController.productsModelDetail.value.result!.first.favorite == 0 ? AppColors.black : AppColors.red, size: 19.sp)))
+                                        : Skeletonizer(child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp))
                                 ]
                             ),
                             SizedBox(height: Get.height * 0.02),
@@ -272,7 +324,7 @@ class DetailPage extends StatelessWidget {
                                 itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                                 onRatingUpdate: (rating) {
                                   _getController.ratings = rating;
-                                  InstrumentComponents().addRate(context);
+                                  InstrumentComponents().addRate(context, false, _getController.productsModelDetail.value.result!.first.id ?? 0);
                                 }),
                             SizedBox(height: Get.height * 0.01),
                             const TextSmall(text: 'Sharhlar', color: AppColors.blue, fontWeight: FontWeight.bold),

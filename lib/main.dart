@@ -7,37 +7,15 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/pages/sample/splash_screen.dart';
 import 'package:hicom_patners/resource/srting.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'controllers/dependency.dart';
 import 'controllers/firebase_api.dart';
 import 'controllers/get_controller.dart';
-
-
-/*main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  *//*FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
-  FlutterNativeSplash.remove();*//*
-  await GetStorage.init();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.light));
-  try{
-    await InitNotification.initialize();
-  }catch(e){
-    debugPrint(e.toString());
-  }
-  await DisposableImages.init();
-  runApp(DisposableImages(MyApp()));
-  try{
-    DependencyInjection.init();
-  } catch(e){
-    debugPrint(e.toString());
-  }
-}*/
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   FlutterNativeSplash.remove();
-  
   await GetStorage.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.light));

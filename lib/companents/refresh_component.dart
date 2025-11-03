@@ -25,22 +25,6 @@ class RefreshComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: enablePullUp ?? true,
-        physics: physics,
-        header: CustomRefreshHeader(color: color),
-        footer: CustomRefreshFooter(color: color),
-        onLoading: onLoading ?? _onLoading,
-        onRefresh: onRefresh ?? _getData,
-        controller: refreshController,
-        scrollController: scrollController,
-
-        child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: child
-        )
-    );*/
     return RefreshConfiguration(
         enableScrollWhenRefreshCompleted: true,
         enableLoadingWhenFailed: true,

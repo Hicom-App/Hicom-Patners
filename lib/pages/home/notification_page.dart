@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/companents/filds/text_small.dart';
 import 'package:hicom_patners/resource/colors.dart';
 import 'package:intl/intl.dart';
+import '../../companents/custom_app_bar.dart';
 import '../../companents/refresh_component.dart';
 import '../../controllers/get_controller.dart';
 
@@ -19,13 +20,7 @@ class NotificationPage extends StatelessWidget {
     debugPrint(notificationList.toString());
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        centerTitle: true,
-        foregroundColor: AppColors.black,
-        surfaceTintColor: AppColors.white,
-        title: TextSmall(text: 'Bildirishnomalar'.tr, color: Theme.of(context).brightness == Brightness.light ? AppColors.black : AppColors.white, fontWeight: FontWeight.w500)
-      ),
+      appBar: CustomAppBar(title: 'Bildirishnomalar'.tr, isBack: true, isCenter: true),
       body: RefreshComponent(
           scrollController: _getController.scrollNotificationController,
           refreshController: _getController.refreshNotificationController,

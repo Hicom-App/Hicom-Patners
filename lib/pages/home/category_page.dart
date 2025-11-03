@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import '../../companents/cat_product_item.dart';
+import '../../companents/custom_app_bar.dart';
 import '../../companents/filds/search_text_field.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/refresh_component.dart';
@@ -63,7 +64,9 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.white,
-        appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: widget.open == 0 ? _getController.getCategoryName(widget.id) : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.w500)),
+        //appBar: AppBar(centerTitle: true, backgroundColor: AppColors.white, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: widget.open == 0 ? _getController.getCategoryName(widget.id) : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar', color: AppColors.black, fontWeight: FontWeight.bold)),
+        appBar: CustomAppBar(title: widget.open == 0 ? _getController.getCategoryName(widget.id) : widget.open == 1 ? 'Sevimli mahsulotlar'.tr : 'Barcha mahsulotlar'.tr,
+        isBack: true, isCenter: true),
         body: RefreshComponent(
         scrollController: _getController.scrollCategoryController,
         refreshController: _getController.refreshCategoryController,
@@ -79,6 +82,7 @@ class _CategoryPageState extends State<CategoryPage> {
         },
         child: Obx(() => Column(
             children: [
+              SizedBox(height: 20.h),
               SearchTextField(
                   controller: _getController.catSearchController,
                   margin: 20,
@@ -104,14 +108,14 @@ class _CategoryPageState extends State<CategoryPage> {
                     }
                   }
               ),
-              SizedBox(height: Get.height * 0.02),
+              SizedBox(height: 20.h),
               if (_getController.categoryProductsModel.value.result != null)
                 if (_getController.categoryProductsModel.value.result!.isNotEmpty)
                   SizedBox(
                       child: GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.78),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:_getController.getCrossAxisCount(), crossAxisSpacing: 0, mainAxisSpacing: 15.sp, childAspectRatio: 0.74),
                           padding: EdgeInsets.only(left: 25.w, right: 10.w),
                           itemBuilder: (context, index) => InkWell(
                             splashColor: Colors.transparent,

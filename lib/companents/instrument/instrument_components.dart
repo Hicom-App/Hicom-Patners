@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../controllers/api_controller.dart';
 import '../../controllers/get_controller.dart';
 import '../../pages/auth/login_page.dart';
 import '../../pages/auth/passcode/change_passcode_page.dart';
+import '../../pages/bottombar/guarantee_page.dart';
 import '../../pages/home/add_card_page.dart';
 import '../../resource/colors.dart';
 import '../filds/text_large.dart';
@@ -240,9 +244,7 @@ class InstrumentComponents {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
                 leading: Icon(EneftyIcons.edit_2_bold, color: AppColors.blue, size: 30.sp),
                 title: TextSmall(text: 'Kartani tahrirlash'.tr, color: AppColors.black, fontWeight: FontWeight.w400),
-                onTap: () {
-                  Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn);
-                }
+                onTap: () => Get.to(() => AddCardPage(index: index, isEdit: true), transition: Transition.fadeIn)
               ),
               const Divider(),
               ListTile(
@@ -280,7 +282,7 @@ class InstrumentComponents {
             Get.back();
             ApiController().logout();
             _getController.logout();
-            Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
+            //Get.offAll(() => const LoginPage(), transition: Transition.fadeIn);
             }, child: TextSmall(text: 'Chiqish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
       ),
       cancel: Container(
@@ -422,7 +424,7 @@ class InstrumentComponents {
             })
   );
 
-  void addRate(BuildContext context) => Get.defaultDialog(
+  void addRate(BuildContext context, bool? isShop, int id) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
@@ -476,7 +478,11 @@ class InstrumentComponents {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
           child: TextButton(
               onPressed: () async {
-                ApiController().addReview(_getController.productsModelDetail.value.result!.first.id ?? 0);
+                if (isShop != null && !isShop) {
+                  ApiController().addReview(_getController.productsModelDetail.value.result!.first.id ?? 0);
+                } else {
+                  ApiController().addReviewPartner(id);
+                }
               },
               child: TextSmall(text: 'Saqlash'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
           )
@@ -512,6 +518,70 @@ class InstrumentComponents {
       )
   );
 
+
+  void addWarrantyOpenDialog1(BuildContext context) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 5.h, left: 15.w, right: 15.w),
+      title: 'Diqqat!'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
+      content: TextSmall(text: '', color: AppColors.black, maxLines: 100),
+      cancel: TextButton(onPressed: () async {Get.back();}, child: TextSmall(text: 'Ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(onPressed: () async {
+            Get.back();
+            Get.to(() => const GuaranteePage());
+            }, child: TextSmall(text: 'Ok'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp))
+      )
+  );
+
+
+  void addWarrantyOpenDialog(BuildContext context, {String? formattedDate}) => Get.defaultDialog(
+    backgroundColor: AppColors.white,
+    barrierDismissible: false,
+    titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+    contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
+    title: 'Kafolatli mahsulot'.tr,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.blue, fontFamily: 'Schyler'),
+    content: TextSmall(
+      text: formattedDate != null
+          ? 'Ushbu mahsulot allaqachon sizning hisobingizda ro‘yxatdan o‘tgan (${formattedDate}). Kafolat sahifasiga o‘tishni xohlaysizmi?'.tr
+          : 'Ushbu mahsulot allaqachon sizning hisobingizda ro‘yxatdan o‘tgan. Kafolat sahifasiga o‘tishni xohlaysizmi?'.tr,
+      color: AppColors.black,
+      maxLines: 10,
+    ),
+    cancel: Container(
+      width: 120.w,
+      height: 42.h,
+      margin: EdgeInsets.only(bottom: 15.h, top: 25.h),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+      child: TextButton(
+        onPressed: () => Get.back(),
+        child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp),
+      ),
+    ),
+    confirm: Container(
+      width: 140.w,
+      height: 42.h,
+      margin: EdgeInsets.only(bottom: 15.h, top: 25.h),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+      child: TextButton(
+        onPressed: () {
+          Get.back();
+          Get.to(() => const GuaranteePage(), transition: Transition.fadeIn);
+        },
+        child: TextSmall(text: 'Kafolat sahifasi'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp),
+      ),
+    ),
+  );
+
+
+
   void deleteCard(BuildContext context, int index) => Get.defaultDialog(
       backgroundColor: AppColors.white,
       barrierDismissible: false,
@@ -544,4 +614,43 @@ class InstrumentComponents {
 
   void showToast(String message, {color = AppColors.blue, textColor = AppColors.white, duration = 2}) {Fluttertoast.showToast(msg: message, fontAsset: 'Schyler', toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: duration, backgroundColor: color, textColor: textColor, fontSize: 16.sp);}
 
+  void locationPermissionDeniedDialog(BuildContext context) => Get.defaultDialog(
+      backgroundColor: AppColors.white,
+      barrierDismissible: false,
+      titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
+      contentPadding: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
+      title: 'Diqqat!'.tr,
+      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: AppColors.red, fontFamily: 'Schyler'),
+      content: TextSmall(text: 'Joylashuv (location) xizmatiga ruxsat berilmagan. Ilovani sozlamalardan ruxsat bering va qayta urinib ko\'ring.'.tr, color: AppColors.black, maxLines: 5),
+      confirm: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h, top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.blue),
+          child: TextButton(
+              onPressed: () async {
+                Get.back();
+                var status = await Permission.location.request();
+                if (status.isGranted) {
+                  print("Location permission granted");
+                } else if (status.isDenied) {
+                  print("Location permission denied");
+                } else if (status.isPermanentlyDenied) {
+                  await openAppSettings();
+                }
+              },
+              child: TextSmall(text: 'Ruxsat berish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      ),
+      cancel: Container(
+          width: 120.w,
+          height: 42.h,
+          margin: EdgeInsets.only(bottom: 15.h, top: 25.h),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r), color: AppColors.red),
+          child: TextButton(
+              onPressed: () => Get.back(),
+              child: TextSmall(text: 'Bekor qilish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15.sp)
+          )
+      )
+  );
 }

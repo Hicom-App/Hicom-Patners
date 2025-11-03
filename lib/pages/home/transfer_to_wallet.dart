@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/companents/instrument/instrument_components.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
+import '../../companents/custom_app_bar.dart';
 import '../../companents/filds/text_field_custom.dart';
 import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
@@ -27,7 +28,8 @@ class TransferToWallet extends StatelessWidget {
     ApiController().getCards();
     return Scaffold(
         backgroundColor: AppColors.greys,
-        appBar: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o‘tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+        //: AppBar(backgroundColor: AppColors.greys, foregroundColor: AppColors.black, surfaceTintColor: AppColors.white, title: TextSmall(text: 'Kartaga o‘tkazmalar'.tr, color: AppColors.black, fontWeight: FontWeight.bold)),
+        appBar: CustomAppBar(title: 'Kartaga o‘tkazmalar'.tr, isBack: true, isCenter: true),
         body: Obx(() => _getController.cardsModel.value.result != null
             ? RefreshComponent(
             refreshController: _getController.refreshTransferWalletController,
@@ -41,7 +43,7 @@ class TransferToWallet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w), child: TextSmall(text: 'To‘lovga tasdiqlangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
+                  Container(width: Get.width, margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h), child: TextSmall(text: 'To‘lovga tasdiqlangan'.tr, color: AppColors.black, fontWeight: FontWeight.w500)),
                   Container(
                       width: Get.width,
                       margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 11.h),

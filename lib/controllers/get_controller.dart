@@ -7,28 +7,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/bottombar/guarantee_page.dart';
 import 'package:hicom_patners/pages/bottombar/report_page.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+//import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../companents/instrument/shake_widget.dart';
 import '../models/auth/countries_model.dart';
 import '../models/auth/send_code_model.dart';
 import '../models/sample/cards_model.dart';
 import '../models/sample/categories.dart';
+import '../models/sample/partner_models.dart';
 import '../models/sample/profile_info_model.dart';
 import '../models/sample/reviews_model.dart';
 import '../models/sample/sorted_pay_transactions.dart';
 import '../models/sample/warranty_model.dart';
-import '../pages/bottombar/account_page.dart';
 import '../pages/bottombar/home_page.dart';
 import '../pages/not_connection.dart';
+import '../pages/partners/views/partners_view.dart';
+import '../pages/switches/views/switches_view.dart';
 
 class GetController extends GetxController {
   var fullName = 'Dilshodjon Haydarov'.obs;
-  RxString version = '1.0.6'.obs;
+  RxString version = '1.0.7'.obs;
   var height = 0.0.obs;
   var width = 0.0.obs;
   RxBool back = true.obs;
@@ -57,13 +58,19 @@ class GetController extends GetxController {
   RxBool send = false.obs;
   RxInt selectedInitStack = 0.obs;
 
+
+  final Map<int, GlobalKey> warrantyKeys = {};
+  final RxBool hasScrolledToId = false.obs;
+  final RxnInt warrantyId = RxnInt();
+
+
   void sendParam(value)=> send.value = value;
 
   final qrKey = GlobalKey(debugLabel: 'QR');
-  var result = Rxn<Barcode>();
-  QRViewController? controller;
+  //var result = Rxn<Barcode>();
+  //QRViewController? controller;
   RxBool isLampOn = false.obs;
-  var cameraFacing = CameraFacing.back.obs;
+  //var cameraFacing = CameraFacing.back.obs;
 
   void setHeightWidth(BuildContext context) {
     height.value = MediaQuery.of(context).size.height;
@@ -84,7 +91,7 @@ class GetController extends GetxController {
     update();
   }
 
-  void onQRViewCreated(QRViewController qrController, context) {
+  /*void onQRViewCreated(QRViewController qrController, context) {
     controller = qrController;
     controller?.scannedDataStream.listen((scanData) {
       result.value = scanData;
@@ -108,16 +115,16 @@ class GetController extends GetxController {
   void toggleLamp() {
     isLampOn.value = !isLampOn.value;
     controller?.toggleFlash();
-  }
+  }*/
 
-  void toggleCamera() {
+/*  void toggleCamera() {
     if (cameraFacing.value == CameraFacing.back) {
       cameraFacing.value = CameraFacing.front;
     } else {
       cameraFacing.value = CameraFacing.back;
     }
     controller?.flipCamera();
-  }
+  }*/
 
   void changeDropDownItems(int index, int newValue) {
     if (index >= 0 && index < dropDownItems.length) dropDownItems[index] = newValue;
@@ -148,7 +155,7 @@ class GetController extends GetxController {
     }
   }
 
-  String getDateFormat(String timeStamp) {
+  String getDateFormat1(String timeStamp) {
     try {
       if (timeStamp.isEmpty) return '';
 
@@ -177,13 +184,45 @@ class GetController extends GetxController {
     }
   }
 
+  String getDateFormat(String timeStamp) {
+    try {
+      if (timeStamp.isEmpty) return '';
+
+      DateTime date;
+      if (timeStamp.contains('GMT') || timeStamp.contains('Standard Time')) {
+        String cleaned = timeStamp.replaceAll(RegExp(r'GMT[+-]\d+ \(.+\)'), '').trim();
+        date = DateFormat('EEE MMM dd yyyy HH:mm:ss', 'en_US').parse(cleaned);
+      } else {
+        try {
+          date = DateTime.parse(timeStamp);
+        } catch (_) {
+          date = DateFormat('dd.MM.yyyy').parse(timeStamp);
+        }
+      }
+
+      var now = DateTime.now();
+      var yesterday = now.subtract(const Duration(days: 1));
+      if (date.year == now.year && date.month == now.month && date.day == now.day) {
+        return 'Bugun'.tr;
+      } else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+        return 'Kecha'.tr;
+      } else {
+        String monthStr = DateFormat('MMM', 'uz_UZ').format(date);
+        return '${date.day} ${getMonth(monthStr)} ${date.year}';
+      }
+    } catch (e) {
+      //debugPrint('Sana parsing xatosi: $e | Original: $timeStamp');
+      return timeStamp;
+    }
+  }
+
   String getMoneyFormat(int? value) => value == null ? '' : value.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]} ');
 
   String getMonth(String month) => month.isEmpty ? '' : month.tr;
 
   @override
   void onClose() {
-    controller?.dispose();
+    //controller?.dispose();
     stopTimer();
     super.onClose();
   }
@@ -229,7 +268,6 @@ class GetController extends GetxController {
 
   void savePhoneNumber(String phoneNumber) => GetStorage().write('phoneNumber', phoneNumber);
 
-
   void saveProfile() {
     final jsonProfile = json.encode(profileInfoModel.value.toJson());
     GetStorage().write('profile', jsonProfile);
@@ -239,7 +277,6 @@ class GetController extends GetxController {
   String get getProfileFirstName => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['first_name'] ?? '') as String;
   String get getProfileLastName => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['last_name'] ?? '') as String;
   int? get getProfileRole => (jsonDecode(GetStorage().read('profile') ?? '{}')['result']?[0]?['user_type']) as int?;
-
 
   void saveSelectedCardIndex(int index) => GetStorage().write('selectedCardIndex', index).then((value) => getSelectedCardIndex);
 
@@ -316,7 +353,6 @@ class GetController extends GetxController {
     countdownDuration.value = const Duration(seconds: 5);
     startTimer();
   }
-
 
   final TextEditingController searchController = TextEditingController();
   final TextEditingController catSearchController = TextEditingController();
@@ -472,11 +508,16 @@ class GetController extends GetxController {
   final ScrollController  scrollHomeController = ScrollController();
   final ScrollController  scrollControllerOk = ScrollController();
 
+/*
   final RefreshController refreshGuaranteeController = RefreshController(initialRefresh: false);
   final ScrollController  scrollGuaranteeController = ScrollController();
+*/
 
   final RefreshController refreshDetailController = RefreshController(initialRefresh: false);
   final ScrollController  scrollDetailController = ScrollController();
+
+  final RefreshController refreshPartnerDetailController = RefreshController(initialRefresh: false);
+  final ScrollController  scrollPartnerDetailController = ScrollController();
 
   final RefreshController refreshTransferWalletController = RefreshController(initialRefresh: false);
   final ScrollController  scrollTransferWalletController = ScrollController();
@@ -536,14 +577,15 @@ class GetController extends GetxController {
 
   void changeWidgetOptions() {
     widgetOptions.add(HomePage());
-    widgetOptions.add(const AccountPage());
+    //widgetOptions.add(const AccountPage());
+    widgetOptions.add(SwitchesView());
     widgetOptions.add(const SizedBox());
-    widgetOptions.add(GuaranteePage());
+    //widgetOptions.add(GuaranteePage());
+    widgetOptions.add(PartnersView());
     widgetOptions.add(ReportPage());
   }
 
   void changeIndex(int value) => index.value = value;
-
 
   final List locale = [{'name':'O‘zbekcha','locale': const Locale('uz','UZ')},{'name':'Ўзбекча','locale': const Locale('oz','OZ')}, {'name':'Русский','locale': const Locale('ru','RU')}, {'name':'English','locale': const Locale('en','US')}].obs;
 
@@ -638,7 +680,7 @@ class GetController extends GetxController {
   int textCount = 0;
   final int limitTextLength = 20;
 
-  String getCategoryName(int id) => categoriesModel.value.result != null ? categoriesModel.value.result!.firstWhere((element) => element.id == id).name ?? '' : '';
+  String getCategoryName(int? id) => id != null ? categoriesModel.value.result != null ? categoriesModel.value.result!.firstWhere((element) => element.id == id).name ?? '' : '' : '';
 
   String getMaskedName(String name) {
     if (name == '-') return '-';
@@ -675,6 +717,9 @@ class GetController extends GetxController {
   var reviewsModel = ReviewsModel().obs;
   var cardsModel = CardsModel().obs;
   var sortedTransactionsModel = SortedPayTransactions().obs;
+  var partnerModels = PartnerModels().obs;
+
+
   var twoList = TwoList().obs;
   var rating = 0.0.obs;
   set ratings(double ratings) => rating.value = ratings;
@@ -740,6 +785,8 @@ class GetController extends GetxController {
   void changeProductsModelDetail(CategoriesModel categoriesModel) => productsModelDetail.value = categoriesModel;
 
   void changeCatProductsModel(CategoriesModel categoriesModel) => categoryProductsModel.value = categoriesModel;
+
+  void changePartnerModels(PartnerModels partnerModel) => partnerModels.value = partnerModel;
 
   void addCategoriesProductsModels(CategoriesModel categories) {
     if (categoriesProductsModel.value.all == null) {
@@ -894,6 +941,7 @@ class GetController extends GetxController {
   void clearSortedTransactionsModel () => sortedTransactionsModel.value = SortedPayTransactions();
 
   void clearCategoryProductsModel () => categoryProductsModel.value = CategoriesModel();
+
 
 }
 

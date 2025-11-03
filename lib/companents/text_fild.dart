@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../pages/sample/qr_scan_page.dart';
+import '../pages/switches/views/scan_switch_view.dart';
 import 'filds/text_small.dart';
 
 class TextFields extends StatelessWidget {
@@ -39,7 +38,7 @@ class TextFields extends StatelessWidget {
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
                   alignLabelWithHint: true,
-                  suffixIcon: isQrCode ? IconButton(onPressed: () => Get.to(QRViewExample()), icon: Icon(Icons.qr_code, color: Theme.of(context).colorScheme.onSurface)) : null,
+                  suffixIcon: isQrCode ? IconButton(onPressed: () => Get.to(ScanSwitchView(title: 'QR Kodni Skaynerlash'.tr,)), icon: Icon(Icons.qr_code, color: Theme.of(context).colorScheme.onSurface)) : null,
                   contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: Get.width * 0.03),
                   hintText: 'Kiriting'.tr,
                   hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler')

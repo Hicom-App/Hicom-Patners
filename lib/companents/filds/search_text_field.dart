@@ -13,7 +13,11 @@ class SearchTextField extends StatelessWidget{
   final void Function(String)? onSubmitted;
   final int? margin;
   final TextEditingController controller;
-  const SearchTextField({super.key, required this.color, this.onChanged, this.onSubmitted, this.margin = 25, required this.controller});
+  final Color? textColor;
+  final Color? hintTextColor;
+  final Color? prefixIconColor;
+  final Color? suffixIconColor;
+  const SearchTextField({super.key, required this.color, this.onChanged, this.onSubmitted, this.margin = 25, required this.controller, this.textColor, this.hintTextColor, this.prefixIconColor, this.suffixIconColor});
 
   @override
   Widget build(BuildContext context) {
