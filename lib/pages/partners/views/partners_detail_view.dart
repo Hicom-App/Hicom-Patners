@@ -233,8 +233,11 @@ class PartnersDetailView extends GetView<PartnersDetailController> {
                         ),
                         const Divider(color: Colors.grey, thickness: 1),
                         SizedBox(height: Get.height * 0.01),
-                        const TextSmall(text: 'Baholash', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        if (_getController.token != null && _getController.token.isNotEmpty)
+                          const TextSmall(text: 'Baholash', color: AppColors.blue, fontWeight: FontWeight.bold),
+                        if (_getController.token != null && _getController.token.isNotEmpty)
                         SizedBox(height: Get.height * 0.01),
+                        if (_getController.token != null && _getController.token.isNotEmpty)
                         RatingBar.builder(
                             initialRating: p.rating?.toDouble() ?? 4,
                             minRating: 0,
@@ -250,6 +253,7 @@ class PartnersDetailView extends GetView<PartnersDetailController> {
                               _getController.ratings = rating;
                               InstrumentComponents().addRate(context, true, p.id ?? 0);
                             }),
+                        if (_getController.token != null && _getController.token.isNotEmpty)
                         SizedBox(height: Get.height * 0.01),
                         const TextSmall(text: 'Ish vaqti', color: AppColors.blue, fontWeight: FontWeight.bold),
                         SizedBox(height: Get.height * 0.01),
@@ -344,47 +348,47 @@ class _MapPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,  // Butun preview ustiga bosganda ishlaydi
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(border: Border.all(color: AppColors.greys), borderRadius: BorderRadius.circular(14), color: Colors.white),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 16 / 10,
-              child: SizedBox(
-                width: Get.width,
-                height: Get.height * 0.4,
-                child: Stack(
-                  children: [
-                    IgnorePointer(
-                      ignoring: true,
-                      child: FlutterMap(
-                        mapController: _localMapController,
-                        options: MapOptions(
-                          initialCenter: latLng,
-                          initialZoom: _initialZoom,
-                          interactionOptions: const InteractionOptions(flags: InteractiveFlag.none),
-                          onMapReady: () {
-                            _localMapController.move(latLng, _initialZoom);
-                          }
-                        ),
-                        children: [
-                          TileLayer(urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', subdomains: const ['a', 'b', 'c'], userAgentPackageName: 'partner.hicom.uz'),
-                          MarkerLayer(markers: [Marker(width: 20.0, height: 20.0, point: latLng, child: Icon(Icons.location_on, color: AppColors.red, size: 40.sp))])
-                        ]
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(border: Border.all(color: AppColors.greys), borderRadius: BorderRadius.circular(14), color: Colors.white),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AspectRatio(
+                      aspectRatio: 16 / 10,
+                      child: SizedBox(
+                          width: Get.width,
+                          height: Get.height * 0.4,
+                          child: Stack(
+                              children: [
+                                IgnorePointer(
+                                    ignoring: true,
+                                    child: FlutterMap(
+                                        mapController: _localMapController,
+                                        options: MapOptions(
+                                            initialCenter: latLng,
+                                            initialZoom: _initialZoom,
+                                            interactionOptions: const InteractionOptions(flags: InteractiveFlag.none),
+                                            onMapReady: () {
+                                              _localMapController.move(latLng, _initialZoom);
+                                            }),
+                                        children: [
+                                          TileLayer(urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', subdomains: const ['a', 'b', 'c'], userAgentPackageName: 'partner.hicom.uz'),
+                                          MarkerLayer(markers: [Marker(width: 20.0, height: 20.0, point: latLng, child: Icon(Icons.location_on, color: AppColors.red, size: 40.sp))])
+                                        ]
+                                    )
+                                )
+                              ]
+                          )
                       )
-                    )
-                  ]
-                )
-              )
-            ),
-            const Divider(height: 1, color: AppColors.greys),
-            Padding(padding: const EdgeInsets.all(12), child: TextSmall(text: address, maxLines: 2, overflow: TextOverflow.ellipsis, fontSize: 14.sp, color: AppColors.black))
-          ]
+                  ),
+                  const Divider(height: 1, color: AppColors.greys),
+                  Padding(padding: const EdgeInsets.all(12), child: TextSmall(text: address, maxLines: 2, overflow: TextOverflow.ellipsis, fontSize: 14.sp, color: AppColors.black))
+                ]
+            )
         )
-      )
     );
   }
 }

@@ -139,6 +139,8 @@ class HomePage extends StatelessWidget {
                                                 Get.to(() => TransferToWallet(index: index));
                                               }else if(index == 0 && _getController.token != null && _getController.token.isNotEmpty) {
                                                 Get.to(() => ChecksPage());
+                                              } else if(index == 2 || index == 3 && _getController.token != null && _getController.token.isNotEmpty) {
+                                                Get.to(() => ChecksPage());
                                               }
                                             },
                                             child: Container(

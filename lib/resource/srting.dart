@@ -16,7 +16,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Tilni tanlang',
-      'QR Kodni Skaynerlash': 'QR Kodni Skanerlash',
+      'QR Kodni Skaynerlash': 'QR-Kodni Skanerlash',
 
       //login page
       'Telefon raqam': 'Telefon raqam',
@@ -192,7 +192,8 @@ class LocaleString extends Translations{
       'Kartani o‘chirish':'Kartani o‘chirish',
       'Tasdiqlash':'Tasdiqlash',
       'Hisobingizdan chiqishni xohlaysizmi?':'Hisobingizdan chiqishni xohlaysizmi?',
-      'Mahsulotni baxolang':'Tovarni baholang',
+      'Tovarni baholang':'Tovarni baholang',
+      'Do‘konni baholang':'Do‘konni baholang',
       'Izoh qoldiring':'Izoh qoldiring',
       'Diqqat!':'Diqqat!',
       'Kardani o‘chirish':'Kardani o‘chirish',
@@ -234,7 +235,7 @@ class LocaleString extends Translations{
       'Ma’lumotlar yangilandi':'Ma’lumotlar yangilandi',
 
       'Kafolatlar':'Kafolatlar',
-      'Switch Boshqaruvi':'Switch Boshqaruvi',
+      'Switch Boshqaruvi':'Switch boshqaruvi',
       'Tarmoq kommutatorlarini boshqaring':'Tarmoq kommutatorlarini boshqaring',
       'Ushbu bo‘lim tez kunda ishga tushadi!':'Ushbu bo‘lim tez kunda ishga tushadi!',
       'Hamkorlar':'Hamkorlar',
@@ -274,9 +275,9 @@ class LocaleString extends Translations{
       'Ju':'Ju',
       'Sh':'Sh',
       'Ya':'Ya',
-      'QR kodni ramka ichiga joylashtiring':'QR kodni ramka ichiga joylashtiring',
+      'QR kodni ramka ichiga joylashtiring':'QR-kodni ramka ichiga joylashtiring',
       'km':'km',
-      'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!': 'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!',
+      'Ushbu bo‘limdan foydalanish uchun tizimga kiring.': 'Ushbu bo‘limdan foydalanish uchun tizimga kiring.',
       'Hisobga kirish':'Hisobga kirish',
       'Mening profilim':'Mening profilim',
       'Tizimga kirish': 'Tizimga kirish',
@@ -294,7 +295,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Select language',
-      'QR Kodni Skaynerlash': 'Scan QR code',
+      'QR Kodni Skaynerlash': 'Scan QR-code',
 
       //login page
       'Telefon raqam': 'Phone number',
@@ -456,7 +457,7 @@ class LocaleString extends Translations{
       'Baholash': 'Rating',
       'Sharhlar': 'Reviews',
       'Barchasini ko‘rish': 'View all',
-      'Baho': 'Score',
+      'Baho': 'Rating',
       'Brend': 'Brand',
       'Anonim': 'Anonymous',
       'Ko‘proq ko‘rish': 'See more',
@@ -469,7 +470,8 @@ class LocaleString extends Translations{
       'Kartani o‘chirish': 'Delete card',
       'Tasdiqlash': 'Confirm',
       'Hisobingizdan chiqishni xohlaysizmi?': 'Do you want to log out of your account?',
-      'Mahsulotni baxolang': 'Rate the product',
+      'Tovarni baholang': 'Rate the product',
+      'Do‘konni baholang':'Rate the store',
       'Izoh qoldiring': 'Leave a comment',
       'Diqqat!': 'Attention!',
       'Kardani o‘chirish': 'Delete card',
@@ -512,7 +514,7 @@ class LocaleString extends Translations{
 
 
       'Kafolatlar':'Warranties',
-      'Switch Boshqaruvi':'Switch Control',
+      'Switch Boshqaruvi':'Switch control',
       'Tarmoq kommutatorlarini boshqaring':'Control Network Switches',
       'Ushbu bo‘lim tez kunda ishga tushadi!':'This section will be launched soon!',
       'Hamkorlar':'Partners',
@@ -552,9 +554,9 @@ class LocaleString extends Translations{
       'Ju':'Fr',
       'Sh':'Sa',
       'Ya':'Su',
-      'QR kodni ramka ichiga joylashtiring':'Place the QR code inside the frame',
+      'QR kodni ramka ichiga joylashtiring':'Place the QR-code inside the frame',
       'km':'km',
-      'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!': 'Log in to the system and enjoy all services!',
+      'Ushbu bo‘limdan foydalanish uchun tizimga kiring.': 'Sign in to access this section.',
       'Hisobga kirish': 'Sign in',
       'Mening profilim': 'My Profile',
       'Tizimga kirish': 'Log in to the system',
@@ -749,7 +751,8 @@ class LocaleString extends Translations{
       'Kartani o‘chirish': 'Удалить карту',
       'Tasdiqlash': 'Подтвердить',
       'Hisobingizdan chiqishni xohlaysizmi?': 'Вы хотите выйти из своего аккаунта?',
-      'Mahsulotni baxolang': 'Оцените продукт',
+      'Tovarni baholang': 'Оцените продукт',
+      'Do‘konni baholang':'Оцените магазин',
       'Izoh qoldiring': 'Оставьте комментарий',
       'Diqqat!': 'Внимание!',
       'Kardani o‘chirish': 'Удалить карту',
@@ -834,7 +837,7 @@ class LocaleString extends Translations{
       'Ya':'Вс',
       'QR kodni ramka ichiga joylashtiring':'Поместите QR-код в рамку',
       'km':'км',
-      'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!': 'Войдите в систему и наслаждайтесь всеми услугами!',
+      'Ushbu bo‘limdan foydalanish uchun tizimga kiring.': 'Авторизуйтесь, чтобы открыть доступ к этому разделу.',
       'Hisobga kirish': 'Войти',
       'Mening profilim': 'Мой профиль',
       'Tizimga kirish': 'Войти в систему',
@@ -852,7 +855,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Тилни танланг',
-      'QR Kodni Skaynerlash': 'QR Кодни Сканерлаш',
+      'QR Kodni Skaynerlash': 'QR-Кодни Сканерлаш',
 
       //login page
       'Telefon raqam': 'Телефон рақам',
@@ -1028,7 +1031,8 @@ class LocaleString extends Translations{
       'Kartani o‘chirish': 'Картани ўчириш',
       'Tasdiqlash': 'Тасдиқлаш',
       'Hisobingizdan chiqishni xohlaysizmi?': 'Ҳисобингиздан чиқишни хоҳлайсизми?',
-      'Mahsulotni baxolang': 'Товарни баҳоланг',
+      'Tovarni baholang': 'Товарни баҳоланг',
+      'Do‘konni baholang':'Дўконни баҳоланг',
       'Izoh qoldiring': 'Изоҳ қолдиринг',
       'Diqqat!': 'Диққат!',
       'Kardani o‘chirish': 'Картани ўчириш',
@@ -1071,11 +1075,11 @@ class LocaleString extends Translations{
 
 
       'Kafolatlar':'Гарантиялар',
-      'Switch Boshqaruvi':'Свичин Бошқариви',
+      'Switch Boshqaruvi':'Свитч бошқаруви',
       'Tarmoq kommutatorlarini boshqaring':'Тармоқ коммутаторларини бошқаринг',
       'Ushbu bo‘lim tez kunda ishga tushadi!':'Ушбу бўлим тез кунда ишга тушиди!',
       'Hamkorlar':'Ҳамкорлар',
-      'Yaqin atrofdagi dokonlar':'Яқин атрофдаги доқонлар',
+      'Yaqin atrofdagi dokonlar':'Яқин атрофдаги дўконлар',
       'Ochiq':'Очиқ',
       'Yopiq':'Ёпиқ',
       'Taxminan':'Такминон',
@@ -1085,8 +1089,8 @@ class LocaleString extends Translations{
       'Oddiy ko‘cha xaritasi':'Оддий коча харитаси',
       'Giprit':'Гиприт',
       'Sun’iy yo‘ldosh + ko‘chalar':'Сунъий йўлдош + кочалар',
-      'Eng yaqin do‘kon':'Энг яқин доқон',
-      'Noma’lum do‘kon':'Номаълум доқон',
+      'Eng yaqin do‘kon':'Энг яқин дўкон',
+      'Noma’lum do‘kon':'Номаълум дўкон',
       'Barchasi':'Барча',
       'Reyting':'Рейтинг',
       'Filter':'Филтр',
@@ -1111,9 +1115,9 @@ class LocaleString extends Translations{
       'Ju':'Жу',
       'Sh':'Ша',
       'Ya':'Як',
-      'QR kodni ramka ichiga joylashtiring':'QR кодни рамка ичига жойлаштиринг',
+      'QR kodni ramka ichiga joylashtiring':'QR-кодни рамка ичига жойлаштиринг',
       'km':'км',
-      'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!': 'Тизимга кириб, барча хизматлардан баҳраманг бўлинг!',
+      'Ushbu bo‘limdan foydalanish uchun tizimga kiring.': 'Ушбу бўлимдан фойдаланиш учун тизимга киринг.',
       'Hisobga kirish': 'Ҳисобга кириш',
       'Mening profilim': 'Менинг профилим',
       'Tizimga kirish': 'Тизимга кириш',

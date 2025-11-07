@@ -90,11 +90,9 @@ class DetailPage extends StatelessWidget {
               ),
                   Container(
                       width: Get.width,
-                      constraints: BoxConstraints(
-                        minHeight: Get.height * 0.63,
-                      ),
+                      constraints: BoxConstraints(minHeight: Get.height * 0.63),
                       padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 20.h),
-                      decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), offset: const Offset(0, -10), blurRadius: 20)], color: AppColors.white , borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+                      decoration: BoxDecoration(boxShadow: [BoxShadow(color: AppColors.black.withAlpha(30), offset: const Offset(0, -10), blurRadius: 20)], color: AppColors.white , borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -112,55 +110,6 @@ class DetailPage extends StatelessWidget {
                                             : Skeletonizer(child: TextLarge(text: 'Nimadur', color: Theme.of(context).brightness == Brightness.light ? AppColors.black70 : AppColors.white, maxLines: 1, fontSize: 16.sp))
                                       ]
                                   )),
-                                  if (_getController.token != null && _getController.token.isNotEmpty)
-                                  _getController.productsModelDetail.value.result != null
-                                      ? InkWell(
-                                    onTap: () {
-                                      final currentProduct = _getController.productsModelDetail.value.result!.first;
-                                      final currentFavorite = currentProduct.favorite ?? 0; // Null xavfsiz
-                                      final newFavorite = currentFavorite == 0 ? 1 : 0; // Toggle: 0 -> 1, 1 -> 0
-
-                                      debugPrint('Yurakcha bosildi: Eski favorite = $currentFavorite, Yangi = $newFavorite'); // Debug uchun
-
-                                      // Lokal yangilash (UI tezroq o'zgarishi uchun)
-                                      currentProduct.favorite = newFavorite;
-                                      _getController.productsModelDetail.refresh(); // Modelni yangilash
-
-                                      // API chaqirish
-                                      ApiController().addFavorites(currentProduct.id!, isProduct: newFavorite == 1).then((_) {
-                                        // Refetch qilish
-                                        ApiController().getProduct(id!, isCategory: false).then((_) {
-                                          // Barcha modellarda yangilash (yangi qiymat bilan)
-                                          _getController.updateFavoriteAllModels(currentProduct.id!, newFavorite);
-                                          debugPrint('Favorites yangilandi: $newFavorite');
-                                        });
-                                      }).catchError((error) {
-                                        // Xato bo'lsa, lokal qiymatni qaytarish
-                                        currentProduct.favorite = currentFavorite;
-                                        _getController.productsModelDetail.refresh();
-                                        debugPrint('Favorites xatosi: $error');
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(9.r),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.greys,
-                                        borderRadius: BorderRadius.circular(100.r),
-                                      ),
-                                      child: Icon(
-                                        (_getController.productsModelDetail.value.result!.first.favorite ?? 0) == 0
-                                            ? EneftyIcons.heart_outline
-                                            : EneftyIcons.heart_bold,
-                                        color: (_getController.productsModelDetail.value.result!.first.favorite ?? 0) == 0
-                                            ? AppColors.black
-                                            : AppColors.red,
-                                        size: 19.sp,
-                                      ),
-                                    ),
-                                  )
-                                      : Skeletonizer(
-                                    child: Icon(EneftyIcons.heart_outline, color: AppColors.white, size: 39.sp),
-                                  ),
                                   if (_getController.token != null && _getController.token.isNotEmpty)
                                     _getController.productsModelDetail.value.result != null
                                         ? InkWell(onTap: () => ApiController().addFavorites(_getController.productsModelDetail.value.result!.first.id!, isProduct: _getController.productsModelDetail.value.result!.first.favorite == 0 ? true : false).then((value) => ApiController().getProduct(id!, isCategory: false).then((_) => _getController.updateFavoriteAllModels(_getController.productsModelDetail.value.result!.first.id!.toInt(), _getController.productsModelDetail.value.result!.first.favorite == 0 ? 0 : 1))), child: Container(padding: EdgeInsets.all(9.r), decoration: BoxDecoration(color: AppColors.greys, borderRadius: BorderRadius.circular(100.r)), child: Icon(_getController.productsModelDetail.value.result!.first.favorite == 0 ? EneftyIcons.heart_outline : EneftyIcons.heart_bold, color:_getController.productsModelDetail.value.result!.first.favorite == 0 ? AppColors.black : AppColors.red, size: 19.sp)))
@@ -309,8 +258,10 @@ class DetailPage extends StatelessWidget {
                             ),
                             const Divider(color: Colors.grey, thickness: 1),
                             SizedBox(height: Get.height * 0.01),
-                            const TextSmall(text: 'Baholash', color: AppColors.blue, fontWeight: FontWeight.bold),
+                            if (_getController.token != null && _getController.token.isNotEmpty)
+                              const TextSmall(text: 'Baholash', color: AppColors.blue, fontWeight: FontWeight.bold),
                             SizedBox(height: Get.height * 0.01),
+                            if (_getController.token != null && _getController.token.isNotEmpty)
                             RatingBar.builder(
                                 initialRating: _getController.productsModelDetail.value.result != null ? _getController.productsModelDetail.value.result!.first.rating!.toDouble() : 0,
                                 minRating: 0,
@@ -320,7 +271,7 @@ class DetailPage extends StatelessWidget {
                                 itemSize: 20.sp,
                                 itemPadding:
                                 EdgeInsets.symmetric(horizontal: 5.sp),
-                                unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                                unratedColor: AppColors.greys,
                                 itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                                 onRatingUpdate: (rating) {
                                   _getController.ratings = rating;
@@ -356,7 +307,7 @@ class DetailPage extends StatelessWidget {
                                             itemCount: 5,
                                             itemSize: 12.sp,
                                             itemPadding: EdgeInsets.symmetric(horizontal: 1.sp),
-                                            unratedColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                                            unratedColor: AppColors.greys,
                                             itemBuilder: (context, _) => const Icon(EneftyIcons.star_bold, color: AppColors.backgroundApp),
                                             onRatingUpdate: (double value) {},
                                             glow: false,

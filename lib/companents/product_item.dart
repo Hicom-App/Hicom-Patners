@@ -30,32 +30,29 @@ class ProductItem extends StatelessWidget{
               Stack(
                   children: [
                     Positioned(right: 0.w, top: 0.h, child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                            image: const DecorationImage(image: AssetImage('assets/images/foncard.jpg'), fit: BoxFit.cover)
-                        ),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)), image: const DecorationImage(image: AssetImage('assets/images/foncard.jpg'), fit: BoxFit.cover)),
                         child: SizedBox(height: 162.h, width: 165.w))
                     ),
                     //Positioned.fill(child: Container(decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/foncard.jpg'), fit: BoxFit.fitHeight)), child: SizedBox(height: 140.h, width: 1.w))),
                     ClipRRect(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
-                        child: CacheImage(
-                          url: _getController.productsModel.value.result![index].photoUrl.toString(),
-                          keys:  _getController.productsModel.value.result![index].id.toString()
-                        )
+                        child: CacheImage(url: _getController.productsModel.value.result![index].photoUrl.toString(), keys:  _getController.productsModel.value.result![index].id.toString())
                     ),
                     if (_getController.token != null && _getController.token.isNotEmpty)
-                      Positioned(right: 12.w, top: 10.h, child: InkWell(onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateFavoriteAllModels(_getController.productsModel.value.result![index].id!.toInt(), _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)), child: Icon(_getController.productsModel.value.result![index].favorite == 1 ? EneftyIcons.heart_bold : EneftyIcons.heart_outline, color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp))),
+                      Positioned(right: 12.w, top: 10.h, child: InkWell(onTap: () => ApiController().addFavorites(_getController.productsModel.value.result![index].id!.toInt(), isProduct: _getController.productsModel.value.result![index].favorite == 0 ? true : false).then((value) => _getController.updateFavoriteAllModels(_getController.productsModel.value.result![index].id!.toInt(), _getController.productsModel.value.result![index].favorite == 0 ? 1 : 0)),
+                          child: Icon(_getController.productsModel.value.result![index].favorite == 1
+                              ? EneftyIcons.heart_bold
+                              : EneftyIcons.heart_outline,
+                              color: _getController.productsModel.value.result![index].favorite == 1 ? Colors.red : AppColors.black, size: 20.sp)
+                      )
+                    ),
                     if (_getController.productsModel.value.result![index].isNew == 1)
                       Positioned(
                           left: 12.w,
                           top: 10.h,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-                            decoration: BoxDecoration(
-                                color: AppColors.secondaryColor,
-                                borderRadius: BorderRadius.circular(10.r)
-                            ),
+                            decoration: BoxDecoration(color: AppColors.secondaryColor, borderRadius: BorderRadius.circular(10.r)),
                             child: TextSmall(text: 'Yangi', color: AppColors.white, fontWeight: FontWeight.bold, maxLines: 1, fontSize: 10.sp),
                         )
                     )

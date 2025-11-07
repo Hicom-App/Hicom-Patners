@@ -504,7 +504,7 @@ class ReportPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextSmall(text: 'Tizimga kirib, barcha xizmatlardan bahramand bo‘ling!'.tr, color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 10,fontSize: 16.sp, textAlign: TextAlign.center),
+                          TextSmall(text: 'Ushbu bo‘limdan foydalanish uchun tizimga kiring.'.tr, color: AppColors.black, fontWeight: FontWeight.w400, maxLines: 10,fontSize: 16.sp, textAlign: TextAlign.center),
                           SizedBox(height: 16.h),
                           ElevatedButton(
                               onPressed: (){

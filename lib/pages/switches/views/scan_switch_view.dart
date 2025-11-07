@@ -43,14 +43,10 @@ class ScanSwitchViewState extends State<ScanSwitchView> with TickerProviderState
           body: Stack(
             alignment: Alignment.center,
             children: [
-              // QR Scanner
               SizedBox(width: Get.width, height: Get.height),
-              MobileScanner(controller: controller.cameraController, onDetect: (barcodes) => controller.handleScanResult(context, barcodes), fit: BoxFit.cover),
-              // Dimmed overlay with transparent center
+              MobileScanner(controller: controller.cameraController, onDetect: (barcodes) => controller.handleScanResult(context, barcodes), fit: BoxFit.cover,),
               CustomPaint(size: Size(Get.width, Get.height), painter: DimmedOverlayPainter(scanAreaSize: 270.w, scanAreaOffset: Offset(0, 0.h))),
-              // Scanning frame - animatsiyali ramka
               Center(child: SizedBox(width: 270.w, height: 270.w, child: CustomPaint(painter: ScannerOverlayPainter(animationValue: _animationController.value)))),
-              // Scan animatsiyasi
               Center(child: SizedBox(width: 270.w, height: 270.w, child: const ScanAnimationWidget())),
               const Center(child: PulsingDot()),
               Positioned(
@@ -79,19 +75,11 @@ class ScanSwitchViewState extends State<ScanSwitchView> with TickerProviderState
                     surfaceTintColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     foregroundColor: AppColors.white,
-                    //title: TextSmall(text: 'Switchni qoshish', color: AppColors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
                     title: TextSmall(text: widget.title, color: AppColors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
                     actions: [
                       Obx(() => IconButton(
                         onPressed: () => controller.toggleTorch(),
-                        icon: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          child: Icon(
-                            controller.isTorchOn.value ? EneftyIcons.lamp_on_bold : EneftyIcons.lamp_slash_bold,
-                            key: ValueKey(controller.isTorchOn.value),
-                            color: controller.isTorchOn.value ? Colors.yellow : AppColors.white, size: 24.r
-                          )
-                        )
+                        icon: AnimatedSwitcher(duration: const Duration(milliseconds: 200), child: Icon(controller.isTorchOn.value ? EneftyIcons.lamp_on_bold : EneftyIcons.lamp_slash_bold, key: ValueKey(controller.isTorchOn.value), color: controller.isTorchOn.value ? Colors.yellow : AppColors.white, size: 24.r))
                       ))
                     ]
                   )
@@ -183,12 +171,7 @@ class PulsingDotState extends State<PulsingDot> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _pulseAnimation,
-      builder: (context, child) => Container(width: 8.w, height: 8.w, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(_pulseAnimation.value), boxShadow: [BoxShadow(color: Colors.white.withOpacity(_pulseAnimation.value * 0.5), blurRadius: 8.r, spreadRadius: 2.r)]))
-    );
-  }
+  Widget build(BuildContext context) => AnimatedBuilder(animation: _pulseAnimation, builder: (context, child) => Container(width: 8.w, height: 8.w, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(_pulseAnimation.value), boxShadow: [BoxShadow(color: Colors.white.withOpacity(_pulseAnimation.value * 0.5), blurRadius: 8.r, spreadRadius: 2.r)])));
 }
 
 // Dimmed overlay painter - faqat ramka tashqarisini xiralashtiradi

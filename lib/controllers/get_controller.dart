@@ -873,6 +873,7 @@ class GetController extends GetxController {
 
   }
 
+
   String getSortedTransactionsResultIndex(int? value) {
     var result = sortedTransactionsModel.value.result;
     List<int> indices = [];

@@ -46,6 +46,13 @@ class ApiController extends GetxController {
     };
   }
 
+  Map<String, String> headersNoBearer() {
+    return {
+      //'Content-Type': 'application/json',
+      'Lang': _getController.headerLanguage
+    };
+  }
+
   Map<String, String> headerBearer() => {'Authorization': 'Bearer ${_getController.token}'};
 
   Map<String, String> header() => {'Content': 'application/json'};
@@ -83,15 +90,15 @@ class ApiController extends GetxController {
         }
         else {
           _getController.shakeKey[8].currentState?.shake();
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik sendCodeRegister: ${data['message']}');
         }
       } else {
         _getController.sendParam(true);
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik sendCodeRegister: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
       _getController.sendParam(true);
-      debugPrint('Xatolik: Serverga ulanishda muammo00');
+      debugPrint('Xatolik sendCodeRegister: Serverga ulanishda muammo00');
       debugPrint(stacktrace.toString());
     }
 
@@ -120,15 +127,15 @@ class ApiController extends GetxController {
         else {
           _getController.shakeKey[8].currentState?.shake();
           InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red, textColor: AppColors.white);
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik sendCode: ${data['message']}');
         }
       } else {
         _getController.sendParam(true);
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik sendCode: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
       _getController.sendParam(true);
-      debugPrint('Xatolik: Serverga ulanishda muammo00');
+      debugPrint('Xatolik sendCode: Serverga ulanishda muammo00');
       debugPrint(stacktrace.toString());
     }
   }
@@ -194,7 +201,7 @@ class ApiController extends GetxController {
       }
     } catch (e, stacktrace) {
       _getController.clearCountriesModel();
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getCountries: $e');
       debugPrint(stacktrace.toString());
     }
 
@@ -222,7 +229,7 @@ class ApiController extends GetxController {
       }
     } catch (e, stacktrace) {
       _getController.clearRegionsModel();
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getRegions: $e');
       debugPrint(stacktrace.toString());
     }
 
@@ -237,11 +244,11 @@ class ApiController extends GetxController {
         _getController.changeCitiesModel(CountriesModel.fromJson(data));
       } else {
         _getController.clearCitiesModel();
-        debugPrint('Xatolik cities 1: ${data['message']}');
+        debugPrint('Xatolik getCities: ${data['message']}');
       }
     } else {
       _getController.clearCitiesModel();
-      debugPrint('Xatolik cities 2: Serverga ulanishda muammo');
+      debugPrint('Xatolik getCities: Serverga ulanishda muammo');
     }
   }
 
@@ -251,7 +258,7 @@ class ApiController extends GetxController {
       debugPrint(_getController.fcmToken);
       await http.post(Uri.parse('$baseUrl/users/firebase-token'), headers: headerBearer(), body: {'fcm_token': _getController.fcmToken});
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik postFcmToken: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -260,9 +267,15 @@ class ApiController extends GetxController {
   // Mahsulot kategoriyalari ro'yxatini olish
 
   Future<void> getCategories({bool category = false}) async {
+    if(_getController.token != null && _getController.token != ''){
+      print('Bearer ${_getController.token}');
+    } else {
+      print('Bearer null');
+    }
     try {
-      final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: headersBearer());
-      if (response.statusCode == 200) {
+      //final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/catalog/categories'), headers: _getController.token != null && _getController.token != '' ? headersBearer() : headersNoBearer());
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         //debugPrint(data.toString());
         if (data['status'] == 0) {
@@ -272,10 +285,11 @@ class ApiController extends GetxController {
           debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint(response.statusCode.toString());
+        debugPrint('Xatolik getCategories: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getCategories: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -291,7 +305,8 @@ class ApiController extends GetxController {
           : '$baseUrl/catalog/products?category_id=$categoryId${filter.isNotEmpty ? '&filter=$encodedFilter' : ''}&sort=$sort';
 
       print(url);
-      final response = await http.get(Uri.parse(url), headers: headersBearer());
+      //final response = await http.get(Uri.parse(url), headers: headersBearer());
+      final response = await http.get(Uri.parse(url), headers: _getController.token != null && _getController.token != '' ? headersBearer() : headersNoBearer());
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
@@ -303,7 +318,7 @@ class ApiController extends GetxController {
             _getController.changeCatProductsModel(CategoriesModel.fromJson(data));
           }
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik getProducts: ${data['message']}');
         }
         if (categoryId == 0 && !isFavorite) {
           if (filter.isNotEmpty) {
@@ -312,10 +327,10 @@ class ApiController extends GetxController {
           getAllCatProducts(filter: encodedFilter.isNotEmpty ? encodedFilter : null, category: category);
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik getProducts: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getProducts: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -329,7 +344,8 @@ class ApiController extends GetxController {
 
   Future<void> getProduct(int categoryId, {bool isCategory = true, filter, bool category = false}) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
+      //final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: headersBearer());
+      final response = await http.get(Uri.parse('$baseUrl/catalog/products${isCategory != true ? '?id=$categoryId' : '?category_id=$categoryId'}${filter != null && filter != '' ? '&filter=$filter' : ''}'), headers: _getController.token != null && _getController.token != '' ? headersBearer() : headersNoBearer());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         //debugPrint(data.toString());
@@ -343,14 +359,14 @@ class ApiController extends GetxController {
             getReviews(categoryId);
           }
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik getProduct: ${data['message']}');
         }
       } else {
 
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik getProduct: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -358,18 +374,21 @@ class ApiController extends GetxController {
   Future<void> addFavorites(int id, {bool isProduct = true, isFavorite = false}) async {
     try {
       final response = await http.post(Uri.parse('$baseUrl/catalog/favorites?product_id=$id'), body: {'product_id': id.toString(),'favorite': isProduct ? '1' : '0'}, headers: headerBearer());
-      //debugPrint(response.body.toString());
+      debugPrint('shuuu $baseUrl/catalog/favorites?product_id=$id');
+      debugPrint('body: ${'product_id:'+ id.toString() + 'favorite:' + isProduct.toString()}');
+      debugPrint('$isProduct');
+      debugPrint(response.body.toString());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         //debugPrint(data.toString());
         if (data['status'] == 0) {
           getProducts(0, isFavorite: isFavorite);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik addFavorites: ${data['message']}');
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik addFavorites: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -391,11 +410,11 @@ class ApiController extends GetxController {
           getProduct(id, isCategory: false);
           Get.back();
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik addReview: ${data['message']}');
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik addReview: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -418,11 +437,11 @@ class ApiController extends GetxController {
           getProduct(id, isCategory: false);
           Get.back();
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik addReviewPartner: ${data['message']}');
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik addReviewPartner: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -438,13 +457,13 @@ class ApiController extends GetxController {
           _getController.changeReviewsModel(ReviewsModel.fromJson(data));
           _getController.initializeExpandedCommentList(data['result'].length);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik getReviews: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik getReviews: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getReviews: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -520,37 +539,7 @@ class ApiController extends GetxController {
   }
 
   DateTime? parseLocalizedDateTime(String dateStr) {
-    // Stringni bo'shliq bo'yicha bo'lish
-    final parts = dateStr.split(' ');
-    if (parts.length < 6) return null; // Noto'g'ri format
-
-    final monthStr = parts[1]; // "Nov"
-    final dayStr = parts[2];   // "01"
-    final yearStr = parts[3];  // "2025"
-    final timeStr = parts[4];  // "17:11:55"
-
-    // Oy nomlarini raqamga o'tkazish (inglizcha qisqa nomlar)
-    final monthMap = <String, int>{
-      'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
-      'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
-    };
-
-    final month = monthMap[monthStr];
-    if (month == null) return null; // Noma'lum oy
-
-    // Vaqtni bo'lish
-    final timeParts = timeStr.split(':');
-    if (timeParts.length != 3) return null;
-
-    final hour = int.tryParse(timeParts[0]) ?? 0;
-    final minute = int.tryParse(timeParts[1]) ?? 0;
-    final second = int.tryParse(timeParts[2]) ?? 0;
-
-    final day = int.tryParse(dayStr.replaceAll(RegExp(r'[a-zA-Z]'), '')) ?? 1; // Kun raqamini tozalash
-    final year = int.tryParse(yearStr) ?? DateTime.now().year;
-
-    // DateTime yaratish (timezone ignore, local time deb hisoblaymiz)
-    return DateTime(year, month, day, hour, minute, second);
+    return DateTime.tryParse(dateStr);
   }
 
   Future<void> addWarrantyProduct(String code, context) async {
@@ -571,8 +560,8 @@ class ApiController extends GetxController {
           _getController.clearSortedTransactionsModel();
           _getController.changeSelectedMonth(0);
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
-          _getController.changeIndex(3);
-          _getController.controllerConvex?.animateTo(3);
+          //_getController.changeIndex(3);
+          //_getController.controllerConvex?.animateTo(3);
           getProfile(isWorker: false);
         }
         else if (data['status'] == 9) {
@@ -582,16 +571,6 @@ class ApiController extends GetxController {
           final maskedPhone = userPhone.replaceRange(6, 9, '***');
           final codeAdded = info['code_added'] ?? '';
 
-/*
-          DateTime parsedDate;
-          try {
-            parsedDate = DateTime.parse(codeAdded);
-          } catch (e) {
-            debugPrint('Sana parsing xatosi: $e');
-            parsedDate = DateTime.now();
-          }
-*/
-
           DateTime parsedDate;
           try {
             parsedDate = parseLocalizedDateTime(codeAdded) ?? DateTime.now(); // Yangi parse funksiyasi
@@ -600,21 +579,22 @@ class ApiController extends GetxController {
             parsedDate = DateTime.now();
           }
 
+          _getController.headerLanguage;
           final currentLang = _getController.headerLanguage;
           final formattedDate = formatLocalizedDate(parsedDate, lang: currentLang);
 
           // Xabarlar
           String message;
           if (currentLang == 'ru') {
-            message =
-            'Этот QR-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
+            message = 'Этот ҚР-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
           } else if (currentLang == 'en') {
-            message =
-            'This QR code was previously registered by the user with the number $maskedPhone $formattedDate.';
+            message = 'This QR code was previously registered by the user with the number $maskedPhone $formattedDate.';
           } else if (currentLang == 'oz') {
             message = 'Ушбу ҚР-код аввал $maskedPhone рақамли фойдаланувчи томонидан $formattedDate рўйхатдан ўтказилган.';
-          } else {
+          } else if (currentLang == 'uz') {
             message = 'Ushbu QR-kod avval $maskedPhone raqamli foydalanuvchi tomonidan $formattedDate ro‘yxatdan o‘tkazilgan.';
+          } else {
+            message = 'Этот ҚР-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
           }
           // Dialog ko'rsatish
           if (_getController.profileInfoModel.value.result?.first.phone == userPhone) {
@@ -642,7 +622,7 @@ class ApiController extends GetxController {
       }
     } catch (e, stacktrace) {
       debugPrint('addWarrantyProduct funksiyasida xatolik: $e');
-      debugPrint('Stacktrace: $stacktrace');
+      debugPrint('Stacktrace addWarrantyProduct: $stacktrace');
       Get.back();
       InstrumentComponents().addWarrantyDialog(context,'Bunday seriya raqami mavjud emas! Agarda xatolik bo‘lsa, bizga murojaat qiling');
       //InstrumentComponents().showToast('Tarmoq muammosi: Iltimos, qayta urinib ko‘ring', color: AppColors.red);
@@ -661,8 +641,8 @@ class ApiController extends GetxController {
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
-      debugPrint('Xatolik: $stacktrace');
+      debugPrint('Xatolik getWarrantyProducts: $e');
+      debugPrint('Xatolik getWarrantyProducts: $stacktrace');
     }
   }
 
@@ -676,13 +656,13 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           getWarrantyProducts(filter: 'c.active=1');
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik deleteWarrantyProduct: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik deleteWarrantyProduct: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik deleteWarrantyProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -704,7 +684,7 @@ class ApiController extends GetxController {
           }
         }
         else {
-          debugPrint('Xatolik: Serverga ulanishda muammo');
+          debugPrint('Xatolik archiveWarrantyProduct: Serverga ulanishda muammo');
         }
       }
       else {
@@ -715,15 +695,15 @@ class ApiController extends GetxController {
           if (data['status'] == 0) {
             getWarrantyProduct(filter: 'c.active=1');
           } else {
-            debugPrint('Xatolik: ${data['message']}');
+            debugPrint('Xatolik archiveWarrantyProduct: ${data['message']}');
           }
         }
         else {
-          debugPrint('Xatolik: Serverga ulanishda muammo');
+          debugPrint('Xatolik archiveWarrantyProduct: Serverga ulanishda muammo');
         }
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik archiveWarrantyProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -737,13 +717,13 @@ class ApiController extends GetxController {
         if (data['status'] == 0) {
           _getController.changeWarrantyModel(WarrantyModel.fromJson(data));
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik archiveWarrantyProduct: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik archiveWarrantyProduct: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik archiveWarrantyProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -765,13 +745,13 @@ class ApiController extends GetxController {
             _getController.saveSelectedCardIndex(0);
           }
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik archiveWarrantyProduct: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik archiveWarrantyProduct: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik archiveWarrantyProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -806,10 +786,10 @@ class ApiController extends GetxController {
         }
         Get.back();
       } else {
-        debugPrint('Failed to add card: ${response.statusCode}');
+        debugPrint('Failed to add card archiveWarrantyProduct: ${response.statusCode}');
       }
     } catch (e, stacktrace) {
-      debugPrint('Error occurred: $e');
+      debugPrint('Error occurred archiveWarrantyProduct: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -842,7 +822,7 @@ class ApiController extends GetxController {
       _getController.tapTimes(() {_getController.changeErrorInput(0, false);_getController.changeErrorInput(1, false);},1);
       _getController.shakeKey[0].currentState?.shake();
       _getController.shakeKey[1].currentState?.shake();
-      InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
+      InstrumentComponents().showToast('Xatolik : $e', color: AppColors.red);
     }
   }
 
@@ -862,7 +842,7 @@ class ApiController extends GetxController {
     } catch (e, stacktrace) {
       InstrumentComponents().showToast('Serverga ulanishda muammo, keyinroq qayta urinib ko‘ring', color: AppColors.red);
       debugPrint(stacktrace.toString());
-      debugPrint('Error occurred: $e');
+      debugPrint('Error occurred deleteCard: $e');
     }
   }
 
@@ -903,7 +883,7 @@ class ApiController extends GetxController {
       debugPrint(stacktrace.toString());
       _getController.tapTimes(() =>_getController.changeErrorInput(2, false),1);
       InstrumentComponents().showToast('Xatolik: $e', color: AppColors.red);
-      debugPrint('Error occurred: $e');
+      debugPrint('Error occurred paymentWithdraw: $e');
     }
   }
 
@@ -922,13 +902,13 @@ class ApiController extends GetxController {
         } else if (jsonDecode(response.body)['status'] == 4){
           debugPrint('token: ${jsonDecode(response.body)['message']}');
         } else {
-          debugPrint('Xatolik: ${jsonDecode(response.body)['message']}');
+          debugPrint('Xatolik getTransactions: ${jsonDecode(response.body)['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik getTransactions: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getTransactions: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -996,7 +976,7 @@ class ApiController extends GetxController {
       }
     } catch(e, stacktrace) {
       if (_getController.token != null && _getController.token.isNotEmpty){
-        debugPrint('bilmasam endi: $e');
+        debugPrint('xaotlik getProfile: $e');
         sendErrorMessage('Server Ishlamayotgan bo‘lishi mumkin!: $e\n$stacktrace');
         debugPrint(stacktrace.toString());
         Get.offAll(const NotConnection(), transition: Transition.fadeIn, arguments: true);
@@ -1034,13 +1014,13 @@ class ApiController extends GetxController {
         } else if (data['status'] == 1) {
           InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik updateProfiles: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik updateProfiles: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik updateProfiles: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -1071,13 +1051,13 @@ class ApiController extends GetxController {
         } else if (data['status'] == 1) {
           InstrumentComponents().showToast('Ehhh nimadir xato ketdi'.tr, color: AppColors.red);
         } else {
-          debugPrint('Xatolik: ${data['message']}');
+          debugPrint('Xatolik updateProfile: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik updateProfile: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik updateProfile: $e');
       debugPrint(stacktrace.toString());
       return;
     }
@@ -1098,10 +1078,10 @@ class ApiController extends GetxController {
           debugPrint('Xatolik: ${data['message']}');
         }
       } else {
-        debugPrint('Xatolik: Serverga ulanishda muammo');
+        debugPrint('Xatolik deleteProfile: Serverga ulanishda muammo');
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik deleteProfile: $e');
       debugPrint(stacktrace.toString());
     }
   }
@@ -1143,7 +1123,7 @@ class ApiController extends GetxController {
         _getController.changePartnerModels(PartnerModels.fromJson(data));
       }
     } catch (e, stacktrace) {
-      debugPrint('Xatolik: $e');
+      debugPrint('Xatolik getPartnerMagazine: $e');
       debugPrint(stacktrace.toString());
     }
   }

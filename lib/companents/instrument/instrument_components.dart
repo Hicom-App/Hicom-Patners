@@ -428,7 +428,7 @@ class InstrumentComponents {
       backgroundColor: AppColors.white,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
-      title: 'Mahsulotni baxolang'.tr,
+      title: isShop != null && !isShop ? 'Tovarni baholang'.tr : 'Do‘konni baholang'.tr,
       titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Schyler'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
