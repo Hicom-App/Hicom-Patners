@@ -560,8 +560,6 @@ class ApiController extends GetxController {
           _getController.clearSortedTransactionsModel();
           _getController.changeSelectedMonth(0);
           InstrumentComponents().showToast('Kafolatli mahsulot muvaffaqiyatli qo‘shildi', color: AppColors.green);
-          //_getController.changeIndex(3);
-          //_getController.controllerConvex?.animateTo(3);
           getProfile(isWorker: false);
         }
         else if (data['status'] == 9) {
@@ -570,12 +568,10 @@ class ApiController extends GetxController {
           final userPhone = info['user_phone'] ?? '';
           final maskedPhone = userPhone.replaceRange(6, 9, '***');
           final codeAdded = info['code_added'] ?? '';
-
           DateTime parsedDate;
           try {
             parsedDate = parseLocalizedDateTime(codeAdded) ?? DateTime.now(); // Yangi parse funksiyasi
           } catch (e) {
-            //debugPrint('Sana parsing xatosi: $e');
             parsedDate = DateTime.now();
           }
 
