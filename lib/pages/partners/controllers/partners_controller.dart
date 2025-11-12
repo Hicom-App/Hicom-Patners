@@ -142,8 +142,8 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
 
   void changeMapStyle(bool isHybrid) {
-    mapStyle.value = isHybrid;  // true = giprit, false = shema
-    print('Map uslubi o\'zgartirildi: ${isHybrid ? "Giprit" : "Shema"}');  // Debug uchun
+    mapStyle.value = isHybrid;  // true = Gibrid, false = shema
+    print('Map uslubi o\'zgartirildi: ${isHybrid ? "Gibrid" : "Shema"}');  // Debug uchun
     update();  // UI ni yangilash
   }
 

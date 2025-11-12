@@ -586,15 +586,15 @@ class ApiController extends GetxController {
           // Xabarlar
           String message;
           if (currentLang == 'ru') {
-            message = 'Этот ҚР-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
+            message = 'Этот QR-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
           } else if (currentLang == 'en') {
-            message = 'This QR code was previously registered by the user with the number $maskedPhone $formattedDate.';
+            message = 'This QR-code was previously registered by the user with the number $maskedPhone $formattedDate.';
           } else if (currentLang == 'oz') {
-            message = 'Ушбу ҚР-код аввал $maskedPhone рақамли фойдаланувчи томонидан $formattedDate рўйхатдан ўтказилган.';
+            message = 'Ушбу QR-код аввал $maskedPhone рақамли фойдаланувчи томонидан $formattedDate рўйхатдан ўтказилган.';
           } else if (currentLang == 'uz') {
             message = 'Ushbu QR-kod avval $maskedPhone raqamli foydalanuvchi tomonidan $formattedDate ro‘yxatdan o‘tkazilgan.';
           } else {
-            message = 'Этот ҚР-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
+            message = 'Этот QR-код ранее был зарегистрирован пользователем с номером $maskedPhone $formattedDate.';
           }
           // Dialog ko'rsatish
           if (_getController.profileInfoModel.value.result?.first.phone == userPhone) {

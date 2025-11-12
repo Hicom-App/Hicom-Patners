@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
-import 'package:hicom_patners/pages/bottombar/home_page.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../companents/filds/text_large.dart';
@@ -10,11 +9,10 @@ import '../../companents/filds/text_small.dart';
 import '../../companents/instrument/shake_widget.dart';
 import '../../controllers/get_controller.dart';
 import '../../resource/colors.dart';
-import '../sample/sample_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   LoginPageState createState() => LoginPageState();
 }
@@ -124,7 +122,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                                                           },
                                                           countries: countries.where((element) => ['UZ', 'RU', 'KG', 'TJ', 'KZ'].contains(element.code)).toList(),
                                                           invalidNumberMessage: null,
-                                                          decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: AppColors.black.withOpacity(0.5), fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler'), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
+                                                          decoration: InputDecoration(hintText: 'Telefon raqam'.tr, hintStyle: TextStyle(color: AppColors.black70, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler'), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(7.r)), borderSide: BorderSide.none), counterText: '', counter: null, isDense: true),
                                                           style: TextStyle(color: AppColors.black, fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize, fontFamily: 'Schyler'),
                                                           showCountryFlag: true,
                                                           showCursor: true,
@@ -145,7 +143,8 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeInOut,
-                    bottom: isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom + 20.h : Get.height * 0.106,
+                    bottom: isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom : Get.height * 0.116,
+                    //bottom: isKeyboardVisible ? Get.height * 0.3 : Get.height * 0.116,
                     right: 0,
                     child: AnimatedSlide(
                       offset: animateTextFields ? const Offset(0, 0) : const Offset(0, 1.0),

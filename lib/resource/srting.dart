@@ -16,7 +16,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Tilni tanlang',
-      'QR Kodni Skaynerlash': 'QR-Kodni Skanerlash',
+      'QR Kodni Skaynerlash': 'QR-Kodni skanerlash',
 
       //login page
       'Telefon raqam': 'Telefon raqam',
@@ -247,7 +247,7 @@ class LocaleString extends Translations{
       'To‘liq ma’lumot':'To‘liq ma’lumot',
       'Sxema':'Sxema',
       'Oddiy ko‘cha xaritasi':'Oddiy ko‘cha xaritasi',
-      'Giprit':'Giprit',
+      'Gibrid':'Gibrid',
       'Sun’iy yo‘ldosh + ko‘chalar':'Sun’iy yo‘ldosh + ko‘chalar',
       'Eng yaqin do‘kon':'Eng yaqin do‘kon',
       'Noma’lum do‘kon':'Noma’lum do‘kon',
@@ -526,7 +526,7 @@ class LocaleString extends Translations{
       'To‘liq ma’lumot':'Full Information',
       'Sxema':'Schema',
       'Oddiy ko‘cha xaritasi':'Simple Street Map',
-      'Giprit':'Hybrid',
+      'Gibrid':'Hybrid',
       'Sun’iy yo‘ldosh + ko‘chalar':'Satellite + Streets',
       'Eng yaqin do‘kon':'Nearest Store',
       'Noma’lum do‘kon':'Unknown Store',
@@ -807,7 +807,7 @@ class LocaleString extends Translations{
       'To‘liq ma’lumot':'Полная информация',
       'Sxema':'Схема',
       'Oddiy ko‘cha xaritasi':'Простая уличная карта',
-      'Giprit':'Гибрид',
+      'Gibrid':'Гибрид',
       'Sun’iy yo‘ldosh + ko‘chalar':'Спутник + улицы',
       'Eng yaqin do‘kon':'Ближайший магазин',
       'Noma’lum do‘kon':'Неизвестный магазин',
@@ -855,7 +855,7 @@ class LocaleString extends Translations{
 
       //laugage page
       'Tilni tanlang': 'Тилни танланг',
-      'QR Kodni Skaynerlash': 'QR-Кодни Сканерлаш',
+      'QR Kodni Skaynerlash': 'QR-Кодни сканерлаш',
 
       //login page
       'Telefon raqam': 'Телефон рақам',
@@ -1087,7 +1087,7 @@ class LocaleString extends Translations{
       'To‘liq ma’lumot':'Тўлиқ маълумот',
       'Sxema':'Схема',
       'Oddiy ko‘cha xaritasi':'Оддий коча харитаси',
-      'Giprit':'Гиприт',
+      'Gibrid':'Гибрид',
       'Sun’iy yo‘ldosh + ko‘chalar':'Сунъий йўлдош + кочалар',
       'Eng yaqin do‘kon':'Энг яқин дўкон',
       'Noma’lum do‘kon':'Номаълум дўкон',

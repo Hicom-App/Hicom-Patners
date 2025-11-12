@@ -146,7 +146,7 @@ class PartnersView extends GetView<PartnersController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSmall(text:'Giprit', fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.black),
+                    TextSmall(text:'Gibrid', fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.black),
                     TextSmall(text:'Sun’iy yo‘ldosh + ko‘chalar', fontSize: 12, color: AppColors.black70)
                   ]
                 )
