@@ -40,10 +40,12 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
   void _onItemTapped(int index) {
     _getController.changeIndex(index);
     print('index: $index');
+/*    if (index == 2){
+      _getController.clearWarrantyModel();
+      _getController.clearSortedWarrantyModel();
+      ApiController().getWarrantyProducts(filter: 'c.active=1');
+    }*/
     if (index == 3){
-      //_getController.clearWarrantyModel();
-      //_getController.clearSortedWarrantyModel();
-      //ApiController().getWarrantyProducts(filter: 'c.active=1');
       _controller.initializeApp();
     }
   }
@@ -89,7 +91,7 @@ class _SamplePageState extends State<SamplePage> with SingleTickerProviderStateM
                       )
                   )
               ),
-              TabItem(icon: Iconsax.shop),
+              const TabItem(icon: Iconsax.shop),
               const TabItem(icon: Iconsax.chart_21)
             ],
             onTap: _onItemTapped

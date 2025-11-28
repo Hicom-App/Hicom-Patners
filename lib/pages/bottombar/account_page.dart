@@ -115,7 +115,7 @@ class AccountPageState extends State<AccountPage> {
               if (_getController.token != null && _getController.token.isNotEmpty)
                 _buildListTile(context: context, icon: Icons.person, title: 'Hisobim'.tr, onTap: () {ApiController().getCountries(me: true);Get.to(() => const MyAccountPage(), transition: Transition.fadeIn);})
               else
-                _buildListTile(context: context, icon: Icons.login, title: 'Hisobga kirish'.tr, onTap: () {_getController.logout();Get.offAll(() => const LoginPage(),transition: Transition.fadeIn);}),
+                _buildListTile(context: context, icon: Icons.login, title: 'Kirish'.tr, onTap: () {_getController.logout();Get.offAll(() => const LoginPage(),transition: Transition.fadeIn);}),
               if (_getController.token != null && _getController.token.isNotEmpty)
               _buildListTile(context: context, icon: Icons.wallet, title: 'Hamyon'.tr, onTap: () => Get.to(() => TransferToWallet(index: 1), transition: Transition.fade)),
               if (_getController.token != null && _getController.token.isNotEmpty)

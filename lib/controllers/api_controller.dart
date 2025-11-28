@@ -597,9 +597,10 @@ class ApiController extends GetxController {
             _getController.clearWarrantyModel();
             _getController.clearSortedWarrantyModel();
             _getController.warrantyId.value = ids;
-            //InstrumentComponents().addWarrantyOpenDialog(context, formattedDate: formattedDate);
-            ApiController().getWarrantyProducts(filter: 'c.active=1');
-            Get.to(() => const GuaranteePage(), transition: Transition.fadeIn);
+            ApiController().getWarrantyProducts(filter: 'c.active=1').then((value) {
+              Get.to(() => const GuaranteePage(isCode: true), transition: Transition.fadeIn);
+            });
+            //Get.to(() => const GuaranteePage(isCode: true), transition: Transition.fadeIn);
           } else {
             InstrumentComponents().addWarrantyDialog(context, message);
           }

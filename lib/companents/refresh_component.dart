@@ -40,10 +40,7 @@ class RefreshComponent extends StatelessWidget {
             onRefresh: onRefresh ?? _getData,
             controller: refreshController,
             scrollController: scrollController,
-            child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: child
-            )
+            child: SingleChildScrollView(physics: const BouncingScrollPhysics(), child: child)
         )
     );
   }

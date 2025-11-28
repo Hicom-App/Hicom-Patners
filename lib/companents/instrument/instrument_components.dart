@@ -580,7 +580,31 @@ class InstrumentComponents {
     ),
   );
 
-
+  void loadingDialog(BuildContext context, {String? message}) => Get.defaultDialog(
+    barrierDismissible: false, // Bosib yopib bo'lmaydi
+    backgroundColor: AppColors.white.withOpacity(0.95),
+    radius: 20.r,
+    title: '',
+    titlePadding: EdgeInsets.zero,
+    contentPadding: EdgeInsets.all(30.w),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+          strokeWidth: 3,
+        ),
+        SizedBox(height: 20.h),
+        TextSmall(
+          text: message ?? 'Yuklanmoqda...'.tr,
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 16.sp,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
 
   void deleteCard(BuildContext context, int index) => Get.defaultDialog(
       backgroundColor: AppColors.white,

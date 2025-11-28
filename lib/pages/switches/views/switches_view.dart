@@ -200,7 +200,7 @@ class SwitchesView extends GetView<SwitchesController> {
                     Get.offAll(() => const LoginPage(),transition: Transition.fadeIn);
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r))),
-                  child: TextSmall(text: 'Hisobga kirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 16.sp)
+                  child: TextSmall(text: 'Kirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 16.sp)
               )
             ]
           ))

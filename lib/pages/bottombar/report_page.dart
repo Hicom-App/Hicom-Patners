@@ -25,10 +25,10 @@ class ReportPage extends StatelessWidget {
             ? Column(
                 children: [
                   Container(width: Get.width, height: Get.height * 0.431,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: AppColors.black.withAlpha(50), blurRadius: 25.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
                       child: Column(
                           children: [
-                            AppBar(backgroundColor: Colors.transparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
+                            AppBar(backgroundColor: AppColors.blackTransparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
                             SizedBox(
                                 width: Get.width,
                                 height: Get.height * 0.025,
@@ -42,7 +42,7 @@ class ReportPage extends StatelessWidget {
                                             alignment: Alignment.center,
                                             margin: EdgeInsets.only(left: 14.w),
                                             padding: EdgeInsets.only(left: 19.w, right: 19.w),
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), border: Border.all(width: 1.5.w, color: AppColors.white), color: _getController.listMonth[index]['selected'] == true ? AppColors.white : Theme.of(context).brightness == Brightness.light ? AppColors.blackTransparent : AppColors.grey.withOpacity(0.2)),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), border: Border.all(width: 1.5.w, color: AppColors.white), color: _getController.listMonth[index]['selected'] == true ? AppColors.white : AppColors.blackTransparent),
                                             child: TextSmall(text: _getController.listMonth[index]['name'].toString(), color: _getController.listMonth[index]['selected'] == true ? AppColors.red : AppColors.white, fontWeight: FontWeight.w500, maxLines: 1,fontSize: 12.sp)
                                         )
                                     )
@@ -247,7 +247,7 @@ class ReportPage extends StatelessWidget {
                               return Column(
                                   children: [
                                     if (resultsList != null && resultsList.isNotEmpty && transactionGroup.date != null)
-                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: _getController.getDateFormat(transactionGroup.date ?? ''), color: AppColors.black.withOpacity(0.4), fontWeight: FontWeight.w400))
+                                      Container(padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h), child: TextSmall(text: _getController.getDateFormat(transactionGroup.date ?? ''), color: AppColors.black.withAlpha(150), fontWeight: FontWeight.w400))
                                     else if (resultsList == null || resultsList.isEmpty && transactionGroup.date == null)
                                       if (index == 0)
                                         Container(height: Get.height * 0.4, width: Get.width, alignment: Alignment.center, child: TextSmall(text: 'Ma’lumotlar yo‘q'.tr, color: AppColors.black70, fontWeight: FontWeight.bold)),
@@ -260,7 +260,7 @@ class ReportPage extends StatelessWidget {
                                                 margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 12.h),
                                                 padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 6.h, left: 5.w),
                                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: AppColors.white,
-                                                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 15.r, spreadRadius: 5.r, offset: const Offset(0, 0))]
+                                                    boxShadow: [BoxShadow(color: AppColors.grey.withAlpha(100), blurRadius: 15.r, spreadRadius: 5.r, offset: const Offset(0, 0))]
                                                 ),
                                                 child: Column(
                                                     children: [
@@ -321,10 +321,10 @@ class ReportPage extends StatelessWidget {
             : Column(
             children: [
               Container(width: Get.width, height: Get.height * 0.431,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 25.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r), bottomRight: Radius.circular(25.r)), image: const DecorationImage(image: AssetImage('assets/images/bar.png'), fit: BoxFit.cover), boxShadow: [BoxShadow(color: AppColors.black.withAlpha(50), blurRadius: 25.r, spreadRadius: 10.r, offset: const Offset(0, 0))]),
                   child: Column(
                       children: [
-                        AppBar(backgroundColor: Colors.transparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
+                        AppBar(backgroundColor: AppColors.blackTransparent, foregroundColor: AppColors.white, elevation: 0, title: TextSmall(text: 'Hisobotlar'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 20.sp)),
                         Container(
                             width: Get.width,
                             height: Get.height * 0.1,
@@ -336,9 +336,7 @@ class ReportPage extends StatelessWidget {
                                   Container(
                                       width: Get.width * 0.43,
                                       height: Get.height * 0.1,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: AppColors.white,width: 1.8.sp),
-                                          color:AppColors.blue, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                      decoration: BoxDecoration(border: Border.all(color: AppColors.white,width: 1.8.sp), color:AppColors.blue, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                       child: Container(
                                           height: Get.height * 0.1,
                                           margin: EdgeInsets.only(right: 10.w),
@@ -414,9 +412,7 @@ class ReportPage extends StatelessWidget {
                                 Container(
                                     width: Get.width * 0.43,
                                     height: Get.height * 0.1,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: AppColors.white,width: 1.8.sp),
-                                        color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                                    decoration: BoxDecoration(border: Border.all(color: AppColors.white,width: 1.8.sp), color:AppColors.primaryColor, borderRadius: BorderRadius.all(Radius.circular(15.r))),
                                     child: Container(
                                         height: Get.height * 0.1,
                                         margin: EdgeInsets.only(right: 10.w),
@@ -454,15 +450,7 @@ class ReportPage extends StatelessWidget {
                                         height: Get.height * 0.1,
                                         margin: EdgeInsets.only(left: 10.w),
                                         padding: EdgeInsets.only(left: 10.w, right: 5.w),
-                                        decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(1.r),
-                                                bottomLeft: Radius.circular(1.r),
-                                                topRight: Radius.circular(10.r),
-                                                bottomRight: Radius.circular(10.r)
-                                            )
-                                        ),
+                                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(1.r), bottomLeft: Radius.circular(1.r), topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))),
                                         child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -511,21 +499,15 @@ class ReportPage extends StatelessWidget {
                                 _getController.logout();
                                 Get.offAll(() => const LoginPage(),transition: Transition.fadeIn);
                               },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.blue,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r)
-                                ),
-                              ),
-                              child: TextSmall(text: 'Hisobga kirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 16.sp)
+                              style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r))),
+                              child: TextSmall(text: 'Kirish'.tr, color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 16.sp)
                           )
-                        ],
+                        ]
                       )
                   )
               )
             ]
-        )
-        )
+        ))
     );
   }
 }

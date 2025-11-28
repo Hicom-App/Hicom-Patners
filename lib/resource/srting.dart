@@ -281,6 +281,7 @@ class LocaleString extends Translations{
       'Hisobga kirish':'Hisobga kirish',
       'Mening profilim':'Mening profilim',
       'Tizimga kirish': 'Tizimga kirish',
+      'Kirish': 'Kirish',
     },
     'en_EN': {
       'name':'Dilshodjon',
@@ -560,6 +561,7 @@ class LocaleString extends Translations{
       'Hisobga kirish': 'Sign in',
       'Mening profilim': 'My Profile',
       'Tizimga kirish': 'Log in to the system',
+      'Kirish': 'Log in',
     },
     'ru_RU': {
       'name':'Дилшоджон',
@@ -841,6 +843,7 @@ class LocaleString extends Translations{
       'Hisobga kirish': 'Войти',
       'Mening profilim': 'Мой профиль',
       'Tizimga kirish': 'Войти в систему',
+      'Kirish': 'Войти',
     },
     'oz_OZ': {
       'name':'Дилшоджон',
@@ -1121,6 +1124,7 @@ class LocaleString extends Translations{
       'Hisobga kirish': 'Ҳисобга кириш',
       'Mening profilim': 'Менинг профилим',
       'Tizimga kirish': 'Тизимга кириш',
+      'Kirish': 'Кириш'
     }
   };
 }

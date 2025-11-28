@@ -39,9 +39,7 @@ class SettingsSupportItem extends StatelessWidget {
           else
             CupertinoSwitch(
               value: Theme.of(context).brightness == Brightness.dark,
-              onChanged: (value) {
-                //AdaptiveTheme.of(context).brightness == Brightness.light ? AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
-                },
+              onChanged: (value) {},
               activeColor: AppColors.green,
               trackColor: AppColors.grey.withOpacity(0.5),
               focusColor: AppColors.green,
