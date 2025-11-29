@@ -15,9 +15,11 @@ class ScanSwitchController extends GetxController {
   final GetController _getController = Get.put(GetController());
   final RxBool isScanning = false.obs;
   final RxBool isTorchOn = false.obs; // Lamp holati
+  final RxBool isProcessing = false.obs;
   final RxList<SwitchModel> scanHistory = <SwitchModel>[].obs;
   bool _isStarting = false;
   final GlobalKey scannerKey = GlobalKey();
+  final Map<String, DateTime> lastScanTimes = {};
 
   @override
   void onInit() {
@@ -54,6 +56,7 @@ class ScanSwitchController extends GetxController {
     if (isScanning.value) {
       isScanning.value = false;
       await cameraController.stop();
+      isProcessing.value = false;
     } else {
       // Bu joyda widget allaqachon build bo'lgan — start qilish xavfsiz
       _isStarting = true;
@@ -78,12 +81,20 @@ class ScanSwitchController extends GetxController {
   }
 
   Future<void> handleScanResult(BuildContext context, BarcodeCapture capture) async {
+    if (isProcessing.value) return;
     if (capture.barcodes.isNotEmpty) {
       final String? scannedData = capture.barcodes.first.rawValue;
       if (scannedData != null) {
+        final now = DateTime.now();
+        final lastScan = lastScanTimes[scannedData];
+        if (lastScan != null && now.difference(lastScan).inSeconds < 2) {
+          return; // Debounce: skip if scanned within 2 seconds
+        }
+        isProcessing.value = true;
         try {
           _getController.codeController.text = scannedData;
-          ApiController().addWarrantyProduct(scannedData, context);
+          await ApiController().addWarrantyProduct(scannedData, context);
+          lastScanTimes[scannedData] = now;
         } catch (e) {
           Fluttertoast.showToast(
             msg: "Xato: $e",
@@ -92,6 +103,8 @@ class ScanSwitchController extends GetxController {
             backgroundColor: AppColors.red,
             textColor: AppColors.white,
           );
+        } finally {
+          isProcessing.value = false;
         }
       }
     }
