@@ -18,9 +18,9 @@
 		<string>hicom_patners</string>
 
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This app requires location access to detect and mark places on the map, set ad locations, and display ads based on your current location.</string>
+		<string>This app requires location access to show your current position on the map and help you accurately select or mark locations.</string>
 
-		<key>CFBundlePackageType</key>
+        <key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
 		<string>$(FLUTTER_BUILD_NAME)</string>

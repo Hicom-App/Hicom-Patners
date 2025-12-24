@@ -943,6 +943,7 @@ class GetController extends GetxController {
 
   void clearCategoryProductsModel () => categoryProductsModel.value = CategoriesModel();
 
+  void clearPartnerModels () => partnerModels.value = PartnerModels();
 
 }
 

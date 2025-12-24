@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:hicom_patners/controllers/api_controller.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import '../../../companents/instrument/instrument_components.dart';
 import '../../../companents/instrument/show_toast.dart';
 import '../../../controllers/get_controller.dart';
@@ -16,8 +17,13 @@ import '../../../models/sample/partner_models.dart';
 
 class CachedTileProvider extends TileProvider {
   @override
-  ImageProvider<Object> getImage(TileCoordinates coordinates, TileLayer options) {
-    final url = options.urlTemplate!.replaceAll('{x}', coordinates.x.toString()).replaceAll('{y}', coordinates.y.toString()).replaceAll('{z}', coordinates.z.toString()).replaceAll('{s}', options.subdomains.first);
+  ImageProvider<Object> getImage(
+      TileCoordinates coordinates, TileLayer options) {
+    final url = options.urlTemplate!
+        .replaceAll('{x}', coordinates.x.toString())
+        .replaceAll('{y}', coordinates.y.toString())
+        .replaceAll('{z}', coordinates.z.toString())
+        .replaceAll('{s}', options.subdomains.first);
     return NetworkImage(url);
   }
 }
@@ -32,9 +38,8 @@ class AppDimensions {
   static const double iconSizeMedium = 28.0;
 }
 
-
-class PartnersController extends GetxController with GetTickerProviderStateMixin {
-
+class PartnersController extends GetxController
+    with GetTickerProviderStateMixin {
   late final AnimatedMapController animatedMapController;
   final GetController _getController = Get.find<GetController>();
 
@@ -82,12 +87,13 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
   bool get isFiltersApplied => _isFiltersApplied.value;
 
   late ScrollController scrollController;
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   final RxBool showScrollToTop = false.obs;
   final RxBool mapStyle = false.obs;
 
   int get currentWeekday => DateTime.now().weekday;
   final mapController = MapController();
-
 
   Future<void> initializeApp() async {
     await getCurrentLocation();
@@ -96,9 +102,12 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
   @override
   void onInit() {
     super.onInit();
-    animatedMapController = AnimatedMapController(vsync: this, mapController: MapController());
+    animatedMapController =
+        AnimatedMapController(vsync: this, mapController: MapController());
     scrollController = ScrollController();
-    scrollController.addListener(() {showScrollToTop.value = scrollController.offset > 200;});
+    scrollController.addListener(() {
+      showScrollToTop.value = scrollController.offset > 200;
+    });
     ever(_getController.partnerModels, (_) => findNearestPartner());
 
     _loadFilterData();
@@ -115,7 +124,7 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     try {
       return days.firstWhere((day) => day.weekday == currentWeekday);
     } catch (e) {
-      return null;  // Kun topilmasa
+      return null; // Kun topilmasa
     }
   }
 
@@ -123,32 +132,41 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     try {
       // Davlatlarni yuklash
       await ApiController().getCountries();
-      _countries.value = _getController.countriesModel.value.countries?.map((e) => e.name ?? '').toList() ?? [];
+      _countries.value = _getController.countriesModel.value.countries
+              ?.map((e) => e.name ?? '')
+              .toList() ??
+          [];
 
       // Default viloyat va tumanlarni yuklash (davlat 1 deb hisoblab)
-      await ApiController().getRegions(1);  // Birinchi davlat ID si (yoki _getController.countriesModel.value.countries!.first.id)
-      _regions.value = _getController.regionsModel.value.regions?.map((e) => e.name ?? '').toList() ?? [];
+      await ApiController().getRegions(
+          1); // Birinchi davlat ID si (yoki _getController.countriesModel.value.countries!.first.id)
+      _regions.value = _getController.regionsModel.value.regions
+              ?.map((e) => e.name ?? '')
+              .toList() ??
+          [];
 
-      await ApiController().getCities(1);  // Birinchi viloyat ID si
-      _districts.value = _getController.citiesModel.value.cities?.map((e) => e.name ?? '').toList() ?? [];
+      await ApiController().getCities(1); // Birinchi viloyat ID si
+      _districts.value = _getController.citiesModel.value.cities
+              ?.map((e) => e.name ?? '')
+              .toList() ??
+          [];
     } catch (e) {
       print('Filter data yuklash xatosi: $e');
       // Default qiymatlar qo'shing (test uchun)
-      _countries.value = ['O\'zbekistonss'];  // Misol
+      _countries.value = ['O\'zbekistonss']; // Misol
       _regions.value = ['Toshkent viloyati'];
       _districts.value = ['Yunusobod'];
     }
   }
 
-
   void changeMapStyle(bool isHybrid) {
-    mapStyle.value = isHybrid;  // true = Gibrid, false = shema
-    print('Map uslubi o\'zgartirildi: ${isHybrid ? "Gibrid" : "Shema"}');  // Debug uchun
-    update();  // UI ni yangilash
+    mapStyle.value = isHybrid; // true = Gibrid, false = shema
+    print(
+        'Map uslubi o\'zgartirildi: ${isHybrid ? "Gibrid" : "Shema"}'); // Debug uchun
+    update(); // UI ni yangilash
   }
 
   bool get isHybridStyle => mapStyle.value;
-
 
   Future<void> getCurrentLocation() async {
     try {
@@ -156,7 +174,8 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
       }
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
         //ShowToast.show('Ruxsat rad etildi', 'Joylashuv ruxsatini sozlamalardan yoqing.', 4, 1);
         InstrumentComponents().locationPermissionDeniedDialog(Get.context!);
       }
@@ -170,13 +189,19 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
       // Oxirgi ma'lum joylashuvni olish (fallback – tezroq)
       Position? lastPosition = await Geolocator.getLastKnownPosition();
       if (lastPosition != null) {
-        currentLocation.value = LatLng(lastPosition.latitude, lastPosition.longitude);
+        currentLocation.value =
+            LatLng(lastPosition.latitude, lastPosition.longitude);
         selectedLocation.value = currentLocation.value;
-        print('Oxirgi ma\'lum location ishlatildi: ${lastPosition.latitude}, ${lastPosition.longitude}');
+        print(
+            'Oxirgi ma\'lum location ishlatildi: ${lastPosition.latitude}, ${lastPosition.longitude}');
       }
 
       // Yangi pozitsiyani olish (timeout 60 soniyaga ko'paytirildi)
-      Position position = await Geolocator.getCurrentPosition(locationSettings: const LocationSettings(accuracy: LocationAccuracy.high, timeLimit: Duration(seconds: 60), distanceFilter: 10));
+      Position position = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+              accuracy: LocationAccuracy.high,
+              timeLimit: Duration(seconds: 60),
+              distanceFilter: 10));
       currentLocation.value = LatLng(position.latitude, position.longitude);
       selectedLocation.value = currentLocation.value;
 
@@ -185,31 +210,35 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
       // Siz turgan joyga silliq harakatlantirish va yaqinlashtirish
       if (isMapReady.value) {
-        await animatedMapController.animateTo(dest: selectedLocation.value, zoom: 12.0, duration: const Duration(milliseconds: 1200));
+        await animatedMapController.animateTo(
+            dest: selectedLocation.value,
+            zoom: 12.0,
+            duration: const Duration(milliseconds: 1200));
       }
       update();
       await Future.delayed(const Duration(milliseconds: 500));
-      ApiController().getPartnerMagazine(rating: _sortByRating.value ? true : null);
-
+      ApiController()
+          .getPartnerMagazine(rating: _sortByRating.value ? true : null);
     } catch (e) {
       print('Xato: $e');
       currentLocation.value = const LatLng(41.2995, 69.2401);
       selectedLocation.value = currentLocation.value;
       update();
       await Future.delayed(const Duration(milliseconds: 500));
-      ApiController().getPartnerMagazine(rating: _sortByRating.value ? true : null);
+      ApiController()
+          .getPartnerMagazine(rating: _sortByRating.value ? true : null);
     }
   }
 
-
-  Rx<Result?> nearestPartner = Rx<Result?>(null);  // Result tipiga o'zgartirildi
+  Rx<Result?> nearestPartner = Rx<Result?>(null); // Result tipiga o'zgartirildi
   Result? get nearest => nearestPartner.value;
 
   // Yangi funksiya: Eng yaqin do'konni topish (Result tipida)
   void findNearestPartner() {
     final result = _getController.partnerModels.value.result;
-    print('Result uzunligi: ${result?.length ?? 0}');  // Console da ko'ring
-    print('Joriy location: ${currentLocation.value.latitude}, ${currentLocation.value.longitude}');
+    print('Result uzunligi: ${result?.length ?? 0}'); // Console da ko'ring
+    print(
+        'Joriy location: ${currentLocation.value.latitude}, ${currentLocation.value.longitude}');
     //if (result == null || result.isEmpty || currentLocation.value.latitude == 0.0) {
     if (result == null || result.isEmpty) {
       print('Topish mumkin emas: result bo\'sh yoki location 0');
@@ -217,7 +246,7 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
       return;
     }
 
-    Result? closest;  // Allaqachon Result? – yaxshi
+    Result? closest; // Allaqachon Result? – yaxshi
     double minDistance = double.infinity;
 
     for (var partner in result) {
@@ -230,8 +259,9 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
       }
     }
 
-    nearestPartner.value = closest;  // Endi xato yo'q
-    print('Eng yaqin do\'kon: ${closest?.name}, masofa: ${minDistance.toStringAsFixed(2)} km'); // Debug
+    nearestPartner.value = closest; // Endi xato yo'q
+    print(
+        'Eng yaqin do\'kon: ${closest?.name}, masofa: ${minDistance.toStringAsFixed(2)} km'); // Debug
     update(); // UI ni yangilash uchun
   }
 
@@ -243,25 +273,26 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     final num = double.tryParse(numStr) ?? double.infinity;
 
     if (distStr.contains('m')) {
-      return num / 1000.0;  // m ni km ga o'tkazish
+      return num / 1000.0; // m ni km ga o'tkazish
     } else {
-      return num;  // Allaqachon km
+      return num; // Allaqachon km
     }
   }
+
   // moveMap ni saqlang
   void moveMap(MapController mapController, LatLng point, double zoom) {
     mapController.move(point, zoom);
   }
 
-
   Future<void> zoomIn() async {
     if (!isMapReady.value) {
-      print('Map hali tayyor emas, zoom in to\'xtatildi');  // Debug uchun
+      print('Map hali tayyor emas, zoom in to\'xtatildi'); // Debug uchun
       return;
     }
     try {
       currentZoom.value = (currentZoom.value + 1).clamp(1.0, 18.0);
-      final currentCenter = animatedMapController.mapController.camera.center;  // To'g'ri controller (animated dan)
+      final currentCenter = animatedMapController
+          .mapController.camera.center; // To'g'ri controller (animated dan)
       await animatedMapController.animateTo(
         dest: currentCenter,
         zoom: currentZoom.value,
@@ -274,12 +305,13 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
   Future<void> zoomOut() async {
     if (!isMapReady.value) {
-      print('Map hali tayyor emas, zoom out to\'xtatildi');  // Debug uchun
+      print('Map hali tayyor emas, zoom out to\'xtatildi'); // Debug uchun
       return;
     }
     try {
       currentZoom.value = (currentZoom.value - 1).clamp(1.0, 18.0);
-      final currentCenter = animatedMapController.mapController.camera.center;  // To'g'ri controller (animated dan)
+      final currentCenter = animatedMapController
+          .mapController.camera.center; // To'g'ri controller (animated dan)
       await animatedMapController.animateTo(
         dest: currentCenter,
         zoom: currentZoom.value,
@@ -290,16 +322,17 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     }
   }
 
-  void updateLocation(LatLng point) {  // Faqat point
+  void updateLocation(LatLng point) {
+    // Faqat point
     selectedLocation.value = point;
 
     animatedMapController.animateTo(
-      dest: point,  // Tuzatilgan
+      dest: point, // Tuzatilgan
       zoom: currentZoom.value,
       duration: const Duration(milliseconds: 800),
     );
 
-    currentLocation.value = point;  // Joriy location ni yangilash
+    currentLocation.value = point; // Joriy location ni yangilash
   }
 
   @override
@@ -307,7 +340,6 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     scrollController.dispose();
     super.onClose();
   }
-
 
   void _applyFilters() {
     _checkFiltersApplied();
@@ -318,29 +350,34 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
   // _checkFiltersApplied metodini o'zgartiring (so'rt tugmalari filter menu ni faol qilmasligi uchun)
   void _checkFiltersApplied() {
-    _isFiltersApplied.value = _selectedCountry.value.isNotEmpty || _selectedRegion.value.isNotEmpty || _selectedDistrict.value.isNotEmpty;  // SortBy ni olib tashlash (faqat location filterlar)
+    _isFiltersApplied.value = _selectedCountry.value.isNotEmpty ||
+        _selectedRegion.value.isNotEmpty ||
+        _selectedDistrict.value
+            .isNotEmpty; // SortBy ni olib tashlash (faqat location filterlar)
   }
 
   void toggleShowOnlyOpen() {
     _showOnlyOpen.value = !_showOnlyOpen.value;
     _selectedCategory.value = 'Barchasi';
     final model = _getController.partnerModels.value;
-    model.applyFilterAndSort(_sortBy.value, currentWeekday, _showOnlyOpen.value);
-    _getController.partnerModels.refresh();  // UI yangilash
+    model.applyFilterAndSort(
+        _sortBy.value, currentWeekday, _showOnlyOpen.value);
+    _getController.partnerModels.refresh(); // UI yangilash
     _applyFilters();
   }
 
   void toggleSortByRating() {
     _sortByRating.value = !_sortByRating.value;
     if (_sortByRating.value) {
-      _sortBy.value = 'rating';  // Sort type o'rnatish
+      _sortBy.value = 'rating'; // Sort type o'rnatish
       _selectedCategory.value = 'Barchasi';
     } else {
-      _sortBy.value = 'distance';  // Default ga qaytarish
+      _sortBy.value = 'distance'; // Default ga qaytarish
     }
     final model = _getController.partnerModels.value;
-    model.applyFilterAndSort(_sortBy.value, currentWeekday, _showOnlyOpen.value);  // Filter holati saqlanadi
-    _getController.partnerModels.refresh();  // UI yangilash
+    model.applyFilterAndSort(_sortBy.value, currentWeekday,
+        _showOnlyOpen.value); // Filter holati saqlanadi
+    _getController.partnerModels.refresh(); // UI yangilash
     _applyFilters();
   }
 
@@ -350,7 +387,6 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     _applyFilters();
     sortResults();
   }
-
 
   void sortResults() {
     final list = _getController.partnerModels.value.result;
@@ -367,21 +403,21 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
         list.sort((a, b) {
           final aOpen = getTodayWorkingDay(a.workingDays)?.isOpen ?? 0;
           final bOpen = getTodayWorkingDay(b.workingDays)?.isOpen ?? 0;
-          if (aOpen != bOpen) return bOpen.compareTo(aOpen); // Ochiq (1) birinchi
+          if (aOpen != bOpen)
+            return bOpen.compareTo(aOpen); // Ochiq (1) birinchi
           return 0;
         });
         break;
       default:
-      // Default: old state yoki distance
+        // Default: old state yoki distance
         _sortBy.value = _previousSortBy ?? 'distance';
-        sortResults();  // Recursive, but safe (default ga qaytadi)
+        sortResults(); // Recursive, but safe (default ga qaytadi)
         return;
     }
 
     update();
     findNearestPartner();
   }
-
 
   void clearAllFilters() {
     _selectedCategory.value = 'Barchasi';
@@ -391,20 +427,18 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     _showOnlyOpen.value = false;
     _sortByRating.value = false;
     _sortBy.value = 'distance';
-    _previousSortBy = 'distance';  // Reset old state
+    _previousSortBy = 'distance'; // Reset old state
     _districts.value = [];
     _applyFilters();
-    sortResults();  // Default sort
+    sortResults(); // Default sort
     Get.back();
   }
-
 
   void setCategory(String category) {
     ApiController().getPartnerMagazine(rating: false);
     _selectedCategory.value = category;
     clearAllFilters();
   }
-
 
   void setCountry1(String country) {
     _selectedCountry.value = country == 'Barcha davlatlar' ? '' : country;
@@ -413,7 +447,6 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
     _selectedCategory.value = 'Barchasi'; // "Barchasi" ga qaytarish
     _applyFilters();
   }
-
 
   void setRegion1(String region) {
     _selectedRegion.value = region;
@@ -428,11 +461,20 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
   void setCountry(String country) {
     _selectedCountry.value = country == 'Barcha davlatlar' ? '' : country;
-    _selectedRegion.value = '';  // Viloyatni tozalash
-    _selectedDistrict.value = '';  // Tumanlarni tozalash
+    _selectedRegion.value = ''; // Viloyatni tozalash
+    _selectedDistrict.value = ''; // Tumanlarni tozalash
     _selectedCategory.value = 'Barchasi';
     if (_selectedCountry.value.isNotEmpty) {
-      ApiController().getRegions(_getController.countriesModel.value.countries!.firstWhere((e) => e.name == _selectedCountry.value).id!.toInt()).then((value) => _regions.value = _getController.regionsModel.value.regions?.map((e) => e.name ?? '').toList() ?? []);
+      ApiController()
+          .getRegions(_getController.countriesModel.value.countries!
+              .firstWhere((e) => e.name == _selectedCountry.value)
+              .id!
+              .toInt())
+          .then((value) => _regions.value = _getController
+                  .regionsModel.value.regions
+                  ?.map((e) => e.name ?? '')
+                  .toList() ??
+              []);
       _getController.regionsModel.refresh();
     }
     _applyFilters();
@@ -440,10 +482,19 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
   void setRegion(String region) {
     _selectedRegion.value = region;
-    _selectedDistrict.value = '';  // Tumanlarni tozalash
+    _selectedDistrict.value = ''; // Tumanlarni tozalash
     _selectedCategory.value = 'Barchasi';
     if (_selectedRegion.value.isNotEmpty) {
-      ApiController().getCities(_getController.regionsModel.value.regions!.firstWhere((e) => e.name == _selectedRegion.value).id!.toInt()).then((value) => _districts.value = _getController.citiesModel.value.cities?.map((e) => e.name ?? '').toList() ?? []);
+      ApiController()
+          .getCities(_getController.regionsModel.value.regions!
+              .firstWhere((e) => e.name == _selectedRegion.value)
+              .id!
+              .toInt())
+          .then((value) => _districts.value = _getController
+                  .citiesModel.value.cities
+                  ?.map((e) => e.name ?? '')
+                  .toList() ??
+              []);
       _getController.citiesModel.refresh();
     }
     _applyFilters();
@@ -457,21 +508,27 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
 
   void setDistrict(String district) {
     if (_selectedDistrict.value == district) {
-      _selectedDistrict.value = '';  // O'sha district ni tanlaganda filter o'chirish (toggle style, ochiq kabi)
+      _selectedDistrict.value =
+          ''; // O'sha district ni tanlaganda filter o'chirish (toggle style, ochiq kabi)
     } else {
-      _selectedDistrict.value = district;  // Filter o'rnatish
+      _selectedDistrict.value = district; // Filter o'rnatish
     }
     _selectedCategory.value = 'Barchasi'; // "Barchasi" ga qaytarish
     if (_selectedDistrict.value.isNotEmpty) {
       // Tanlangan district uchun city_id ni topib filter qo'llash
-      final selectedCity = _getController.citiesModel.value.cities!.firstWhere((e) => e.name == _selectedDistrict.value);
+      final selectedCity = _getController.citiesModel.value.cities!
+          .firstWhere((e) => e.name == _selectedDistrict.value);
       final model = _getController.partnerModels.value;
-      model.applyFilterAndSort(_sortBy.value, currentWeekday, _showOnlyOpen.value, cityIdFilter: selectedCity.id.toString());  // city_id bo'yicha filter (ochiq kabi)
+      model.applyFilterAndSort(
+          _sortBy.value, currentWeekday, _showOnlyOpen.value,
+          cityIdFilter: selectedCity.id
+              .toString()); // city_id bo'yicha filter (ochiq kabi)
       _getController.partnerModels.refresh();
     } else {
       // Filter o'chirish: original ga qaytarish
       final model = _getController.partnerModels.value;
-      model.resetToFullAndSort(_sortBy.value, currentWeekday);  // Original ga qaytarish
+      model.resetToFullAndSort(
+          _sortBy.value, currentWeekday); // Original ga qaytarish
       _getController.partnerModels.refresh();
     }
     _applyFilters();
@@ -484,10 +541,7 @@ class PartnersController extends GetxController with GetTickerProviderStateMixin
   }
 
   void toggleViewMode() {
-    _viewMode.value = _viewMode.value == ViewMode.list
-        ? ViewMode.map
-        : ViewMode.list;
+    _viewMode.value =
+        _viewMode.value == ViewMode.list ? ViewMode.map : ViewMode.list;
   }
-
-
 }
